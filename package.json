@@ -1,0 +1,17 @@
+{
+  "name": "root",
+  "private": true,
+  "scripts": {
+    "dev": "lerna run --parallel dev",
+    "dev:move-style": "pnpm --filter=move-style run dev",
+    "dev:react-renderer": "pnpm --filter=react-renderer run dev",
+    "dev:react-rocks": "pnpm --filter=react-rocks run dev",
+    "dev:react-designer": "pnpm --filter=react-designer run dev",
+    "dev:react-player": "pnpm --filter=react-player run dev",
+    "dev:antd-rocks": "pnpm --filter=antd-rocks run dev",
+    "test": "lerna run test"
+  },
+  "devDependencies": {
+    "lerna": "^5.5.4"
+  }
+}

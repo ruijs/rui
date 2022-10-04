@@ -1,0 +1,52 @@
+{
+  "private": true,
+  "name": "react-player",
+  "version": "0.0.1",
+  "description": "Rui application player in React.js",
+  "main": "lib/index.js",
+  "scripts": {
+    "build": "remix build",
+    "dev": "remix build && run-p \"dev:*\"",
+    "dev:node": "cross-env NODE_ENV=development nodemon ./server.js --watch ./server.js",
+    "dev:remix": "remix watch",
+    "start": "cross-env NODE_ENV=production node ./server.js",
+    "test": "echo \"Error: no test specified\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@ant-design/icons": "^4.7.0",
+    "@remix-run/express": "^1.7.2",
+    "@remix-run/node": "^1.7.2",
+    "@remix-run/react": "^1.7.2",
+    "@ruijs/antd-rocks": "workspace:^0.0.1",
+    "@ruijs/move-style": "workspace:^0.0.1",
+    "@ruijs/react-designer": "workspace:^0.0.1",
+    "@ruijs/react-renderer": "workspace:^0.0.1",
+    "@ruijs/react-rocks": "workspace:^0.0.1",
+    "antd": "^4.23.6",
+    "axios": "^1.1.2",
+    "compression": "^1.7.4",
+    "cross-env": "^7.0.3",
+    "express": "^4.18.1",
+    "lodash": "^4.17.21",
+    "morgan": "^1.10.0",
+    "qs": "^6.11.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@remix-run/dev": "^1.7.2",
+    "@remix-run/eslint-config": "^1.7.2",
+    "@types/react": "^18.0.15",
+    "@types/react-dom": "^18.0.6",
+    "eslint": "^8.23.1",
+    "nodemon": "^2.0.19",
+    "npm-run-all": "^4.1.5",
+    "typescript": "^4.8.4"
+  },
+  "engines": {
+    "node": ">=14"
+  }
+}
