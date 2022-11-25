@@ -16,31 +16,12 @@ const setters: RockPropSetter[] = [
   },
 
   {
-    $type: "multiControlsPropSetter",
+    $type: "numberWithSliderPropSetter",
     label: "opacity",
-    expressionPropName: "opacity",
-    controls: [
-      {
-        propName: "opacity",
-        span: 1,
-        control: {
-          $type: "numberSetterInput",
-          min: 0,
-          max: 1,
-          step: 0.05,
-        },
-      },
-      {
-        propName: "opacity",
-        span: 1,
-        control: {
-          $type: "sliderSetterInput",
-          min: 0,
-          max: 1,
-          step: 0.05,
-        },
-      },
-    ],
+    propName: "opacity",
+    min: 0,
+    max: 1,
+    step: 0.05,
   },
 
   {

@@ -1,4 +1,4 @@
-import { Framework, Page, RockConfig, utils } from "@ruijs/move-style";
+import { Framework, Page, RockConfig, moveStyleUtils } from "@ruijs/move-style";
 import React from "react";
 
 export function renderRock(framework: Framework, page: Page, config: RockConfig) {
@@ -18,7 +18,7 @@ export function renderRock(framework: Framework, page: Page, config: RockConfig)
 
   if (!config.$id) {
     console.warn(`Id of component '${config.$type}' was not set.`)
-    config.$id = utils.generateComponentId(config.$type);
+    config.$id = moveStyleUtils.generateComponentId(config.$type);
   }
 
   console.debug("renderRock", JSON.stringify({$type: config.$type, $id: config.$id}));

@@ -19,6 +19,7 @@ import SingleControlPropSetter from "./internal-prop-setters/SingleControlPropSe
 
 // prop setters
 import NumberPropSetter from "./prop-setters/NumberPropSetter";
+import NumberWithSliderPropSetter from "./prop-setters/NumberWithSliderPropSetter";
 import NumberWithUnitsPropSetter from "./prop-setters/NumberWithUnitsPropSetter";
 import SelectPropSetter from "./prop-setters/SelectPropSetter";
 import SwitchPropSetter from "./prop-setters/SwitchPropSetter";
@@ -52,6 +53,7 @@ export const Rocks = {
 
   // prop setters
   NumberPropSetter,
+  NumberWithSliderPropSetter,
   NumberWithUnitsPropSetter,
   SelectPropSetter,
   SwitchPropSetter,

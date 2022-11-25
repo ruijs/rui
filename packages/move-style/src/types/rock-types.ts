@@ -86,6 +86,7 @@ export type RockPropSetter =
   | ExpressionRockPropSetter
   | TextRockPropSetter
   | NumberRockPropSetter
+  | NumberWithSliderRockPropSetter
   | NumberWithUnitsRockPropSetter
   | SelectRockPropSetter
   | SwitchRockPropSetter
@@ -115,6 +116,17 @@ export type NumberRockPropSetter = {
   min?: number;
   max?: number;
   step?: number;
+} & RockConfigBase;
+
+export type NumberWithSliderRockPropSetter = {
+  $type: "numberWithSliderPropSetter";
+  label: string;
+  labelTip?: string;
+  propName: string;
+  min?: number;
+  max?: number;
+  step?: number;
+  defaultValue?: number;
 } & RockConfigBase;
 
 export type NumberWithUnitsRockPropSetter = {

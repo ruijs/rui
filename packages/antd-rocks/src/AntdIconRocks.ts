@@ -69,32 +69,12 @@ rocks["antdIcon"] = {
         },
 
         {
-          $type: "multiControlsPropSetter",
+          $type: "numberWithSliderPropSetter",
           label: "rotate",
-          expressionPropName: "rotate",
-          controls: [
-            {
-              propName: "rotate",
-              span: 1,
-              control: {
-                $type: "numberSetterInput",
-                min: 0,
-                max: 360,
-                step: 5,
-              },
-            },
-            {
-              propName: "rotate",
-              span: 1,
-              control: {
-                $type: "sliderSetterInput",
-                min: 0,
-                max: 360,
-                step: 5,
-                tooltipOpen: false,
-              },
-            },
-          ],
+          propName: "rotate",
+          min: 0,
+          max: 360,
+          step: 5,
         },
 
         {

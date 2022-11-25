@@ -3,7 +3,6 @@ import { renderRock, useRuiFramework, useRuiPage } from "@ruijs/react-renderer";
 import DesignerStore from "../DesignerStore";
 import { ExpressionPropSetterProps } from "../internal-prop-setters/ExpressionPropSetter";
 import { MultiControlsPropSetterProps } from "../internal-prop-setters/MultiControlsPropSetter";
-import { SingleControlPropSetterProps } from "../internal-prop-setters/SingleControlPropSetter";
 
 export interface NumberWithUnitsPropSetterProps extends NumberWithUnitsRockPropSetter {
   $id: string;
