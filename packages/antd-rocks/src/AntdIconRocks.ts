@@ -71,6 +71,7 @@ rocks["antdIcon"] = {
         {
           $type: "multiControlsPropSetter",
           label: "rotate",
+          expressionPropName: "rotate",
           controls: [
             {
               propName: "rotate",

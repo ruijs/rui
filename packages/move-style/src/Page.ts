@@ -92,6 +92,20 @@ export class Page {
     return this.#configProcessor.getComponentProperty(componentId, propName);
   }
 
+  setComponentPropertyExpression(componentId: string, propName: string, propExpression: string) {
+    console.debug("Page.setComponentPropertyExpression", {
+      pageId: this.getConfig().$id,
+      componentId,
+      propName,
+      propExpression,
+    });
+    this.#configProcessor.setComponentPropertyExpression(componentId, propName, propExpression);
+  }
+
+  removeComponentPropertyExpression(componentId: string, propName: string) {
+    this.#configProcessor.removeComponentPropertyExpression(componentId, propName);
+  }
+
   getComponent(componentId: string) {
     return this.#configProcessor.getComponent(componentId);
   }

@@ -1,4 +1,4 @@
-import { Framework, PageConfig, utils as moveStyleUtils } from "@ruijs/move-style";
+import { Framework, PageConfig, moveStyleUtils } from "@ruijs/move-style";
 import { Rui } from "@ruijs/react-renderer";
 import { HtmlElement, Box, Label, Text } from "@ruijs/react-rocks";
 import { AntdRocks } from "@ruijs/antd-rocks";

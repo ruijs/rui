@@ -1,4 +1,4 @@
-import { Framework, PageConfig, utils as moveStyleUtils } from "@ruijs/move-style";
+import { Framework, PageConfig, moveStyleUtils } from "@ruijs/move-style";
 import { Rui } from "@ruijs/react-renderer";
 import { HtmlElement, Box, Label, Text } from "@ruijs/react-rocks";
 import { AntdRocks } from "@ruijs/antd-rocks";
@@ -27,7 +27,7 @@ const initialPageConfig: PageConfig = {
     {
       $type: "htmlElement",
       htmlTag: "ul",
-      children: ['components', 'modal', 'edit-form', 'new-form'].map((item) => {
+      children: ['components', 'modal', 'new-form', 'edit-form', 'table'].map((item) => {
         return {
           $type: "htmlElement",
           htmlTag: "li",

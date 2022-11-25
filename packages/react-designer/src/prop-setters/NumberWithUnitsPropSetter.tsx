@@ -1,7 +1,9 @@
-import { NumberWithUnitsRockPropSetter, RockConfig, RockEvent, RockEventHandlerScript, RockMeta } from "@ruijs/move-style";
+import { NumberWithUnitsRockPropSetter, RockConfig, RockEvent, RockEventHandlerScript, RockMeta, moveStyleUtils } from "@ruijs/move-style";
 import { renderRock, useRuiFramework, useRuiPage } from "@ruijs/react-renderer";
 import DesignerStore from "../DesignerStore";
-import { MultiControlsPropSetterProps } from "./MultiControlsPropSetter";
+import { ExpressionPropSetterProps } from "../internal-prop-setters/ExpressionPropSetter";
+import { MultiControlsPropSetterProps } from "../internal-prop-setters/MultiControlsPropSetter";
+import { SingleControlPropSetterProps } from "../internal-prop-setters/SingleControlPropSetter";
 
 export interface NumberWithUnitsPropSetterProps extends NumberWithUnitsRockPropSetter {
   $id: string;
@@ -16,6 +18,20 @@ export default {
     const page = useRuiPage();
 
     const { $id, label, labelTip, componentConfig, propName, min, max, step, unitOptions } = props;
+    const isPropDynamic = moveStyleUtils.isComponentPropertyDynamic(componentConfig, propName);
+    if (isPropDynamic) {
+      const rockConfig: ExpressionPropSetterProps = {
+        $id: `${$id}-dynamic`,
+        $type: "expressionPropSetter",
+        label,
+        labelTip,
+        propName,
+        componentConfig,
+      };
+  
+      return renderRock(framework, page, rockConfig);
+    }
+
     const propValue = componentConfig[propName];
 
     let { defaultValue, defaultUnit } = props;
@@ -50,10 +66,11 @@ export default {
     };
 
     const rockConfig: MultiControlsPropSetterProps = {
-      $id,
+      $id: `${$id}-static`,
       $type: "multiControlsPropSetter",
       label,
       labelTip,
+      expressionPropName: propName,
       controls: [
         {
           span: 1,

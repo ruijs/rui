@@ -18,6 +18,7 @@ const setters: RockPropSetter[] = [
   {
     $type: "multiControlsPropSetter",
     label: "opacity",
+    expressionPropName: "opacity",
     controls: [
       {
         propName: "opacity",

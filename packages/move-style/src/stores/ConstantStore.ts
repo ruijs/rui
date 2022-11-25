@@ -15,8 +15,11 @@ export class ConstantStore implements IStore<ConstantStoreConfig> {
     return this.#name;
   }
   
-  loadData: () => Promise<any>;
-  observe: (callback: (data: any) => void) => void;
+  async loadData(input: any) {
+  }
+
+  observe() {
+  }
 
   setConfig(storeConfig: ConstantStoreConfig) {
     this.#name = storeConfig.name;

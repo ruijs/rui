@@ -1,6 +1,7 @@
-import { SelectRockPropSetter, RockConfig, RockMeta } from "@ruijs/move-style";
+import { SelectRockPropSetter, RockConfig, RockMeta, moveStyleUtils } from "@ruijs/move-style";
 import { renderRock, useRuiFramework, useRuiPage } from "@ruijs/react-renderer";
-import { SingleControlPropSetterProps } from "./SingleControlPropSetter";
+import { ExpressionPropSetterProps } from "../internal-prop-setters/ExpressionPropSetter";
+import { SingleControlPropSetterProps } from "../internal-prop-setters/SingleControlPropSetter";
 
 export interface SelectPropSetterProps extends SelectRockPropSetter {
   $id: string;
@@ -20,20 +21,24 @@ export default {
     const page = useRuiPage();
 
     const { $id, label, labelTip, componentConfig, propName, options, showSearch } = props;
+    const isPropDynamic = moveStyleUtils.isComponentPropertyDynamic(componentConfig, propName);
 
-    const rockConfig: SingleControlPropSetterProps = {
-      $id,
-      $type: "singleControlPropSetter",
+    let rockConfig: SingleControlPropSetterProps | ExpressionPropSetterProps = {
+      $id: isPropDynamic ? `${$id}-dynamic` : `${$id}-static`,
+      $type: isPropDynamic ? "expressionPropSetter" : "singleControlPropSetter",
       label,
       labelTip,
       propName,
-      control: {
+      componentConfig,
+    } as any;
+
+    if (!isPropDynamic) {
+      (rockConfig as SingleControlPropSetterProps).control = {
         $type: "selectSetterInput",
         options,
         showSearch,
-      },
-      componentConfig,
-    };
+      };
+    }
 
     return renderRock(framework, page, rockConfig);
   },

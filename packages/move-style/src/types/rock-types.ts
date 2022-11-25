@@ -83,6 +83,7 @@ export type ComponentSpecifiedRockPropPanel = {
 };
 
 export type RockPropSetter =
+  | ExpressionRockPropSetter
   | TextRockPropSetter
   | NumberRockPropSetter
   | NumberWithUnitsRockPropSetter
@@ -90,6 +91,14 @@ export type RockPropSetter =
   | SwitchRockPropSetter
   | SingleControlRockPropSetter
   | MultiControlsRockPropSetter;
+
+
+export type ExpressionRockPropSetter = {
+    $type: "expressionPropSetter";
+    label: string;
+    labelTip?: string;
+    propName: string;
+  } & RockConfigBase;
 
 export type TextRockPropSetter = {
   $type: "textPropSetter";
@@ -157,6 +166,7 @@ export type MultiControlsRockPropSetter = {
   $type: "multiControlsPropSetter";
   label: string;
   labelTip?: string;
+  expressionPropName?: string;
   controls?: RockPropSetterControl[];
 } & RockConfigBase;
 

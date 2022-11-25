@@ -46,6 +46,8 @@ export default {
       $id: props.$id,
       label: props.label,
       labelTip: props.labelTip,
+      expressionPropName: propName,
+      componentConfig,
       children: controlRock,
     };
 

@@ -21,8 +21,15 @@ export class ExpressionInterpreter {
       varValues.push(rootVars[name]);
     }
 
-    const expression = genExpression(varNames, expressionString);
-    return expression(...varValues);
+    let result;
+    try {
+      const expression = genExpression(varNames, expressionString);
+      result = expression(...varValues);
+    } catch (err) {
+      console.warn(`Expression interprete error:`);
+      console.warn(err);
+    }
+    return result;
   }
 }
 

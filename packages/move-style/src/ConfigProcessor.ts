@@ -99,6 +99,38 @@ export class ConfigProcessor {
     this.loadConfig(this.#config);
   }
 
+
+  setComponentPropertyExpression(componentId: string, propName: string, propExpression: string) {
+    const componentConfig = this.#componentMapById.get(componentId);
+    if (!componentConfig) {
+      console.error(`Component with id '${componentId}' not found.`)
+      return;
+    }
+
+    if (!componentConfig.$exps) {
+      componentConfig.$exps = {};
+    }
+    componentConfig.$exps[propName] = propExpression;
+    // TODO: need a more efficient implementation
+    this.loadConfig(this.#config);
+  }
+
+  removeComponentPropertyExpression(componentId: string, propName: string) {
+    const componentConfig = this.#componentMapById.get(componentId);
+    if (!componentConfig) {
+      console.error(`Component with id '${componentId}' not found.`)
+      return;
+    }
+
+    if (!componentConfig.$exps) {
+      return;
+    }
+
+    delete componentConfig.$exps[propName];
+    // TODO: need a more efficient implementation
+    this.loadConfig(this.#config); 
+  }
+
   getComponentProperty(componentId: string, propName: string) {
     const componentConfig = this.#componentMapById.get(componentId);
     if (!componentConfig) {

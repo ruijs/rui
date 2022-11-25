@@ -1,4 +1,4 @@
-import { Framework, Page, PageConfig, RockEvent, RockMeta, utils as moveStyleUtils } from "@ruijs/move-style";
+import { Framework, Page, PageConfig, RockEvent, RockMeta, moveStyleUtils } from "@ruijs/move-style";
 import { Rui } from "@ruijs/react-renderer";
 import { Rui as RuiRock, ErrorBoundary, Show, HtmlElement, Box, Label, Text } from "@ruijs/react-rocks";
 import { Rocks as DesignerRocks, DesignerStore } from "@ruijs/react-designer";
@@ -37,6 +37,18 @@ for (const name in DesignerRocks) {
 
 const canvasPageConfig: PageConfig = {
   "$id": "canvasPage",
+  "stores": [
+    {
+      name: "viewModel",
+      type: "constant",
+      data: {
+        greet: "Hello World!",
+        textTop1: "300px",
+        textTop2: "400px",
+        brandColor: "#c038ff",
+      }
+    }
+  ],
   "view": [
     {
       $type: "box",
@@ -44,7 +56,9 @@ const canvasPageConfig: PageConfig = {
       children: [
         {
           "$type": "text",
-          "text": "Hello World!",
+          $exps: {
+            text: "$stores.viewModel.data.greet",
+          }
         },
         {
           $type: "antdDivider",
@@ -62,21 +76,66 @@ const canvasPageConfig: PageConfig = {
           }
         },
         {
-          "$type": "box",
+          $type: "box",
+          $exps: {
+            top: "$stores.viewModel.data.textTop1"
+          },
           "position": "absolute",
           "width":"100px",
           "height":"100px",
-          "left": "300px",
-          "top":"300px",
+          "left": "100px",
           "backgroundColor": "red",
           "borderRadius": "20px",
           "color": "white",
           "fontSize": "100px",
           "textAlign": "center",
           "lineHeight": "100px",
+          opacity: 0.5,
           "children": {
             "$type": "text",
             "text": "F"
+          }
+        },
+        {
+          "$type": "box",
+          $exps: {
+            top: "$stores.viewModel.data.textTop1"
+          },
+          "position": "absolute",
+          "width":"100px",
+          "height":"100px",
+          "left": "250px",
+          "backgroundColor": "red",
+          "borderRadius": "20px",
+          "color": "white",
+          "fontSize": "100px",
+          "textAlign": "center",
+          "lineHeight": "100px",
+          opacity: 0.8,
+          "children": {
+            "$type": "text",
+            "text": "S"
+          }
+        },
+        {
+          "$type": "box",
+          $exps: {
+            top: "$stores.viewModel.data.textTop1"
+          },
+          "position": "absolute",
+          "width":"100px",
+          "height":"100px",
+          "left": "400px",
+          "backgroundColor": "red",
+          "borderRadius": "20px",
+          "color": "white",
+          "fontSize": "100px",
+          "textAlign": "center",
+          "lineHeight": "100px",
+          opacity: 1,
+          "children": {
+            "$type": "text",
+            "text": "L"
           }
         },
         {

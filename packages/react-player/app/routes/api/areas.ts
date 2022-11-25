@@ -1,4 +1,4 @@
-import { utils as moveStyleUtils } from "@ruijs/move-style";
+import { moveStyleUtils } from "@ruijs/move-style";
 
 export function loader() {
   const areas = [

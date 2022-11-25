@@ -12,16 +12,20 @@ import PositionPropPanel from "./prop-panels/PositionPropPanel";
 import SizePropPanel from "./prop-panels/SizePropPanel";
 import TextPropPanel from "./prop-panels/TextPropPanel";
 
+// internal prop setters
+import ExpressionPropSetter from "./internal-prop-setters/ExpressionPropSetter";
+import MultiControlsPropSetter from "./internal-prop-setters/MultiControlsPropSetter";
+import SingleControlPropSetter from "./internal-prop-setters/SingleControlPropSetter";
+
 // prop setters
-import MultiControlsPropSetter from "./prop-setters/MultiControlsPropSetter";
 import NumberPropSetter from "./prop-setters/NumberPropSetter";
 import NumberWithUnitsPropSetter from "./prop-setters/NumberWithUnitsPropSetter";
 import SelectPropSetter from "./prop-setters/SelectPropSetter";
-import SingleControlPropSetter from "./prop-setters/SingleControlPropSetter";
 import SwitchPropSetter from "./prop-setters/SwitchPropSetter";
 import TextPropSetter from "./prop-setters/TextPropSetter";
 
 // setter inputs
+import ExpressionSetterInput from "./setter-input-controls/ExpressionSetterInput";
 import NumberSetterInput from "./setter-input-controls/NumberSetterInput";
 import SelectSetterInput from "./setter-input-controls/SelectSetterInput";
 import SliderSetterInput from "./setter-input-controls/SliderSetterInput";
@@ -41,16 +45,20 @@ export const Rocks = {
   SizePropPanel,
   TextPropPanel,
 
-  // prop setters
+  // internal prop setters
+  ExpressionPropSetter,
   MultiControlsPropSetter,
+  SingleControlPropSetter,
+
+  // prop setters
   NumberPropSetter,
   NumberWithUnitsPropSetter,
   SelectPropSetter,
-  SingleControlPropSetter,
   SwitchPropSetter,
   TextPropSetter,
 
   // setter inputs
+  ExpressionSetterInput,
   NumberSetterInput,
   SelectSetterInput,
   SliderSetterInput,

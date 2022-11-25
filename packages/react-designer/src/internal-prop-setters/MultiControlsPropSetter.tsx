@@ -16,7 +16,7 @@ export default {
     const framework = useRuiFramework();
     const page = useRuiPage();
 
-    const { $id, controls, componentConfig } = props;
+    const { $id, controls, componentConfig, expressionPropName } = props;
 
     const controlRocks: RockConfig[] = useMemo(() => {
       let rowNum = 1;
@@ -72,6 +72,8 @@ export default {
       $id: props.$id,
       label: props.label,
       labelTip: props.labelTip,
+      expressionPropName: expressionPropName,
+      componentConfig,
       children: controlRocks,
     };
 

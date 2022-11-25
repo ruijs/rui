@@ -1,6 +1,7 @@
-import { TextRockPropSetter, RockConfig, RockMeta } from "@ruijs/move-style";
+import { TextRockPropSetter, RockConfig, RockMeta, moveStyleUtils } from "@ruijs/move-style";
 import { renderRock, useRuiFramework, useRuiPage } from "@ruijs/react-renderer";
-import { SingleControlPropSetterProps } from "./SingleControlPropSetter";
+import { ExpressionPropSetterProps } from "../internal-prop-setters/ExpressionPropSetter";
+import { SingleControlPropSetterProps } from "../internal-prop-setters/SingleControlPropSetter";
 
 export interface TextPropSetterProps extends TextRockPropSetter {
   $id: string;
@@ -15,18 +16,22 @@ export default {
     const page = useRuiPage();
 
     const { $id, label, labelTip, componentConfig, propName } = props;
+    const isPropDynamic = moveStyleUtils.isComponentPropertyDynamic(componentConfig, propName);
 
-    const rockConfig: SingleControlPropSetterProps = {
-      $id,
-      $type: "singleControlPropSetter",
+    let rockConfig: SingleControlPropSetterProps | ExpressionPropSetterProps = {
+      $id: isPropDynamic ? `${$id}-dynamic` : `${$id}-static`,
+      $type: isPropDynamic ? "expressionPropSetter" : "singleControlPropSetter",
       label,
       labelTip,
       propName,
-      control: {
-        $type: "textSetterInput",
-      },
       componentConfig,
-    };
+    } as any;
+
+    if (!isPropDynamic) {
+      (rockConfig as SingleControlPropSetterProps).control = {
+        $type: "textSetterInput",
+      };
+    }
 
     return renderRock(framework, page, rockConfig);
   },

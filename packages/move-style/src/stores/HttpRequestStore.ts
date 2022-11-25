@@ -43,5 +43,5 @@ export class HttpRequestStore implements IStore<HttpRequestStoreConfig> {
 
   observe(callback: (data: any) => void) {
     this.#emitter.on("dataChange", callback);
-  };
+  }
 }

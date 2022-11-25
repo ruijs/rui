@@ -8,10 +8,19 @@ export interface ComponentTreeProps extends RockConfigBase {
   style?: any;
 }
 
-export interface ComponentTreeNode {
-  isSlot: boolean;
+export type ComponentTreeNode = ComponentNode | SlotNode;
+
+export interface ComponentNode {
+  nodeType: "component";
   $id: string;
   $type?: string;
+  label: string;
+  children?: ComponentTreeNode[];
+}
+
+export interface SlotNode {
+  nodeType: "slot";
+  $id: string;
   label: string;
   children?: ComponentTreeNode[];
 }
@@ -74,7 +83,7 @@ export function convertPageConfigToComponentTree(framework: Framework, pageConfi
 function travalRockTree(framework: Framework, rockTree: RockConfig[], componentTree: ComponentTreeNode[]) {
   for (const rock of rockTree) {
     const component: ComponentTreeNode = {
-      isSlot: false,
+      nodeType: "component",
       $id: rock.$id,
       $type: rock.$type,
       label: rock.$type,
@@ -88,7 +97,7 @@ function travalRockTree(framework: Framework, rockTree: RockConfig[], componentT
 
       for(const slotName in rockMeta.slots) {
         const slotNode: ComponentTreeNode = {
-          isSlot: true,
+          nodeType: "slot",
           $id: `${rock.$id}.${slotName}`,
           label: `#${slotName}`,
         };
