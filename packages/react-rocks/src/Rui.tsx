@@ -1,4 +1,4 @@
-import { Framework, PageConfig, RockMeta, SimpleRockConfig } from "@ruijs/move-style";
+import { Framework, PageConfig, Rock, SimpleRockConfig } from "@ruijs/move-style";
 import { Rui } from "@ruijs/react-renderer";
 import _ from "lodash";
 
@@ -25,4 +25,4 @@ export default {
     const {framework, page} = props;
     return <Rui framework={framework} page={page} />
   }
-} as RockMeta;
+} as Rock;

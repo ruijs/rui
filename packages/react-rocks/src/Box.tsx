@@ -1,4 +1,4 @@
-import { RockMeta, RockEventHandler, ContainerRockConfig, CommonProps, handleComponentEvent } from "@ruijs/move-style";
+import { Rock, RockEventHandler, ContainerRockConfig, CommonProps, handleComponentEvent } from "@ruijs/move-style";
 import { useRuiFramework, useRuiPage, renderRockChildren } from "@ruijs/react-renderer"
 import _ from "lodash";
 
@@ -39,4 +39,4 @@ export default {
       { renderRockChildren(framework, page, props.children) }
     </div>
   }
-} as RockMeta;
+} as Rock;

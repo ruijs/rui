@@ -1,4 +1,4 @@
-import { RockConfig, RockConfigBase, RockMeta, RockPropSetter, unitOptions } from "@ruijs/move-style";
+import { RockConfig, RockConfigBase, Rock, RockPropSetter, unitOptions } from "@ruijs/move-style";
 import { renderRockChildren, useRuiFramework, useRuiPage } from "@ruijs/react-renderer";
 import { useMemo } from "react";
 
@@ -73,4 +73,4 @@ export default {
     </div>
 
   },
-} as RockMeta;
+} as Rock;

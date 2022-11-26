@@ -1,5 +1,6 @@
-import { NumberWithUnitsRockPropSetter, RockConfig, RockEvent, RockEventHandlerScript, RockMeta, moveStyleUtils } from "@ruijs/move-style";
+import { NumberWithUnitsRockPropSetter, RockConfig, RockEvent, RockEventHandlerScript, Rock, moveStyleUtils } from "@ruijs/move-style";
 import { renderRock, useRuiFramework, useRuiPage } from "@ruijs/react-renderer";
+import { isNull, isString, isUndefined } from "lodash";
 import DesignerStore from "../DesignerStore";
 import { ExpressionPropSetterProps } from "../internal-prop-setters/ExpressionPropSetter";
 import { MultiControlsPropSetterProps } from "../internal-prop-setters/MultiControlsPropSetter";
@@ -31,7 +32,10 @@ export default {
       return renderRock(framework, page, rockConfig);
     }
 
-    const propValue = componentConfig[propName];
+    let propValue = componentConfig[propName];
+    if (!isUndefined(propValue) && !isNull(propValue) && !isString(propValue)) {
+      propValue = propValue.toString();
+    }
 
     let { defaultValue, defaultUnit } = props;
     defaultUnit = defaultUnit || unitOptions[0].value;
@@ -109,4 +113,4 @@ export default {
 
     return renderRock(framework, page, rockConfig);
   },
-} as RockMeta;
+} as Rock;

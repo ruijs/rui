@@ -1,8 +1,8 @@
-import { Framework, Page, PageConfig, RockEvent, RockMeta, moveStyleUtils } from "@ruijs/move-style";
+import { Framework, Page, PageConfig, RockEvent, Rock, moveStyleUtils } from "@ruijs/move-style";
 import { Rui } from "@ruijs/react-renderer";
 import { Rui as RuiRock, ErrorBoundary, Show, HtmlElement, Box, Label, Text } from "@ruijs/react-rocks";
 import { Rocks as DesignerRocks, DesignerStore } from "@ruijs/react-designer";
-import { AntdIconRocks, AntdRocks } from "@ruijs/antd-rocks";
+import { AntdIconRock, AntdRocks } from "@ruijs/antd-rocks";
 import { useState } from "react";
 
 import styles from "antd/dist/antd.css";
@@ -27,12 +27,10 @@ for(const name in AntdRocks) {
   framework.registerComponent(AntdRocks[name]);
 }
 
-for(const name in AntdIconRocks) {
-  framework.registerComponent(AntdIconRocks[name]);
-}
+framework.registerComponent(AntdIconRock);
 
 for (const name in DesignerRocks) {
-  framework.registerComponent((DesignerRocks as Record<string, RockMeta>)[name]);
+  framework.registerComponent((DesignerRocks as Record<string, Rock>)[name]);
 }
 
 const canvasPageConfig: PageConfig = {
@@ -42,7 +40,7 @@ const canvasPageConfig: PageConfig = {
       name: "viewModel",
       type: "constant",
       data: {
-        greet: "Hello World!",
+        greet: " Hello World!",
         textTop1: "300px",
         textTop2: "400px",
         brandColor: "#c038ff",
@@ -55,9 +53,15 @@ const canvasPageConfig: PageConfig = {
       padding: "10px",
       children: [
         {
-          "$type": "text",
+          "$type": "antdAlert",
+          closable: true,
+          showIcon: true,
+          icon: {
+            $type: "antdIcon",
+            name: "InfoCircleOutlined",
+          },
           $exps: {
-            text: "$stores.viewModel.data.greet",
+            message: "$stores.viewModel.data.greet",
           }
         },
         {
@@ -65,14 +69,20 @@ const canvasPageConfig: PageConfig = {
         },
         {
           "$type": "antdButton",
-          "type": "primary",
-          "icon": {
+          type: "primary",
+          shape: "round",
+          size: "large",
+          ghost: true,
+          block: true,
+          icon: {
             $type: "antdIcon",
             name: "HeartOutlined",
           },
           "children": {
             "$type": "text",
-            "text": " Hello World!"
+            $exps: {
+              text: "$stores.viewModel.data.greet",
+            }
           }
         },
         {
@@ -207,9 +217,99 @@ const initialPageConfig: PageConfig = {
               },
               children: [
                 {
+                  $type: "htmlElement",
+                  htmlTag: "div",
+                  children: [
+                    {
+                      $type: "antdButton",
+                      icon: {
+                        $type: "antdIcon",
+                        name: "ScissorOutlined",
+                      },
+                      onClick: [
+                        {
+                          $action: "script",
+                          script: (event?: RockEvent) => {
+                            const designerStore = (event?.page as Page).getStore<DesignerStore>("designerStore");
+                            designerStore.processCommand({
+                              name: "cutComponents",
+                              payload: {
+                                componentIds: [designerStore.selectedComponentId],
+                              }
+                            })
+                          },
+                        }
+                      ]
+                    },
+                    {
+                      $type: "antdButton",
+                      icon: {
+                        $type: "antdIcon",
+                        name: "CopyOutlined",
+                      },
+                      onClick: [
+                        {
+                          $action: "script",
+                          script: (event?: RockEvent) => {
+                            const designerStore = (event?.page as Page).getStore<DesignerStore>("designerStore");
+                            designerStore.processCommand({
+                              name: "copyComponents",
+                              payload: {
+                                componentIds: [designerStore.selectedComponentId],
+                              }
+                            })
+                          },
+                        }
+                      ]
+                    },
+                    {
+                      $type: "antdButton",
+                      icon: {
+                        $type: "antdIcon",
+                        name: "SnippetsOutlined",
+                      },
+                      onClick: [
+                        {
+                          $action: "script",
+                          script: (event?: RockEvent) => {
+                            const designerStore = (event?.page as Page).getStore<DesignerStore>("designerStore");
+                            designerStore.processCommand({
+                              name: "pasteComponents",
+                              payload: {
+                                parentComponentId: designerStore.selectedComponentId,
+                              }
+                            })
+                          },
+                        }
+                      ]
+                    },
+                    {
+                      $type: "antdButton",
+                      icon: {
+                        $type: "antdIcon",
+                        name: "DeleteOutlined",
+                      },
+                      onClick: [
+                        {
+                          $action: "script",
+                          script: (event?: RockEvent) => {
+                            const designerStore = (event?.page as Page).getStore<DesignerStore>("designerStore");
+                            designerStore.processCommand({
+                              name: "removeComponents",
+                              payload: {
+                                componentIds: [designerStore.selectedComponentId],
+                              }
+                            })
+                          },
+                        }
+                      ]
+                    },
+                  ],
+                },
+                {
                   $type: "designerComponentTree",
                   style: {
-                    height: "100vh",
+                    height: "calc(100vh - 32px)",
                     overflow: "auto",
                   },
                   $exps: {

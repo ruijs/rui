@@ -7,6 +7,8 @@ import { Framework } from "./Framework";
 import { Page } from "./Page";
 import { generateComponentId } from "./utils";
 
+type TravelProcessor = (parentConfig: RockConfig, config: RockConfig) => void;
+
 export class ConfigProcessor {
   #framework: Framework;
   #page: Page;
@@ -14,6 +16,7 @@ export class ConfigProcessor {
   #emitter: EventEmitter;
   #config: PageConfig;
   #componentMapById: Map<string, RockConfig>;
+  #parentIdMapById: Map<string, string>;
 
   constructor(framework: Framework, page: Page, interpreter: ExpressionInterpreter) {
     this.#framework = framework;
@@ -28,13 +31,14 @@ export class ConfigProcessor {
 
   loadConfig(config: PageConfig) {
     this.#componentMapById = new Map();
+    this.#parentIdMapById = new Map();
 
     var processedConfig = _.cloneDeep(config);
     if ((processedConfig as PageWithLayoutConfig).layout) {
       // TODO: finish process config of page with layout.
     } else {
       const configWithoutLayout = processedConfig as PageWithoutLayoutConfig;
-      configWithoutLayout.view.forEach(this.travelRockConfig.bind(this, null));
+      configWithoutLayout.view.forEach(this.travelRockConfig.bind(this, this.#processComponentOnLoadConfig.bind(this), null));
     }
     
     this.#config = processedConfig;
@@ -49,7 +53,7 @@ export class ConfigProcessor {
     this.loadConfig(this.#config);
   }
 
-  travelRockConfig(parentConfig: RockConfig, config: RockConfig) {
+  #processComponentOnLoadConfig(parentConfig: RockConfig, config: RockConfig) {
     // Set default id.
     if (!config.$id) {
       config.$id = generateComponentId(config.$type);
@@ -68,6 +72,11 @@ export class ConfigProcessor {
     }
   
     this.#componentMapById.set(config.$id, config);
+    this.#parentIdMapById.set(config.$id, parentConfig?.$id);
+  }
+
+  travelRockConfig(callback: TravelProcessor, parentConfig: RockConfig, config: RockConfig) {
+    callback(parentConfig, config);
 
     let childrenPropNames = ["children"];
     const meta = this.#framework.getComponent(config.$type);
@@ -79,12 +88,84 @@ export class ConfigProcessor {
       const children = config[childPropName];
       if (children) {
         if (Array.isArray(children)) {
-          children.forEach(this.travelRockConfig.bind(this, config));
+          children.forEach(this.travelRockConfig.bind(this, callback, config));
         } else {
-          this.travelRockConfig(config, children as RockConfig);
+          this.travelRockConfig(callback, config, children as RockConfig);
         }
       }
     }
+  }
+
+  addComponents(components: RockConfig[], parentComponentId?: string, prevSiblingComponentId?: string) {
+    const parentComponent = this.#componentMapById.get(parentComponentId);
+    if (!parentComponent) {
+      throw new Error(`Create component failed. Parent component with id '${parentComponentId}' was not found.`)
+    }
+    
+    for (const component of components) {
+      this.travelRockConfig((parentComponent, component) => {
+        if (!component.$id ||
+          this.#componentMapById.has(component.$id)) {
+          component.$id = generateComponentId(component.$type);
+        }
+      }, parentComponent, component);
+    }
+
+    if (!parentComponent.children) {
+      parentComponent.children = [];
+    } else if (!_.isArray(parentComponent.children)) {
+      parentComponent.children = [parentComponent.children];
+    }
+
+    let childComponents: RockConfig[] = parentComponent.children;
+    const prevSiblingComponentIndex = _.findIndex(childComponents, (item) => item.$id === prevSiblingComponentId);
+    if (prevSiblingComponentIndex === -1 ||
+        prevSiblingComponentIndex === childComponents.length - 1) {
+      // append to end.
+      childComponents = childComponents.concat(components);
+    } else {
+      childComponents = childComponents.splice(prevSiblingComponentIndex + 1, 0, ...components);
+    }
+    parentComponent.children = childComponents;
+
+    this.loadConfig(this.#config);
+  }
+
+  removeComponents(componentIds: string[]) {
+    if (!componentIds || !componentIds.length) {
+      return;
+    }
+    for (const componentId of componentIds) {
+      let childComponents: RockConfig[];
+      const parentComponentId = this.#parentIdMapById.get(componentId);
+      let parentComponent: RockConfig;
+      if (!parentComponentId) {
+        // this means the parent of component is page.
+        childComponents = (this.#config as PageWithoutLayoutConfig).view;
+      } else {
+        parentComponent = this.#componentMapById.get(parentComponentId);
+        childComponents = parentComponent.children;
+      }
+
+      if (!_.isArray(childComponents)) {
+        childComponents = [childComponents];
+      }
+
+      const componentIndex = _.findIndex(childComponents, (item) => item.$id === componentId);
+      if (componentIndex !== -1) {
+        console.log("parentComponentId", parentComponentId);
+        console.log("componentIndex", componentIndex);
+        childComponents.splice(componentIndex, 1);
+
+        if (parentComponent) {
+          parentComponent.children = childComponents;
+        } else {
+          (this.#config as PageWithoutLayoutConfig).view = childComponents;
+        }
+      }
+    }
+    
+    this.loadConfig(this.#config);
   }
 
   setComponentProperty(componentId: string, propName: string, propValue: RockPropValue) {

@@ -1,2 +1,2 @@
 export { default as AntdRocks } from "./AntdRocks";
-export { default as AntdIconRocks } from "./AntdIconRocks";
+export { default as AntdIconRock } from "./AntdIconRock";

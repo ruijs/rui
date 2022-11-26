@@ -10,8 +10,8 @@ export type FieldSettings = {
 export type FieldValueType = "string" | "number" | "boolean" | "object";
 
 export type Rock = {
-  meta: RockMeta;
-};
+  renderer: (props: any) => any;
+} & RockMeta;
 
 export type RockMeta = {
   $type: string;
@@ -21,7 +21,6 @@ export type RockMeta = {
   icon?: string;
   thumbnail?: string;
   document?: string;
-  renderer: (props: any) => any;
   presenter?: (props: any) => any;
   props?: RockMetaProps;
   slots?: RockMetaSlots;

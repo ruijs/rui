@@ -1,15 +1,15 @@
-import { handleComponentEvent, RockConfig, RockEventHandler, RockMeta } from "@ruijs/move-style";
+import { handleComponentEvent, RockConfig, RockEventHandler, Rock } from "@ruijs/move-style";
 import { renderRockChildren, useRuiFramework, useRuiPage } from "@ruijs/react-renderer";
 import _ from "lodash";
 import React from "react";
-import slotsOfComponents from "./slots";
+import AntdRocksMeta from "./AntdRocksMeta";
 
 export function convertAntdComponentToRock(antdComponent: React.Component, rockType: string) {
   return {
     $type: rockType,
-    slots: slotsOfComponents[rockType],
     renderer: genAntdComponentRenderer(rockType, antdComponent) as any,
-  } as RockMeta;
+    ...AntdRocksMeta[rockType]
+  } as Rock;
 }
 
 const regEventPropName = /^on[A-Z]/;
@@ -48,7 +48,7 @@ function genAntdComponentRenderer(rockType: string, antdComponent: any) {
     }
 
     const slotProps = {};
-    const slots = slotsOfComponents[rockType];
+    const slots = AntdRocksMeta[rockType]?.slots;
     if (slots) {
       for (const slotName in slots) {
         const slotComponents = props[slotName];

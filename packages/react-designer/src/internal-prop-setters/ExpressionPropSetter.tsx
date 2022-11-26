@@ -1,4 +1,4 @@
-import { RockConfig, RockEvent, RockEventHandlerScript, RockMeta, ExpressionRockPropSetter } from "@ruijs/move-style";
+import { RockConfig, RockEvent, RockEventHandlerScript, Rock, ExpressionRockPropSetter } from "@ruijs/move-style";
 import { renderRock, useRuiFramework, useRuiPage } from "@ruijs/react-renderer";
 import { useMemo } from "react";
 import DesignerStore from "../DesignerStore";
@@ -55,4 +55,4 @@ export default {
 
     return renderRock(framework, page, setterRock);
   },
-} as RockMeta;
+} as Rock;

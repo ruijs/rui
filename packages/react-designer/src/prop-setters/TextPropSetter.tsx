@@ -1,4 +1,4 @@
-import { TextRockPropSetter, RockConfig, RockMeta, moveStyleUtils } from "@ruijs/move-style";
+import { TextRockPropSetter, RockConfig, Rock, moveStyleUtils } from "@ruijs/move-style";
 import { renderRock, useRuiFramework, useRuiPage } from "@ruijs/react-renderer";
 import { ExpressionPropSetterProps } from "../internal-prop-setters/ExpressionPropSetter";
 import { SingleControlPropSetterProps } from "../internal-prop-setters/SingleControlPropSetter";
@@ -35,4 +35,4 @@ export default {
 
     return renderRock(framework, page, rockConfig);
   },
-} as RockMeta;
+} as Rock;

@@ -1,4 +1,4 @@
-import { ContainerRockConfig, RockConfig, RockMeta } from "@ruijs/move-style";
+import { ContainerRockConfig, RockConfig, Rock } from "@ruijs/move-style";
 import { renderRockChildren, useRuiFramework, useRuiPage } from "@ruijs/react-renderer";
 
 export interface ShowProps extends ContainerRockConfig {
@@ -43,4 +43,4 @@ export default {
     return renderRockChildren(framework, page, children);
   },
 
-} as RockMeta;
+} as Rock;

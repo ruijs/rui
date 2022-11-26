@@ -2,12 +2,12 @@ import { Page } from "./Page";
 import { ConstantStore } from "./stores/ConstantStore";
 import { HttpRequestStore } from "./stores/HttpRequestStore";
 import StoreFactory from "./stores/StoreFactory";
-import { RockMeta } from "./types/rock-types";
+import { Rock } from "./types/rock-types";
 import { IStore, StoreConfig } from "./types/store-types";
 
 export class Framework {
   #storeFactory: StoreFactory;
-  #components: Map<string, RockMeta>;
+  #components: Map<string, Rock>;
   #pages: Map<string, Page>;
   constructor() {
     this.#storeFactory = new StoreFactory();
@@ -20,7 +20,7 @@ export class Framework {
     globalThis.$framework = this;
   }
 
-  registerComponent(component: RockMeta) {
+  registerComponent(component: Rock) {
     // TODO: should respect component.version
     const key = `${component.$type}`;
     this.#components.set(key, component);
@@ -31,7 +31,7 @@ export class Framework {
     return component;
   }
 
-  getComponents() : Map<string, RockMeta> {
+  getComponents() : Map<string, Rock> {
     return this.#components;
   }
 

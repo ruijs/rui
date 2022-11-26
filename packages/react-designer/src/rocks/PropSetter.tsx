@@ -1,4 +1,4 @@
-import { ContainerRockConfig, RockConfig, RockMeta, moveStyleUtils } from "@ruijs/move-style";
+import { ContainerRockConfig, RockConfig, Rock, moveStyleUtils } from "@ruijs/move-style";
 import { renderRock, renderRockChildren, useRuiFramework, useRuiPage } from "@ruijs/react-renderer";
 import React, { useState } from "react";
 import DesignerStore from "../DesignerStore";
@@ -47,12 +47,13 @@ export default {
           },
           children: {
             $id: expIndicatorHovered && isPropDynamic ? `${props.$id}-exp-indicator-cancle` : `${props.$id}-exp-indicator-set`,
-            $type: expIndicatorHovered && isPropDynamic ? "antdIconCloseCircleOutlined" : "antdIconFunctionOutlined",
+            $type: "antdIcon",
+            name: expIndicatorHovered && isPropDynamic ? "CloseCircleOutlined" : "FunctionOutlined",
             style: {
               backgroundColor: expIndicatorHovered || isPropDynamic ? "#c038ff" : "#eeeeee",
               borderRadius: "100%",
-              color: "#ffffff",
-            }
+            },
+            color: "#ffffff",
           },
         },
         {
@@ -90,7 +91,7 @@ export default {
     return renderRock(framework, page, rockConfig);
   },
 
-} as RockMeta;
+} as Rock;
 
 const styleSetter: React.CSSProperties = {
   display: "flex",

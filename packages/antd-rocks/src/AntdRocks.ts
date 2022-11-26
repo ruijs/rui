@@ -1,14 +1,18 @@
 import Antd from "antd";
-import { RockMeta } from "@ruijs/move-style";
+import { Rock } from "@ruijs/move-style";
 import _ from "lodash";
 import { isComponentName } from "./utils";
 import { convertAntdComponentToRock } from "./component-convert";
 
-const rocks: Record<string, RockMeta> = {};
+const rocks: Record<string, Rock> = {};
 
 function wrapToRocks(prefixName, groupName, componentGroup) {
   for(const componentName in componentGroup) {
     if (!isComponentName(componentName)) {
+      continue;
+    }
+
+    if (componentName.startsWith("Icon")) {
       continue;
     }
 

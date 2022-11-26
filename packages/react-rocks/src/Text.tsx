@@ -1,4 +1,4 @@
-import { RockMeta, SimpleRockConfig } from "@ruijs/move-style";
+import { Rock, SimpleRockConfig } from "@ruijs/move-style";
 import _ from "lodash";
 
 export interface TextProps extends SimpleRockConfig {
@@ -31,4 +31,4 @@ export default {
   renderer: (props: TextProps) => {
     return props.text;
   }
-} as RockMeta;
+} as Rock;

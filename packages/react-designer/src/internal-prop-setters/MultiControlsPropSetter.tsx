@@ -1,4 +1,4 @@
-import { ContainerRockConfig, MultiControlsRockPropSetter, RockConfig, RockEvent, RockEventHandlerScript, RockMeta } from "@ruijs/move-style";
+import { ContainerRockConfig, MultiControlsRockPropSetter, RockConfig, RockEvent, RockEventHandlerScript, Rock } from "@ruijs/move-style";
 import { renderRock, useRuiFramework, useRuiPage } from "@ruijs/react-renderer";
 import { useMemo } from "react";
 import DesignerStore from "../DesignerStore";
@@ -79,7 +79,7 @@ export default {
 
     return renderRock(framework, page, setterRock);
   },
-} as RockMeta;
+} as Rock;
 
 function getFreeSpace(rowRock: ContainerRockConfig) {
   if (!rowRock) {

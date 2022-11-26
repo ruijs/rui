@@ -1,4 +1,4 @@
-import { ContainerRockConfig, RockConfig, RockMeta } from "@ruijs/move-style";
+import { ContainerRockConfig, RockConfig, Rock } from "@ruijs/move-style";
 import { renderRockChildren, useRuiFramework, useRuiPage } from "@ruijs/react-renderer";
 import React from "react";
 
@@ -64,6 +64,7 @@ export default {
 
   slots: {
     fallback: {
+      allowMultiComponents: true,
       required: false,
     }
   },
@@ -81,4 +82,4 @@ export default {
     </ErrorBoundary>
   },
 
-} as RockMeta;
+} as Rock;

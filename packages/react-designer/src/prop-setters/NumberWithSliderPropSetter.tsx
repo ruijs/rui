@@ -1,4 +1,4 @@
-import { NumberWithSliderRockPropSetter, RockConfig, RockMeta, moveStyleUtils } from "@ruijs/move-style";
+import { NumberWithSliderRockPropSetter, RockConfig, Rock, moveStyleUtils } from "@ruijs/move-style";
 import { renderRock, useRuiFramework, useRuiPage } from "@ruijs/react-renderer";
 import { ExpressionPropSetterProps } from "../internal-prop-setters/ExpressionPropSetter";
 import { MultiControlsPropSetterProps } from "../internal-prop-setters/MultiControlsPropSetter";
@@ -57,4 +57,4 @@ export default {
 
     return renderRock(framework, page, rockConfig);
   },
-} as RockMeta;
+} as Rock;

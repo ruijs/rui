@@ -1,4 +1,4 @@
-import { Page, RockConfig, RockEventHandler, RockEventHandlerScript, RockMeta } from "@ruijs/move-style";
+import { Page, RockConfig, RockEventHandler, RockEventHandlerScript, Rock } from "@ruijs/move-style";
 import { renderRock, useRuiFramework, useRuiPage } from "@ruijs/react-renderer";
 import { useCallback } from "react";
 import DesignerStore from "../DesignerStore";
@@ -34,4 +34,4 @@ export default {
       </div>
     </div>
   },
-} as RockMeta;
+} as Rock;

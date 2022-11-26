@@ -1,4 +1,5 @@
-import { EventEmitter, Framework, IStore, Page, PageConfig, StoreConfigBase } from "@ruijs/move-style";
+import { EventEmitter, Framework, IStore, Page, PageCommand, PageConfig, RockConfig, StoreConfigBase } from "@ruijs/move-style";
+import _ from "lodash";
 
 export interface DesignerStoreConfig extends StoreConfigBase {
   pageConfig?: PageConfig;
@@ -9,6 +10,7 @@ export default class DesignerStore implements IStore<DesignerStoreConfig> {
   #name: string;
   #page: Page;
   #selectedComponentId: string;
+  #snippets: RockConfig[];
 
   constructor(framework: Framework) {
     this.#emitter = new EventEmitter();
@@ -56,5 +58,43 @@ export default class DesignerStore implements IStore<DesignerStoreConfig> {
   set selectedComponentId(value: string) {
     this.#selectedComponentId = value;
     this.#emitter.emit("dataChange", null);
+  }
+
+  processCommand(command: PageCommand) {
+    if (!this.selectedComponentId) {
+      return;
+    }
+
+    if (command.name === "addComponent") {
+      const { payload } = command;
+      const { componentType, parentComponentId, prevSiblingComponentId, defaultProps} = payload;
+      const componentConfig: RockConfig = {
+        $type: componentType,
+        ...defaultProps,
+      };
+      this.#page.addComponents([componentConfig], parentComponentId, prevSiblingComponentId);
+
+    } else if (command.name === "removeComponents") {
+      this.#page.removeComponents(command.payload.componentIds);
+
+    } else if (command.name === "cutComponents") {
+      const componentIds = command.payload.componentIds;
+      this.#snippets = _.map(componentIds, componentId => this.#page.getComponent(componentId));
+      this.#page.removeComponents(componentIds);
+
+    } else if (command.name === "copyComponents") {
+      const componentIds = command.payload.componentIds;
+      this.#snippets = _.map(componentIds, componentId => _.cloneDeep(this.#page.getComponent(componentId)));
+    } else if (command.name === "pasteComponents") {
+      if (!this.#snippets || !this.#snippets.length) {
+        return;
+      }
+
+      const { payload } = command;
+      const { parentComponentId, prevSiblingComponentId } = payload;
+
+      this.#page.addComponents(this.#snippets, parentComponentId, prevSiblingComponentId);
+    }
+
   }
 }

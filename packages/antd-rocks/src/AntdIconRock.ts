@@ -1,5 +1,5 @@
 import * as antdIcons from "@ant-design/icons";
-import { RockConfig, RockMeta, unitOptions } from "@ruijs/move-style";
+import { RockConfig, Rock, unitOptions } from "@ruijs/move-style";
 import { renderRock, useRuiFramework, useRuiPage } from "@ruijs/react-renderer";
 import React from "react";
 import { convertAntdComponentToRock } from "./component-convert";
@@ -26,9 +26,6 @@ const iconNameOptions = iconNames.map(name => {
   };
 });
 
-
-const rocks: RockMeta[] = [];
-
 export interface AntdIconProps {
   name: string;
   size?: string;
@@ -40,7 +37,7 @@ export interface AntdIconProps {
 }
 
 
-rocks["antdIcon"] = {
+const antdIconRock = {
   $type: "antdIcon",
 
   propertyPanels: [
@@ -93,30 +90,20 @@ rocks["antdIcon"] = {
   ],
 
   renderer(props: AntdIconProps) {
-    const framework = useRuiFramework();
-    const page = useRuiPage();
     const { name, size, color, rotate, spin, style, twoToneColor } = props;
 
-    const rockConfig: RockConfig = Object.assign({
-      rotate,
-      spin,
-      style: Object.assign({}, style, {
-        fontSize: size,
-        color,
-      }),
-      twoToneColor,
-    }, rocks[`antdIcon${name}`]);
-
-    return renderRock(framework, page, rockConfig)
+    return React.createElement(
+      antdIcons[name],
+      {
+        rotate,
+        spin,
+        style: Object.assign({}, style, {
+          fontSize: size,
+          color,
+        }),
+        twoToneColor,
+      });
   },
-} as RockMeta;
+} as Rock;
 
-
-for (const iconName of iconNames) {
-
-  const rockType = `antdIcon${iconName}`;
-  const component = antdIcons[iconName];
-  rocks[rockType] = convertAntdComponentToRock(component, rockType);
-}
-
-export default rocks;
+export default antdIconRock;

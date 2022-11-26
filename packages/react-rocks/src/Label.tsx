@@ -1,4 +1,4 @@
-import { RockMeta, SimpleRockConfig, CommonProps } from "@ruijs/move-style";
+import { Rock, SimpleRockConfig, CommonProps } from "@ruijs/move-style";
 import React from "react";
 import _ from "lodash";
 
@@ -27,4 +27,4 @@ export default {
     const style: React.CSSProperties = _.pick(props, CommonProps.TextStylePropNames) as any;
     return <span data-component-id={props.id} style={style}>{props.text}</span>
   }
-} as RockMeta;
+} as Rock;

@@ -1,4 +1,4 @@
-import { handleComponentEvent, RockConfig, RockConfigBase, RockEvent, RockEventHandler, RockEventHandlerScript, RockMeta } from "@ruijs/move-style";
+import { handleComponentEvent, RockConfig, RockConfigBase, RockEvent, RockEventHandler, RockEventHandlerScript, Rock } from "@ruijs/move-style";
 import { renderRock, useRuiFramework, useRuiPage } from "@ruijs/react-renderer";
 import { useCallback } from "react";
 
@@ -37,4 +37,4 @@ export default {
 
     return renderRock(framework, page, rockConfig);
   },
-} as RockMeta;
+} as Rock;

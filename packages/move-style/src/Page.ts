@@ -1,8 +1,8 @@
 import _ from "lodash";
 import { ConfigProcessor } from "./ConfigProcessor";
 import { ExpressionInterpreter } from "./ExpressionInterpreter";
-import { PageConfig } from "./types/page-types"
-import { RockPropValue, RuiEvent } from "./types/rock-types";
+import { PageCommand, PageConfig } from "./types/page-types"
+import { RockConfig, RockPropValue, RuiEvent } from "./types/rock-types";
 import { StoreConfig, IStore, StoreConfigBase } from "./types/store-types";
 import { HttpRequestInput } from "./utils/HttpRequest";
 import { Framework } from "./Framework";
@@ -76,6 +76,14 @@ export class Page {
 
   interpreteExpression(expressionString: string, rootVars: Record<string, any>) {
     return this.#interpreter.interprete(expressionString, rootVars);
+  }
+
+  addComponents(components: RockConfig[], parentComponentId?: string, prevSiblingComponentId?: string) {
+    this.#configProcessor.addComponents(components, parentComponentId, prevSiblingComponentId);
+  }
+
+  removeComponents(componentIds: string[]) {
+    this.#configProcessor.removeComponents(componentIds);
   }
 
   setComponentProperty(componentId: string, propName: string, propValue: RockPropValue) {

@@ -1,4 +1,4 @@
-import { Framework, Page, PageConfig, PageWithoutLayoutConfig, RockConfig, RockConfigBase, RockEvent, RockEventHandlerScript, RockMeta } from "@ruijs/move-style";
+import { Framework, Page, PageConfig, PageWithoutLayoutConfig, RockConfig, RockConfigBase, RockEvent, RockEventHandlerScript, Rock } from "@ruijs/move-style";
 import { renderRock, useRuiFramework, useRuiPage } from "@ruijs/react-renderer";
 import { useCallback, useMemo } from "react";
 import DesignerStore from "../DesignerStore";
@@ -71,7 +71,7 @@ export default {
 
     return renderRock(framework, page, rockConfig);
   },
-} as RockMeta;
+} as Rock;
 
 export function convertPageConfigToComponentTree(framework: Framework, pageConfig: PageConfig) {
   const componentTree: ComponentTreeNode[] = [];
