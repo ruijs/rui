@@ -15,7 +15,7 @@ export default {
     const framework = useRuiFramework();
     const page = useRuiPage();
 
-    const { $id, label, labelTip, componentConfig, propName, min, max, step } = props;
+    const { $id, label, labelTip, componentConfig, propName, defaultValue, min, max, step } = props;
     const isPropDynamic = moveStyleUtils.isComponentPropertyDynamic(componentConfig, propName);
 
     let rockConfig: MultiControlsPropSetterProps | ExpressionPropSetterProps = {
@@ -33,6 +33,7 @@ export default {
       multiControlPropSetter.controls = [
         {
           propName,
+          defaultValue,
           span: 1,
           control: {
             $type: "numberSetterInput",
@@ -43,6 +44,7 @@ export default {
         },
         {
           propName,
+          defaultValue,
           span: 1,
           control: {
             $type: "sliderSetterInput",

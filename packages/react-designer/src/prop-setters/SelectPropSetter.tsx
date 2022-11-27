@@ -20,7 +20,7 @@ export default {
     const framework = useRuiFramework();
     const page = useRuiPage();
 
-    const { $id, label, labelTip, componentConfig, propName, options, showSearch } = props;
+    const { $id, label, labelTip, componentConfig, propName, defaultValue, options, showSearch } = props;
     const isPropDynamic = moveStyleUtils.isComponentPropertyDynamic(componentConfig, propName);
 
     let rockConfig: SingleControlPropSetterProps | ExpressionPropSetterProps = {
@@ -33,6 +33,7 @@ export default {
     } as any;
 
     if (!isPropDynamic) {
+      (rockConfig as SingleControlPropSetterProps).defaultValue = defaultValue;
       (rockConfig as SingleControlPropSetterProps).control = {
         $type: "selectSetterInput",
         options,

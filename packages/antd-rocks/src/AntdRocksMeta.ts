@@ -17,4 +17,7 @@ regMetaOfRocks(Alert);
 import Button from "./rock-meta/Button";
 regMetaOfRocks(Button);
 
+import Modal from "./rock-meta/Modal";
+regMetaOfRocks(Modal);
+
 export default metaOfRocks;

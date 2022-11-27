@@ -19,6 +19,7 @@ const setters: RockPropSetter[] = [
     $type: "numberWithSliderPropSetter",
     label: "opacity",
     propName: "opacity",
+    defaultValue: 1,
     min: 0,
     max: 1,
     step: 0.05,

@@ -105,6 +105,7 @@ export type TextRockPropSetter = {
   label: string;
   labelTip?: string;
   propName: string;
+  defaultValue?: string;
 } & RockConfigBase;
 
 export type NumberRockPropSetter = {
@@ -112,6 +113,7 @@ export type NumberRockPropSetter = {
   label: string;
   labelTip?: string;
   propName: string;
+  defaultValue?: number;
   min?: number;
   max?: number;
   step?: number;
@@ -122,10 +124,10 @@ export type NumberWithSliderRockPropSetter = {
   label: string;
   labelTip?: string;
   propName: string;
+  defaultValue?: number;
   min?: number;
   max?: number;
   step?: number;
-  defaultValue?: number;
 } & RockConfigBase;
 
 export type NumberWithUnitsRockPropSetter = {
@@ -133,6 +135,8 @@ export type NumberWithUnitsRockPropSetter = {
   label: string;
   labelTip?: string;
   propName: string;
+  defaultValue?: number;
+  defaultUnit?: string;
   min?: number;
   max?: number;
   step?: number;
@@ -140,8 +144,6 @@ export type NumberWithUnitsRockPropSetter = {
     label: string,
     value: string,
   }[];
-  defaultValue?: number;
-  defaultUnit?: string;
 } & RockConfigBase;
 
 export type SelectRockPropSetter = {
@@ -149,6 +151,7 @@ export type SelectRockPropSetter = {
   label: string;
   labelTip?: string;
   propName: string;
+  defaultValue?: string;
   options: {
     label: string,
     value: string,
@@ -161,6 +164,7 @@ export type SwitchRockPropSetter = {
   label: string;
   labelTip?: string;
   propName: string;
+  defaultValue?: boolean;
   checkedValue?: any;
   uncheckedValue?: any;
 } & RockConfigBase;
@@ -170,6 +174,7 @@ export type SingleControlRockPropSetter = {
   label: string;
   labelTip?: string;
   propName: string;
+  defaultValue?: any;
   control: RockConfig;
 } & RockConfigBase;
 
@@ -183,6 +188,7 @@ export type MultiControlsRockPropSetter = {
 
 export type RockPropSetterControl = {
   propName?: string;
+  defaultValue?: any;
   control: RockConfig;
   /**
    * max=2, default=2

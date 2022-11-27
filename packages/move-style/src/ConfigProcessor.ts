@@ -153,8 +153,6 @@ export class ConfigProcessor {
 
       const componentIndex = _.findIndex(childComponents, (item) => item.$id === componentId);
       if (componentIndex !== -1) {
-        console.log("parentComponentId", parentComponentId);
-        console.log("componentIndex", componentIndex);
         childComponents.splice(componentIndex, 1);
 
         if (parentComponent) {

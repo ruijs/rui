@@ -1,5 +1,6 @@
 import { RockConfig, RockEvent, RockEventHandlerScript, Rock, SingleControlRockPropSetter } from "@ruijs/move-style";
 import { renderRock, useRuiFramework, useRuiPage } from "@ruijs/react-renderer";
+import _ from "lodash";
 import { useMemo } from "react";
 import DesignerStore from "../DesignerStore";
 import { PropSetterProps } from "../rocks/PropSetter";
@@ -16,12 +17,16 @@ export default {
     const framework = useRuiFramework();
     const page = useRuiPage();
 
-    const { propName, control, componentConfig } = props;
+    const { propName, defaultValue, control, componentConfig } = props;
 
     const controlRock: RockConfig = useMemo(() => {
       const inputControlRockConfig = control;
       inputControlRockConfig.$id = `${props.$id}-setterControl-${propName}`;
-      inputControlRockConfig.value = componentConfig[propName];
+      if (componentConfig.hasOwnProperty(propName)) {
+        inputControlRockConfig.value = componentConfig[propName];
+      } else if (!_.isUndefined(defaultValue)) {
+        inputControlRockConfig.value = defaultValue;
+      }
 
       const onInputControlChange: RockEventHandlerScript["script"] = (event: RockEvent) => {
         const value = event.args;

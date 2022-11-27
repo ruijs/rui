@@ -1,5 +1,6 @@
 import { ContainerRockConfig, MultiControlsRockPropSetter, RockConfig, RockEvent, RockEventHandlerScript, Rock } from "@ruijs/move-style";
 import { renderRock, useRuiFramework, useRuiPage } from "@ruijs/react-renderer";
+import _ from "lodash";
 import { useMemo } from "react";
 import DesignerStore from "../DesignerStore";
 import { PropSetterProps } from "../rocks/PropSetter";
@@ -27,10 +28,14 @@ export default {
       let currentRowRock: ContainerRockConfig;
 
       for (const control of controls) {
-        const { control: inputControlRockConfig, propName, span = 2 } = control;
+        const { control: inputControlRockConfig, propName, defaultValue, span = 2 } = control;
         inputControlRockConfig.$id = `${$id}-input-${inputNum}`;
         if (propName) {
-          inputControlRockConfig.value = componentConfig[propName];
+          if (componentConfig.hasOwnProperty(propName)) {
+            inputControlRockConfig.value = componentConfig[propName];
+          } else if (!_.isUndefined(defaultValue)) {
+            inputControlRockConfig.value = defaultValue;
+          }
 
           const onInputControlChange: RockEventHandlerScript["script"] = (event: RockEvent) => {
             const value = event.args;
