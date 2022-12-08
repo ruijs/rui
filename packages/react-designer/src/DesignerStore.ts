@@ -61,10 +61,6 @@ export default class DesignerStore implements IStore<DesignerStoreConfig> {
   }
 
   processCommand(command: PageCommand) {
-    if (!this.selectedComponentId) {
-      return;
-    }
-
     if (command.name === "addComponent") {
       const { payload } = command;
       const { componentType, parentComponentId, prevSiblingComponentId, defaultProps} = payload;
@@ -76,15 +72,24 @@ export default class DesignerStore implements IStore<DesignerStoreConfig> {
 
     } else if (command.name === "removeComponents") {
       this.#page.removeComponents(command.payload.componentIds);
+      this.selectedComponentId = null;
 
     } else if (command.name === "cutComponents") {
       const componentIds = command.payload.componentIds;
+      if (!componentIds || !componentIds.length) {
+        return;
+      }
       this.#snippets = _.map(componentIds, componentId => this.#page.getComponent(componentId));
       this.#page.removeComponents(componentIds);
+      this.selectedComponentId = null;
 
     } else if (command.name === "copyComponents") {
       const componentIds = command.payload.componentIds;
+      if (!componentIds || !componentIds.length) {
+        return;
+      }
       this.#snippets = _.map(componentIds, componentId => _.cloneDeep(this.#page.getComponent(componentId)));
+
     } else if (command.name === "pasteComponents") {
       if (!this.#snippets || !this.#snippets.length) {
         return;

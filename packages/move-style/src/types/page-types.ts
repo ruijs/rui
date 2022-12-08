@@ -13,7 +13,7 @@ export type PageWithLayoutConfig = {
   $id?: string;
   stores?: StoreConfig[];
   layout: string;
-  sections: Record<string, RockConfig[]>;
+  view: RockConfig[];
 }
 
 export type PageCommand =

@@ -97,11 +97,14 @@ export class ConfigProcessor {
   }
 
   addComponents(components: RockConfig[], parentComponentId?: string, prevSiblingComponentId?: string) {
-    const parentComponent = this.#componentMapById.get(parentComponentId);
-    if (!parentComponent) {
-      throw new Error(`Create component failed. Parent component with id '${parentComponentId}' was not found.`)
+    let parentComponent: RockConfig = null;
+    if (parentComponentId) {
+      parentComponent = this.#componentMapById.get(parentComponentId);
+      if (!parentComponent) {
+        throw new Error(`Create component failed. Parent component with id '${parentComponentId}' was not found.`)
+      }
     }
-    
+ 
     for (const component of components) {
       this.travelRockConfig((parentComponent, component) => {
         if (!component.$id ||
@@ -111,13 +114,24 @@ export class ConfigProcessor {
       }, parentComponent, component);
     }
 
-    if (!parentComponent.children) {
-      parentComponent.children = [];
-    } else if (!_.isArray(parentComponent.children)) {
-      parentComponent.children = [parentComponent.children];
+    let childComponents: RockConfig[];
+    if (parentComponent) {
+      if (!parentComponent.children) {
+        parentComponent.children = [];
+      } else if (!_.isArray(parentComponent.children)) {
+        parentComponent.children = [parentComponent.children];
+      }
+      childComponents = parentComponent.children;
+    } else {
+      let pageView = this.#config.view;
+      if (!pageView) {
+        pageView = [];
+      } else if (!_.isArray(pageView)) {
+        pageView = [pageView];
+      }
+      childComponents = pageView;
     }
 
-    let childComponents: RockConfig[] = parentComponent.children;
     const prevSiblingComponentIndex = _.findIndex(childComponents, (item) => item.$id === prevSiblingComponentId);
     if (prevSiblingComponentIndex === -1 ||
         prevSiblingComponentIndex === childComponents.length - 1) {
@@ -126,7 +140,12 @@ export class ConfigProcessor {
     } else {
       childComponents = childComponents.splice(prevSiblingComponentIndex + 1, 0, ...components);
     }
-    parentComponent.children = childComponents;
+
+    if (parentComponent) {
+      parentComponent.children = childComponents;
+    } else {
+      this.#config.view = childComponents;
+    }
 
     this.loadConfig(this.#config);
   }
