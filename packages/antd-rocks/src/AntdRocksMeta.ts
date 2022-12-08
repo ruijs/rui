@@ -20,6 +20,9 @@ regMetaOfRocks(Button);
 import FormItem from "./rock-meta/FormItem";
 regMetaOfRocks(FormItem);
 
+import Input from "./rock-meta/Input";
+regMetaOfRocks(Input);
+
 import Modal from "./rock-meta/Modal";
 regMetaOfRocks(Modal);
 

@@ -1,6 +1,6 @@
-import { PageCommandAddComponent, Rock } from "@ruijs/move-style";
-import { useRuiFramework, useRuiPage } from "@ruijs/react-renderer";
-import { useMemo } from "react";
+import { PageCommandAddComponent, Rock, RockConfig, RockEvent, RockEventHandlerScript } from "@ruijs/move-style";
+import { renderRock, useRuiFramework, useRuiPage } from "@ruijs/react-renderer";
+import { useCallback, useMemo, useState } from "react";
 import DesignerStore from "../DesignerStore";
 
 export default {
@@ -9,6 +9,13 @@ export default {
   renderer(props) {
     const framework = useRuiFramework();
     const page = useRuiPage();
+    const [searchText, setSearchText] = useState("");
+    const { $id } = props;
+
+    const onInputChange: RockEventHandlerScript["script"] = useCallback((event: RockEvent) => {
+      const value = event.args[0].target.value;
+      setSearchText(value);
+    }, [page, $id]);
 
     function onRockClick(rockType: string) {
       const store = page.getStore<DesignerStore>("designerStore");
@@ -22,21 +29,63 @@ export default {
     }
 
     const registeredRocks = framework.getComponents();
-    const rockElements = useMemo(() => {
-      const elms = [];
+    const rockListItems = useMemo(() => {
+      const rocks: RockConfig[] = [];
+      const lowerCasedSearchText = searchText && searchText.toLowerCase()
       for(const rockType of registeredRocks.keys()) {
-        const rock = registeredRocks.get(rockType);
-        elms.push(<li key={rockType}><a onClick={() => onRockClick(rockType)}>{rockType}</a></li>);
-      }
-      return elms;
-    }, [registeredRocks]);
-
-    return <div style={props.style}>
-      <ul>
-        {
-          rockElements
+        if (searchText && !rockType.toLowerCase().includes(lowerCasedSearchText)) {
+          continue;
         }
-      </ul>
-    </div>
+
+        const rock = registeredRocks.get(rockType);
+        rocks.push({
+          $type: "htmlElement",
+          $id: `${$id}-rocks-${rockType}`,
+          htmlTag: "li",
+          children: {
+            $type: "htmlElement",
+            htmlTag: "a",
+            children: {
+              $type: "text",
+              text: rockType,
+            },
+            onClick: {
+              $action: "script",
+              script() {
+                onRockClick(rockType)
+              }
+            }
+          }
+        });
+      }
+      return rocks;
+    }, [registeredRocks, searchText]);
+
+    const rockConfig: RockConfig = {
+      $type: "htmlElement",
+      $id: $id,
+      htmlTag: "div",
+      style: props.style,
+      children: [
+        {
+          $type: "antdInput",
+          $id: `${$id}-filter-text`,
+          placeholder: "Type to search rocks...",
+          allowClear: true,
+          onChange: {
+            $action: "script",
+            script: onInputChange,
+          },
+        },
+        {
+          $type: "htmlElement",
+          $id: `${$id}-rocks`,
+          htmlTag: "ul",
+          children: rockListItems,
+        }
+      ]
+    }
+
+    return renderRock(framework, page, rockConfig);
   },
 } as Rock;

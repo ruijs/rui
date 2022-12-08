@@ -6,3 +6,9 @@ export function isComponentPropertyDynamic(componentConfig: RockConfig, propName
   }
   return componentConfig.$exps && componentConfig.$exps.hasOwnProperty(propName);
 }
+
+const regEventPropName = /^on[A-Z]/;
+
+export function isEventPropName(propName: string) {
+  return regEventPropName.test(propName);
+}

@@ -1,6 +1,6 @@
-import { handleComponentEvent, RockConfig, RockEventHandler, Rock } from "@ruijs/move-style";
+import { RockConfig, Rock } from "@ruijs/move-style";
+import { convertToEventHandlers } from "@ruijs/react-renderer";
 import { renderRockChildren, useRuiFramework, useRuiPage } from "@ruijs/react-renderer";
-import _ from "lodash";
 import React from "react";
 import AntdRocksMeta from "./AntdRocksMeta";
 
@@ -11,8 +11,6 @@ export function convertAntdComponentToRock(antdComponent: React.Component, rockT
     ...AntdRocksMeta[rockType]
   } as Rock;
 }
-
-const regEventPropName = /^on[A-Z]/;
 
 function genAntdComponentRenderer(rockType: string, antdComponent: any) {
   return function AntdComponentRenderer(props: RockConfig) {
@@ -27,25 +25,7 @@ function genAntdComponentRenderer(rockType: string, antdComponent: any) {
       reactComponentProps[key] = props[key];
     }
 
-    const eventHandlers = {};
-    // TODO: should memorize eventHandlers
-    for (const propName in props) {
-      if (regEventPropName.test(propName)) {
-        const eventProp = props[propName];
-
-        // Some components set children's event handlers. For example, FormItem set onChange event handler.
-        // Just leave this function props so that we will not break things.
-        if (_.isFunction(eventProp)) {
-          continue;
-        }
-
-        // TODO: check if props[propName] is valid RockEventHandler(s)
-        const handleComponentEventWithEventName = handleComponentEvent.bind(null, propName);
-        eventHandlers[propName] = (...eventArgs) => {
-          handleComponentEventWithEventName(page, props.$id, eventProp as RockEventHandler | RockEventHandler[], eventArgs);
-        };
-      }
-    }
+    const eventHandlers = convertToEventHandlers(page, props);
 
     const slotProps = {};
     const slots = AntdRocksMeta[rockType]?.slots;
