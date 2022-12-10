@@ -1,7 +1,9 @@
 export { default as DesignerStore} from "./DesignerStore";
+export * as DesignerUtility from "./DesignerUtility";
 
 import ComponentPropertiesPanel from "./rocks/component-properties-panel";
 import ComponentTree from "./rocks/component-tree";
+import PreviewWrapper from "./rocks/preview-wrapper";
 import PropSetter from "./rocks/PropSetter";
 import Toolbox from "./rocks/toolbox";
 
@@ -36,6 +38,7 @@ import TextSetterInput from "./setter-input-controls/TextSetterInput";
 export const Rocks = {
   ComponentPropertiesPanel,
   ComponentTree,
+  PreviewWrapper,
   PropSetter,
   Toolbox,
 

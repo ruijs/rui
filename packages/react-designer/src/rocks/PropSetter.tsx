@@ -2,6 +2,7 @@ import { ContainerRockConfig, RockConfig, Rock, moveStyleUtils } from "@ruijs/mo
 import { renderRock, renderRockChildren, useRuiFramework, useRuiPage } from "@ruijs/react-renderer";
 import React, { useState } from "react";
 import DesignerStore from "../DesignerStore";
+import { sendDesignerCommand } from "../DesignerUtility";
 
 export interface PropSetterProps extends ContainerRockConfig {
   $type: "propSetter",
@@ -37,11 +38,24 @@ export default {
             onMouseEnter: () => setExpIndicatorHovered(true),
             onMouseLeave: () => setExpIndicatorHovered(false),
             onClick: () => {
-              const store = page.getStore<DesignerStore>("designerStore");
+              const designerStore = page.getStore<DesignerStore>("designerStore");
               if (isPropDynamic) {
-                store.page.removeComponentPropertyExpression(store.selectedComponentId, expressionPropName);
+                sendDesignerCommand(page, designerStore, {
+                  name: "removeComponentPropertyExpression",
+                  payload: {
+                    componentId: designerStore.selectedComponentId,
+                    propName: expressionPropName,
+                  }
+                });
               } else {
-                store.page.setComponentPropertyExpression(store.selectedComponentId, expressionPropName, "");
+                sendDesignerCommand(page, designerStore, {
+                  name: "setComponentPropertyExpression",
+                  payload: {
+                    componentId: designerStore.selectedComponentId,
+                    propName: expressionPropName,
+                    propExpression: "",
+                  }
+                });
               }
             }
           },

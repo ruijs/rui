@@ -2,6 +2,7 @@ import { NumberWithUnitsRockPropSetter, RockConfig, RockEvent, RockEventHandlerS
 import { renderRock, useRuiFramework, useRuiPage } from "@ruijs/react-renderer";
 import { isNull, isString, isUndefined } from "lodash";
 import DesignerStore from "../DesignerStore";
+import { sendDesignerCommand } from "../DesignerUtility";
 import { ExpressionPropSetterProps } from "../internal-prop-setters/ExpressionPropSetter";
 import { MultiControlsPropSetterProps } from "../internal-prop-setters/MultiControlsPropSetter";
 
@@ -53,7 +54,14 @@ export default {
       } else {
         propValue = `${numberValue}${unitValue}`;
       }
-      store.page.setComponentProperty(store.selectedComponentId, propName, propValue);
+      sendDesignerCommand(page, store, {
+        name: "setComponentProperty",
+        payload: {
+          componentId: store.selectedComponentId,
+          propName,
+          propValue,
+        }
+      });
     };
 
     const onSelectControlChange: RockEventHandlerScript["script"] = (event: RockEvent) => {
@@ -64,8 +72,15 @@ export default {
         propValue = unitValue;
       } else {
         propValue = `${numberValue}${unitValue}`;
-      }      
-      store.page.setComponentProperty(store.selectedComponentId, propName, propValue);
+      }
+      sendDesignerCommand(page, store, {
+        name: "setComponentProperty",
+        payload: {
+          componentId: store.selectedComponentId,
+          propName,
+          propValue,
+        }
+      });
     };
 
     const rockConfig: MultiControlsPropSetterProps = {

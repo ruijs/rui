@@ -21,7 +21,7 @@ export function renderRock(framework: Framework, page: Page, config: RockConfig)
 
   if (!config.$id) {
     console.warn(`Id of component '${config.$type}' was not set.`)
-    config.$id = moveStyleUtils.generateComponentId(config.$type);
+    config.$id = page.generateComponentId(config.$type);
   }
 
   console.debug("renderRock", JSON.stringify({$type: config.$type, $id: config.$id}));

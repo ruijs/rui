@@ -5,7 +5,6 @@ import _ from "lodash";
 import { ExpressionInterpreter } from "./ExpressionInterpreter";
 import { Framework } from "./Framework";
 import { Page } from "./Page";
-import { generateComponentId } from "./utils";
 
 type TravelProcessor = (parentConfig: RockConfig, config: RockConfig) => void;
 
@@ -14,6 +13,7 @@ export class ConfigProcessor {
   #page: Page;
   #interpreter: ExpressionInterpreter;
   #emitter: EventEmitter;
+  #idSeed: number;
   #config: PageConfig;
   #componentMapById: Map<string, RockConfig>;
   #parentIdMapById: Map<string, string>;
@@ -23,6 +23,11 @@ export class ConfigProcessor {
     this.#page = page;
     this.#interpreter = interpreter;
     this.#emitter = new EventEmitter();
+    this.#idSeed = 0;
+  }
+
+  generateComponentId(type: string) {
+    return `${type}-${++this.#idSeed}`;
   }
 
   observe(callback: (config: PageConfig) => void) {
@@ -56,7 +61,7 @@ export class ConfigProcessor {
   #processComponentOnLoadConfig(parentConfig: RockConfig, config: RockConfig) {
     // Set default id.
     if (!config.$id) {
-      config.$id = generateComponentId(config.$type);
+      config.$id = this.generateComponentId(config.$type);
     }
 
     const propExpressions = config.$exps;
@@ -109,7 +114,7 @@ export class ConfigProcessor {
       this.travelRockConfig((parentComponent, component) => {
         if (!component.$id ||
           this.#componentMapById.has(component.$id)) {
-          component.$id = generateComponentId(component.$type);
+          component.$id = this.generateComponentId(component.$type);
         }
       }, parentComponent, component);
     }

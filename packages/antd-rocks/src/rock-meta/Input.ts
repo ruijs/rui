@@ -33,7 +33,48 @@ export default {
           label: "allowClear",
           propName: "allowClear",
         },
-        
+
+        {
+          $type: "selectPropSetter",
+          label: "size",
+          propName: "size",
+          options: [
+            {
+              label: "large",
+              value: "large",
+            },
+            {
+              label: "middle",
+              value: "middle",
+            },
+            {
+              label: "small",
+              value: "small",
+            },
+          ],
+          defaultValue: "middle",
+        },
+
+        {
+          $type: "selectPropSetter",
+          label: "status",
+          propName: "status",
+          options: [
+            {
+              label: "",
+              value: null,
+            },
+            {
+              label: "error",
+              value: "error",
+            },
+            {
+              label: "warning",
+              value: "warning",
+            },
+          ],
+        },
+
         {
           $type: "switchPropSetter",
           label: "bordered",

@@ -3,6 +3,7 @@ import { renderRock, useRuiFramework, useRuiPage } from "@ruijs/react-renderer";
 import _ from "lodash";
 import { useMemo } from "react";
 import DesignerStore from "../DesignerStore";
+import { sendDesignerCommand } from "../DesignerUtility";
 import { PropSetterProps } from "../rocks/PropSetter";
 
 export interface MultiControlsPropSetterProps extends MultiControlsRockPropSetter {
@@ -38,9 +39,16 @@ export default {
           }
 
           const onInputControlChange: RockEventHandlerScript["script"] = (event: RockEvent) => {
-            const value = event.args;
+            const propValue = event.args;
             const store = page.getStore<DesignerStore>("designerStore");
-            store.page.setComponentProperty(store.selectedComponentId, propName, value);
+            sendDesignerCommand(page, store, {
+              name: "setComponentProperty",
+              payload: {
+                componentId: store.selectedComponentId,
+                propName,
+                propValue,
+              }
+            });
           };
 
           inputControlRockConfig.onChange = {

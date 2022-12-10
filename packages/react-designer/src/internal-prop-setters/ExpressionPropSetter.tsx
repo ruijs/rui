@@ -2,6 +2,7 @@ import { RockConfig, RockEvent, RockEventHandlerScript, Rock, ExpressionRockProp
 import { renderRock, useRuiFramework, useRuiPage } from "@ruijs/react-renderer";
 import { useMemo } from "react";
 import DesignerStore from "../DesignerStore";
+import { sendDesignerCommand } from "../DesignerUtility";
 import { PropSetterProps } from "../rocks/PropSetter";
 
 export interface ExpressionPropSetterProps extends ExpressionRockPropSetter {
@@ -26,9 +27,16 @@ export default {
       inputControlRockConfig.value = componentConfig.$exps?.[propName];
 
       const onInputControlChange: RockEventHandlerScript["script"] = (event: RockEvent) => {
-        const propertyExp = event.args;
-        const store = page.getStore<DesignerStore>("designerStore");
-        store.page.setComponentPropertyExpression(store.selectedComponentId, propName, propertyExp);
+        const propExpression = event.args;
+        const designerStore = page.getStore<DesignerStore>("designerStore");
+        sendDesignerCommand(page, designerStore, {
+          name: "setComponentPropertyExpression",
+          payload: {
+            componentId: designerStore.selectedComponentId,
+            propName,
+            propExpression,
+          }
+        });
       };
 
       inputControlRockConfig.onChange = {

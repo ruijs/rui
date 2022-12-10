@@ -39,12 +39,11 @@ export default class DesignerStore implements IStore<DesignerStoreConfig> {
   }
 
   get pageConfig(): PageConfig {
-    return this.#page.getConfig();
+    return this.#page?.getConfig();
   }
 
   set pageConfig(value: PageConfig) {
     this.#page.setConfig(value);
-    this.#emitter.emit("dataChange", null);
   }
 
   get page(): Page {
@@ -61,7 +60,23 @@ export default class DesignerStore implements IStore<DesignerStoreConfig> {
   }
 
   processCommand(command: PageCommand) {
-    if (command.name === "addComponent") {
+    if (command.name === "setPageConfig") {
+      const { payload } = command;
+      this.#page.setConfig(payload.pageConfig);
+
+    } else if (command.name === "setComponentProperty") {
+      const { payload } = command;
+      this.#page.setComponentProperty(payload.componentId, payload.propName, payload.propValue);
+
+    } else if (command.name === "setComponentPropertyExpression") {
+      const { payload } = command;
+      this.#page.setComponentPropertyExpression(payload.componentId, payload.propName, payload.propExpression);
+
+    } else if (command.name === "removeComponentPropertyExpression") {
+      const { payload } = command;
+      this.#page.removeComponentPropertyExpression(payload.componentId, payload.propName);
+
+    } else if (command.name === "addComponent") {
       const { payload } = command;
       const { componentType, parentComponentId, prevSiblingComponentId, defaultProps} = payload;
       const componentConfig: RockConfig = {

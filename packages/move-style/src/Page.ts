@@ -27,6 +27,11 @@ export class Page {
     return this.#readyToRender;
   }
 
+  
+  generateComponentId(type: string) {
+    return this.#configProcessor.generateComponentId(type);
+  }
+
   setConfig(pageConfig: PageConfig) {
     console.debug("Page.setConfig", pageConfig);
     if (!pageConfig.$id) {

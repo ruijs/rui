@@ -17,15 +17,25 @@ export type PageWithLayoutConfig = {
 }
 
 export type PageCommand =
+  | PageCommandSetPageConfig
   | PageCommandAddComponent
   | PageCommandRemoveComponents
   | PageCommandSetComponentProperty
+  | PageCommandSetComponentPropertyExpression
+  | PageCommandRemoveComponentPropertyExpression
   | PageCommandSetSelectedComponents
   | PageCommandCutComponents
   | PageCommandCopyComponents
   | PageCommandPasteComponents
   | PageCommandMoveComponents;
 
+
+export type PageCommandSetPageConfig = {
+  name: "setPageConfig";
+  payload: {
+    pageConfig: PageConfig;
+  };
+}
 
 export type PageCommandAddComponent = {
   name: "addComponent";
@@ -50,6 +60,23 @@ export type PageCommandSetComponentProperty = {
     componentId: string;
     propName: string;
     propValue: any;
+  };
+}
+
+export type PageCommandSetComponentPropertyExpression = {
+  name: "setComponentPropertyExpression";
+  payload: {
+    componentId: string;
+    propName: string;
+    propExpression: string;
+  };
+}
+
+export type PageCommandRemoveComponentPropertyExpression = {
+  name: "removeComponentPropertyExpression";
+  payload: {
+    componentId: string;
+    propName: string;
   };
 }
 

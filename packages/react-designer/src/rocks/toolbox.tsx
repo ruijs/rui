@@ -2,6 +2,7 @@ import { PageCommandAddComponent, Rock, RockConfig, RockEvent, RockEventHandlerS
 import { renderRock, useRuiFramework, useRuiPage } from "@ruijs/react-renderer";
 import { useCallback, useMemo, useState } from "react";
 import DesignerStore from "../DesignerStore";
+import { sendDesignerCommand } from "../DesignerUtility";
 
 export default {
   $type: "designerToolbox",
@@ -19,7 +20,7 @@ export default {
 
     function onRockClick(rockType: string) {
       const store = page.getStore<DesignerStore>("designerStore");
-      store.processCommand({
+      sendDesignerCommand(page, store, {
         name: "addComponent",
         payload: {
           componentType: rockType,

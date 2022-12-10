@@ -1,8 +1,9 @@
 import { Framework, Page, PageConfig, RockEvent, Rock, moveStyleUtils } from "@ruijs/move-style";
 import { Rui } from "@ruijs/react-renderer";
 import { Rui as RuiRock, ErrorBoundary, Show, HtmlElement, Box, Label, Text } from "@ruijs/react-rocks";
-import { Rocks as DesignerRocks, DesignerStore } from "@ruijs/react-designer";
+import { Rocks as DesignerRocks, DesignerStore, DesignerUtility } from "@ruijs/react-designer";
 import { AntdIconRock, AntdRocks } from "@ruijs/antd-rocks";
+import { RapidTable } from "@ruijs/react-rapid-rocks";
 import { useState } from "react";
 
 import styles from "antd/dist/antd.css";
@@ -22,6 +23,8 @@ framework.registerComponent(HtmlElement);
 framework.registerComponent(Box);
 framework.registerComponent(Label);
 framework.registerComponent(Text);
+
+framework.registerComponent(RapidTable);
 
 for(const name in AntdRocks) {
   framework.registerComponent(AntdRocks[name]);
@@ -229,14 +232,15 @@ const initialPageConfig: PageConfig = {
                       onClick: [
                         {
                           $action: "script",
-                          script: (event?: RockEvent) => {
-                            const designerStore = (event?.page as Page).getStore<DesignerStore>("designerStore");
-                            designerStore.processCommand({
+                          script: (event: RockEvent) => {
+                            const designerPage: Page = event.page;
+                            const designerStore = designerPage.getStore<DesignerStore>("designerStore");
+                            DesignerUtility.sendDesignerCommand(designerPage, designerStore, {
                               name: "cutComponents",
                               payload: {
                                 componentIds: [designerStore.selectedComponentId],
                               }
-                            })
+                            });
                           },
                         }
                       ]
@@ -250,14 +254,15 @@ const initialPageConfig: PageConfig = {
                       onClick: [
                         {
                           $action: "script",
-                          script: (event?: RockEvent) => {
-                            const designerStore = (event?.page as Page).getStore<DesignerStore>("designerStore");
-                            designerStore.processCommand({
+                          script: (event: RockEvent) => {
+                            const designerPage: Page = event.page;
+                            const designerStore = designerPage.getStore<DesignerStore>("designerStore");
+                            DesignerUtility.sendDesignerCommand(designerPage, designerStore, {
                               name: "copyComponents",
                               payload: {
                                 componentIds: [designerStore.selectedComponentId],
                               }
-                            })
+                            });
                           },
                         }
                       ]
@@ -271,14 +276,15 @@ const initialPageConfig: PageConfig = {
                       onClick: [
                         {
                           $action: "script",
-                          script: (event?: RockEvent) => {
-                            const designerStore = (event?.page as Page).getStore<DesignerStore>("designerStore");
-                            designerStore.processCommand({
+                          script: (event: RockEvent) => {
+                            const designerPage: Page = event.page;
+                            const designerStore = designerPage.getStore<DesignerStore>("designerStore");
+                            DesignerUtility.sendDesignerCommand(designerPage, designerStore, {
                               name: "pasteComponents",
                               payload: {
                                 parentComponentId: designerStore.selectedComponentId,
                               }
-                            })
+                            });
                           },
                         }
                       ]
@@ -292,14 +298,15 @@ const initialPageConfig: PageConfig = {
                       onClick: [
                         {
                           $action: "script",
-                          script: (event?: RockEvent) => {
-                            const designerStore = (event?.page as Page).getStore<DesignerStore>("designerStore");
-                            designerStore.processCommand({
+                          script: (event: RockEvent) => {
+                            const designerPage: Page = event.page;
+                            const designerStore = designerPage.getStore<DesignerStore>("designerStore");
+                            DesignerUtility.sendDesignerCommand(designerPage, designerStore, {
                               name: "removeComponents",
                               payload: {
                                 componentIds: [designerStore.selectedComponentId],
                               }
-                            })
+                            });
                           },
                         }
                       ]
@@ -328,22 +335,19 @@ const initialPageConfig: PageConfig = {
                       $type: "antdLayoutContent",
                       children: [
                         {
-                          $type: "box",
-                          position: "relative",
-                          children: {
-                            $type: "errorBoundary",
-                            children: [
-                              {
-                                $id: "canvas",
-                                $type: "rui",
-                                page: canvasPageConfig,
-                                $exps: {
-                                  framework: "$framework",
-                                  page: "$stores.designerStore.page?.getConfig()",
-                                }
-                              }
-                            ]
-                          }
+                          $type: "htmlElement",
+                          $id: "previewIFrame",
+                          htmlTag: "iframe",
+                          attributes: {
+                            id: "previewIFrame",
+                            width: "100%",
+                            height: "100%",
+                            frameBorder: "0",
+                            src: "/preview",
+                          },
+                          style: {
+                            display: "block",
+                          },
                         }
                       ]
                     },
