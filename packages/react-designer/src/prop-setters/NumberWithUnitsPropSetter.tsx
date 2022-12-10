@@ -1,4 +1,4 @@
-import { NumberWithUnitsRockPropSetter, RockConfig, RockEvent, RockEventHandlerScript, Rock, moveStyleUtils } from "@ruijs/move-style";
+import { NumberWithUnitsRockPropSetter, RockConfig, RockEvent, RockEventHandlerScript, Rock, MoveStyleUtils } from "@ruijs/move-style";
 import { renderRock, useRuiFramework, useRuiPage } from "@ruijs/react-renderer";
 import { isNull, isString, isUndefined } from "lodash";
 import DesignerStore from "../DesignerStore";
@@ -19,7 +19,7 @@ export default {
     const page = useRuiPage();
 
     const { $id, label, labelTip, componentConfig, propName, min, max, step, unitOptions } = props;
-    const isPropDynamic = moveStyleUtils.isComponentPropertyDynamic(componentConfig, propName);
+    const isPropDynamic = MoveStyleUtils.isComponentPropertyDynamic(componentConfig, propName);
     if (isPropDynamic) {
       const rockConfig: ExpressionPropSetterProps = {
         $id: `${$id}-dynamic`,

@@ -1,4 +1,4 @@
-import { SelectRockPropSetter, RockConfig, Rock, moveStyleUtils } from "@ruijs/move-style";
+import { SelectRockPropSetter, RockConfig, Rock, MoveStyleUtils } from "@ruijs/move-style";
 import { renderRock, useRuiFramework, useRuiPage } from "@ruijs/react-renderer";
 import { ExpressionPropSetterProps } from "../internal-prop-setters/ExpressionPropSetter";
 import { SingleControlPropSetterProps } from "../internal-prop-setters/SingleControlPropSetter";
@@ -21,7 +21,7 @@ export default {
     const page = useRuiPage();
 
     const { $id, label, labelTip, componentConfig, propName, defaultValue, options, showSearch } = props;
-    const isPropDynamic = moveStyleUtils.isComponentPropertyDynamic(componentConfig, propName);
+    const isPropDynamic = MoveStyleUtils.isComponentPropertyDynamic(componentConfig, propName);
 
     let rockConfig: SingleControlPropSetterProps | ExpressionPropSetterProps = {
       $id: isPropDynamic ? `${$id}-dynamic` : `${$id}-static`,

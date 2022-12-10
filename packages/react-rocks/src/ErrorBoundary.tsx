@@ -9,6 +9,7 @@ export interface ErrorBoundaryRockProps extends ContainerRockConfig {
 export interface ErrorBoundaryProps {
   fallback?: any;
   children?: any;
+  childrenConfig?: RockConfig | RockConfig[];
 }
 
 export interface ErrorBoundaryStates {
@@ -52,6 +53,13 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
         </code>
         </pre>
         <div><button onClick={() => this.clearError()}>Retry</button></div>
+        <pre>
+          <code>
+            {
+              JSON.stringify(this.props.childrenConfig, null, 4)
+            }
+          </code>
+        </pre>
       </div>;
     }
 
@@ -75,6 +83,7 @@ export default {
 
     return <ErrorBoundary
       fallback={renderRockChildren(framework, page, props.fallback)}
+      childrenConfig={props.children}
     >
       {
         renderRockChildren(framework, page, props.children)

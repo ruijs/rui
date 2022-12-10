@@ -1,4 +1,4 @@
-import { ContainerRockConfig, RockConfig, Rock, moveStyleUtils } from "@ruijs/move-style";
+import { ContainerRockConfig, RockConfig, Rock, MoveStyleUtils } from "@ruijs/move-style";
 import { renderRock, renderRockChildren, useRuiFramework, useRuiPage } from "@ruijs/react-renderer";
 import React, { useState } from "react";
 import DesignerStore from "../DesignerStore";
@@ -21,7 +21,7 @@ export default {
     const [expIndicatorHovered, setExpIndicatorHovered] = useState(false);
 
     const { label, labelTip, componentConfig, expressionPropName } = props;
-    const isPropDynamic = moveStyleUtils.isComponentPropertyDynamic(componentConfig, expressionPropName);
+    const isPropDynamic = MoveStyleUtils.isComponentPropertyDynamic(componentConfig, expressionPropName);
 
     const rockConfig: RockConfig = {
       $id: `${props.$id}`,

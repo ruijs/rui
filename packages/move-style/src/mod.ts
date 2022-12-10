@@ -9,6 +9,6 @@ export * from "./IRenderer";
 export * from "./handlers";
 export * as CommonProps from "./common-props";
 
-export * as moveStyleUtils from "./utils";
+export * as MoveStyleUtils from "./utils";
 export { unitOptions } from "./common-options/unit-options";
 export { lineStyleOptions } from "./common-options/line-style-options";

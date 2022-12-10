@@ -1,6 +1,6 @@
 import { handleComponentEvent } from "@ruijs/move-style";
 import { RockEventHandler } from "@ruijs/move-style";
-import { Framework, Page, RockConfig, moveStyleUtils } from "@ruijs/move-style";
+import { Framework, Page, RockConfig, MoveStyleUtils } from "@ruijs/move-style";
 import _ from "lodash";
 import React from "react";
 
@@ -54,7 +54,7 @@ export function convertToEventHandlers(page: Page, props: RockConfig) {
   const eventHandlers = {};
   // TODO: should memorize eventHandlers
   for (const propName in props) {
-    if (moveStyleUtils.isEventPropName(propName)) {
+    if (MoveStyleUtils.isEventPropName(propName)) {
       const eventProp = props[propName];
 
       // Some components set children's event handlers. For example, FormItem set onChange event handler.

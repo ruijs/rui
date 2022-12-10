@@ -4,7 +4,7 @@ export type FieldSettings = {
   valueType: FieldValueType;
   valueNotNull?: boolean;
   description?: string;
-  defaultValue?: FieldValueType;
+  defaultValue?: any;
 }
 
 export type FieldValueType = "string" | "number" | "boolean" | "object";

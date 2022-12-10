@@ -82,7 +82,7 @@ export type PageCommandRemoveComponentPropertyExpression = {
 }
 
 export type PageCommandSetSelectedComponents = {
-  name: "cutComponents";
+  name: "setSelectedComponents";
   payload: {
     componentIds: string[];
   };

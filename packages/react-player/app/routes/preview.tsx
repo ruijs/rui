@@ -1,4 +1,4 @@
-import { Framework, Page, PageConfig, RockEvent, Rock, moveStyleUtils } from "@ruijs/move-style";
+import { Framework, Page, PageConfig, RockEvent, Rock, MoveStyleUtils } from "@ruijs/move-style";
 import { Rui } from "@ruijs/react-renderer";
 import { Rui as RuiRock, ErrorBoundary, Show, HtmlElement, Box, Label, Text } from "@ruijs/react-rocks";
 import { Rocks as DesignerRocks, DesignerStore } from "@ruijs/react-designer";

@@ -90,7 +90,6 @@ export default class DesignerStore implements IStore<DesignerStoreConfig> {
 
     } else if (command.name === "addComponent") {
       const { payload } = command;
-      console.log(command)
       const { componentType, parentComponentId, slotName, prevSiblingComponentId, defaultProps} = payload;
       const componentConfig: RockConfig = {
         $type: componentType,

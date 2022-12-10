@@ -1,3 +1,4 @@
+import { MoveStyleUtils } from "@ruijs/move-style";
 import { PageCommandAddComponent, Rock, RockConfig, RockEvent, RockEventHandlerScript } from "@ruijs/move-style";
 import { renderRock, useRuiFramework, useRuiPage } from "@ruijs/react-renderer";
 import { useCallback, useMemo, useState } from "react";
@@ -20,6 +21,8 @@ export default {
 
     function onRockClick(rockType: string) {
       const store = page.getStore<DesignerStore>("designerStore");
+      const rockMeta = framework.getComponent(rockType);
+
       sendDesignerCommand(page, store, {
         name: "addComponent",
         payload: {
@@ -27,6 +30,7 @@ export default {
           parentComponentId: store.selectedComponentId,
           slotName: store.selectedSlotName,
           prevSiblingComponentId: null,
+          defaultProps: MoveStyleUtils.getRockDefaultProps(rockMeta),
         }
       } as PageCommandAddComponent);
     }

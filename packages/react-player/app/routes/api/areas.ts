@@ -1,4 +1,4 @@
-import { moveStyleUtils } from "@ruijs/move-style";
+import { MoveStyleUtils } from "@ruijs/move-style";
 
 export function loader() {
   const areas = [
@@ -10,6 +10,6 @@ export function loader() {
   ];
 
   return {
-    data: moveStyleUtils.listToTree(areas, { listParentField: "parent"})
+    data: MoveStyleUtils.listToTree(areas, { listParentField: "parent"})
   }
 }

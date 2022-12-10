@@ -1,4 +1,5 @@
 import * as antdIcons from "@ant-design/icons";
+import { RockMetaProps } from "@ruijs/move-style";
 import { RockConfig, Rock, unitOptions } from "@ruijs/move-style";
 import { renderRock, useRuiFramework, useRuiPage } from "@ruijs/react-renderer";
 import React from "react";
@@ -39,6 +40,13 @@ export interface AntdIconProps {
 
 const antdIconRock = {
   $type: "antdIcon",
+
+  props: {
+    name: {
+      valueType: "string",
+      defaultValue: "AntDesignOutlined",
+    }
+  } as RockMetaProps,
 
   propertyPanels: [
     {

@@ -1,4 +1,4 @@
-import { NumberWithSliderRockPropSetter, RockConfig, Rock, moveStyleUtils } from "@ruijs/move-style";
+import { NumberWithSliderRockPropSetter, RockConfig, Rock, MoveStyleUtils } from "@ruijs/move-style";
 import { renderRock, useRuiFramework, useRuiPage } from "@ruijs/react-renderer";
 import { ExpressionPropSetterProps } from "../internal-prop-setters/ExpressionPropSetter";
 import { MultiControlsPropSetterProps } from "../internal-prop-setters/MultiControlsPropSetter";
@@ -16,7 +16,7 @@ export default {
     const page = useRuiPage();
 
     const { $id, label, labelTip, componentConfig, propName, defaultValue, min, max, step } = props;
-    const isPropDynamic = moveStyleUtils.isComponentPropertyDynamic(componentConfig, propName);
+    const isPropDynamic = MoveStyleUtils.isComponentPropertyDynamic(componentConfig, propName);
 
     let rockConfig: MultiControlsPropSetterProps | ExpressionPropSetterProps = {
       $id: isPropDynamic ? `${$id}-dynamic` : `${$id}-static`,
