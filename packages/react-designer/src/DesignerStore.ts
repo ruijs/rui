@@ -9,7 +9,9 @@ export default class DesignerStore implements IStore<DesignerStoreConfig> {
   #emitter: EventEmitter;
   #name: string;
   #page: Page;
+  #selectedComponentTreeNodeId: string;
   #selectedComponentId: string;
+  #selectedSlotName: string;
   #snippets: RockConfig[];
 
   constructor(framework: Framework) {
@@ -50,12 +52,22 @@ export default class DesignerStore implements IStore<DesignerStoreConfig> {
     return this.#page;
   }
 
+  get selectedComponentTreeNodeId(): string {
+    return this.#selectedComponentTreeNodeId;
+  }
+
   get selectedComponentId(): string {
     return this.#selectedComponentId;
   }
+  
+  get selectedSlotName(): string {
+    return this.#selectedSlotName;
+  }
 
-  set selectedComponentId(value: string) {
-    this.#selectedComponentId = value;
+  setSelectedComponentTreeNode(nodeId: string, componentId: string, slotName: string) {
+    this.#selectedComponentTreeNodeId = nodeId;
+    this.#selectedComponentId = componentId;
+    this.#selectedSlotName = slotName;
     this.#emitter.emit("dataChange", null);
   }
 
@@ -78,16 +90,17 @@ export default class DesignerStore implements IStore<DesignerStoreConfig> {
 
     } else if (command.name === "addComponent") {
       const { payload } = command;
-      const { componentType, parentComponentId, prevSiblingComponentId, defaultProps} = payload;
+      console.log(command)
+      const { componentType, parentComponentId, slotName, prevSiblingComponentId, defaultProps} = payload;
       const componentConfig: RockConfig = {
         $type: componentType,
         ...defaultProps,
       };
-      this.#page.addComponents([componentConfig], parentComponentId, prevSiblingComponentId);
+      this.#page.addComponents([componentConfig], parentComponentId, slotName, prevSiblingComponentId);
 
     } else if (command.name === "removeComponents") {
       this.#page.removeComponents(command.payload.componentIds);
-      this.selectedComponentId = null;
+      this.setSelectedComponentTreeNode(null, null, null);
 
     } else if (command.name === "cutComponents") {
       const componentIds = command.payload.componentIds;
@@ -96,7 +109,7 @@ export default class DesignerStore implements IStore<DesignerStoreConfig> {
       }
       this.#snippets = _.map(componentIds, componentId => this.#page.getComponent(componentId));
       this.#page.removeComponents(componentIds);
-      this.selectedComponentId = null;
+      this.setSelectedComponentTreeNode(null, null, null);
 
     } else if (command.name === "copyComponents") {
       const componentIds = command.payload.componentIds;
@@ -111,10 +124,9 @@ export default class DesignerStore implements IStore<DesignerStoreConfig> {
       }
 
       const { payload } = command;
-      const { parentComponentId, prevSiblingComponentId } = payload;
-
-      this.#page.addComponents(this.#snippets, parentComponentId, prevSiblingComponentId);
+      const { parentComponentId, slotName, prevSiblingComponentId } = payload;
+      
+      this.#page.addComponents(this.#snippets, parentComponentId, slotName, prevSiblingComponentId);
     }
-
   }
 }

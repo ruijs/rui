@@ -101,7 +101,7 @@ export class ConfigProcessor {
     }
   }
 
-  addComponents(components: RockConfig[], parentComponentId?: string, prevSiblingComponentId?: string) {
+  addComponents(components: RockConfig[], parentComponentId?: string, slotName?: string, prevSiblingComponentId?: string) {
     let parentComponent: RockConfig = null;
     if (parentComponentId) {
       parentComponent = this.#componentMapById.get(parentComponentId);
@@ -119,14 +119,35 @@ export class ConfigProcessor {
       }, parentComponent, component);
     }
 
+    let componentHostPropName = "children";
+
     let childComponents: RockConfig[];
+    let allowMultiComponents = true;
     if (parentComponent) {
-      if (!parentComponent.children) {
-        parentComponent.children = [];
-      } else if (!_.isArray(parentComponent.children)) {
-        parentComponent.children = [parentComponent.children];
+      // TODO: How to support deep slot? Eg: table.columns[].renderer.
+      if (slotName) {
+        const meta = this.#framework.getComponent(parentComponent.$type);
+        if (meta?.slots) {
+          const slotMeta = meta?.slots?.[slotName];
+          if (!slotMeta) {
+            throw new Error(`Create component failed. Unkown slot '${parentComponent.$type}#${slotName}'.`);
+          }
+          allowMultiComponents = slotMeta.allowMultiComponents;
+        }
+        componentHostPropName = slotName;
       }
-      childComponents = parentComponent.children;
+
+      const componentHost = parentComponent[componentHostPropName];
+      if (componentHost) {
+        if (!allowMultiComponents) {
+          throw new Error(`Create component failed. Multi-components in slot '${parentComponent.$type}#${slotName}' is not allowed.`);
+        } else if (!_.isArray(componentHost)) {
+          parentComponent[componentHostPropName] = [componentHost];
+        }
+      } else {
+        parentComponent[componentHostPropName] = [];
+      }
+      childComponents = parentComponent[componentHostPropName];
     } else {
       let pageView = this.#config.view;
       if (!pageView) {
@@ -147,7 +168,11 @@ export class ConfigProcessor {
     }
 
     if (parentComponent) {
-      parentComponent.children = childComponents;
+      if (allowMultiComponents) {
+        parentComponent[componentHostPropName] = childComponents;
+      } else {
+        parentComponent[componentHostPropName] = childComponents[0];
+      }
     } else {
       this.#config.view = childComponents;
     }
@@ -159,34 +184,58 @@ export class ConfigProcessor {
     if (!componentIds || !componentIds.length) {
       return;
     }
+
     for (const componentId of componentIds) {
       let childComponents: RockConfig[];
       const parentComponentId = this.#parentIdMapById.get(componentId);
       let parentComponent: RockConfig;
       if (!parentComponentId) {
-        // this means the parent of component is page.
+        // this means the parent component is page view.
         childComponents = (this.#config as PageWithoutLayoutConfig).view;
+        if (!_.isArray(childComponents)) {
+          childComponents = [childComponents];
+        }
+        const componentIndex = _.findIndex(childComponents, (item) => item.$id === componentId);
+        if (componentIndex !== -1) {
+          childComponents.splice(componentIndex, 1);
+
+          (this.#config as PageWithoutLayoutConfig).view = childComponents;
+        }
       } else {
         parentComponent = this.#componentMapById.get(parentComponentId);
-        childComponents = parentComponent.children;
-      }
 
-      if (!_.isArray(childComponents)) {
-        childComponents = [childComponents];
-      }
+        let childrenPropNames = ["children"];
+        const meta = this.#framework.getComponent(parentComponent.$type);
+        if (meta?.slots) {
+          childrenPropNames = childrenPropNames.concat(Object.keys(meta.slots));
+        }
 
-      const componentIndex = _.findIndex(childComponents, (item) => item.$id === componentId);
-      if (componentIndex !== -1) {
-        childComponents.splice(componentIndex, 1);
+        for (const childrenPropName of childrenPropNames) {
+          childComponents = parentComponent[childrenPropName];
+          if (!childComponents) {
+            continue;
+          }
 
-        if (parentComponent) {
-          parentComponent.children = childComponents;
-        } else {
-          (this.#config as PageWithoutLayoutConfig).view = childComponents;
+          const slotMeta = meta?.slots?.[childrenPropName];
+
+          if (!_.isArray(childComponents)) {
+            childComponents = [childComponents];
+          }
+    
+          const componentIndex = _.findIndex(childComponents, (item) => item.$id === componentId);
+          if (componentIndex !== -1) {
+            childComponents.splice(componentIndex, 1);
+            if (slotMeta && !slotMeta.allowMultiComponents) {
+              parentComponent[childrenPropName] = childComponents.length ? childComponents[0] : null;
+            } else {
+              parentComponent[childrenPropName] = childComponents;
+            }
+            break;
+          }
         }
       }
     }
-    
+ 
     this.loadConfig(this.#config);
   }
 

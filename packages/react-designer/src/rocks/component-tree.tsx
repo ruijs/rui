@@ -11,7 +11,7 @@ export interface ComponentTreeProps extends RockConfigBase {
 export type ComponentTreeNode = ComponentNode | SlotNode;
 
 export interface ComponentNode {
-  nodeType: "component";
+  $nodeType: "component";
   $id: string;
   $type?: string;
   label: string;
@@ -19,8 +19,10 @@ export interface ComponentNode {
 }
 
 export interface SlotNode {
-  nodeType: "slot";
+  $nodeType: "slot";
   $id: string;
+  $componentId: string;
+  $slotName: string;
   label: string;
   children?: ComponentTreeNode[];
 }
@@ -38,8 +40,21 @@ export default {
     const componentTree = useMemo(() => convertPageConfigToComponentTree(framework, designingPageConfig), [designingPageConfig]);
 
     const onComponentTreeNodeSelect: RockEventHandlerScript["script"] = useCallback((event: RockEvent) => {
-      const componentId = event.args[0][0];
-      page.getStore<DesignerStore>("designerStore").selectedComponentId = componentId;
+      const [selectedKeys, {node}] = event.args as [string[], { node: ComponentTreeNode }];
+      const isNodeSelected = selectedKeys.length !== 0;
+      let selectedComponentId: string = null;
+      let selectedSlotName: string = null;
+      if (isNodeSelected) {
+        if (node.$nodeType === "component") {
+          selectedComponentId = node.$id;
+          selectedSlotName = null;
+        } else if (node.$nodeType === "slot") {
+          selectedComponentId = node.$componentId;
+          selectedSlotName = node.$slotName;
+        }
+      }
+      const designerStore = page.getStore<DesignerStore>("designerStore");
+      designerStore.setSelectedComponentTreeNode(selectedKeys[0], selectedComponentId, selectedSlotName);
     }, [componentTree]);
 
     const onComponentTreeNodeDrop: RockEventHandlerScript["script"] = useCallback((event: RockEvent) => {
@@ -57,7 +72,7 @@ export default {
       fieldNames: { key: "$id", title: "label" },
       defaultExpandAll: true,
       treeData: componentTree,
-      selectedKeys: [page.getStore<DesignerStore>("designerStore").selectedComponentId],
+      selectedKeys: [page.getStore<DesignerStore>("designerStore").selectedComponentTreeNodeId],
       style: props.style,
       onSelect: {
         $action: "script",
@@ -83,7 +98,7 @@ export function convertPageConfigToComponentTree(framework: Framework, pageConfi
 function travalRockTree(framework: Framework, rockTree: RockConfig[], componentTree: ComponentTreeNode[]) {
   for (const rock of rockTree) {
     const component: ComponentTreeNode = {
-      nodeType: "component",
+      $nodeType: "component",
       $id: rock.$id,
       $type: rock.$type,
       label: rock.$type,
@@ -97,8 +112,10 @@ function travalRockTree(framework: Framework, rockTree: RockConfig[], componentT
 
       for(const slotName in rockMeta.slots) {
         const slotNode: ComponentTreeNode = {
-          nodeType: "slot",
+          $nodeType: "slot",
           $id: `${rock.$id}.${slotName}`,
+          $componentId: rock.$id,
+          $slotName: slotName,
           label: `#${slotName}`,
         };
         component.children.push(slotNode);

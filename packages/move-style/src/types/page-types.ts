@@ -43,6 +43,7 @@ export type PageCommandAddComponent = {
     componentType: string;
     defaultProps?: any;
     parentComponentId?: string;
+    slotName?: string;
     prevSiblingComponentId?: string;
   };
 }
@@ -105,6 +106,7 @@ export type PageCommandPasteComponents = {
   name: "pasteComponents";
   payload: {
     parentComponentId?: string;
+    slotName?: string;
     prevSiblingComponentId?: string;
   };
 }
@@ -114,6 +116,7 @@ export type PageCommandMoveComponents = {
   payload: {
     componentIds: string[];
     parentComponentId?: string;
+    slotName?: string;
     prevSiblingComponentId?: string;
   };
 }

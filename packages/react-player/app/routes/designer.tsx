@@ -235,6 +235,10 @@ const initialPageConfig: PageConfig = {
                           script: (event: RockEvent) => {
                             const designerPage: Page = event.page;
                             const designerStore = designerPage.getStore<DesignerStore>("designerStore");
+                            if (designerStore.selectedSlotName) {
+                              return;
+                            }
+
                             DesignerUtility.sendDesignerCommand(designerPage, designerStore, {
                               name: "cutComponents",
                               payload: {
@@ -257,6 +261,10 @@ const initialPageConfig: PageConfig = {
                           script: (event: RockEvent) => {
                             const designerPage: Page = event.page;
                             const designerStore = designerPage.getStore<DesignerStore>("designerStore");
+                            if (designerStore.selectedSlotName) {
+                              return;
+                            }
+
                             DesignerUtility.sendDesignerCommand(designerPage, designerStore, {
                               name: "copyComponents",
                               payload: {
@@ -283,6 +291,7 @@ const initialPageConfig: PageConfig = {
                               name: "pasteComponents",
                               payload: {
                                 parentComponentId: designerStore.selectedComponentId,
+                                slotName: designerStore.selectedSlotName,
                               }
                             });
                           },
@@ -301,6 +310,10 @@ const initialPageConfig: PageConfig = {
                           script: (event: RockEvent) => {
                             const designerPage: Page = event.page;
                             const designerStore = designerPage.getStore<DesignerStore>("designerStore");
+                            if (designerStore.selectedSlotName) {
+                              return;
+                            }
+
                             DesignerUtility.sendDesignerCommand(designerPage, designerStore, {
                               name: "removeComponents",
                               payload: {

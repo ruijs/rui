@@ -83,8 +83,8 @@ export class Page {
     return this.#interpreter.interprete(expressionString, rootVars);
   }
 
-  addComponents(components: RockConfig[], parentComponentId?: string, prevSiblingComponentId?: string) {
-    this.#configProcessor.addComponents(components, parentComponentId, prevSiblingComponentId);
+  addComponents(components: RockConfig[], parentComponentId?: string, slotName?: string, prevSiblingComponentId?: string) {
+    this.#configProcessor.addComponents(components, parentComponentId, slotName, prevSiblingComponentId);
   }
 
   removeComponents(componentIds: string[]) {

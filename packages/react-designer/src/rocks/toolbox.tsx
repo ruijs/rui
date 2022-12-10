@@ -25,6 +25,8 @@ export default {
         payload: {
           componentType: rockType,
           parentComponentId: store.selectedComponentId,
+          slotName: store.selectedSlotName,
+          prevSiblingComponentId: null,
         }
       } as PageCommandAddComponent);
     }
