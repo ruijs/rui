@@ -1,6 +1,5 @@
 import { EventEmitter } from "./EventEmitter";
-import { PageConfig, PageWithLayoutConfig, PageWithoutLayoutConfig } from "./types/page-types";
-import { RockConfig, RockPropValue } from "./types/rock-types";
+import { RockConfig, RockPropValue, PageConfig, PageWithLayoutConfig, PageWithoutLayoutConfig } from "./types/rock-types";
 import _ from "lodash";
 import { ExpressionInterpreter } from "./ExpressionInterpreter";
 import { Framework } from "./Framework";

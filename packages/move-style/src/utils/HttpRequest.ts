@@ -1,16 +1,7 @@
 import axios from "axios";
 import qs from "qs"
+import { HttpRequestOptions } from "../types/request-types";
 
-export interface HttpRequestOptions extends HttpRequestInput {
-  method: "GET" | "POST" | "PUT" | "DELETE";
-  url: string;
-  headers?: Record<string, string>;
-};
-
-export interface HttpRequestInput {
-  query?: any;
-  body?: any;
-};
 
 export async function request(options: HttpRequestOptions) {
   let url = options.url;

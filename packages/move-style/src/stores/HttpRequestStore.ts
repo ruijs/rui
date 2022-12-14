@@ -1,8 +1,8 @@
 import _ from "lodash";
 import { HttpRequestStoreConfig, IStore } from "../types/store-types";
-import { HttpRequestInput, request } from "../utils/HttpRequest";
+import { request } from "../utils/HttpRequest";
 import { EventEmitter } from "../EventEmitter";
-import { HttpRequest } from "../types/request-types";
+import { HttpRequest, HttpRequestInput } from "../types/request-types";
 
 export class HttpRequestStore implements IStore<HttpRequestStoreConfig> {
   #name: string;

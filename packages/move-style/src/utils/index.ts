@@ -7,3 +7,8 @@ export {
 export {
   getRockDefaultProps,
 } from "./rock-meta-utility";
+
+export {
+  canUseDOM,
+  waitVariable,
+} from "./dom-utility";

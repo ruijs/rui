@@ -5,6 +5,7 @@ import { useMemo } from "react";
 import DesignerStore from "../DesignerStore";
 import { sendDesignerCommand } from "../DesignerUtility";
 import { PropSetterProps } from "../rocks/PropSetter";
+import { getComponentPropValue } from "../SetterUtility";
 
 export interface SingleControlPropSetterProps extends SingleControlRockPropSetter {
   $id: string;
@@ -18,16 +19,12 @@ export default {
     const framework = useRuiFramework();
     const page = useRuiPage();
 
-    const { propName, defaultValue, control, componentConfig } = props;
+    const { propName, defaultValue, control, extra, componentConfig } = props;
 
     const controlRock: RockConfig = useMemo(() => {
       const inputControlRockConfig = control;
       inputControlRockConfig.$id = `${props.$id}-setterControl-${propName}`;
-      if (componentConfig.hasOwnProperty(propName)) {
-        inputControlRockConfig.value = componentConfig[propName];
-      } else if (!_.isUndefined(defaultValue)) {
-        inputControlRockConfig.value = defaultValue;
-      }
+      inputControlRockConfig.value = getComponentPropValue(componentConfig, propName, defaultValue);
 
       const onInputControlChange: RockEventHandlerScript["script"] = (event: RockEvent) => {
         const propValue = event.args;
@@ -54,6 +51,11 @@ export default {
       } as RockConfig;
     }, [control, componentConfig]);
 
+    if (extra) {
+      extra.$id = `${props.$id}-setterControl-${propName}-extra`;
+      extra.value = getComponentPropValue(componentConfig, propName, defaultValue);
+    }
+
     const setterRock: PropSetterProps = {
       $type: "propSetter",
       $id: props.$id,
@@ -62,6 +64,7 @@ export default {
       expressionPropName: propName,
       componentConfig,
       children: controlRock,
+      extra,
     };
 
     return renderRock(framework, page, setterRock);

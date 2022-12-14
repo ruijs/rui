@@ -1,4 +1,3 @@
-export * from "./types/page-types";
 export * from "./types/store-types";
 export * from "./types/rock-types";
 export * from "./ConfigProcessor";

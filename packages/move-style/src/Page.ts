@@ -1,13 +1,12 @@
 import _ from "lodash";
 import { ConfigProcessor } from "./ConfigProcessor";
 import { ExpressionInterpreter } from "./ExpressionInterpreter";
-import { PageCommand, PageConfig } from "./types/page-types"
-import { RockConfig, RockPropValue, RuiEvent } from "./types/rock-types";
+import { RockConfig, RockPropValue, RuiEvent, PageCommand, PageConfig, IPage } from "./types/rock-types";
 import { StoreConfig, IStore, StoreConfigBase } from "./types/store-types";
-import { HttpRequestInput } from "./utils/HttpRequest";
+import { HttpRequestInput } from "./types/request-types";
 import { Framework } from "./Framework";
 
-export class Page {
+export class Page implements IPage {
   #framework: Framework;
   #readyToRender: boolean;
   #stores: Record<string, IStore>;
@@ -133,7 +132,7 @@ export class Page {
       throw new Error(`Store '${storeName}' not found.`);
     }
 
-    store.loadData(input);
+    return store.loadData(input);
   }
 
   notifyEvent(event: RuiEvent) {

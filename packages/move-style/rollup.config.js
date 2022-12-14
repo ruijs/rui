@@ -13,5 +13,10 @@ export default {
     plugins: [
         typescript(),
     ],
-    external: ["events"]
+    external: [
+        "axios",
+        "events",
+        "lodash",
+        "qs",
+    ]
 };

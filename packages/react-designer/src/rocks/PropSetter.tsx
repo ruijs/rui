@@ -8,8 +8,10 @@ export interface PropSetterProps extends ContainerRockConfig {
   $type: "propSetter",
   label: string;
   labelTip?: string;
+  labelLayout?: "horizontal" | "vertical";
   componentConfig: RockConfig;
   expressionPropName?: string;
+  extra?: RockConfig;
 }
 
 export default {
@@ -20,7 +22,7 @@ export default {
     const page = useRuiPage();
     const [expIndicatorHovered, setExpIndicatorHovered] = useState(false);
 
-    const { label, labelTip, componentConfig, expressionPropName } = props;
+    const { label, labelTip, componentConfig, expressionPropName, extra } = props;
     const isPropDynamic = MoveStyleUtils.isComponentPropertyDynamic(componentConfig, expressionPropName);
 
     const rockConfig: RockConfig = {
@@ -102,6 +104,18 @@ export default {
       ],
     };
 
+    if (extra) {
+      rockConfig.children.push({
+        $id: `${props.$id}-extra-wrapper`,
+        $type: "htmlElement",
+        htmlTag: "div",
+        style: styleSetterExtraWrapper,
+        children: [extra],
+      });
+    }
+
+    console.log("rendering PropSetter", rockConfig)
+
     return renderRock(framework, page, rockConfig);
   },
 
@@ -109,6 +123,7 @@ export default {
 
 const styleSetter: React.CSSProperties = {
   display: "flex",
+  flexWrap: "wrap",
   width: "260px",
   alignItems: "center",
   paddingBottom: "5px",
@@ -138,4 +153,12 @@ const styleSetterLabel: React.CSSProperties = {
 
 const styleSetterControls: React.CSSProperties = {
   width: "160px",
+}
+
+const styleSetterExtraWrapper: React.CSSProperties = {
+  width: "240px",
+  marginLeft: "20px",
+  background: "#fef6ff",
+  borderRadius: "5px",
+  padding: "10px",
 }

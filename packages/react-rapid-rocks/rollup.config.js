@@ -13,12 +13,5 @@ export default {
     plugins: [
         typescript(),
     ],
-    external: [
-        "@ruijs/move-style",
-        "@ruijs/react-renderer",
-        "events",
-        "lodash",
-        "react",
-        "react/jsx-runtime",
-    ]
+    external: ["react", "react/jsx-runtime", "events"]
 };

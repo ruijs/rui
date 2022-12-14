@@ -1,31 +1,39 @@
 {
-  "name": "@ruijs/move-style",
+  "name": "@ruijs/react-rapid-rocks",
   "version": "0.0.1",
   "description": "",
   "main": "dist/mod.js",
   "scripts": {
     "build": "rimraf dist && rollup --config",
-    "dev": "rollup --config",
+    "dev": "rimraf dist && rollup --config",
     "test": "echo \"Error: no test specified\""
   },
   "keywords": [],
   "author": "",
   "license": "MIT",
   "devDependencies": {
+    "@ant-design/icons": "^4.7.0",
     "@types/lodash": "^4.14.186",
-    "events": "^3.3.0",
+    "@types/react": "^18.0.15",
+    "@types/react-dom": "^18.0.6",
+    "antd": "^4.23.6",
     "lodash": "^4.17.21",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "rimraf": "^3.0.2",
     "rollup": "^2.79.1",
     "rollup-plugin-typescript2": "^0.34.1",
     "typescript": "^4.8.4"
   },
   "peerDependencies": {
-    "events": "^3.3.0",
-    "lodash": "^4.17.21"
+    "@ant-design/icons": "^4.7.0",
+    "antd": "^4.23.6",
+    "lodash": "^4.17.21",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   },
   "dependencies": {
-    "axios": "^1.1.2",
-    "qs": "^6.11.0"
+    "@ruijs/move-style": "workspace:^0.0.1",
+    "@ruijs/react-renderer": "workspace:^0.0.1"
   }
 }

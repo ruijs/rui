@@ -1,15 +1,18 @@
 import { Framework, Page, PageConfig, RockEvent, Rock } from "@ruijs/move-style";
 import { Rui } from "@ruijs/react-renderer";
-import { Rui as RuiRock, ErrorBoundary, Show, HtmlElement, Box, Label, Text } from "@ruijs/react-rocks";
+import { Rui as RuiRock, ErrorBoundary, Show, HtmlElement, Box, Label, Text, CodeEditor } from "@ruijs/react-rocks";
 import { Rocks as DesignerRocks, DesignerStore, DesignerUtility } from "@ruijs/react-designer";
 import { AntdIconRock, AntdRocks } from "@ruijs/antd-rocks";
 import { RapidTable } from "@ruijs/react-rapid-rocks";
 import { useState } from "react";
 
-import styles from "antd/dist/antd.css";
+import antdStyles from "antd/dist/antd.css";
+import { LinksFunction } from "@remix-run/node";
 
-export function links() {
-  return [{ rel: "stylesheet", href: styles }];
+export const links: LinksFunction = () => {
+  return [
+    { rel: "stylesheet", href: antdStyles },
+  ];
 }
 
 const framework = new Framework();
@@ -23,6 +26,7 @@ framework.registerComponent(HtmlElement);
 framework.registerComponent(Box);
 framework.registerComponent(Label);
 framework.registerComponent(Text);
+framework.registerComponent(CodeEditor);
 
 framework.registerComponent(RapidTable);
 
@@ -396,6 +400,10 @@ const initialPageConfig: PageConfig = {
 
 export default function Index() {
   const [page] = useState(initialPageConfig);
+
+  // if (typeof window !== "undefined") {
+  //   (window as any).monaco = monaco;
+  // }
 
   return <Rui framework={framework} page={page} />
 }

@@ -6,3 +6,14 @@ export type HttpRequest = {
   headers?: Record<string, string>;
   body?: Record<string, any>;
 };
+
+export interface HttpRequestOptions extends HttpRequestInput {
+  method: "GET" | "POST" | "PUT" | "DELETE";
+  url: string;
+  headers?: Record<string, string>;
+};
+
+export interface HttpRequestInput {
+  query?: any;
+  body?: any;
+};

@@ -1,6 +1,6 @@
 import { Framework, Page, PageConfig, RockEvent, Rock, MoveStyleUtils } from "@ruijs/move-style";
 import { Rui } from "@ruijs/react-renderer";
-import { Rui as RuiRock, ErrorBoundary, Show, HtmlElement, Box, Label, Text } from "@ruijs/react-rocks";
+import { Rui as RuiRock, ErrorBoundary, Show, HtmlElement, Box, Label, Text, CodeEditor } from "@ruijs/react-rocks";
 import { Rocks as DesignerRocks, DesignerStore } from "@ruijs/react-designer";
 import { AntdIconRock, AntdRocks } from "@ruijs/antd-rocks";
 import { RapidTable } from "@ruijs/react-rapid-rocks";
@@ -23,6 +23,7 @@ framework.registerComponent(HtmlElement);
 framework.registerComponent(Box);
 framework.registerComponent(Label);
 framework.registerComponent(Text);
+framework.registerComponent(CodeEditor);
 
 framework.registerComponent(RapidTable);
 

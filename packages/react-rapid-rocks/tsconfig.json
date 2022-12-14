@@ -1,6 +1,5 @@
 {
-  "exclude": ["src/**/*.spec.ts", "src/**/*.spec.tsx", "node_modules"],
-  "include": ["src/**/*.js", "src/**/*.jsx", "src/**/*.ts", "src/**/*.tsx"],
+  "include": [],
   "compilerOptions": {
     "target": "ESNext",
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
@@ -11,7 +10,10 @@
     "allowJs": true,
     "sourceMap": true,
     "declaration": true,
-    "outDir": "./dist",
-    // "types": ["node"]
   },
+  "references": [
+    {
+      "path": "./tsconfig.lib.json"
+    },
+  ]
 }

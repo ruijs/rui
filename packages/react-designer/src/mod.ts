@@ -3,6 +3,7 @@ export * as DesignerUtility from "./DesignerUtility";
 
 import ComponentPropertiesPanel from "./rocks/component-properties-panel";
 import ComponentTree from "./rocks/component-tree";
+import JsonValueDisplay from "./rocks/json-value-display";
 import PreviewWrapper from "./rocks/preview-wrapper";
 import PropSetter from "./rocks/PropSetter";
 import Toolbox from "./rocks/toolbox";
@@ -20,6 +21,7 @@ import MultiControlsPropSetter from "./internal-prop-setters/MultiControlsPropSe
 import SingleControlPropSetter from "./internal-prop-setters/SingleControlPropSetter";
 
 // prop setters
+import JsonPropSetter from "./prop-setters/JsonPropSetter";
 import NumberPropSetter from "./prop-setters/NumberPropSetter";
 import NumberWithSliderPropSetter from "./prop-setters/NumberWithSliderPropSetter";
 import NumberWithUnitsPropSetter from "./prop-setters/NumberWithUnitsPropSetter";
@@ -29,6 +31,7 @@ import TextPropSetter from "./prop-setters/TextPropSetter";
 
 // setter inputs
 import ExpressionSetterInput from "./setter-input-controls/ExpressionSetterInput";
+import JsonSetterInput from "./setter-input-controls/JsonSetterInput";
 import NumberSetterInput from "./setter-input-controls/NumberSetterInput";
 import SelectSetterInput from "./setter-input-controls/SelectSetterInput";
 import SliderSetterInput from "./setter-input-controls/SliderSetterInput";
@@ -38,6 +41,7 @@ import TextSetterInput from "./setter-input-controls/TextSetterInput";
 export const Rocks = {
   ComponentPropertiesPanel,
   ComponentTree,
+  JsonValueDisplay,
   PreviewWrapper,
   PropSetter,
   Toolbox,
@@ -55,6 +59,7 @@ export const Rocks = {
   SingleControlPropSetter,
 
   // prop setters
+  JsonPropSetter,
   NumberPropSetter,
   NumberWithSliderPropSetter,
   NumberWithUnitsPropSetter,
@@ -64,6 +69,7 @@ export const Rocks = {
 
   // setter inputs
   ExpressionSetterInput,
+  JsonSetterInput,
   NumberSetterInput,
   SelectSetterInput,
   SliderSetterInput,

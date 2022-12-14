@@ -26,4 +26,7 @@ regMetaOfRocks(Input);
 import Modal from "./rock-meta/Modal";
 regMetaOfRocks(Modal);
 
+import Rate from "./rock-meta/Rate";
+regMetaOfRocks(Rate);
+
 export default metaOfRocks;

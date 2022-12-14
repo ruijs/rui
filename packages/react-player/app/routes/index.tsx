@@ -27,7 +27,7 @@ const initialPageConfig: PageConfig = {
     {
       $type: "htmlElement",
       htmlTag: "ul",
-      children: ['components', 'modal', 'new-form', 'edit-form', 'table'].map((item) => {
+      children: ['components', 'modal', 'new-form', 'edit-form', 'table', 'code-editor'].map((item) => {
         return {
           $type: "htmlElement",
           htmlTag: "li",

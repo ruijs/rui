@@ -20,6 +20,9 @@ export default function App() {
       <head>
         <Meta />
         <Links />
+        {/* <script src="/monaco/loader.js"></script> */}
+        {/* <script src="/monaco/editor/editor.main.nls.js"></script> */}
+        {/* <script src="/monaco/editor/editor.main.js"></script> */}
       </head>
       <body>
         <Outlet />

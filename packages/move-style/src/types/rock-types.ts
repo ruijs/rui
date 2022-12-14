@@ -1,4 +1,5 @@
-import { HttpRequest } from "./request-types";
+import { HttpRequest, HttpRequestInput } from "./request-types";
+import { IStore, StoreConfig, StoreConfigBase } from "./store-types";
 
 export type FieldSettings = {
   valueType: FieldValueType;
@@ -176,6 +177,7 @@ export type SingleControlRockPropSetter = {
   propName: string;
   defaultValue?: any;
   control: RockConfig;
+  extra?: RockConfig;
 } & RockConfigBase;
 
 export type MultiControlsRockPropSetter = {
@@ -184,6 +186,7 @@ export type MultiControlsRockPropSetter = {
   labelTip?: string;
   expressionPropName?: string;
   controls?: RockPropSetterControl[];
+  extra?: RockConfig;
 } & RockConfigBase;
 
 export type RockPropSetterControl = {
@@ -221,7 +224,7 @@ export type RuiEvent =
   | RockEvent;
 
 export type RockEvent = {
-  page: any;
+  page: IPage;
   name: string;
   senderCategory: "component";
   senderId: string;
@@ -312,4 +315,156 @@ export type RouteConfig = {
   path: string;
   element: RockConfig;
   errorElement?: RockConfig;
+}
+
+//////////////
+// Page config
+//////////////
+
+export type PageConfig = PageWithoutLayoutConfig | PageWithLayoutConfig;
+
+export type PageWithoutLayoutConfig = {
+  $id?: string;
+  stores?: StoreConfig[];
+  view: RockConfig[];
+}
+
+export type PageWithLayoutConfig = {
+  $id?: string;
+  stores?: StoreConfig[];
+  layout: string;
+  view: RockConfig[];
+}
+
+export type PageCommand =
+  | PageCommandSetPageConfig
+  | PageCommandAddComponent
+  | PageCommandRemoveComponents
+  | PageCommandSetComponentProperty
+  | PageCommandSetComponentPropertyExpression
+  | PageCommandRemoveComponentPropertyExpression
+  | PageCommandSetSelectedComponents
+  | PageCommandCutComponents
+  | PageCommandCopyComponents
+  | PageCommandPasteComponents
+  | PageCommandMoveComponents;
+
+
+export type PageCommandSetPageConfig = {
+  name: "setPageConfig";
+  payload: {
+    pageConfig: PageConfig;
+  };
+}
+
+export type PageCommandAddComponent = {
+  name: "addComponent";
+  payload: {
+    componentType: string;
+    defaultProps?: any;
+    parentComponentId?: string;
+    slotName?: string;
+    prevSiblingComponentId?: string;
+  };
+}
+
+export type PageCommandRemoveComponents = {
+  name: "removeComponents";
+  payload: {
+    componentIds: string[];
+  };
+}
+
+export type PageCommandSetComponentProperty = {
+  name: "setComponentProperty";
+  payload: {
+    componentId: string;
+    propName: string;
+    propValue: any;
+  };
+}
+
+export type PageCommandSetComponentPropertyExpression = {
+  name: "setComponentPropertyExpression";
+  payload: {
+    componentId: string;
+    propName: string;
+    propExpression: string;
+  };
+}
+
+export type PageCommandRemoveComponentPropertyExpression = {
+  name: "removeComponentPropertyExpression";
+  payload: {
+    componentId: string;
+    propName: string;
+  };
+}
+
+export type PageCommandSetSelectedComponents = {
+  name: "setSelectedComponents";
+  payload: {
+    componentIds: string[];
+  };
+}
+
+export type PageCommandCutComponents = {
+  name: "cutComponents";
+  payload: {
+    componentIds: string[];
+  };
+}
+
+export type PageCommandCopyComponents = {
+  name: "copyComponents";
+  payload: {
+    componentIds: string[];
+  };
+}
+
+export type PageCommandPasteComponents = {
+  name: "pasteComponents";
+  payload: {
+    parentComponentId?: string;
+    slotName?: string;
+    prevSiblingComponentId?: string;
+  };
+}
+
+export type PageCommandMoveComponents = {
+  name: "moveComponents";
+  payload: {
+    componentIds: string[];
+    parentComponentId?: string;
+    slotName?: string;
+    prevSiblingComponentId?: string;
+  };
+}
+
+export interface IPage {
+  generateComponentId(type: string);
+
+  setConfig(pageConfig: PageConfig);
+
+  getConfig(): PageConfig;
+
+  addComponents(components: RockConfig[], parentComponentId?: string, slotName?: string, prevSiblingComponentId?: string);
+
+  removeComponents(componentIds: string[]);
+
+  setComponentProperty(componentId: string, propName: string, propValue: RockPropValue);
+
+  getComponentProperty(componentId: string, propName: string);
+
+  setComponentPropertyExpression(componentId: string, propName: string, propExpression: string);
+
+  removeComponentPropertyExpression(componentId: string, propName: string);
+
+  getComponent(componentId: string): RockConfig;
+
+  getStore<TStore = IStore<StoreConfigBase>>(storeName: string): TStore;
+
+  loadStoreData(storeName: string, input: HttpRequestInput): Promise<any>;
+
+  notifyEvent(event: RuiEvent);
 }

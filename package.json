@@ -6,6 +6,7 @@
     "dev:move-style": "pnpm --filter=move-style run dev",
     "dev:react-renderer": "pnpm --filter=react-renderer run dev",
     "dev:react-rocks": "pnpm --filter=react-rocks run dev",
+    "dev:react-rapid-rocks": "pnpm --filter=react-rapid-rocks run dev",
     "dev:react-designer": "pnpm --filter=react-designer run dev",
     "dev:react-player": "pnpm --filter=react-player run dev",
     "dev:antd-rocks": "pnpm --filter=antd-rocks run dev",
