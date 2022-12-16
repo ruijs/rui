@@ -114,7 +114,7 @@ export default {
       });
     }
 
-    console.log("rendering PropSetter", rockConfig)
+    console.debug(`[RUI][ReactDesigner][PropSetter]rendering PropSetter`, rockConfig)
 
     return renderRock(framework, page, rockConfig);
   },

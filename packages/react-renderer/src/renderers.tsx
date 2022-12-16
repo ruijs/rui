@@ -4,7 +4,8 @@ import { Framework, Page, RockConfig, MoveStyleUtils } from "@ruijs/move-style";
 import _ from "lodash";
 import React from "react";
 
-export function renderRock(framework: Framework, page: Page, config: RockConfig) {
+// TODO: support `$parent`?
+export function renderRock(framework: Framework, page: Page, config: RockConfig, expVars?: Record<string, any>, fixedProps?: any) {
   const componentType = config.$type;
   const component = framework.getComponent(componentType);
   if (!component) {
@@ -17,6 +18,11 @@ export function renderRock(framework: Framework, page: Page, config: RockConfig)
     Renderer.displayName = component.$type;
   }
 
+  page.interpreteComponentProperties(null, config, expVars);
+  if (fixedProps) {
+    Object.assign(config, fixedProps);
+  }
+
   const props = config;
 
   if (!config.$id) {
@@ -24,7 +30,7 @@ export function renderRock(framework: Framework, page: Page, config: RockConfig)
     config.$id = page.generateComponentId(config.$type);
   }
 
-  console.debug("renderRock", JSON.stringify({$type: config.$type, $id: config.$id}));
+  console.debug(`[RUI][react-renderer] renderRock ${JSON.stringify({$type: config.$type, $id: config.$id})}`);
 
   return React.createElement(
     Renderer,
@@ -35,20 +41,50 @@ export function renderRock(framework: Framework, page: Page, config: RockConfig)
   );
 }
 
-export function renderRockChildren(framework: Framework, page: Page, children: RockConfig["children"]) {
+export function renderRockChildren(framework: Framework, page: Page, children: RockConfig["children"], expVars?: Record<string, any>, fixedProps?: any) {
   if (children == null) {
     return null;
   }
 
   if (Array.isArray(children)) {
     const rocks = children as RockConfig[];
-    return rocks.map((rock) => renderRock(framework, page, rock));
+    return rocks.map((rock) => renderRock(framework, page, rock, expVars, fixedProps));
   } else {
     const rock = children as RockConfig;
-    return renderRock(framework, page, rock);
+    return renderRock(framework, page, rock, expVars, fixedProps);
   }
 }
 
+export function toRenderRockSlot(framework: Framework, page: Page, slot: RockConfig["children"], rockType: string, slotName: string) {
+  if (!slot) {
+    return null;
+  }
+
+  const rockMeta = framework.getComponent(rockType);
+  const slotMeta = rockMeta.slots && rockMeta.slots[slotName];
+  if (!slotMeta) {
+    throw new Error(`Can not render slot content. Slot '${slotName}' of rock '${rockType}' was not found.`);
+  }
+
+  return (...args) => {
+    const slotProps = {};
+    const {argumentsToProps, argumentNames} = slotMeta;
+    if (argumentsToProps && argumentNames) {
+      for (let argIdx = 0; argIdx < argumentNames.length; argIdx++) {
+        slotProps[argumentNames[argIdx]] = args[argIdx];
+      }
+    }
+
+    console.log("rendering RockSlot...");
+    console.log(slotProps);
+
+    return renderRockChildren(framework, page, slot, {
+      $slot: slotProps,
+    }, {
+      $slot: slotProps,
+    });
+  }
+}
 
 export function convertToEventHandlers(page: Page, props: RockConfig) {
   const eventHandlers = {};

@@ -13,10 +13,14 @@ export class Page implements IPage {
   #interpreter: ExpressionInterpreter;
   #configProcessor: ConfigProcessor;
 
-  constructor(framework: Framework) {
+  constructor(framework: Framework, pageConfig?: PageConfig) {
     this.#framework = framework;
     this.#interpreter = new ExpressionInterpreter();
     this.#configProcessor = new ConfigProcessor(framework, this, this.#interpreter);
+
+    if (pageConfig) {
+      this.setConfig(pageConfig);
+    }
 
     globalThis.$page = this;
   }
@@ -26,12 +30,12 @@ export class Page implements IPage {
     return this.#readyToRender;
   }
 
-  
   generateComponentId(type: string) {
     return this.#configProcessor.generateComponentId(type);
   }
 
   setConfig(pageConfig: PageConfig) {
+    console.debug(`[RUI][Page][${pageConfig.$id}] Page.setConfig()`)
     console.debug("Page.setConfig", pageConfig);
     if (!pageConfig.$id) {
       // TODO: should generate an unique id.
@@ -56,9 +60,9 @@ export class Page implements IPage {
 
     this.#interpreter.setStores(this.#stores);
     this.#configProcessor.loadConfig(pageConfig);
+    console.debug(`[RUI][Page][${pageConfig.$id}] pageConfig loaded.`)
 
-    this.loadData();
-
+    // this.loadData();
     // Ready to render, even the data of stores may still not loaded.
     this.#readyToRender = true;
   }
@@ -68,6 +72,7 @@ export class Page implements IPage {
   }
 
   async loadData() {
+    console.debug(`[RUI][Page][${this.getConfig().$id}] Page.loadData()`)
     for (const storeName in this.#stores) {
       const store = this.#stores[storeName];
       store.loadData();
@@ -76,6 +81,10 @@ export class Page implements IPage {
 
   observe(callback: (config: PageConfig) => void) {
     this.#configProcessor.observe(callback);
+  }
+
+  unsubscribe() {
+    // TODO: implement this.
   }
 
   interpreteExpression(expressionString: string, rootVars: Record<string, any>) {
@@ -116,6 +125,10 @@ export class Page implements IPage {
 
   removeComponentPropertyExpression(componentId: string, propName: string) {
     this.#configProcessor.removeComponentPropertyExpression(componentId, propName);
+  }
+
+  interpreteComponentProperties(parentConfig: RockConfig, config: RockConfig, vars: Record<string, any>) {
+    this.#configProcessor.interpreteConfigExpressions(parentConfig, config, vars);
   }
 
   getComponent(componentId: string) {

@@ -1,4 +1,4 @@
-import { Framework, PageConfig } from "@ruijs/move-style";
+import { Framework, Page, PageConfig } from "@ruijs/move-style";
 import { Rui } from "@ruijs/react-renderer";
 import { HtmlElement, Box, Label, Text } from "@ruijs/react-rocks";
 import { AntdRocks } from "@ruijs/antd-rocks";
@@ -147,7 +147,8 @@ const initialPageConfig: PageConfig = {
 }
 
 export default function ComponentsPage() {
-  const [page] = useState(initialPageConfig);
+  const [pageConfig] = useState(initialPageConfig);
+  const [page] = useState(() => new Page(framework, pageConfig));
 
   return <Rui framework={framework} page={page} />
 }

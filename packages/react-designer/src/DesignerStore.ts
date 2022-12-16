@@ -26,14 +26,20 @@ export default class DesignerStore implements IStore<DesignerStoreConfig> {
   }
 
   setConfig(storeConfig: DesignerStoreConfig) {
+    console.debug(`[RUI][DesignerStore][${storeConfig.name}] DesignerStore.setConfig()`)
     this.#name = storeConfig.name;
     if (storeConfig.pageConfig) {
-      this.#page.setConfig(storeConfig.pageConfig);
+      this.setPageConfig(storeConfig.pageConfig);
     }
   }
 
-  async loadData(input?: any): Promise<any> {
+  setPageConfig(value: PageConfig) {
+    this.#page.setConfig(value);
     this.#emitter.emit("dataChange", null);
+  }
+
+  async loadData(input?: any): Promise<any> {
+    return this.#page.loadData();
   }
 
   observe(callback: (data: any) => void) {
@@ -42,10 +48,6 @@ export default class DesignerStore implements IStore<DesignerStoreConfig> {
 
   get pageConfig(): PageConfig {
     return this.#page?.getConfig();
-  }
-
-  set pageConfig(value: PageConfig) {
-    this.#page.setConfig(value);
   }
 
   get page(): Page {
@@ -95,6 +97,11 @@ export default class DesignerStore implements IStore<DesignerStoreConfig> {
         $type: componentType,
         ...defaultProps,
       };
+
+      // TODO: implement this: Generate id before add to page, so that we can support collaboration design.
+      // if (!componentConfig.$id) {
+      //   throw new Error("Component id MUST be set before added to page.");
+      // }
       this.#page.addComponents([componentConfig], parentComponentId, slotName, prevSiblingComponentId);
 
     } else if (command.name === "removeComponents") {
@@ -124,7 +131,7 @@ export default class DesignerStore implements IStore<DesignerStoreConfig> {
 
       const { payload } = command;
       const { parentComponentId, slotName, prevSiblingComponentId } = payload;
-      
+
       this.#page.addComponents(this.#snippets, parentComponentId, slotName, prevSiblingComponentId);
     }
   }

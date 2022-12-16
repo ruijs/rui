@@ -1,7 +1,7 @@
-import { Framework, PageConfig, MoveStyleUtils, Rock, RockEvent } from "@ruijs/move-style";
+import { Framework, PageConfig, MoveStyleUtils, Rock, RockEvent, Page } from "@ruijs/move-style";
 import { Rui } from "@ruijs/react-renderer";
 import { HtmlElement, Box, Label, Text, Show, CodeEditor } from "@ruijs/react-rocks";
-import { Rocks as DesignerRocks, DesignerStore, DesignerUtility } from "@ruijs/react-designer";
+import { DesignerRocks, DesignerStore, DesignerUtility } from "@ruijs/react-designer";
 import { AntdRocks } from "@ruijs/antd-rocks";
 import { useState } from "react";
 import { Modal } from "antd";
@@ -79,7 +79,8 @@ const initialPageConfig: PageConfig = {
 }
 
 export default function EditForm() {
-  const [page] = useState(initialPageConfig);
+  const [pageConfig] = useState(initialPageConfig);
+  const [page] = useState(() => new Page(framework, pageConfig));
 
   return <>
     <Rui framework={framework} page={page} />

@@ -38,6 +38,8 @@ export type RockMetaSlots = Record<string, RockMetaSlot>;
 export type RockMetaSlot = {
   required: boolean;
   allowMultiComponents: boolean;
+  argumentsToProps?: boolean;
+  argumentNames?: string[];
 }
 
 export type RockMetaEvents = Record<string, RockMetaEvent>;
@@ -459,6 +461,8 @@ export interface IPage {
   setComponentPropertyExpression(componentId: string, propName: string, propExpression: string);
 
   removeComponentPropertyExpression(componentId: string, propName: string);
+
+  interpreteComponentProperties(parentConfig: RockConfig, config: RockConfig, vars: Record<string, any>);
 
   getComponent(componentId: string): RockConfig;
 

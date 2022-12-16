@@ -34,6 +34,7 @@ export class ConfigProcessor {
   }
 
   loadConfig(config: PageConfig) {
+    console.debug(`[RUI][ConfigProcessor][${config.$id}] ConfigProcessor.loadConfig().`)
     this.#componentMapById = new Map();
     this.#parentIdMapById = new Map();
 
@@ -63,6 +64,7 @@ export class ConfigProcessor {
       config.$id = this.generateComponentId(config.$type);
     }
 
+    // Interprete expressions.
     const propExpressions = config.$exps;
     if (propExpressions) {
       for(const propName in propExpressions) {
@@ -74,9 +76,22 @@ export class ConfigProcessor {
         });
       }
     }
-  
+
     this.#componentMapById.set(config.$id, config);
     this.#parentIdMapById.set(config.$id, parentConfig?.$id);
+  }
+
+  interpreteConfigExpressions(parentConfig: RockConfig, config: RockConfig, vars: Record<string, any>) {
+    const propExpressions = config.$exps;
+    if (propExpressions) {
+      for(const propName in propExpressions) {
+        config[propName] = this.#interpreter.interprete(propExpressions[propName], Object.assign({
+          $framework: this.#framework,
+          $page: this.#page,
+          $self: config,
+        }, vars));
+      }
+    }
   }
 
   travelRockConfig(callback: TravelProcessor, parentConfig: RockConfig, config: RockConfig) {

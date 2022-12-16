@@ -3,13 +3,36 @@ import { RockMeta } from "@ruijs/move-style";
 export default {
   $type: "rapidTable",
 
+  props: {
+    rowKey: {
+      valueType: "string",
+      defaultValue: "id",
+    },
+  },
+
   slots: {
+    columns: {
+      allowMultiComponents: true,
+      required: true,
+    }
   },
 
   propertyPanels: [
     {
       $type: "componentPropPanel",
       setters: [
+        {
+          $type: "jsonPropSetter",
+          label: "dataSource",
+          propName: "dataSource",
+        },
+
+        {
+          $type: "textPropSetter",
+          label: "rowKey",
+          propName: "rowKey",
+        },
+
         {
           $type: "selectPropSetter",
           label: "size",
@@ -18,6 +41,10 @@ export default {
             {
               label: "default",
               value: "default",
+            },
+            {
+              label: "large",
+              value: "large",
             },
             {
               label: "middle",

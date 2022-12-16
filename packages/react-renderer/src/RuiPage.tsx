@@ -1,36 +1,38 @@
-import { Framework, Page, PageConfig, PageWithLayoutConfig, PageWithoutLayoutConfig, RockConfig } from "@ruijs/move-style";
+import { Framework, IPage, Page, PageConfig, PageWithLayoutConfig, PageWithoutLayoutConfig, RockConfig } from "@ruijs/move-style";
 import { useEffect, useState } from "react";
 import { renderRockChildren } from "./renderers";
 import { useRuiFramework } from "./RuiFrameworkContext";
 import { RuiPageContext } from "./RuiPageContext";
 
 export interface RuiPageProps {
-  page: PageConfig;
+  page: Page;
 }
 
 const RuiPage = (props: RuiPageProps) => {
+  const { page } = props;
   const framework = useRuiFramework();
-  const [page] = useState<Page>(() => new Page(framework));
-  
-  const [pageConfig, setPageConfig] = useState<PageConfig>(props.page);
+  const [pageConfig, setPageConfig] = useState<PageConfig>();
+
   useEffect(() => {
-    page.setConfig(props.page);
-    page.observe((config) => {
-      setPageConfig(() => config);
+    page.observe((pageConfig) => {
+      setPageConfig(pageConfig);
     });
-  }, []);
+    setPageConfig(page.getConfig());
+    page.loadData();
+  }, [page]);
 
-  useEffect(() => {
-    page.setConfig(props.page);
-  }, [props.page]);
-
-  if (!page.readyToRender) {
+  if (!pageConfig) {
+    console.debug(`[RUI][RuiPage][<pageConfig===null>] rendering RuiPage`)
     return null;
   }
 
-  if (pageConfig == null) {
+  console.debug(`[RUI][RuiPage][${pageConfig.$id}] rendering RuiPage`)
+  if (!page.readyToRender) {
+    console.warn(`[RUI][RuiPage][${pageConfig.$id}] NOT READY TO RENDER`)
     return null;
-  } else if ((pageConfig as PageWithLayoutConfig).layout) {
+  }
+
+  if ((pageConfig as PageWithLayoutConfig).layout) {
     const configWithLayout = pageConfig as PageWithLayoutConfig;
     return <RuiPageContext.Provider value={page}>
       { renderPageWithLayout(framework, page, configWithLayout) }

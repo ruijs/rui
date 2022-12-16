@@ -9,6 +9,7 @@ export class HttpRequestStore implements IStore<HttpRequestStoreConfig> {
   #request?: HttpRequest;
   #data?: any;
   #emitter: EventEmitter;
+  #isLoading: boolean;
 
   constructor() {
     this.#emitter = new EventEmitter();
@@ -29,6 +30,12 @@ export class HttpRequestStore implements IStore<HttpRequestStoreConfig> {
   }
 
   async loadData(input: HttpRequestInput) {
+    console.debug(`[RUI][HttpRequestStore][${this.name}] HttpRequestStore.loadData()`)
+    if (this.#isLoading) {
+      // return;
+    }
+
+    this.#isLoading = true;
     const requestOptions = input ? Object.assign({}, this.#request, input) : this.#request;
     const response = await request(requestOptions);
     // TODO: should deal with response.statusCode
@@ -36,6 +43,7 @@ export class HttpRequestStore implements IStore<HttpRequestStoreConfig> {
     const data = response.data;
 
     this.#data = data;
+    this.#isLoading = false;
     this.#emitter.emit("dataChange", data);
 
     return data;

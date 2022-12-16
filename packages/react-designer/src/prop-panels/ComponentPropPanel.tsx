@@ -15,6 +15,7 @@ export default {
     const framework = useRuiFramework();
     const page = useRuiPage();
     const { componentConfig, setters } = props;
+    console.debug(`[RUI][Designer] rendering componentPropPanel.`)
 
     const rocks: RockConfig[] = useMemo(() => {
       return setters.map((setter) => {

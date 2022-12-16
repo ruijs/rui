@@ -5,7 +5,7 @@
   "main": "dist/mod.js",
   "scripts": {
     "build": "rimraf dist && rollup --config",
-    "dev": "rimraf dist && rollup --config",
+    "dev": "rollup --config",
     "test": "echo \"Error: no test specified\""
   },
   "keywords": [],

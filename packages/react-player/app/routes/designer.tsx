@@ -1,9 +1,9 @@
 import { Framework, Page, PageConfig, RockEvent, Rock } from "@ruijs/move-style";
 import { Rui } from "@ruijs/react-renderer";
 import { Rui as RuiRock, ErrorBoundary, Show, HtmlElement, Box, Label, Text, CodeEditor } from "@ruijs/react-rocks";
-import { Rocks as DesignerRocks, DesignerStore, DesignerUtility } from "@ruijs/react-designer";
+import { DesignerRocks, DesignerStore, DesignerUtility } from "@ruijs/react-designer";
 import { AntdIconRock, AntdRocks } from "@ruijs/antd-rocks";
-import { RapidTable } from "@ruijs/react-rapid-rocks";
+import { RapidTable, RapidTableColumn } from "@ruijs/react-rapid-rocks";
 import { useState } from "react";
 
 import antdStyles from "antd/dist/antd.css";
@@ -29,6 +29,7 @@ framework.registerComponent(Text);
 framework.registerComponent(CodeEditor);
 
 framework.registerComponent(RapidTable);
+framework.registerComponent(RapidTableColumn);
 
 for(const name in AntdRocks) {
   framework.registerComponent(AntdRocks[name]);
@@ -52,13 +53,48 @@ const canvasPageConfig: PageConfig = {
         textTop2: "400px",
         brandColor: "#c038ff",
       }
-    }
+    },
+    {
+      type: "httpRequest",
+      name: "users",
+      request: {
+        method: "GET",
+        url: "/api/users",
+      }
+    },
   ],
   "view": [
     {
       $type: "box",
       padding: "10px",
       children: [
+        {
+          $type: "show",
+          $exps: {
+            when: "!!$stores.users.data",
+          },
+          fallback: {
+            $type: "antdSpin",
+          },
+          children: [
+            {
+              $id: "mainTable",
+              $type: "rapidTable",
+              $exps: {
+                dataSource: "$stores.users.data",
+              },
+              rowKey: "account",
+              columns: [
+                {
+                  $type: "rapidTableColumn",
+                  title: "Account",
+                  dataIndex: "account",
+                },
+              ]
+            },
+          ]
+        },
+
         {
           "$type": "antdAlert",
           closable: true,
@@ -237,7 +273,7 @@ const initialPageConfig: PageConfig = {
                         {
                           $action: "script",
                           script: (event: RockEvent) => {
-                            const designerPage: Page = event.page;
+                            const designerPage = event.page;
                             const designerStore = designerPage.getStore<DesignerStore>("designerStore");
                             if (designerStore.selectedSlotName) {
                               return;
@@ -263,7 +299,7 @@ const initialPageConfig: PageConfig = {
                         {
                           $action: "script",
                           script: (event: RockEvent) => {
-                            const designerPage: Page = event.page;
+                            const designerPage = event.page;
                             const designerStore = designerPage.getStore<DesignerStore>("designerStore");
                             if (designerStore.selectedSlotName) {
                               return;
@@ -289,7 +325,7 @@ const initialPageConfig: PageConfig = {
                         {
                           $action: "script",
                           script: (event: RockEvent) => {
-                            const designerPage: Page = event.page;
+                            const designerPage = event.page;
                             const designerStore = designerPage.getStore<DesignerStore>("designerStore");
                             DesignerUtility.sendDesignerCommand(designerPage, designerStore, {
                               name: "pasteComponents",
@@ -312,7 +348,7 @@ const initialPageConfig: PageConfig = {
                         {
                           $action: "script",
                           script: (event: RockEvent) => {
-                            const designerPage: Page = event.page;
+                            const designerPage = event.page;
                             const designerStore = designerPage.getStore<DesignerStore>("designerStore");
                             if (designerStore.selectedSlotName) {
                               return;
@@ -399,11 +435,9 @@ const initialPageConfig: PageConfig = {
 }
 
 export default function Index() {
-  const [page] = useState(initialPageConfig);
-
-  // if (typeof window !== "undefined") {
-  //   (window as any).monaco = monaco;
-  // }
+  const [pageConfig] = useState(initialPageConfig);
+  const [page] = useState(() => new Page(framework, pageConfig));
+  console.debug(`[RUI][DesignerPage][${pageConfig.$id}] rendering DesignerPage`)
 
   return <Rui framework={framework} page={page} />
 }

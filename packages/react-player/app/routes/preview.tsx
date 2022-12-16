@@ -1,9 +1,9 @@
 import { Framework, Page, PageConfig, RockEvent, Rock, MoveStyleUtils } from "@ruijs/move-style";
 import { Rui } from "@ruijs/react-renderer";
 import { Rui as RuiRock, ErrorBoundary, Show, HtmlElement, Box, Label, Text, CodeEditor } from "@ruijs/react-rocks";
-import { Rocks as DesignerRocks, DesignerStore } from "@ruijs/react-designer";
+import { DesignerRocks, DesignerStore } from "@ruijs/react-designer";
 import { AntdIconRock, AntdRocks } from "@ruijs/antd-rocks";
-import { RapidTable } from "@ruijs/react-rapid-rocks";
+import { RapidTable, RapidTableColumn } from "@ruijs/react-rapid-rocks";
 import { useCallback, useEffect, useState } from "react";
 
 import styles from "antd/dist/antd.css";
@@ -26,6 +26,7 @@ framework.registerComponent(Text);
 framework.registerComponent(CodeEditor);
 
 framework.registerComponent(RapidTable);
+framework.registerComponent(RapidTableColumn);
 
 for(const name in AntdRocks) {
   framework.registerComponent(AntdRocks[name]);
@@ -49,13 +50,48 @@ const canvasPageConfig: PageConfig = {
         textTop2: "400px",
         brandColor: "#c038ff",
       }
-    }
+    },
+    {
+      type: "httpRequest",
+      name: "users",
+      request: {
+        method: "GET",
+        url: "/api/users",
+      }
+    },
   ],
   "view": [
     {
       $type: "box",
       padding: "10px",
       children: [
+        {
+          $type: "show",
+          $exps: {
+            when: "!!$stores.users.data",
+          },
+          fallback: {
+            $type: "antdSpin",
+          },
+          children: [
+            {
+              $id: "mainTable",
+              $type: "rapidTable",
+              $exps: {
+                dataSource: "$stores.users.data",
+              },
+              rowKey: "account",
+              columns: [
+                {
+                  $type: "rapidTableColumn",
+                  title: "Account",
+                  dataIndex: "account",
+                },
+              ]
+            },
+          ]
+        },
+        
         {
           "$type": "antdAlert",
           closable: true,
@@ -185,7 +221,7 @@ const canvasPageConfig: PageConfig = {
 
 
 const initialPageConfig: PageConfig = {
-  $id: "designerPage",
+  $id: "previewPage",
   stores: [
     {
       type: "designerStore",
@@ -202,10 +238,9 @@ const initialPageConfig: PageConfig = {
           {
             $id: "canvas",
             $type: "rui",
-            page: canvasPageConfig,
             $exps: {
               framework: "$framework",
-              page: "$stores.designerStore.pageConfig",
+              page: "$stores.designerStore.page",
             }
           }
         ]
@@ -215,7 +250,9 @@ const initialPageConfig: PageConfig = {
 }
 
 export default function Index() {
-  const [page] = useState(initialPageConfig);
+  const [pageConfig] = useState(initialPageConfig);
+  const [page] = useState(() => new Page(framework, pageConfig));
+  console.debug(`[RUI][PreviewPage][${pageConfig.$id}] rendering PreviewPage`)
 
   return <Rui framework={framework} page={page} />
 }

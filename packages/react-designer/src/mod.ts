@@ -38,7 +38,7 @@ import SliderSetterInput from "./setter-input-controls/SliderSetterInput";
 import SwitchSetterInput from "./setter-input-controls/SwitchSetterInput";
 import TextSetterInput from "./setter-input-controls/TextSetterInput";
 
-export const Rocks = {
+export const DesignerRocks = {
   ComponentPropertiesPanel,
   ComponentTree,
   JsonValueDisplay,
