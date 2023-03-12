@@ -38,12 +38,19 @@ export default class DesignerStore implements IStore<DesignerStoreConfig> {
     this.#emitter.emit("dataChange", null);
   }
 
+  setPropertyExpression(propName: string, propExpression: string) {
+  }
+
   async loadData(input?: any): Promise<any> {
     return this.#page.loadData();
   }
 
   observe(callback: (data: any) => void) {
     this.#emitter.on("dataChange", callback);
+  }
+
+  get data() {
+    return this.pageConfig;
   }
 
   get pageConfig(): PageConfig {

@@ -21,7 +21,7 @@ export default {
     },
   },
 
-  renderer: (props: RuiProps) => {
+  Renderer: (context, props: RuiProps) => {
     const {framework, page} = props;
     // TODO: check if we need this guard really.
     if (!page || !page.readyToRender) {

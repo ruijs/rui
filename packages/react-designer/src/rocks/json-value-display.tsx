@@ -1,12 +1,10 @@
 import { Rock, RockConfig } from "@ruijs/move-style";
-import { renderRock, useRuiFramework, useRuiPage } from "@ruijs/react-renderer";
+import { renderRock, useRuiFramework, useRuiPage, useRuiScope } from "@ruijs/react-renderer";
 
 export default {
   $type: "jsonValueDisplay",
 
-  renderer(props) {
-    const framework = useRuiFramework();
-    const page = useRuiPage();
+  Renderer(context, props) {
     const { $id, value } = props;
 
     const rockConfig: RockConfig = {
@@ -27,6 +25,6 @@ export default {
       ],
     }
 
-    return renderRock(framework, page, rockConfig);
+    return renderRock({context, rockConfig});
   },
 } as Rock;

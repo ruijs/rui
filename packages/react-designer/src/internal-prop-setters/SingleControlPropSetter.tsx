@@ -1,5 +1,5 @@
 import { RockConfig, RockEvent, RockEventHandlerScript, Rock, SingleControlRockPropSetter } from "@ruijs/move-style";
-import { renderRock, useRuiFramework, useRuiPage } from "@ruijs/react-renderer";
+import { renderRock, useRuiFramework, useRuiPage, useRuiScope } from "@ruijs/react-renderer";
 import _ from "lodash";
 import { useMemo } from "react";
 import DesignerStore from "../DesignerStore";
@@ -15,10 +15,8 @@ export interface SingleControlPropSetterProps extends SingleControlRockPropSette
 export default {
   $type: "singleControlPropSetter",
 
-  renderer(props: SingleControlPropSetterProps) {
-    const framework = useRuiFramework();
-    const page = useRuiPage();
-
+  Renderer(context, props: SingleControlPropSetterProps) {
+    const { page } = context;
     const { propName, defaultValue, control, extra, componentConfig } = props;
 
     const controlRock: RockConfig = useMemo(() => {
@@ -56,7 +54,7 @@ export default {
       extra.value = getComponentPropValue(componentConfig, propName, defaultValue);
     }
 
-    const setterRock: PropSetterProps = {
+    const rockConfig: PropSetterProps = {
       $type: "propSetter",
       $id: props.$id,
       label: props.label,
@@ -67,6 +65,6 @@ export default {
       extra,
     };
 
-    return renderRock(framework, page, setterRock);
+    return renderRock({context, rockConfig});
   },
 } as Rock;

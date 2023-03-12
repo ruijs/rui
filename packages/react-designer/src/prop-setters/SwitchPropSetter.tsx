@@ -1,5 +1,5 @@
 import { SwitchRockPropSetter, RockConfig, Rock, MoveStyleUtils } from "@ruijs/move-style";
-import { renderRock, useRuiFramework, useRuiPage } from "@ruijs/react-renderer";
+import { renderRock, useRuiFramework, useRuiPage, useRuiScope } from "@ruijs/react-renderer";
 import { ExpressionPropSetterProps } from "../internal-prop-setters/ExpressionPropSetter";
 import { SingleControlPropSetterProps } from "../internal-prop-setters/SingleControlPropSetter";
 
@@ -13,10 +13,7 @@ export interface SwitchPropSetterProps extends SwitchRockPropSetter {
 export default {
   $type: "switchPropSetter",
 
-  renderer(props: SwitchPropSetterProps) {
-    const framework = useRuiFramework();
-    const page = useRuiPage();
-
+  Renderer(context, props: SwitchPropSetterProps) {
     const { $id, label, labelTip, componentConfig, propName, defaultValue, checkedValue, uncheckedValue } = props;
     const isPropDynamic = MoveStyleUtils.isComponentPropertyDynamic(componentConfig, propName);
 
@@ -38,6 +35,6 @@ export default {
       };
     }
 
-    return renderRock(framework, page, rockConfig);
+    return renderRock({context, rockConfig});
   },
 } as Rock;

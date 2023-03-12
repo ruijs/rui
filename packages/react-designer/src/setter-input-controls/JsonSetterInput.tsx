@@ -1,6 +1,6 @@
-import { handleComponentEvent, RockConfig, RockConfigBase, RockEvent, RockEventHandler, RockEventHandlerScript, Rock, MoveStyleUtils } from "@ruijs/move-style";
-import { renderRockChildren, useRuiFramework, useRuiPage } from "@ruijs/react-renderer";
-import { useCallback, useRef, useState } from "react";
+import { RockConfig, RockConfigBase, RockEvent, RockEventHandler, RockEventHandlerScript, Rock, MoveStyleUtils } from "@ruijs/move-style";
+import { convertToEventHandlers, renderRockChildren, useRuiFramework, useRuiPage, useRuiScope } from "@ruijs/react-renderer";
+import { useRef, useState } from "react";
 
 export interface JsonSetterInputProps extends RockConfigBase {
   value?: string;
@@ -10,9 +10,7 @@ export interface JsonSetterInputProps extends RockConfigBase {
 export default {
   $type: "jsonSetterInput",
 
-  renderer(props: JsonSetterInputProps) {
-    const framework = useRuiFramework();
-    const page = useRuiPage();
+  Renderer(context, props: JsonSetterInputProps) {
     const { $id, value, onChange } = props;
 
     const cmdsEditor = useRef<{
@@ -28,11 +26,12 @@ export default {
     };
 
     const onModalOk: RockEventHandlerScript["script"] = (event: RockEvent) => {
+      const eventHandlers: any = convertToEventHandlers({context, rockConfig: props});
       const jsonContent = cmdsEditor.current.getCodeContent();
       try {
         var value = JSON.parse(jsonContent);
         setCodeEditorVisible(false);
-        handleComponentEvent("onChange", page, $id, onChange, value);
+        eventHandlers.onChange?.(value);
       } catch(ex) {
         console.error("Invalid JSON string.");
       }
@@ -42,7 +41,7 @@ export default {
       setCodeEditorVisible(false);
     };
 
-    const rockConfig: RockConfig[] = [
+    const rockChildrenConfig: RockConfig[] = [
       {
         $id: `${props.$id}-internal`,
         $type: "htmlElement",
@@ -64,13 +63,15 @@ export default {
         $type: "antdModal",
         title: "Edit code",
         open: codeEditorVisible,
+        width: "800px",
+        height: "500px",
         children: [
           {
             $id: `${props.$id}-editor`,
             $type: "codeEditor",
             cmds: cmdsEditor,
             width: "100%",
-            height: "300px",
+            height: "500px",
             language: "json",
           }
         ],
@@ -85,6 +86,6 @@ export default {
       }
     ];
 
-    return renderRockChildren(framework, page, rockConfig);
+    return renderRockChildren({context, rockChildrenConfig});
   },
 } as Rock;

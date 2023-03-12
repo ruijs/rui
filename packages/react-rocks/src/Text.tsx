@@ -28,7 +28,7 @@ export default {
     }
   ],
 
-  renderer: (props: TextProps) => {
+  Renderer: (context, props: TextProps) => {
     return props.text;
   }
 } as Rock;

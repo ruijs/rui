@@ -1,5 +1,5 @@
 import { ContainerRockConfig, RockConfig, Rock } from "@ruijs/move-style";
-import { renderRockChildren, useRuiFramework, useRuiPage } from "@ruijs/react-renderer";
+import { renderRockChildren, useRuiFramework, useRuiPage, useRuiScope } from "@ruijs/react-renderer";
 
 export interface ShowProps extends ContainerRockConfig {
   when: boolean;
@@ -29,10 +29,7 @@ export default {
     }
   },
 
-  renderer(props: ShowProps) {
-    const framework = useRuiFramework();
-    const page = useRuiPage();
-
+  Renderer(context, props: ShowProps) {
     let children;
     if (props.when) {
       children = props.children;
@@ -40,7 +37,15 @@ export default {
       children = props.fallback;
     }
 
-    return renderRockChildren(framework, page, children);
+    return renderRockChildren({context, 
+      rockChildrenConfig: children,
+      expVars: {
+        $slot: props.$slot,
+      },
+      fixedProps: {
+        $slot: props.$slot,
+      }
+    });
   },
 
 } as Rock;

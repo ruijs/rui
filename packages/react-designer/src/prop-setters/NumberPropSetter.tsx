@@ -1,5 +1,5 @@
 import { NumberRockPropSetter, RockConfig, Rock, MoveStyleUtils } from "@ruijs/move-style";
-import { renderRock, useRuiFramework, useRuiPage } from "@ruijs/react-renderer";
+import { renderRock, useRuiFramework, useRuiPage, useRuiScope } from "@ruijs/react-renderer";
 import { ExpressionPropSetterProps } from "../internal-prop-setters/ExpressionPropSetter";
 import { SingleControlPropSetterProps } from "../internal-prop-setters/SingleControlPropSetter";
 
@@ -11,10 +11,7 @@ export interface NumberPropSetterProps extends NumberRockPropSetter {
 export default {
   $type: "numberPropSetter",
 
-  renderer(props: NumberPropSetterProps) {
-    const framework = useRuiFramework();
-    const page = useRuiPage();
-
+  Renderer(context, props: NumberPropSetterProps) {
     const { $id, label, labelTip, componentConfig, propName, defaultValue, min, max, step } = props;
     const isPropDynamic = MoveStyleUtils.isComponentPropertyDynamic(componentConfig, propName);
 
@@ -37,6 +34,6 @@ export default {
       };
     }
 
-    return renderRock(framework, page, rockConfig);
+    return renderRock({context, rockConfig});
   },
 } as Rock;

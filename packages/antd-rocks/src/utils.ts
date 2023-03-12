@@ -4,6 +4,10 @@ export function isUpperLetter(charCode: number) {
 }
 
 export function isComponentName(componentName: string) {
+  if (componentName === "ConfigProvider") {
+    return false;
+  }
+
   if (!isUpperLetter(componentName.charCodeAt(0))) {
     return false;
   }

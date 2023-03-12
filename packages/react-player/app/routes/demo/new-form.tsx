@@ -48,7 +48,7 @@ const initialPageConfig: PageConfig = {
               method: "POST",
               url: "/api/users",
               $exps: {
-                body: "$event.args[0]",
+                data: "$event.args[0]",
               }
             },
             {

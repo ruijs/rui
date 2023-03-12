@@ -1,6 +1,6 @@
 import { MoveStyleUtils } from "@ruijs/move-style";
 import { PageCommandAddComponent, Rock, RockConfig, RockEvent, RockEventHandlerScript } from "@ruijs/move-style";
-import { renderRock, useRuiFramework, useRuiPage } from "@ruijs/react-renderer";
+import { renderRock, useRuiFramework, useRuiPage, useRuiScope } from "@ruijs/react-renderer";
 import { useCallback, useMemo, useState } from "react";
 import DesignerStore from "../DesignerStore";
 import { sendDesignerCommand } from "../DesignerUtility";
@@ -8,9 +8,8 @@ import { sendDesignerCommand } from "../DesignerUtility";
 export default {
   $type: "designerToolbox",
 
-  renderer(props) {
-    const framework = useRuiFramework();
-    const page = useRuiPage();
+  Renderer(context, props) {
+    const { framework, page} = context;
     const [searchText, setSearchText] = useState("");
     const { $id } = props;
 
@@ -93,6 +92,6 @@ export default {
       ]
     }
 
-    return renderRock(framework, page, rockConfig);
+    return renderRock({context, rockConfig});
   },
 } as Rock;

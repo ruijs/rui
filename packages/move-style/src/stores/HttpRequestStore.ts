@@ -1,21 +1,31 @@
-import _ from "lodash";
 import { HttpRequestStoreConfig, IStore } from "../types/store-types";
 import { request } from "../utils/HttpRequest";
 import { EventEmitter } from "../EventEmitter";
-import { HttpRequest, HttpRequestInput } from "../types/request-types";
+import { HttpRequestOptions, HttpRequestInput } from "../types/request-types";
+import { Framework } from "../Framework";
+import { Page } from "../Page";
+import { Scope } from "../Scope";
+import { cloneDeep, set } from "lodash";
 
 export class HttpRequestStore implements IStore<HttpRequestStoreConfig> {
+  #framework: Framework;
+  #page: Page;
+  #scope: Scope;
   #name: string;
-  #request?: HttpRequest;
-  #data?: any;
   #emitter: EventEmitter;
+  #data?: any;
+  #config: HttpRequestStoreConfig;
+  #request?: HttpRequestOptions;
   #isLoading: boolean;
 
-  constructor() {
+  constructor(framework: Framework, page: Page, scope: Scope) {
     this.#emitter = new EventEmitter();
+    this.#framework = framework;
+    this.#page = page;
+    this.#scope = scope;
   }
   
-  get data(): string {
+  get data() {
     return this.#data;
   }
 
@@ -24,9 +34,17 @@ export class HttpRequestStore implements IStore<HttpRequestStoreConfig> {
   }
 
   setConfig(storeConfig: HttpRequestStoreConfig) {
+    this.#config = storeConfig;
     this.#name = storeConfig.name;
     this.#request = storeConfig.request;
     this.#data = storeConfig.data;
+  }
+
+  setPropertyExpression(propName: string, propExpression: string) {
+    if (!this.#config.$exps) {
+      this.#config.$exps = {};
+    }
+    this.#config.$exps[propName] = propExpression;
   }
 
   async loadData(input: HttpRequestInput) {
@@ -36,7 +54,25 @@ export class HttpRequestStore implements IStore<HttpRequestStoreConfig> {
     }
 
     this.#isLoading = true;
-    const requestOptions = input ? Object.assign({}, this.#request, input) : this.#request;
+
+    const expressions = this.#config.$exps;
+    const config = {
+      request: cloneDeep(this.#config.request),
+    };
+    if (expressions) {
+      for(const propName in expressions) {
+        if (propName.startsWith("$")) {
+          console.error(`System field can not bind to an expression. ${propName}=${expressions[propName]}`);
+          continue;
+        }
+        const interpretedValue = this.#page.interpreteExpression(expressions[propName], {
+          $scope: this.#scope,
+        });
+        set(config, propName, interpretedValue);
+      }
+    }
+
+    const requestOptions = input ? Object.assign({}, config.request, input) : config.request;
     const response = await request(requestOptions);
     // TODO: should deal with response.statusCode
     // TODO: need something like ResponseDataTransformer.

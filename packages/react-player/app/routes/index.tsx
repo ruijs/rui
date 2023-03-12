@@ -1,72 +1,55 @@
-import { Framework, Page, PageConfig } from "@ruijs/move-style";
-import { Rui } from "@ruijs/react-renderer";
-import { HtmlElement, Box, Label, Text } from "@ruijs/react-rocks";
-import { AntdRocks } from "@ruijs/antd-rocks";
-import { useState } from "react";
+import type { LoaderFunction } from "@remix-run/node";
+import { Outlet, useLoaderData } from "@remix-run/react";
+import { Layout } from "antd";
 
-import styles from "antd/dist/antd.css";
+import antdStyles from "antd/dist/antd.css";
+import { Content } from "antd/lib/layout/layout";
+import Sider from "antd/lib/layout/Sider";
+import AppLeftNav from "~/components/AppLeftNav";
+import rapidService from "~/rapidService";
+
+import styles from "~/styles/index.css";
+
 
 export function links() {
-  return [{ rel: "stylesheet", href: styles }];
+  return [
+    { rel: "stylesheet", href: antdStyles },
+    { rel: "stylesheet", href: styles }
+  ];
 }
 
-const framework = new Framework();
-
-framework.registerComponent(HtmlElement);
-framework.registerComponent(Box);
-framework.registerComponent(Label);
-framework.registerComponent(Text);
-
-for(const name in AntdRocks) {
-  framework.registerComponent(AntdRocks[name]);
-}
-
-
-const initialPageConfig: PageConfig = {
-  view: [
-    {
-      $type: "htmlElement",
-      htmlTag: "ul",
-      children: ['components', 'modal', 'new-form', 'edit-form', 'table', 'code-editor'].map((item) => {
-        return {
-          $type: "htmlElement",
-          htmlTag: "li",
-          children: {
-            $type: "htmlElement",
-            htmlTag: "a",
-            attributes: {
-              href: "/demo/" + item,
-            },
-            children: {
-              $type: "text",
-              text: "/demo/" + item,
-            }
-          },
-        }
-      }).concat([
-        {
-          $type: "htmlElement",
-          htmlTag: "li",
-          children: {
-            $type: "htmlElement",
-            htmlTag: "a",
-            attributes: {
-              href: "/designer",
-            },
-            children: {
-              $type: "text",
-              text: "/designer",
-            }
-          },
-        }
-      ])
-    },
-  ],
+export const loader: LoaderFunction = async () => {
+  const findAppNavItemOption = {
+    properties: [ 'id', 'code', 'name', 'icon', 'pageCode', 'parent' ],
+    orderBy: [
+      {
+        field: 'id',
+      }
+    ]
+  };
+  const navItems = (await rapidService.post("app/app_nav_items/operations/find", findAppNavItemOption)).data.list;
+  return {
+    navItems,
+  }
 }
 
 export default function Index() {
-  const [pageConfig] = useState(initialPageConfig);
-  const [page] = useState(() => new Page(framework, pageConfig));
+  const viewModel = useLoaderData();
+  console.log("viewModel", viewModel);
 
-  return <Rui framework={framework} page={page} />
+  return (
+    <>
+      <Layout style={{ minHeight: '100vh' }} hasSider>
+        <Sider className="rui-player-left-sider">
+          <h1 className="branch-title">Benzene: App Studio</h1>
+          <AppLeftNav navItems={viewModel.navItems} />
+        </Sider>
+        <Layout>
+          <Content>
+            <Outlet />
+          </Content>
+        </Layout>
+      </Layout>
+    </>
+  );
 }

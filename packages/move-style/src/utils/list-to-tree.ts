@@ -1,15 +1,23 @@
+import { cloneDeep, get } from "lodash";
+
 export interface ListToTreeOptions {
   listIdField?: string;
   listParentField?: string;
   treeChildrenField?: string;
 }
 
-export default function listToTree(list: any[], options: ListToTreeOptions) {
+export default function listToTree<TListItem = any, TTreeNode = TListItem>(list: TListItem[], options: ListToTreeOptions): TTreeNode[] {
+  if (!list) {
+    return [];
+  }
+
   const { listIdField = "id", listParentField = "parentId", treeChildrenField = "children" } = options;
   const mapOfTreeNode = new Map();
 
+  list = cloneDeep(list);
   for (const item of list) {
-    const itemId = item[listIdField];
+    item["key"] = item[listIdField];
+    const itemId = get(item, listIdField);
     let node = mapOfTreeNode.get(itemId);
     if (node) {
       console.warn(`Duplicated list item with id '${itemId}'.`)
@@ -20,7 +28,7 @@ export default function listToTree(list: any[], options: ListToTreeOptions) {
   }
 
   for (const item of list) {
-    const itemParentId = item[listParentField];
+    const itemParentId = get(item, listParentField);
     if (!itemParentId) {
       continue;
     }
@@ -39,7 +47,7 @@ export default function listToTree(list: any[], options: ListToTreeOptions) {
 
   const tree = [];
   for (const item of list) {
-    if (!item[listParentField]) {
+    if (!get(item, listParentField)) {
       tree.push(item);
     }
   }

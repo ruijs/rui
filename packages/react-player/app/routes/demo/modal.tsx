@@ -46,7 +46,7 @@ const initialPageConfig: PageConfig = {
             {
               $type: "antdFormItem",
               name: "id",
-              hidden: true,
+              _hidden: true,
             },
             {
               $type: "antdFormItem",

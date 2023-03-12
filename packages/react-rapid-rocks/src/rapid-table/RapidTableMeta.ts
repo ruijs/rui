@@ -14,7 +14,14 @@ export default {
     columns: {
       allowMultiComponents: true,
       required: true,
-    }
+    },
+
+    rowSelection: {
+      allowMultiComponents: false,
+      required: false,
+      withAdapter: true,
+      adapterSlots: ["columnTitle"],
+    },
   },
 
   propertyPanels: [

@@ -1,5 +1,5 @@
 import { Framework, Page, PageConfig, PageWithoutLayoutConfig, RockConfig, RockConfigBase, RockEvent, RockEventHandlerScript, Rock } from "@ruijs/move-style";
-import { renderRock, useRuiFramework, useRuiPage } from "@ruijs/react-renderer";
+import { renderRock, useRuiFramework, useRuiPage, useRuiScope } from "@ruijs/react-renderer";
 import { useCallback, useMemo } from "react";
 import DesignerStore from "../DesignerStore";
 
@@ -30,10 +30,8 @@ export interface SlotNode {
 export default {
   $type: "designerComponentTree",
 
-  renderer(props: ComponentTreeProps) {
-    const framework = useRuiFramework();
-    const page = useRuiPage();
-
+  Renderer(context, props: ComponentTreeProps) {
+    const { framework, page } = context;
     const designingPage: Page = props.designingPage;
     const designingPageConfig = designingPage.getConfig();
 
@@ -84,7 +82,7 @@ export default {
       } as RockEventHandlerScript,
     };
 
-    return renderRock(framework, page, rockConfig);
+    return renderRock({context, rockConfig});
   },
 } as Rock;
 

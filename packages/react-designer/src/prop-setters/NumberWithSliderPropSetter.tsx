@@ -1,5 +1,5 @@
 import { NumberWithSliderRockPropSetter, RockConfig, Rock, MoveStyleUtils } from "@ruijs/move-style";
-import { renderRock, useRuiFramework, useRuiPage } from "@ruijs/react-renderer";
+import { renderRock, useRuiFramework, useRuiPage, useRuiScope } from "@ruijs/react-renderer";
 import { ExpressionPropSetterProps } from "../internal-prop-setters/ExpressionPropSetter";
 import { MultiControlsPropSetterProps } from "../internal-prop-setters/MultiControlsPropSetter";
 
@@ -11,10 +11,7 @@ export interface NumberWithSliderPropSetterProps extends NumberWithSliderRockPro
 export default {
   $type: "numberWithSliderPropSetter",
 
-  renderer(props: NumberWithSliderPropSetterProps) {
-    const framework = useRuiFramework();
-    const page = useRuiPage();
-
+  Renderer(context, props: NumberWithSliderPropSetterProps) {
     const { $id, label, labelTip, componentConfig, propName, defaultValue, min, max, step } = props;
     const isPropDynamic = MoveStyleUtils.isComponentPropertyDynamic(componentConfig, propName);
 
@@ -57,6 +54,6 @@ export default {
       ];
     }
 
-    return renderRock(framework, page, rockConfig);
+    return renderRock({context, rockConfig});
   },
 } as Rock;

@@ -77,10 +77,7 @@ export default {
     }
   ],
 
-  renderer(props: CodeEditorProps) {
-    const framework = useRuiFramework();
-    const page = useRuiPage();
-
+  Renderer(context, props: CodeEditorProps) {
     const refContainer = useRef();
 
     const { cmds } = props;

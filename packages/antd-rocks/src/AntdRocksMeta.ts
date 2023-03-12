@@ -14,6 +14,9 @@ function regMetaOfRocks(meta: RockMeta) {
 import Alert from "./rock-meta/Alert";
 regMetaOfRocks(Alert);
 
+import Badge from "./rock-meta/Badge";
+regMetaOfRocks(Badge);
+
 import Button from "./rock-meta/Button";
 regMetaOfRocks(Button);
 
@@ -28,5 +31,14 @@ regMetaOfRocks(Modal);
 
 import Rate from "./rock-meta/Rate";
 regMetaOfRocks(Rate);
+
+import Switch from "./rock-meta/Switch";
+regMetaOfRocks(Switch);
+
+import Tabs from "./rock-meta/Tabs";
+regMetaOfRocks(Tabs);
+
+import TabPane from "./rock-meta/TabPane";
+regMetaOfRocks(TabPane);
 
 export default metaOfRocks;

@@ -1,8 +1,7 @@
 import Antd from "antd";
 import { Rock } from "@ruijs/move-style";
-import _ from "lodash";
 import { isComponentName } from "./utils";
-import { convertAntdComponentToRock } from "./component-convert";
+import { convertAntdComponentToRock } from "./antd-component-convert";
 
 const rocks: Record<string, Rock> = {};
 

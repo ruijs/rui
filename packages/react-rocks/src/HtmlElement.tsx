@@ -1,5 +1,5 @@
 import { Rock, ContainerRockConfig, CommonProps } from "@ruijs/move-style";
-import { convertToEventHandlers } from "@ruijs/react-renderer";
+import { convertToEventHandlers, useRuiScope } from "@ruijs/react-renderer";
 import { useRuiFramework, useRuiPage, renderRockChildren } from "@ruijs/react-renderer"
 import _ from "lodash";
 import React from "react";
@@ -20,11 +20,8 @@ const boxStylePropNames = [
 export default {
   $type: "htmlElement",
 
-  renderer: (props: HtmlElementProps) => {
-    const framework = useRuiFramework();
-    const page = useRuiPage();
-
-    const eventHandlers = convertToEventHandlers(page, props);
+  Renderer: (context, props: HtmlElementProps) => {
+    const eventHandlers = convertToEventHandlers({context, rockConfig: props});
 
     const style: React.CSSProperties = props.style;
     return React.createElement(
@@ -35,7 +32,15 @@ export default {
         ...eventHandlers,
         ...props.attributes,
       },
-      props.children ? renderRockChildren(framework, page, props.children) : null
+      props.children ? renderRockChildren({context,
+        rockChildrenConfig: props.children,
+        expVars: {
+          $slot: props.$slot,
+        },
+        fixedProps: {
+          $slot: props.$slot,
+        }
+      }) : null
     );
   }
 } as Rock;

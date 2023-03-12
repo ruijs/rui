@@ -3,6 +3,7 @@
   "private": true,
   "scripts": {
     "dev": "lerna run --parallel dev",
+    "dev:benzene": "pnpm --filter=benzene-app-studio run dev",
     "dev:move-style": "pnpm --filter=move-style run dev",
     "dev:react-renderer": "pnpm --filter=react-renderer run dev",
     "dev:react-rocks": "pnpm --filter=react-rocks run dev",
@@ -10,6 +11,7 @@
     "dev:react-designer": "pnpm --filter=react-designer run dev",
     "dev:react-player": "pnpm --filter=react-player run dev",
     "dev:antd-rocks": "pnpm --filter=antd-rocks run dev",
+    "libs": "pnpm dev:move-style && pnpm dev:react-renderer && pnpm dev:react-rocks && pnpm dev:antd-rocks && pnpm dev:react-designer && pnpm dev:react-rapid-rocks",
     "test": "lerna run test"
   },
   "devDependencies": {

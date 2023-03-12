@@ -1,0 +1,42 @@
+import { Framework, IStore, Page, Scope, ScopeState, StoreConfig } from "@ruijs/move-style";
+import { useCallback, useEffect, useState } from "react";
+import { renderRockChildren } from "./renderers";
+import { useRuiFramework } from "./RuiFrameworkContext";
+import { useRuiPage } from "./RuiPageContext";
+import { ScopeContext } from "./RuiScopeContext";
+
+
+export interface ScopeProps {
+  $id?: string;
+  framework: Framework;
+  page: Page;
+  stores?: StoreConfig[];
+  initialVars: Record<string, any>;
+  children: any;
+}
+
+function ScopeComponent(props: ScopeProps) {
+  const { $id, framework, page, stores, initialVars } = props;
+  console.log(`[RUI][ReactRenderer][Scope] rendering Scope '${$id}'`);
+
+  const scope = page.getScope($id);
+  const [scopeState, setScopeState] = useState<ScopeState>();
+
+  useEffect(() => {
+    console.log(`[RUI][ReactRenderer][Scope] Mounting scope '${$id}'.`);
+    scope.observe((state: ScopeState) => {
+      console.log(`[RUI][ReactRenderer][Scope] Scope ${props.$id} changed, current version: ${state.version}`)
+      setScopeState(state);
+    });
+    scope.loadData();
+  }, [page, scope]);
+
+  const context = {framework, page, scope};
+  return <ScopeContext.Provider value={scope}>
+    {
+      renderRockChildren({context, rockChildrenConfig: props.children})
+    }
+  </ScopeContext.Provider>
+}
+
+export default ScopeComponent;

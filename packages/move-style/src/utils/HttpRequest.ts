@@ -3,7 +3,7 @@ import qs from "qs"
 import { HttpRequestOptions } from "../types/request-types";
 
 
-export async function request(options: HttpRequestOptions) {
+export async function request<TBodyData=Record<string, any>, TQuery=Record<string, any>>(options: HttpRequestOptions<TBodyData, TQuery>) {
   let url = options.url;
   if (options.query) {
     const queryString = qs(options.query);
@@ -20,6 +20,6 @@ export async function request(options: HttpRequestOptions) {
     method: options.method,
     url,
     headers: options.headers,
-    data: options.body,
+    data: options.data,
   });
 }

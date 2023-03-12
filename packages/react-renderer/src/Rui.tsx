@@ -12,15 +12,18 @@ function Rui(props: RuiProps) {
   const { framework, page } = props;
 
   if (!page) {
-    console.debug(`[RUI][RuiRenderer][<page===null>] rendering Rui`)
+    console.debug(`[RUI][ReactRenderer][Rui] Rendering skip, page is null.`)
     return null;
   }
 
-  console.debug(`[RUI][RuiRenderer][${page.getConfig().$id}] rendering Rui`)
+  useEffect(() => {
+    console.log(`[RUI][ReactRenderer][Rui] Page instance changed.`);
+  }, [page]);
 
-  return <RuiFrameworkContext.Provider value={framework}>
-    <RuiPage page={page} />
-  </RuiFrameworkContext.Provider>
+  const pageId = page.getConfig().$id;
+  console.debug(`[RUI][ReactRenderer][Rui] Rendering page '${pageId}'`)
+
+  return <RuiPage key={pageId} framework={framework} page={page} />
 }
 
 export default Rui;

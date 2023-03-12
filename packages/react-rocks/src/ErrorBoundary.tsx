@@ -1,5 +1,5 @@
 import { ContainerRockConfig, RockConfig, Rock } from "@ruijs/move-style";
-import { renderRockChildren, useRuiFramework, useRuiPage } from "@ruijs/react-renderer";
+import { renderRockChildren, useRuiFramework, useRuiPage, useRuiScope } from "@ruijs/react-renderer";
 import React from "react";
 
 export interface ErrorBoundaryRockProps extends ContainerRockConfig {
@@ -77,16 +77,13 @@ export default {
     }
   },
 
-  renderer(props: ErrorBoundaryRockProps) {
-    const framework = useRuiFramework();
-    const page = useRuiPage();
-
+  Renderer(context, props: ErrorBoundaryRockProps) {
     return <ErrorBoundary
-      fallback={renderRockChildren(framework, page, props.fallback)}
+      fallback={renderRockChildren({context, rockChildrenConfig: props.fallback})}
       childrenConfig={props.children}
     >
       {
-        renderRockChildren(framework, page, props.children)
+        renderRockChildren({context, rockChildrenConfig: props.children})
       }
     </ErrorBoundary>
   },

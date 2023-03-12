@@ -25,4 +25,7 @@ export class ConstantStore implements IStore<ConstantStoreConfig> {
     this.#name = storeConfig.name;
     this.#data = storeConfig.data;
   }
+
+  setPropertyExpression(propName: string, propExpression: string) {
+  }
 }

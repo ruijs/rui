@@ -1,5 +1,5 @@
 import { RockConfig, RockConfigBase, Rock, RockPropSetter, unitOptions, lineStyleOptions } from "@ruijs/move-style";
-import { renderRockChildren, useRuiFramework, useRuiPage } from "@ruijs/react-renderer";
+import { renderRockChildren, useRuiFramework, useRuiPage, useRuiScope } from "@ruijs/react-renderer";
 import { useMemo } from "react";
 
 const setters: RockPropSetter[] = [
@@ -73,12 +73,10 @@ export interface AppearancePropPanelProps extends RockConfigBase {
 export default {
   $type: "appearancePropPanel",
 
-  renderer(props: AppearancePropPanelProps) {
-    const framework = useRuiFramework();
-    const page = useRuiPage();
+  Renderer(context, props: AppearancePropPanelProps) {
     const { componentConfig } = props;
 
-    const rocks: RockConfig[] = useMemo(() => {
+    const rockChildrenConfig: RockConfig[] = useMemo(() => {
       return setters.map((setter) => {
         return Object.assign({}, setter, {
           $id: `${props.$id}-${setter.label}`,
@@ -90,7 +88,7 @@ export default {
     return <div>
       <h3>Appearance</h3>
       {
-        renderRockChildren(framework, page, rocks)
+        renderRockChildren({context, rockChildrenConfig})
       }
     </div>
 

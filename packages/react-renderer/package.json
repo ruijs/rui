@@ -9,7 +9,7 @@
     "test": "echo \"Error: no test specified\""
   },
   "keywords": [],
-  "author": "",
+  "author": "Fossil",
   "license": "MIT",
   "devDependencies": {
     "@types/lodash": "^4.14.186",

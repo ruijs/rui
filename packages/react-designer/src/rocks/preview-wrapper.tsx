@@ -1,15 +1,13 @@
 import { ContainerRockConfig, PageCommand, PageCommandAddComponent, Rock, RockConfig, RockEvent, RockEventHandlerScript } from "@ruijs/move-style";
-import { renderRockChildren, useRuiFramework, useRuiPage } from "@ruijs/react-renderer";
+import { renderRockChildren, useRuiFramework, useRuiPage, useRuiScope } from "@ruijs/react-renderer";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import DesignerStore from "../DesignerStore";
 
 export default {
   $type: "designerPreviewWrapper",
 
-  renderer(props: ContainerRockConfig) {
-    const framework = useRuiFramework();
-    const page = useRuiPage();
-
+  Renderer(context, props: ContainerRockConfig) {
+    const { page } = context;
     const processWindowMessage = useCallback((event: MessageEvent) => {
       if (event.origin !== window.origin) {
         return;
@@ -28,6 +26,6 @@ export default {
       }
     }, []);
 
-    return renderRockChildren(framework, page, props.children);
+    return renderRockChildren({context, rockChildrenConfig: props.children});
   },
 } as Rock;

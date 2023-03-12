@@ -1,5 +1,5 @@
 import { SelectRockPropSetter, RockConfig, Rock, MoveStyleUtils } from "@ruijs/move-style";
-import { renderRock, useRuiFramework, useRuiPage } from "@ruijs/react-renderer";
+import { renderRock, useRuiFramework, useRuiPage, useRuiScope } from "@ruijs/react-renderer";
 import { ExpressionPropSetterProps } from "../internal-prop-setters/ExpressionPropSetter";
 import { SingleControlPropSetterProps } from "../internal-prop-setters/SingleControlPropSetter";
 
@@ -16,10 +16,7 @@ export interface SelectPropSetterProps extends SelectRockPropSetter {
 export default {
   $type: "selectPropSetter",
 
-  renderer(props: SelectPropSetterProps) {
-    const framework = useRuiFramework();
-    const page = useRuiPage();
-
+  Renderer(context, props: SelectPropSetterProps) {
     const { $id, label, labelTip, componentConfig, propName, defaultValue, options, showSearch } = props;
     const isPropDynamic = MoveStyleUtils.isComponentPropertyDynamic(componentConfig, propName);
 
@@ -41,6 +38,6 @@ export default {
       };
     }
 
-    return renderRock(framework, page, rockConfig);
+    return renderRock({context, rockConfig});
   },
 } as Rock;

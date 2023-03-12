@@ -1,5 +1,5 @@
 import { ContainerRockConfig, MultiControlsRockPropSetter, RockConfig, RockEvent, RockEventHandlerScript, Rock } from "@ruijs/move-style";
-import { renderRock, useRuiFramework, useRuiPage } from "@ruijs/react-renderer";
+import { renderRock, useRuiFramework, useRuiPage, useRuiScope } from "@ruijs/react-renderer";
 import _ from "lodash";
 import { useMemo } from "react";
 import DesignerStore from "../DesignerStore";
@@ -14,10 +14,8 @@ export interface MultiControlsPropSetterProps extends MultiControlsRockPropSette
 export default {
   $type: "multiControlsPropSetter",
 
-  renderer(props: MultiControlsPropSetterProps) {
-    const framework = useRuiFramework();
-    const page = useRuiPage();
-
+  Renderer(context, props: MultiControlsPropSetterProps) {
+    const { page } = context;
     const { $id, controls, componentConfig, expressionPropName } = props;
 
     const controlRocks: RockConfig[] = useMemo(() => {
@@ -80,7 +78,7 @@ export default {
       return rowRocks;
     }, [controls, componentConfig]);
 
-    const setterRock: PropSetterProps = {
+    const rockConfig: PropSetterProps = {
       $type: "propSetter",
       $id: props.$id,
       label: props.label,
@@ -90,7 +88,7 @@ export default {
       children: controlRocks,
     };
 
-    return renderRock(framework, page, setterRock);
+    return renderRock({context, rockConfig});
   },
 } as Rock;
 

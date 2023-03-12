@@ -1,9 +1,7 @@
 import * as antdIcons from "@ant-design/icons";
 import { RockMetaProps } from "@ruijs/move-style";
-import { RockConfig, Rock, unitOptions } from "@ruijs/move-style";
-import { renderRock, useRuiFramework, useRuiPage } from "@ruijs/react-renderer";
+import { Rock, unitOptions } from "@ruijs/move-style";
 import React from "react";
-import { convertAntdComponentToRock } from "./component-convert";
 import { isComponentName } from "./utils";
 
 const iconNames: string[] = [];
@@ -54,7 +52,7 @@ const antdIconRock = {
       setters: [
         {
           $type: "selectPropSetter",
-          label: "icon",
+          label: "name",
           propName: "name",
           options: iconNameOptions,
           showSearch: true,
@@ -97,11 +95,15 @@ const antdIconRock = {
     }
   ],
 
-  renderer(props: AntdIconProps) {
+  Renderer(context, props: AntdIconProps) {
     const { name, size, color, rotate, spin, style, twoToneColor } = props;
+    const iconComponent = antdIcons[name];
+    if (!iconComponent) {
+      return null;
+    }
 
     return React.createElement(
-      antdIcons[name],
+      iconComponent,
       {
         rotate,
         spin,

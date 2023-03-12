@@ -1,5 +1,5 @@
 import { Rock, RockEventHandler, ContainerRockConfig, CommonProps, handleComponentEvent } from "@ruijs/move-style";
-import { useRuiFramework, useRuiPage, renderRockChildren } from "@ruijs/react-renderer"
+import { useRuiFramework, useRuiPage, renderRockChildren, useRuiScope } from "@ruijs/react-renderer"
 import _ from "lodash";
 
 export interface BoxProps extends ContainerRockConfig {
@@ -30,13 +30,21 @@ export default {
     { $type: "textPropPanel" }
   ],
 
-  renderer: (props: BoxProps) => {
-    const framework = useRuiFramework();
-    const page = useRuiPage();
-
+  Renderer: (context, props: BoxProps) => {
+    const { framework, page, scope } = context;
     const style: React.CSSProperties = _.pick(props, boxStylePropNames) as any;
-    return <div data-component-id={props.id} style={style} onClick={(e) => handleComponentEvent("onClick", page, props.$id, props.onClick, e)}>
-      { renderRockChildren(framework, page, props.children) }
+    return <div data-component-id={props.id} className={props.className} style={style} onClick={(e) => handleComponentEvent("onClick", framework, page, scope, props, props.onClick, e)}>
+      {
+        renderRockChildren({context,
+          rockChildrenConfig: props.children,
+          expVars: {
+            $slot: props.$slot,
+          },
+          fixedProps: {
+            $slot: props.$slot,
+          }
+        }) 
+      }
     </div>
   }
 } as Rock;

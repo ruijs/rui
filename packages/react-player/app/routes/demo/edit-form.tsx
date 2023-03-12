@@ -67,7 +67,7 @@ const initialPageConfig: PageConfig = {
                 method: "POST",
                 $exps: {
                   url: '"/api/users/" + $event.args[0].id',
-                  body: "$event.args[0]",
+                  data: "$event.args[0]",
                 }
               },
               {
@@ -82,7 +82,7 @@ const initialPageConfig: PageConfig = {
               {
                 $type: "antdFormItem",
                 name: "id",
-                hidden: true,
+                _hidden: true,
               },
               {
                 $type: "antdFormItem",

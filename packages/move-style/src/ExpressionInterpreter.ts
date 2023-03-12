@@ -12,7 +12,12 @@ export class ExpressionInterpreter {
   }
 
   interprete(expressionString: string, rootVars: Record<string, any>) {
-    rootVars["$stores"] = this.#stores;
+    rootVars.$stores = this.#stores;
+    if (globalThis.window) {
+      console.debug(`[RUI][ExpressionInterpreter] interprete(${expressionString})`, rootVars);
+    } else {
+      console.debug(`[RUI][ExpressionInterpreter] interprete(${expressionString})`);
+    }
 
     const varNames = [];
     const varValues = [];
@@ -25,9 +30,9 @@ export class ExpressionInterpreter {
     try {
       const expression = genExpression(varNames, expressionString);
       result = expression(...varValues);
+      console.debug(`[RUI][ExpressionInterpreter] result:`, result);
     } catch (err) {
-      console.warn(`Expression interprete error:`);
-      console.warn(err);
+      console.error(`Expression interprete error:`, err.message);
     }
     return result;
   }

@@ -1,22 +1,32 @@
-import _ from "lodash";
-import { ConfigProcessor } from "./ConfigProcessor";
+import _, { each } from "lodash";
+import { ComponentTreeManager } from "./ComponentTreeManager";
 import { ExpressionInterpreter } from "./ExpressionInterpreter";
-import { RockConfig, RockPropValue, RuiEvent, PageCommand, PageConfig, IPage } from "./types/rock-types";
+import { RockConfig, RockPropValue, RuiEvent, PageCommand, PageConfig, IPage, RockPageEventSubscriptionConfig, RockMessage } from "./types/rock-types";
 import { StoreConfig, IStore, StoreConfigBase } from "./types/store-types";
 import { HttpRequestInput } from "./types/request-types";
 import { Framework } from "./Framework";
+import { Scope } from "./Scope";
+import { EventEmitter } from "./EventEmitter";
+import { handleComponentEvent } from "./ComponentEventHandler";
 
 export class Page implements IPage {
   #framework: Framework;
   #readyToRender: boolean;
-  #stores: Record<string, IStore>;
   #interpreter: ExpressionInterpreter;
-  #configProcessor: ConfigProcessor;
+  #componentTreeManager: ComponentTreeManager;
+  #pageScope: Scope;
 
   constructor(framework: Framework, pageConfig?: PageConfig) {
+    if (!pageConfig) {
+      pageConfig = {
+        $id: "default",
+        view: [],
+      }
+    }
+    console.debug(`[RUI][Page][${pageConfig.$id}] Page.constructor()`);
     this.#framework = framework;
     this.#interpreter = new ExpressionInterpreter();
-    this.#configProcessor = new ConfigProcessor(framework, this, this.#interpreter);
+    this.#componentTreeManager = new ComponentTreeManager(framework, this, this.#interpreter);
 
     if (pageConfig) {
       this.setConfig(pageConfig);
@@ -31,36 +41,33 @@ export class Page implements IPage {
   }
 
   generateComponentId(type: string) {
-    return this.#configProcessor.generateComponentId(type);
+    return this.#componentTreeManager.generateComponentId(type);
   }
 
   setConfig(pageConfig: PageConfig) {
-    console.debug(`[RUI][Page][${pageConfig.$id}] Page.setConfig()`)
-    console.debug("Page.setConfig", pageConfig);
     if (!pageConfig.$id) {
       // TODO: should generate an unique id.
       pageConfig.$id = "default";
     }
+    console.debug(`[RUI][Page][${pageConfig.$id}] Page.setConfig()`, pageConfig)
 
     this.#framework.setPage(pageConfig.$id, this);
 
-    this.#stores = {};
-    if (pageConfig.stores) {
-      pageConfig.stores.forEach((storeConfig: StoreConfig) => {
-        let store = this.#stores[storeConfig.name];
-        if (!store) {
-          store = this.#framework.createStore(storeConfig);
-          store.observe(() => {
-            this.#configProcessor.reload();
-          });
-          this.#stores[storeConfig.name] = store;
-        }
-      });
-    }
+    this.#pageScope = new Scope(this.#framework, this, {
+      $id: `${pageConfig.$id}-scope`,
+      stores: pageConfig.stores,
+      initialVars: pageConfig.initialVars || {},
+    });
+    this.#pageScope.observe(() => {
+      this.#componentTreeManager.reload();
+    });
 
-    this.#interpreter.setStores(this.#stores);
-    this.#configProcessor.loadConfig(pageConfig);
-    console.debug(`[RUI][Page][${pageConfig.$id}] pageConfig loaded.`)
+    this.#interpreter.setStores(this.#pageScope.stores);
+    this.#componentTreeManager.loadConfig(pageConfig);
+    console.debug(`[RUI][Page][${pageConfig.$id}] pageConfig loaded.`);
+
+    console.debug(`[RUI][Page][${pageConfig.$id}] Page.initComponents().`);
+    this.#componentTreeManager.initComponents();
 
     // this.loadData();
     // Ready to render, even the data of stores may still not loaded.
@@ -68,19 +75,24 @@ export class Page implements IPage {
   }
 
   getConfig() {
-    return this.#configProcessor.getConfig();
+    return this.#componentTreeManager.getConfig();
   }
 
-  async loadData() {
+  get scope() {
+    return this.#pageScope;
+  }
+
+  addStore(storeConfig: StoreConfig) {
+    this.#pageScope.addStore(storeConfig);
+  }
+
+  loadData() {
     console.debug(`[RUI][Page][${this.getConfig().$id}] Page.loadData()`)
-    for (const storeName in this.#stores) {
-      const store = this.#stores[storeName];
-      store.loadData();
-    }
+    return this.#pageScope.loadData();
   }
 
   observe(callback: (config: PageConfig) => void) {
-    this.#configProcessor.observe(callback);
+    this.#componentTreeManager.observe(callback);
   }
 
   unsubscribe() {
@@ -88,15 +100,19 @@ export class Page implements IPage {
   }
 
   interpreteExpression(expressionString: string, rootVars: Record<string, any>) {
-    return this.#interpreter.interprete(expressionString, rootVars);
+    rootVars.$page = this;
+    rootVars.$functions = this.#framework.getFunctions();
+
+    const vars = Object.assign({}, this.#framework.getExpressionVars(), rootVars);
+    return this.#interpreter.interprete(expressionString, vars);
   }
 
   addComponents(components: RockConfig[], parentComponentId?: string, slotName?: string, prevSiblingComponentId?: string) {
-    this.#configProcessor.addComponents(components, parentComponentId, slotName, prevSiblingComponentId);
+    this.#componentTreeManager.addComponents(components, parentComponentId, slotName, prevSiblingComponentId);
   }
 
   removeComponents(componentIds: string[]) {
-    this.#configProcessor.removeComponents(componentIds);
+    this.#componentTreeManager.removeComponents(componentIds);
   }
 
   setComponentProperty(componentId: string, propName: string, propValue: RockPropValue) {
@@ -106,11 +122,11 @@ export class Page implements IPage {
       propName,
       propValue,
     });
-    this.#configProcessor.setComponentProperty(componentId, propName, propValue);
+    this.#componentTreeManager.setComponentProperty(componentId, propName, propValue);
   }
 
   getComponentProperty(componentId: string, propName: string) {
-    return this.#configProcessor.getComponentProperty(componentId, propName);
+    return this.#componentTreeManager.getComponentProperty(componentId, propName);
   }
 
   setComponentPropertyExpression(componentId: string, propName: string, propExpression: string) {
@@ -120,34 +136,49 @@ export class Page implements IPage {
       propName,
       propExpression,
     });
-    this.#configProcessor.setComponentPropertyExpression(componentId, propName, propExpression);
+    this.#componentTreeManager.setComponentPropertyExpression(componentId, propName, propExpression);
   }
 
   removeComponentPropertyExpression(componentId: string, propName: string) {
-    this.#configProcessor.removeComponentPropertyExpression(componentId, propName);
+    this.#componentTreeManager.removeComponentPropertyExpression(componentId, propName);
   }
 
   interpreteComponentProperties(parentConfig: RockConfig, config: RockConfig, vars: Record<string, any>) {
-    this.#configProcessor.interpreteConfigExpressions(parentConfig, config, vars);
+    this.#componentTreeManager.interpreteConfigExpressions(parentConfig, config, vars);
   }
 
   getComponent(componentId: string) {
-    return this.#configProcessor.getComponent(componentId);
+    return this.#componentTreeManager.getComponent(componentId);
+  }
+
+  attachComponent(scope: Scope, parentConfig: RockConfig, config: RockConfig) {
+    return this.#componentTreeManager.attachComponent(scope, parentConfig, config);
+  }
+
+  sendComponentMessage<TRockMessage extends RockMessage<any> = RockMessage<any>>(componentId: string, message: TRockMessage) {
+    this.#componentTreeManager.sendComponentMessage(componentId, message);
+  }
+
+  getScope(scopeId: string) {
+    return this.#componentTreeManager.getScope(scopeId);
   }
 
   getStore<TStore = IStore<StoreConfigBase>>(storeName: string): TStore {
-    return _.find(this.#stores, (item) => item.name === storeName) as TStore;
+    return this.#pageScope.getStore(storeName);
+  }
+
+  setStorePropertyExpression(storeName: string, propName: string, propExpression: string) {
+    const store = this.getStore(storeName);
+    if (store) {
+      store.setPropertyExpression(propName, propExpression);
+    }
   }
 
   loadStoreData(storeName: string, input: HttpRequestInput) {
-    const store = _.find(this.#stores, (item) => item.name === storeName);
-    if (!store) {
-      throw new Error(`Store '${storeName}' not found.`);
-    }
-
-    return store.loadData(input);
+    return this.#pageScope.loadStoreData(storeName, input);
   }
 
-  notifyEvent(event: RuiEvent) {
+  async notifyEvent(event: RuiEvent) {
+    this.scope.notifyEvent(event);
   }
 }

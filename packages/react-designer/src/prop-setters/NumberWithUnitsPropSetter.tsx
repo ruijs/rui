@@ -1,5 +1,5 @@
 import { NumberWithUnitsRockPropSetter, RockConfig, RockEvent, RockEventHandlerScript, Rock, MoveStyleUtils } from "@ruijs/move-style";
-import { renderRock, useRuiFramework, useRuiPage } from "@ruijs/react-renderer";
+import { renderRock, useRuiFramework, useRuiPage, useRuiScope } from "@ruijs/react-renderer";
 import { isNull, isString, isUndefined } from "lodash";
 import DesignerStore from "../DesignerStore";
 import { sendDesignerCommand } from "../DesignerUtility";
@@ -14,10 +14,8 @@ export interface NumberWithUnitsPropSetterProps extends NumberWithUnitsRockPropS
 export default {
   $type: "numberWithUnitsPropSetter",
 
-  renderer(props: NumberWithUnitsPropSetterProps) {
-    const framework = useRuiFramework();
-    const page = useRuiPage();
-
+  Renderer(context, props: NumberWithUnitsPropSetterProps) {
+    const { page } = context;
     const { $id, label, labelTip, componentConfig, propName, min, max, step, unitOptions } = props;
     const isPropDynamic = MoveStyleUtils.isComponentPropertyDynamic(componentConfig, propName);
     if (isPropDynamic) {
@@ -29,8 +27,8 @@ export default {
         propName,
         componentConfig,
       };
-  
-      return renderRock(framework, page, rockConfig);
+
+      return renderRock({context, rockConfig});
     }
 
     let propValue = componentConfig[propName];
@@ -126,6 +124,6 @@ export default {
       componentConfig,
     };
 
-    return renderRock(framework, page, rockConfig);
+    return renderRock({context, rockConfig});
   },
 } as Rock;

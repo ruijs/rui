@@ -9,7 +9,7 @@
     "test": "echo \"Error: no test specified\""
   },
   "keywords": [],
-  "author": "",
+  "author": "Fossil",
   "license": "MIT",
   "devDependencies": {
     "@ant-design/icons": "^4.7.0",
@@ -17,6 +17,7 @@
     "@types/react": "^18.0.15",
     "@types/react-dom": "^18.0.6",
     "antd": "^4.23.6",
+    "dayjs": "^1.11.7",
     "lodash": "^4.17.21",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -28,12 +29,14 @@
   "peerDependencies": {
     "@ant-design/icons": "^4.7.0",
     "antd": "^4.23.6",
+    "dayjs": "^1.11.7",
     "lodash": "^4.17.21",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
   "dependencies": {
     "@ruijs/move-style": "workspace:^0.0.1",
-    "@ruijs/react-renderer": "workspace:^0.0.1"
+    "@ruijs/react-renderer": "workspace:^0.0.1",
+    "react-json-view": "^1.21.3"
   }
 }

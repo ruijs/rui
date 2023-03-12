@@ -1,5 +1,5 @@
 import { Page, RockConfig, Rock } from "@ruijs/move-style";
-import { renderRockChildren, useRuiFramework, useRuiPage } from "@ruijs/react-renderer";
+import { renderRockChildren, useRuiFramework, useRuiPage, useRuiScope } from "@ruijs/react-renderer";
 import { useMemo } from "react";
 
 export interface DesignerComponentPropertiesPanelProps {
@@ -11,13 +11,12 @@ export interface DesignerComponentPropertiesPanelProps {
 export default {
   $type: "designerComponentPropertiesPanel",
 
-  renderer(props: DesignerComponentPropertiesPanelProps) {
-    const framework = useRuiFramework();
-    const page = useRuiPage();
+  Renderer(context, props: DesignerComponentPropertiesPanelProps) {
+    const { framework } = context;
     const { designingPage, selectedComponentId } = props;
     const selectedComponentConfig = designingPage && selectedComponentId && designingPage.getComponent(selectedComponentId);
 
-    const panelRocks = useMemo(() => {
+    const rockChildrenConfig = useMemo(() => {
       if (!selectedComponentConfig) {
         return [];
       }
@@ -60,12 +59,12 @@ export default {
     console.debug("Render designerComponentPropertiesPanel", {
       selectedComponentId,
       selectedComponentConfig: designingPage.getComponent(selectedComponentId),
-      panelRocks,
+      rockChildrenConfig,
     });
 
     return <div>
       {
-        renderRockChildren(framework, page, panelRocks)
+        renderRockChildren({context, rockChildrenConfig})
       }
     </div>
   },

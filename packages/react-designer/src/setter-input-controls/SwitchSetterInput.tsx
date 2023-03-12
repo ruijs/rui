@@ -1,5 +1,5 @@
 import { handleComponentEvent, RockConfig, RockConfigBase, RockEvent, RockEventHandler, RockEventHandlerScript, Rock } from "@ruijs/move-style";
-import { renderRock, useRuiFramework, useRuiPage } from "@ruijs/react-renderer";
+import { renderRock, useRuiFramework, useRuiPage, useRuiScope } from "@ruijs/react-renderer";
 import { useCallback } from "react";
 
 export interface SwitchSetterInputProps extends RockConfigBase {
@@ -12,9 +12,8 @@ export interface SwitchSetterInputProps extends RockConfigBase {
 export default {
   $type: "switchSetterInput",
 
-  renderer(props: SwitchSetterInputProps) {
-    const framework = useRuiFramework();
-    const page = useRuiPage();
+  Renderer(context, props: SwitchSetterInputProps) {
+    const { framework, page, scope } = context;
     const { $id, onChange  } = props;
     const checkedValue = props.checkedValue || true;
     const uncheckedValue = props.uncheckedValue || false;
@@ -22,7 +21,7 @@ export default {
     const onInputChange: RockEventHandlerScript["script"] = useCallback((event: RockEvent) => {
       const checked = event.args[0];
       const value = checked ? checkedValue : uncheckedValue;
-      handleComponentEvent("onChange", page, $id, onChange, value);
+      handleComponentEvent("onChange", framework, page, scope, props, onChange, value);
     }, [page, $id, onChange]);
 
     const rockConfig: RockConfig = {
@@ -35,6 +34,6 @@ export default {
       }
     };
 
-    return renderRock(framework, page, rockConfig);
+    return renderRock({context, rockConfig});
   },
 } as Rock;

@@ -23,7 +23,7 @@ export default {
     ...CommonProps.TextStyleProps,
   },
 
-  renderer: (props: TextProps) => {
+  Renderer: (context, props: TextProps) => {
     const style: React.CSSProperties = _.pick(props, CommonProps.TextStylePropNames) as any;
     return <span data-component-id={props.id} style={style}>{props.text}</span>
   }

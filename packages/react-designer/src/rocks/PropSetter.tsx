@@ -1,5 +1,5 @@
 import { ContainerRockConfig, RockConfig, Rock, MoveStyleUtils } from "@ruijs/move-style";
-import { renderRock, renderRockChildren, useRuiFramework, useRuiPage } from "@ruijs/react-renderer";
+import { renderRock, useRuiFramework, useRuiPage, useRuiScope } from "@ruijs/react-renderer";
 import React, { useState } from "react";
 import DesignerStore from "../DesignerStore";
 import { sendDesignerCommand } from "../DesignerUtility";
@@ -17,9 +17,8 @@ export interface PropSetterProps extends ContainerRockConfig {
 export default {
   $type: "propSetter",
 
-  renderer(props: PropSetterProps) {
-    const framework = useRuiFramework();
-    const page = useRuiPage();
+  Renderer(context, props: PropSetterProps) {
+    const { page } = context;
     const [expIndicatorHovered, setExpIndicatorHovered] = useState(false);
 
     const { label, labelTip, componentConfig, expressionPropName, extra } = props;
@@ -116,7 +115,7 @@ export default {
 
     console.debug(`[RUI][ReactDesigner][PropSetter]rendering PropSetter`, rockConfig)
 
-    return renderRock(framework, page, rockConfig);
+    return renderRock({context, rockConfig});
   },
 
 } as Rock;

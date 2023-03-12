@@ -1,5 +1,5 @@
 import { RockConfig, RockEvent, RockEventHandlerScript, Rock, ExpressionRockPropSetter } from "@ruijs/move-style";
-import { renderRock, useRuiFramework, useRuiPage } from "@ruijs/react-renderer";
+import { renderRock, useRuiFramework, useRuiPage, useRuiScope } from "@ruijs/react-renderer";
 import { useMemo } from "react";
 import DesignerStore from "../DesignerStore";
 import { sendDesignerCommand } from "../DesignerUtility";
@@ -13,10 +13,8 @@ export interface ExpressionPropSetterProps extends ExpressionRockPropSetter {
 export default {
   $type: "expressionPropSetter",
 
-  renderer(props: ExpressionPropSetterProps) {
-    const framework = useRuiFramework();
-    const page = useRuiPage();
-
+  Renderer(context, props: ExpressionPropSetterProps) {
+    const { page } = context;
     const { propName, componentConfig } = props;
 
     const controlRock: RockConfig = useMemo(() => {
@@ -51,7 +49,7 @@ export default {
       } as RockConfig;
     }, [componentConfig]);
 
-    const setterRock: PropSetterProps = {
+    const rockConfig: PropSetterProps = {
       $type: "propSetter",
       $id: props.$id,
       label: props.label,
@@ -61,6 +59,6 @@ export default {
       children: controlRock,
     };
 
-    return renderRock(framework, page, setterRock);
+    return renderRock({context, rockConfig});
   },
 } as Rock;

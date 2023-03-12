@@ -1,5 +1,5 @@
 import { Page, RockConfig, RockEventHandler, RockEventHandlerScript, Rock } from "@ruijs/move-style";
-import { renderRock, useRuiFramework, useRuiPage } from "@ruijs/react-renderer";
+import { renderRock, useRuiFramework, useRuiPage, useRuiScope } from "@ruijs/react-renderer";
 import { useCallback } from "react";
 import DesignerStore from "../DesignerStore";
 
@@ -15,10 +15,7 @@ export interface ColorPropSetterProps {
 export default {
   $type: "colorPropSetter",
 
-  renderer(props: ColorPropSetterProps) {
-    const framework = useRuiFramework();
-    const page = useRuiPage();
-
+  Renderer(context, props: ColorPropSetterProps) {
     const rockConfig: RockConfig = {
       $type: "antdInput",
       value: props.value,
@@ -29,7 +26,7 @@ export default {
       <div>{ props.label }</div>
       <div>
         {
-          renderRock(framework, page, rockConfig)
+          renderRock({context, rockConfig})
         }
       </div>
     </div>

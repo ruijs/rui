@@ -3,6 +3,8 @@ const express = require("express");
 const compression = require("compression");
 const morgan = require("morgan");
 const { createRequestHandler } = require("@remix-run/express");
+const { createProxyMiddleware } = require('http-proxy-middleware');
+
 
 const BUILD_DIR = path.join(process.cwd(), "build");
 
@@ -24,6 +26,8 @@ app.use(
 app.use(express.static("public", { maxAge: "1h" }));
 
 app.use(morgan("tiny"));
+
+app.use('/api', createProxyMiddleware({ target: 'http://127.0.0.1:8000', changeOrigin: true }));
 
 app.all(
   "*",

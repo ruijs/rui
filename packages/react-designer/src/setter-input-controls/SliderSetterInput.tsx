@@ -1,5 +1,5 @@
 import { handleComponentEvent, RockConfig, RockConfigBase, RockEvent, RockEventHandler, RockEventHandlerScript, Rock } from "@ruijs/move-style";
-import { renderRock, useRuiFramework, useRuiPage } from "@ruijs/react-renderer";
+import { renderRock, useRuiFramework, useRuiPage, useRuiScope } from "@ruijs/react-renderer";
 import { useCallback } from "react";
 
 export interface SliderSetterInputProps extends RockConfigBase {
@@ -14,14 +14,13 @@ export interface SliderSetterInputProps extends RockConfigBase {
 export default {
   $type: "sliderSetterInput",
 
-  renderer(props: SliderSetterInputProps) {
-    const framework = useRuiFramework();
-    const page = useRuiPage();
+  Renderer(context, props: SliderSetterInputProps) {
+    const { framework, page, scope } = context;
     const { $id, onChange, min, max, step, tooltipOpen } = props;
-    
+
     const onInputChange: RockEventHandlerScript["script"] = useCallback((event: RockEvent) => {
       const value = event.args[0];
-      handleComponentEvent("onChange", page, $id, onChange, value);
+      handleComponentEvent("onChange", framework, page, scope, props, onChange, value);
     }, [page, $id, onChange]);
 
     const rockConfig: RockConfig = {
@@ -40,6 +39,6 @@ export default {
       }
     };
 
-    return renderRock(framework, page, rockConfig);
+    return renderRock({context, rockConfig});
   },
 } as Rock;

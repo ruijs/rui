@@ -1,5 +1,5 @@
 import { TextRockPropSetter, RockConfig, Rock, MoveStyleUtils } from "@ruijs/move-style";
-import { renderRock, useRuiFramework, useRuiPage } from "@ruijs/react-renderer";
+import { renderRock, useRuiFramework, useRuiPage, useRuiScope } from "@ruijs/react-renderer";
 import _ from "lodash";
 import { ExpressionPropSetterProps } from "../internal-prop-setters/ExpressionPropSetter";
 import { SingleControlPropSetterProps } from "../internal-prop-setters/SingleControlPropSetter";
@@ -13,10 +13,7 @@ export interface JsonPropSetterProps extends TextRockPropSetter {
 export default {
   $type: "jsonPropSetter",
 
-  renderer(props: JsonPropSetterProps) {
-    const framework = useRuiFramework();
-    const page = useRuiPage();
-
+  Renderer(context, props: JsonPropSetterProps) {
     const { $id, label, labelTip, componentConfig, propName, defaultValue } = props;
     const isPropDynamic = MoveStyleUtils.isComponentPropertyDynamic(componentConfig, propName);
 
@@ -43,6 +40,6 @@ export default {
       }
     }
 
-    return renderRock(framework, page, rockConfig);
+    return renderRock({context, rockConfig});
   },
 } as Rock;

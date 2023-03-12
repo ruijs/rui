@@ -3,8 +3,10 @@ import { Rui } from "@ruijs/react-renderer";
 import { Rui as RuiRock, ErrorBoundary, Show, HtmlElement, Box, Label, Text, CodeEditor } from "@ruijs/react-rocks";
 import { DesignerRocks, DesignerStore } from "@ruijs/react-designer";
 import { AntdIconRock, AntdRocks } from "@ruijs/antd-rocks";
-import { RapidTable, RapidTableColumn } from "@ruijs/react-rapid-rocks";
+import { RapidRocks } from "@ruijs/react-rapid-rocks";
 import { useCallback, useEffect, useState } from "react";
+
+import RapidExtension from "~/rapid-extension";
 
 import styles from "antd/dist/antd.css";
 
@@ -25,8 +27,11 @@ framework.registerComponent(Label);
 framework.registerComponent(Text);
 framework.registerComponent(CodeEditor);
 
-framework.registerComponent(RapidTable);
-framework.registerComponent(RapidTableColumn);
+framework.loadExtension(RapidExtension);
+
+for(const name in RapidRocks) {
+  framework.registerComponent(RapidRocks[name]);
+}
 
 for(const name in AntdRocks) {
   framework.registerComponent(AntdRocks[name]);
@@ -51,47 +56,12 @@ const canvasPageConfig: PageConfig = {
         brandColor: "#c038ff",
       }
     },
-    {
-      type: "httpRequest",
-      name: "users",
-      request: {
-        method: "GET",
-        url: "/api/users",
-      }
-    },
   ],
   "view": [
     {
       $type: "box",
       padding: "10px",
       children: [
-        {
-          $type: "show",
-          $exps: {
-            when: "!!$stores.users.data",
-          },
-          fallback: {
-            $type: "antdSpin",
-          },
-          children: [
-            {
-              $id: "mainTable",
-              $type: "rapidTable",
-              $exps: {
-                dataSource: "$stores.users.data",
-              },
-              rowKey: "account",
-              columns: [
-                {
-                  $type: "rapidTableColumn",
-                  title: "Account",
-                  dataIndex: "account",
-                },
-              ]
-            },
-          ]
-        },
-        
         {
           "$type": "antdAlert",
           closable: true,

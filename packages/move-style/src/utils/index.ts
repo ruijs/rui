@@ -9,6 +9,19 @@ export {
 } from "./rock-meta-utility";
 
 export {
+  omitSystemRockConfigFields,
+} from "./rock-config-utility";
+
+export {
   canUseDOM,
   waitVariable,
 } from "./dom-utility";
+
+export {
+  fulfillVariables,
+  fulfillVariablesInString,
+} from "./variable-fulfiller";
+
+export {
+  request,
+} from "./HttpRequest";
