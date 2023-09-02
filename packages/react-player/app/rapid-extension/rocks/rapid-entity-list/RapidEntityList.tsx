@@ -7,6 +7,7 @@ import rapidAppDefinition from "~/rapidAppDefinition";
 import { generateRockConfigOfError } from "~/rock-generators/generateRockConfigOfError";
 import type { RapidFieldType, RapidToolbarRockConfig } from "@ruijs/react-rapid-rocks";
 import type { EntityStore, EntityStoreConfig } from "~/rapid-extension/stores/entity-store";
+import { SdRpdEntity, SdRpdField } from "~/types/sd-rapid-types";
 
 const fieldTypeToDisplayRockTypeMap: Record<RapidFieldType, string> = {
   text: "rapidTextRenderer",
@@ -49,8 +50,12 @@ export default {
 
   onInit(context, props) {
     const { entities } = rapidAppDefinition;
-    const mainEntityCode = props.entityCode;
-    const mainEntity = find(entities, item => item.code === mainEntityCode);
+    const entityCode = props.entityCode;
+    if (!entityCode) {
+      return;
+    }
+
+    const mainEntity = find(entities, item => item.code === entityCode);
     if (!mainEntity) {
       return;
     }
@@ -58,7 +63,7 @@ export default {
     const dataSourceCode = props.dataSourceCode || "list";
     if (!context.scope.stores[dataSourceCode]) {
       const { columns, pageSize } = props;
-      const properties: string[] = uniq([
+      const properties: string[] = uniq(props.queryProperties || [
         'id',
         ...map(filter(columns, column => !!column.code), column => column.code),
         ...props.extraProperties || [],
@@ -95,27 +100,34 @@ export default {
 
   Renderer(context, props, state) {
     const { entities, dataDictionaries } = rapidAppDefinition;
-    const mainEntityCode = props.entityCode;
-    const mainEntity = find(entities, item => item.code === mainEntityCode);
-    if (!mainEntity) {
-      const errorRockConfig = generateRockConfigOfError(new Error(`Entitiy with code '${mainEntityCode}' not found.`))
-      return renderRock({context, rockConfig: errorRockConfig});
+    const entityCode = props.entityCode;
+    let mainEntity: SdRpdEntity | undefined;
+
+    if (entityCode) {
+      mainEntity = find(entities, item => item.code === entityCode);
+      if (!mainEntity) {
+        const errorRockConfig = generateRockConfigOfError(new Error(`Entitiy with code '${entityCode}' not found.`))
+        return renderRock({context, rockConfig: errorRockConfig});
+      }
     }
 
     const dataSourceCode = props.dataSourceCode || "list";
-
     const tableColumnRocks: RockConfig[] = [];
+
     props.columns.forEach((column) => {
-      const field = find(mainEntity.fields, { code: column.code });
-      if (!field) {
-        console.error(`Unknown field code '${column.code}'`);
-      } else {
-        if (!column.title) {
-          column.title = field.name;
+      let cell: RockConfig | RockConfig[] | null = null;
+
+      let rpdField: SdRpdField | undefined;
+      if (mainEntity) {
+        rpdField = find(mainEntity.fields, { code: column.code });
+        if (!rpdField) {
+          console.warn(`Unknown field code '${column.code}'`);
         }
       }
 
-      let cell: RockConfig | RockConfig[] | null = null;
+      if (!column.title && rpdField) {
+        column.title = rpdField.name;
+      }
 
       if (column.cell) {
         cell = column.cell;
@@ -137,20 +149,13 @@ export default {
             }
           };
         }
-      } else {
-        const rpdField = find(mainEntity.fields, { code: column.code });
-
-        let rendererType = props.rendererType;
-        let defaultRendererProps: any = {};
+      } else if (column.columnType === "auto") {
+        let fieldType = column.fieldType || rpdField?.type || "text";
+        let rendererType = props.rendererType || fieldTypeToDisplayRockTypeMap[fieldType] || "rapidTextRenderer";
+        let defaultRendererProps: any = defaultDisplayPropsOfFieldType[fieldType] || {};
         let fieldTypeRelatedRendererProps: any = {};
         if (rpdField) {
-          if (!rendererType) {
-            rendererType = fieldTypeToDisplayRockTypeMap[rpdField.type];
-          }
-
-          defaultRendererProps = defaultDisplayPropsOfFieldType[rpdField.type];
-
-          if (rpdField.type === "option") {
+          if (fieldType === "option") {
             const dataDictionaryCode = rpdField.dataDictionary;
             let dataDictionary = find(dataDictionaries, {code: dataDictionaryCode})!; 
             fieldTypeRelatedRendererProps = {
@@ -161,7 +166,7 @@ export default {
               valueFieldName: "value",
               textFieldName: "name",
             };
-          } else if (rpdField.type === "relation") {
+          } else if (fieldType === "relation") {
             if (rpdField.relation === "many") {
               rendererType = "rapidArrayRenderer";
             } else {
@@ -171,7 +176,7 @@ export default {
         }
 
         cell = {
-          $type: rendererType || "rapidTextRenderer",
+          $type: rendererType,
           ...defaultRendererProps,
           ...fieldTypeRelatedRendererProps,
           ...column.rendererProps,

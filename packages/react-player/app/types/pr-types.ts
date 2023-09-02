@@ -1,4 +1,4 @@
-import type { RockChildrenConfig, RockPageEventSubscriptionConfig } from "@ruijs/move-style";
+import type { RockChildrenConfig, RockPageEventSubscriptionConfig, StoreConfig } from "@ruijs/move-style";
 import type { BlockDataForm, } from "./block-data-form-types";
 import type { BlockEntityList } from "./block-entity-list-types";
 import type { BlockSearchForm } from "./block-search-form-types";
@@ -236,6 +236,8 @@ export type PrRapidPage = {
    * 页面区块
    */
   blocks?: Block[];
+
+  stores?: StoreConfig[];
 
   /**
    * 视图配置

@@ -8,6 +8,11 @@ export interface RapidEntityListConfig {
   entityCode: string;
 
   /**
+   * 实体名称
+   */
+  entityName?: string;
+
+  /**
    * 视图模式
    */
   viewMode: "table";
@@ -44,6 +49,11 @@ export interface RapidEntityListConfig {
   extraActions?: RockConfig[];
 
   columns: RapidTableColumnConfig[];
+
+  /**
+   * 指定数据查询的属性。如果指定了`queryProperties`，则不会自动从`columns`和`extraProperties`中提取查询属性。
+   */
+  queryProperties?: string[];
 
   /**
    * 数据查询时需要查询的额外属性。

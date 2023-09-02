@@ -6,6 +6,7 @@ import { compact, find, get, omit } from "lodash";
 import type { RapidEntityListConfig, RapidEntityListRockConfig } from "../rapid-entity-list/rapid-entity-list-types";
 import rapidAppDefinition from "~/rapidAppDefinition";
 import { generateRockConfigOfError } from "~/rock-generators/generateRockConfigOfError";
+import { SdRpdEntity } from "~/proton";
 
 const DEFAULT_PAGE_SIZE = 10;
 
@@ -36,10 +37,19 @@ export default {
 
   Renderer(context, props) {
     const { entities } = rapidAppDefinition;
-    const mainEntityCode = props.entityCode;
-    const mainEntity = find(entities, item => item.code === mainEntityCode);
-    if (!mainEntity) {
-      return renderRock({context, rockConfig: generateRockConfigOfError(new Error(`Entity '${mainEntityCode}' not found.`))});
+    const entityCode = props.entityCode;
+    let entityName = props.entityName;
+
+    let mainEntity: SdRpdEntity | undefined;
+    if (entityCode) {
+      mainEntity = find(entities, item => item.code === entityCode);
+      if (!entityName) {
+        entityName = mainEntity?.name;
+      }
+
+      if (!mainEntity) {
+        return renderRock({context, rockConfig: generateRockConfigOfError(new Error(`Entity '${entityCode}' not found.`))});
+      }
     }
 
     const dataSourceCode = props.dataSourceCode || "list";
@@ -55,7 +65,7 @@ export default {
     const newModalRockConfig: RockConfig | null = props.newForm ? {
       $type: "antdModal",
       $id: `${props.$id}-newModal`,
-      title: `新建${mainEntity.name}`,
+      title: `新建${entityName}`,
       $exps: {
         open: "!!$scope.vars['modal-newEntity-open']",
         confirmLoading: "!!$scope.vars['modal-saving']",
@@ -64,13 +74,9 @@ export default {
         {
           $type: "rapidEntityForm",
           $id: `${props.$id}-newForm`,
-          entityCode: mainEntityCode,
+          entityCode: entityCode,
           mode: "new",
-          items: props.newForm.items,
-          fixedFields: props.newForm.fixedFields,
-          defaultFormFields: props.newForm.defaultFormFields,
-          onFormRefresh: props.newForm.onFormRefresh,
-          onValuesChange: props.newForm.onValuesChange,
+          ...omit(props.newForm, ["entityCode"]),
           onSaveSuccess: [
             {
               $action: "setVars",
@@ -107,7 +113,7 @@ export default {
     const editModalRockConfig: RockConfig | null = props.editForm ? {
       $type: "antdModal",
       $id: `${props.$id}-editModal`,
-      title: `修改${mainEntity.name}`,
+      title: `修改${entityName}`,
       $exps: {
         open: "!!$scope.vars['modal-editEntity-open']",
         confirmLoading: "!!$scope.vars['modal-saving']",
@@ -116,15 +122,12 @@ export default {
         {
           $type: "rapidEntityForm",
           $id: `${props.$id}-editForm`,
-          entityCode: mainEntityCode,
+          entityCode: entityCode,
           mode: "edit",
-          items: props.editForm.items,
-          fixedFields: props.editForm.fixedFields,
+          ...omit(props.editForm, ["entityCode"]),
           $exps: {
             "entityId": "$scope.vars.activeEntityId",
           },
-          onFormRefresh: props.editForm.onFormRefresh,
-          onValuesChange: props.editForm.onValuesChange,
           onSaveSuccess: [
             {
               $action: "setVars",

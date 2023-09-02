@@ -24,7 +24,7 @@ export function generateRapidPage(option: GenerateRuiPageConfigOption<SdRapidPag
 
   const ruiPageConfig: PageConfig = {
     $id: sdPage.code,
-    stores: rockConfigGenerationContext.dataStores,
+    stores: [...rockConfigGenerationContext.dataStores, ...(sdPage.stores || [])],
     view: [
       {
         $id: `${sdPage.code}-scope`,

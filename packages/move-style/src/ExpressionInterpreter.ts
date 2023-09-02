@@ -39,5 +39,5 @@ export class ExpressionInterpreter {
 }
 
 function genExpression(varNames: string[], expressionString: string) {
-  return new Function(...varNames, `return ${expressionString}`);
+  return new Function(...varNames, `return (${expressionString})`);
 }

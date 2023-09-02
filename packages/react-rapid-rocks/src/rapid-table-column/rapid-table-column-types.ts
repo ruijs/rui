@@ -1,4 +1,5 @@
 import { RockChildrenConfig, SimpleRockConfig } from "@ruijs/move-style";
+import { RapidFieldType } from "../rapid-entity-types";
 
 /**
  * 表格字段列
@@ -7,7 +8,9 @@ export type RapidTableColumnConfig = {
   columnType: "auto" | "customize" | "text" | "number" | "date" | "datetime" | "link";
   code: string;
   key?: string;
-  
+
+  fieldType?: RapidFieldType;
+
   /**
    * 获取value的字段名，默认为code。
    * 例如record为`{"name": "do sth.", "project": {"id":23, name: "RUI"}}`，此时设置`code`为`project`，`fieldName`为`project.name`，单元格将展示`RUI`。

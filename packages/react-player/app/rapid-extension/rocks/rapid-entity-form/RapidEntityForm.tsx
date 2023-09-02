@@ -110,18 +110,20 @@ function generateDataFormItem(option: GenerateEntityFormItemOption) {
 
   const rpdField = find(mainEntity.fields, {code: formItemConfig.code})!;
   if (!rpdField) {
-    return generateRockConfigOfError(`Field with code '${formItemConfig.code}' not found.`);
+    console.warn(`Field with code '${formItemConfig.code}' not found.`);
   }
 
-  if (rpdField.type === "option") {
+  let valueFieldType = formItemConfig.valueFieldType || rpdField?.type || "text";
+
+  if (valueFieldType === "option") {
     return generateDataFormItemForOptionProperty(option);
-  } else if (rpdField.type === "relation") {
+  } else if (valueFieldType === "relation") {
     return generateDataFormItemForRelationProperty(option, rpdField);
   }
 
   let formItem: RemoveField<RapidFormItemConfig, "$type"> = {
     type: formItemConfig.type,
-    valueFieldType: rpdField.type,
+    valueFieldType,
     code: formItemConfig.code,
     required: formItemConfig.required,
     label: formItemConfig.label,
@@ -142,29 +144,31 @@ export default {
 
   for (const formItem of props.items) {
     const field = find(mainEntity.fields, { code: formItem.code });
-    if (!field) {
-      continue;
+    if (field) {
+      // 使用字段名称作为表单项的标签
+      if (!formItem.label) {
+        formItem.label = field?.name;
+      }
+
+      if (!formItem.hasOwnProperty('required')) {
+        // 使用字段的必填设置作为表单项的必填设置
+        formItem.required = field.required;
+      }
     }
 
-    // 使用字段名称作为表单项的标签
-    if (!formItem.label) {
-      formItem.label = field?.name;
-    }
-
-    // 使用字段的必填设置作为表单项的必填设置
-    formItem.required = field.required;
-
+    let fieldType = formItem.valueFieldType || field?.type || "text";
     if (formItem.type === 'auto') {
       // 根据字段的类型选择合适的表单项类型
-      const type = fieldTypeToFormItemTypeMap[field.type];
-      if (type !== null) {
-        formItem.type = type;
-      }
+      formItem.type = fieldTypeToFormItemTypeMap[fieldType] || "text";
     }
   }
 
     if (props.mode != "new") {
-      const properties: string[] = uniq(['id', ...map(filter(props.items, item => !!item.code), item => item.code)]);
+      const properties: string[] = uniq(props.queryProperties || [
+        'id',
+        ...map(filter(props.items, item => !!item.code), item => item.code),
+        ...props.extraProperties || [],
+      ]);
       const detailDataStoreConfig: EntityStoreConfig = {
         type: "entityStore",
         name: props.dataSourceCode || "detail",
