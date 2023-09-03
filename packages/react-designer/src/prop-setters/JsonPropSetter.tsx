@@ -1,6 +1,6 @@
 import { TextRockPropSetter, RockConfig, Rock, MoveStyleUtils } from "@ruijs/move-style";
-import { renderRock, useRuiFramework, useRuiPage, useRuiScope } from "@ruijs/react-renderer";
-import _ from "lodash";
+import { renderRock } from "@ruijs/react-renderer";
+import { isUndefined } from "lodash";
 import { ExpressionPropSetterProps } from "../internal-prop-setters/ExpressionPropSetter";
 import { SingleControlPropSetterProps } from "../internal-prop-setters/SingleControlPropSetter";
 import { getComponentPropValue } from "../SetterUtility";
@@ -33,7 +33,7 @@ export default {
       };
 
       const value = getComponentPropValue(componentConfig, propName, defaultValue)
-      if (!_.isUndefined(value)) {
+      if (!isUndefined(value)) {
         (rockConfig as SingleControlPropSetterProps).extra = {
           $type: "jsonValueDisplay",
         }

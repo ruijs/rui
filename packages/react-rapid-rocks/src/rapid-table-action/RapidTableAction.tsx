@@ -1,8 +1,7 @@
 import { Rock, RockConfig } from "@ruijs/move-style";
 import RapidToolbarMeta from "./RapidTableActionMeta";
-import { renderRock, useRuiFramework, useRuiPage, useRuiScope } from "@ruijs/react-renderer";
+import { renderRock } from "@ruijs/react-renderer";
 import { RapidTableActionRockConfig } from "./rapid-table-action-types";
-import { set } from "lodash";
 
 
 export default {

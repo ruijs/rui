@@ -1,10 +1,6 @@
-import { Framework, IPage, Page, PageConfig, PageWithLayoutConfig, PageWithoutLayoutConfig, RockConfig, RockInstanceContext, Scope } from "@ruijs/move-style";
+import { Framework, Page, PageWithLayoutConfig, PageWithoutLayoutConfig, RockInstanceContext } from "@ruijs/move-style";
 import { useEffect, useState } from "react";
 import { renderRockChildren } from "./renderers";
-import { useRuiFramework } from "./RuiFrameworkContext";
-import { RuiPageContext, useRuiPage } from "./RuiPageContext";
-import { ScopeContext, useRuiScope } from "./RuiScopeContext";
-import ScopeComponent from "./Scope";
 
 export interface RuiPageProps {
   framework: Framework;

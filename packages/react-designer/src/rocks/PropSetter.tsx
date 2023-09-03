@@ -1,5 +1,5 @@
 import { ContainerRockConfig, RockConfig, Rock, MoveStyleUtils } from "@ruijs/move-style";
-import { renderRock, useRuiFramework, useRuiPage, useRuiScope } from "@ruijs/react-renderer";
+import { renderRock } from "@ruijs/react-renderer";
 import React, { useState } from "react";
 import DesignerStore from "../DesignerStore";
 import { sendDesignerCommand } from "../DesignerUtility";

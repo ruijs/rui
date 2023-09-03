@@ -1,5 +1,5 @@
 import { MoveStyleUtils, Rock  } from "@ruijs/move-style";
-import { useRuiFramework, useRuiPage, toRenderRockSlot, useRuiScope, convertToEventHandlers, convertToSlotProps } from "@ruijs/react-renderer";
+import { toRenderRockSlot, convertToEventHandlers, convertToSlotProps } from "@ruijs/react-renderer";
 import { Table, TableProps } from "antd";
 import { ColumnType } from "antd/lib/table/interface";
 import { map, reduce } from "lodash";

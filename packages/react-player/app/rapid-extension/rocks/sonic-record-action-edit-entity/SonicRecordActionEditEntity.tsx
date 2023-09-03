@@ -1,5 +1,5 @@
 import { MoveStyleUtils, type Rock } from "@ruijs/move-style";
-import { useRuiFramework, useRuiPage, useRuiScope, renderRock } from "@ruijs/react-renderer";
+import { renderRock } from "@ruijs/react-renderer";
 import RapidEntityListMeta from "./SonicRecordActionEditEntityMeta";
 import type { SonicRecordActionEditEntityConfig, SonicRecordActionEditEntityRockConfig } from "./sonic-record-action-edit-entity-types";
 import type { RapidTableActionRockConfig } from "@ruijs/react-rapid-rocks";

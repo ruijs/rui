@@ -1,5 +1,5 @@
 import { ContainerRockConfig, RockConfig, Rock } from "@ruijs/move-style";
-import { renderRockChildren, useRuiFramework, useRuiPage, useRuiScope } from "@ruijs/react-renderer";
+import { renderRockChildren } from "@ruijs/react-renderer";
 import React from "react";
 
 export interface ErrorBoundaryRockProps extends ContainerRockConfig {

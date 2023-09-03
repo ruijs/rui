@@ -1,5 +1,5 @@
 import { handleComponentEvent, RockConfig, RockConfigBase, RockEvent, RockEventHandler, RockEventHandlerScript, Rock } from "@ruijs/move-style";
-import { renderRock, useRuiFramework, useRuiPage, useRuiScope } from "@ruijs/react-renderer";
+import { renderRock } from "@ruijs/react-renderer";
 import { useCallback } from "react";
 
 export interface SelectSetterInputProps extends RockConfigBase {

@@ -1,5 +1,5 @@
 import { Framework, Page, PageConfig, PageWithoutLayoutConfig, RockConfig, RockConfigBase, RockEvent, RockEventHandlerScript, Rock } from "@ruijs/move-style";
-import { renderRock, useRuiFramework, useRuiPage, useRuiScope } from "@ruijs/react-renderer";
+import { renderRock } from "@ruijs/react-renderer";
 import { useCallback, useMemo } from "react";
 import DesignerStore from "../DesignerStore";
 

@@ -1,7 +1,6 @@
 import { Rock, RockConfig, ContainerRockConfig } from "@ruijs/move-style";
-import { useRuiFramework, useRuiPage, renderRockSlot, useRuiScope, convertToEventHandlers, renderRockChildren } from "@ruijs/react-renderer";
+import { renderRockSlot, renderRockChildren } from "@ruijs/react-renderer";
 import { Descriptions, DescriptionsProps } from "antd";
-import _ from "lodash";
 import RapidDetailsMeta from "./RapidDetailsMeta";
 
 export interface RapidDetailsProps extends ContainerRockConfig {

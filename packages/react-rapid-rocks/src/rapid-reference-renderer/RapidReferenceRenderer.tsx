@@ -1,8 +1,8 @@
-import { Rock, RockConfig, SimpleRockConfig } from "@ruijs/move-style";
+import { Rock, RockConfig } from "@ruijs/move-style";
 import { find } from "lodash";
 import RapidReferenceRendererMeta from "./RapidReferenceRendererMeta";
 import { RapidReferenceRendererRockConfig } from "./rapid-reference-renderer-types";
-import { renderRock, useRuiFramework, useRuiPage, useRuiScope } from "@ruijs/react-renderer";
+import { renderRock } from "@ruijs/react-renderer";
 
 export default {
   $type: "rapidReferenceRenderer",

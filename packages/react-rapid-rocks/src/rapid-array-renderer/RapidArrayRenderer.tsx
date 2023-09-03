@@ -2,7 +2,7 @@ import { MoveStyleUtils, Rock, RockConfig } from "@ruijs/move-style";
 import RapidArrayRendererMeta from "./RapidArrayRendererMeta";
 import { RapidArrayRendererRockConfig } from "./rapid-array-renderer-types";
 import { map } from "lodash";
-import { renderRockChildren, useRuiFramework, useRuiPage, useRuiScope } from "@ruijs/react-renderer";
+import { renderRockChildren } from "@ruijs/react-renderer";
 
 export default {
   $type: "rapidObjectRenderer",

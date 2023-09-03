@@ -1,5 +1,5 @@
 import { Rock, RockConfig } from "@ruijs/move-style";
-import { renderRock, useRuiFramework, useRuiPage, useRuiScope } from "@ruijs/react-renderer";
+import { renderRock } from "@ruijs/react-renderer";
 
 export default {
   $type: "jsonValueDisplay",

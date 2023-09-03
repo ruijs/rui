@@ -1,5 +1,4 @@
 import { Rock, RockConfig, SimpleRockConfig } from "@ruijs/move-style";
-import { useRuiFramework, useRuiPage, useRuiScope } from "@ruijs/react-renderer";
 import { Descriptions } from "antd";
 import RapidDetailsItemMeta from "./RapidDetailsItemMeta";
 import { get } from "lodash";

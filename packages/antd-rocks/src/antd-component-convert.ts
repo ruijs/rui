@@ -1,6 +1,6 @@
 import { RockConfig, Rock } from "@ruijs/move-style";
-import { convertToEventHandlers, convertToSlotProps, renderSlotWithAdapter, useRuiScope } from "@ruijs/react-renderer";
-import { renderRockChildren, useRuiFramework, useRuiPage } from "@ruijs/react-renderer";
+import { convertToEventHandlers, convertToSlotProps } from "@ruijs/react-renderer";
+import { renderRockChildren } from "@ruijs/react-renderer";
 import React from "react";
 import AntdRocksMeta from "./AntdRocksMeta";
 

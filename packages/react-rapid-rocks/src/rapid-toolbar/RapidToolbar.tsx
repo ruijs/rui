@@ -1,7 +1,7 @@
 import type { Rock, RockConfig } from "@ruijs/move-style";
 import RapidToolbarMeta from "./RapidToolbarMeta";
 import type { RapidToolbarRockConfig } from "./rapid-toolbar-types";
-import { renderRock, useRuiFramework, useRuiPage, useRuiScope } from "@ruijs/react-renderer";
+import { renderRock } from "@ruijs/react-renderer";
 
 
 export default {

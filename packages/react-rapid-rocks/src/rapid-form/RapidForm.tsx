@@ -1,5 +1,5 @@
 import { Rock, RockConfig, RockEvent, RockEventHandlerScript, handleComponentEvent } from "@ruijs/move-style";
-import { useRuiFramework, useRuiPage, useRuiScope, renderRock } from "@ruijs/react-renderer";
+import { renderRock } from "@ruijs/react-renderer";
 import RapidFormMeta from "./RapidFormMeta";
 import type { RapidFormRockConfig } from "./rapid-form-types";
 import { each, get } from "lodash";

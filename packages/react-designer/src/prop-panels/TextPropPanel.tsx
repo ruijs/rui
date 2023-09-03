@@ -1,5 +1,5 @@
 import { lineStyleOptions, RockConfig, RockConfigBase, Rock, RockPropSetter, unitOptions } from "@ruijs/move-style";
-import { renderRockChildren, useRuiFramework, useRuiPage, useRuiScope } from "@ruijs/react-renderer";
+import { renderRockChildren } from "@ruijs/react-renderer";
 import { useMemo } from "react";
 
 const setters: RockPropSetter[] = [

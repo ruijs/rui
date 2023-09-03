@@ -1,6 +1,5 @@
-import { Framework, Page, PageConfig } from "@ruijs/move-style";
+import { Framework, Page } from "@ruijs/move-style";
 import { useEffect } from "react";
-import { RuiFrameworkContext } from "./RuiFrameworkContext";
 import RuiPage from "./RuiPage";
 
 export interface RuiProps {

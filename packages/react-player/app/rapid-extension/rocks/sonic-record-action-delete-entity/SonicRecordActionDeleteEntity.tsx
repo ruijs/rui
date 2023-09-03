@@ -1,5 +1,5 @@
-import {  MoveStyleUtils, type Rock, type RockConfig, type RockEvent } from "@ruijs/move-style";
-import { useRuiFramework, useRuiPage, useRuiScope, renderRock } from "@ruijs/react-renderer";
+import { MoveStyleUtils, type Rock, type RockConfig, type RockEvent } from "@ruijs/move-style";
+import { renderRock } from "@ruijs/react-renderer";
 import RapidEntityListMeta from "./SonicRecordActionDeleteEntityMeta";
 import type { SonicRecordActionDeleteEntityConfig, SonicRecordActionDeleteEntityRockConfig } from "./sonic-record-action-delete-entity-types";
 import { Modal, message } from "antd";

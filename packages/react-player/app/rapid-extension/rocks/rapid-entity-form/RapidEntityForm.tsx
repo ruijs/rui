@@ -1,6 +1,6 @@
 import type { RockEvent, Rock, RockEventHandler } from "@ruijs/move-style";
 import { handleComponentEvent } from "@ruijs/move-style";
-import { useRuiFramework, useRuiPage, useRuiScope, renderRock } from "@ruijs/react-renderer";
+import { renderRock } from "@ruijs/react-renderer";
 import RapidEntityFormMeta from "./RapidEntityFormMeta";
 import type { RapidEntityFormRockConfig } from "./rapid-entity-form-types";
 import { filter, find, map, uniq } from "lodash";

@@ -1,5 +1,4 @@
-import { MoveStyleUtils, Rock, RockEventHandler, SimpleRockConfig } from "@ruijs/move-style";
-import { useRuiFramework, useRuiPage, useRuiScope, convertToEventHandlers } from "@ruijs/react-renderer";
+import { MoveStyleUtils, Rock } from "@ruijs/move-style";
 import { Select, SelectProps } from "antd";
 import { RapidSelectConfig } from "./rapid-select-types";
 import { get, isObject, map } from "lodash";

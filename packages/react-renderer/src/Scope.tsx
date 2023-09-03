@@ -1,9 +1,6 @@
-import { Framework, IStore, Page, Scope, ScopeState, StoreConfig } from "@ruijs/move-style";
-import { useCallback, useEffect, useState } from "react";
+import { Framework, Page, ScopeState, StoreConfig } from "@ruijs/move-style";
+import { useEffect, useState } from "react";
 import { renderRockChildren } from "./renderers";
-import { useRuiFramework } from "./RuiFrameworkContext";
-import { useRuiPage } from "./RuiPageContext";
-import { ScopeContext } from "./RuiScopeContext";
 
 
 export interface ScopeProps {
@@ -32,11 +29,7 @@ function ScopeComponent(props: ScopeProps) {
   }, [page, scope]);
 
   const context = {framework, page, scope};
-  return <ScopeContext.Provider value={scope}>
-    {
-      renderRockChildren({context, rockChildrenConfig: props.children})
-    }
-  </ScopeContext.Provider>
+  return <>{renderRockChildren({context, rockChildrenConfig: props.children})}</>
 }
 
 export default ScopeComponent;

@@ -1,7 +1,5 @@
-import { Page, RockConfig, RockEventHandler, RockEventHandlerScript, Rock } from "@ruijs/move-style";
-import { renderRock, useRuiFramework, useRuiPage, useRuiScope } from "@ruijs/react-renderer";
-import { useCallback } from "react";
-import DesignerStore from "../DesignerStore";
+import { Page, RockConfig, RockEventHandler, Rock } from "@ruijs/move-style";
+import { renderRock } from "@ruijs/react-renderer";
 
 export interface ColorPropSetterProps {
   designingPage: Page;
