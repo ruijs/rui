@@ -2,22 +2,26 @@ import { MoveStyleUtils, Rock  } from "@ruijs/move-style";
 import { useRuiFramework, useRuiPage, toRenderRockSlot, useRuiScope, convertToEventHandlers, convertToSlotProps } from "@ruijs/react-renderer";
 import { Table, TableProps } from "antd";
 import { ColumnType } from "antd/lib/table/interface";
-import _ from "lodash";
+import { map, reduce } from "lodash";
 import RapidTableMeta from "./RapidTableMeta";
 import { RapidTableRockConfig } from "./rapid-table-types";
 
 export default {
   Renderer(context, props: RapidTableRockConfig) {
-    const tableColumns = _.map(props.columns, (column) => {
+    const tableColumns = map(props.columns, (column) => {
       return {
-        title: column.title,
+        ...MoveStyleUtils.omitSystemRockConfigFields(column),
         dataIndex: (column.fieldName || column.code).split("."),
         key: column.key || column.fieldName || column.code,
-        width: column.width,
-        align: column.align,
         render: toRenderRockSlot({context, slot: column.cell, rockType: column.$type, slotName: "cell"}),
       } as ColumnType<any>;
     });
+
+    // calculate total width of columns
+    const columnsTotalWidth = reduce(props.columns, (accumulatedWidth, column) => {
+      return accumulatedWidth + (parseInt(column.width, 10) || 100)
+    }, 0);
+
 
     const eventHandlers = convertToEventHandlers({context, rockConfig: props});
     const slotProps = convertToSlotProps({context, rockConfig: props, slotsMeta: RapidTableMeta.slots});
@@ -41,6 +45,9 @@ export default {
       ...slotProps,
       columns: tableColumns,
       showHeader: props.showHeader,
+      scroll: {
+        x: columnsTotalWidth,
+      },
     };
 
     return <Table {...antdProps}></Table>

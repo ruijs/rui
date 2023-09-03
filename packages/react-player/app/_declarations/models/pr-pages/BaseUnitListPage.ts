@@ -143,10 +143,12 @@ const page: PrRapidPage = {
               columnType: 'auto',
               code: 'code',
               width: '100px',
+              fixed: 'left',
             },
             {
               columnType: 'auto',
               code: 'name',
+              fixed: 'left',
             },
             {
               columnType: 'auto',

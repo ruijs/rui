@@ -59,6 +59,7 @@ const page: PrRapidPage = {
         {
           columnType: 'link',
           code: 'code',
+          fixed: 'left',
           // rendererType: "link",
           rendererProps: {
             url: "/pages/mom_prod_plan_details?id={{id}}",

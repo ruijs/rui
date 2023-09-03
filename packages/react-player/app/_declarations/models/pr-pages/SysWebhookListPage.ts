@@ -68,7 +68,8 @@ const page: PrRapidPage = {
         {
           columnType: 'auto',
           code: 'name',
-          width: '200px',
+          width: '150px',
+          fixed: 'left',
         },
         {
           columnType: 'auto',
@@ -77,22 +78,23 @@ const page: PrRapidPage = {
         {
           columnType: 'auto',
           code: 'secret',
-          width: '200px',
+          width: '100px',
         },
         {
           columnType: 'auto',
           code: 'namespace',
+          title: 'Ns.',
           width: '100px',
         },
         {
           columnType: 'auto',
           code: 'modelSingularCode',
-          width: '200px',
+          width: '100px',
         },
         {
           columnType: 'auto',
           code: 'events',
-          width: '300px',
+          width: '200px',
         },
         {
           columnType: 'auto',

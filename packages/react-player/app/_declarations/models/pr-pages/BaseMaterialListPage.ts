@@ -156,6 +156,7 @@ const page: PrRapidPage = {
               columnType: 'link',
               code: 'code',
               width: '100px',
+              fixed: 'left',
               rendererType: "link",
               rendererProps: {
                 url: "/pages/base_material_details?id={{id}}",
@@ -165,6 +166,7 @@ const page: PrRapidPage = {
               columnType: 'link',
               code: 'name',
               width: '150px',
+              fixed: 'left',
               rendererType: "link",
               rendererProps: {
                 url: "/pages/base_material_details?id={{id}}",

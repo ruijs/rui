@@ -88,15 +88,18 @@ const page: PrRapidPage = {
         {
           columnType: 'link',
           code: 'code',
+          width: '150px',
+          fixed: 'left',
         },
         {
           columnType: 'auto',
           code: 'name',
+          fixed: 'left',
         },
         {
           columnType: 'auto',
           code: 'client',
-          width: '150px',
+          width: '100px',
           rendererProps: {
             format: "{{name}}"
           },

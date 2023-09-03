@@ -60,6 +60,7 @@ const page: PrRapidPage = {
           columnType: 'link',
           code: 'name',
           width: '200px',
+          fixed: 'left',
           rendererType: "link",
           rendererProps: {
             url: "/pages/meta_model_details?id={{id}}",
@@ -68,6 +69,7 @@ const page: PrRapidPage = {
         {
           columnType: 'auto',
           code: 'namespace',
+          title: 'Ns.',
           width: '100px',
         },
         {

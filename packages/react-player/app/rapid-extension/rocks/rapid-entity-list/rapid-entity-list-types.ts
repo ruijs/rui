@@ -79,6 +79,11 @@ export interface RapidEntityListConfig {
    * 是否隐藏操作列。默认为`false`。
    */
   hideActionsColumn?: boolean;
+
+  /**
+   * 表格的属性
+   */
+  tableProps?: Record<string, any>;
 }
 
 export interface RapidEntityListRockConfig extends SimpleRockConfig, RapidEntityListConfig {

@@ -55,6 +55,7 @@ const page: PrRapidPage = {
         {
           columnType: 'link',
           code: 'name',
+          fixed: 'left',
         },
         {
           columnType: 'auto',

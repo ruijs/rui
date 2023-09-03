@@ -72,12 +72,15 @@ const page: PrRapidPage = {
         {
           columnType: 'auto',
           code: 'namespace',
+          title: 'Ns.',
           width: '100px',
+          fixed: 'left',
         },
         {
           columnType: 'auto',
           code: 'code',
           width: '200px',
+          fixed: 'left',
         },
         {
           columnType: 'auto',

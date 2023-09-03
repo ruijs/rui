@@ -206,6 +206,7 @@ export default {
           code: 'id',
           key: '_actions',
           width: props.actionsColumnWidth || '150px',
+          fixed: 'right',
           cell: props.actions,
         };
         tableColumnRocks.push(tableActionsColumnRock);
@@ -248,6 +249,7 @@ export default {
       rowSelection,
       columns: tableColumnRocks,
       showHeader: props.showHeader,
+      ...props.tableProps,
       convertListToTree: props.convertListToTree,
       listIdField: props.listIdField,
       listParentField: props.listParentField,

@@ -141,10 +141,12 @@ const page: PrRapidPage = {
                   code: 'createdAt',
                   title: '报工时间',
                   width: '150px',
+                  fixed: 'left',
                 },
                 {
                   columnType: 'auto',
                   code: 'code',
+                  fixed: 'left',
                 },
                 {
                   columnType: 'auto',
