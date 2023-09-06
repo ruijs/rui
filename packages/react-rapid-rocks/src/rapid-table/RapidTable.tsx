@@ -19,7 +19,7 @@ export default {
 
     // calculate total width of columns
     const columnsTotalWidth = reduce(props.columns, (accumulatedWidth, column) => {
-      return accumulatedWidth + (parseInt(column.width, 10) || 100)
+      return accumulatedWidth + (parseInt(column.width, 10) || parseInt(column.minWidth, 10) || 100)
     }, 0);
 
 

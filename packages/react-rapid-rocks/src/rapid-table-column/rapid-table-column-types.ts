@@ -38,6 +38,11 @@ export type RapidTableColumnConfig = {
   width?: string;
 
   /**
+   * 最小列宽。适用于自适应宽度的列。
+   */
+  minWidth?: string;
+
+  /**
    * 渲染器类型
    */
   rendererType?: string;
