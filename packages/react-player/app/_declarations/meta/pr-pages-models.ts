@@ -12,6 +12,10 @@ import BaseMaterialListPage from '../models/pr-pages/BaseMaterialListPage';
 import BaseProdFlowListPage from '../models/pr-pages/BaseProdFlowListPage';
 import BaseProdProcessListPage from '../models/pr-pages/BaseProdProcessListPage';
 import BaseUnitListPage from '../models/pr-pages/BaseUnitListPage';
+import BpmCcToMeApplicationListPage from '../models/pr-pages/BpmCcToMeApplicationListPage';
+import BpmMyFinishedApprovalListPage from '../models/pr-pages/BpmMyFinishedApprovalListPage';
+import BpmMyInitiatedApplicationListPage from '../models/pr-pages/BpmMyInitiatedApplicationListPage';
+import BpmMyPendingApprovalListPage from '../models/pr-pages/BpmMyPendingApprovalListPage';
 import DataDictionaryDetailsPage from '../models/pr-pages/DataDictionaryDetailsPage';
 import DataDictionaryEditPage from '../models/pr-pages/DataDictionaryEditPage';
 import DataDictionaryListPage from '../models/pr-pages/DataDictionaryListPage';
@@ -46,6 +50,10 @@ export default [
   BaseProdFlowListPage,
   BaseProdProcessListPage,
   BaseUnitListPage,
+  BpmCcToMeApplicationListPage,
+  BpmMyFinishedApprovalListPage,
+  BpmMyInitiatedApplicationListPage,
+  BpmMyPendingApprovalListPage,
   DataDictionaryDetailsPage,
   DataDictionaryEditPage,
   DataDictionaryListPage,

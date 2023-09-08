@@ -1,5 +1,9 @@
 import type {
   ApprovalState,
+  BusinessActivityKind,
+  BusinessActivityState,
+  BusinessApplicationState,
+  BusinessTaskState,
   DataDictionaryValueType,
   EmployeeState,
   EnabledDisabledState,
@@ -1471,6 +1475,384 @@ export interface BaseWarehouse {
 export type SaveBaseWarehouseInput = Omit<BaseWarehouse, 'id' | 'createdAt' | 'createdBy' | 'updatedAt' | 'updatedBy'>;
 
 /**
+ * 审批步骤
+ */
+export interface BpmBusinessActivity {
+  /**
+   * id
+   */
+  id: number;
+  /**
+   * 申请单
+   */
+  application: BpmBusinessApplication;
+  /**
+   * 步骤名
+   */
+  name: string;
+  /**
+   * 步骤类型
+   */
+  kind: BusinessActivityKind;
+  /**
+   * 审批任务
+   */
+  tasks?: BpmBusinessTask[];
+  /**
+   * 步骤状态
+   */
+  state: BusinessActivityState;
+  /**
+   * 步骤决议
+   */
+  resolution?: string;
+  /**
+   * 创建时间
+   */
+  createdAt?: string;
+  /**
+   * 创建人
+   */
+  createdBy?: OcUser;
+  /**
+   * 更新时间
+   */
+  updatedAt?: string;
+  /**
+   * 更新人
+   */
+  updatedBy?: OcUser;
+  /**
+   * 删除时间
+   */
+  deletedAt?: string;
+  /**
+   * 删除人
+   */
+  detetedBy?: OcUser;
+};
+
+/**
+ * 审批步骤
+ */
+export type SaveBpmBusinessActivityInput = Omit<BpmBusinessActivity, 'id' | 'createdAt' | 'createdBy' | 'updatedAt' | 'updatedBy'>;
+
+/**
+ * 业务申请单
+ */
+export interface BpmBusinessApplication {
+  /**
+   * id
+   */
+  id: number;
+  /**
+   * 业务流程
+   */
+  process: BpmBusinessProcess;
+  /**
+   * 申请单号
+   */
+  code: string;
+  /**
+   * 标题
+   */
+  title: string;
+  /**
+   * 表单数据
+   */
+  formData?: object;
+  /**
+   * 发起人
+   */
+  initiator?: OcUser;
+  /**
+   * 发起时间
+   */
+  initiatedAt?: string;
+  /**
+   * 批准时间
+   */
+  approvedAt?: string;
+  /**
+   * 流程状态
+   */
+  state: BusinessApplicationState;
+  /**
+   * 创建时间
+   */
+  createdAt?: string;
+  /**
+   * 创建人
+   */
+  createdBy?: OcUser;
+  /**
+   * 更新时间
+   */
+  updatedAt?: string;
+  /**
+   * 更新人
+   */
+  updatedBy?: OcUser;
+  /**
+   * 删除时间
+   */
+  deletedAt?: string;
+  /**
+   * 删除人
+   */
+  detetedBy?: OcUser;
+};
+
+/**
+ * 业务申请单
+ */
+export type SaveBpmBusinessApplicationInput = Omit<BpmBusinessApplication, 'id' | 'createdAt' | 'createdBy' | 'updatedAt' | 'updatedBy'>;
+
+/**
+ * 流程分组
+ */
+export interface BpmBusinessCategory {
+  /**
+   * id
+   */
+  id: number;
+  /**
+   * 名称
+   */
+  name: string;
+  /**
+   * 排序号
+   */
+  orderNum: number;
+  /**
+   * 创建时间
+   */
+  createdAt?: string;
+  /**
+   * 创建人
+   */
+  createdBy?: OcUser;
+  /**
+   * 更新时间
+   */
+  updatedAt?: string;
+  /**
+   * 更新人
+   */
+  updatedBy?: OcUser;
+  /**
+   * 删除时间
+   */
+  deletedAt?: string;
+  /**
+   * 删除人
+   */
+  detetedBy?: OcUser;
+};
+
+/**
+ * 流程分组
+ */
+export type SaveBpmBusinessCategoryInput = Omit<BpmBusinessCategory, 'id' | 'createdAt' | 'createdBy' | 'updatedAt' | 'updatedBy'>;
+
+/**
+ * 业务流程
+ */
+export interface BpmBusinessProcess {
+  /**
+   * id
+   */
+  id: number;
+  /**
+   * 分组
+   */
+  category?: BpmBusinessCategory;
+  /**
+   * 名称
+   */
+  name: string;
+  /**
+   * 描述
+   */
+  description: string;
+  /**
+   * 表单配置
+   */
+  formConfig?: object;
+  /**
+   * 流程配置
+   */
+  flowConfig?: object;
+  /**
+   * 高级设置
+   */
+  advancedConfig?: object;
+  /**
+   * 状态
+   */
+  state: EnabledDisabledState;
+  /**
+   * 状态
+   */
+  publishState: PublishState;
+  /**
+   * 当前版本
+   */
+  activeRevision?: BpmBusinessProcessRevision;
+  /**
+   * 创建时间
+   */
+  createdAt?: string;
+  /**
+   * 创建人
+   */
+  createdBy?: OcUser;
+  /**
+   * 更新时间
+   */
+  updatedAt?: string;
+  /**
+   * 更新人
+   */
+  updatedBy?: OcUser;
+  /**
+   * 删除时间
+   */
+  deletedAt?: string;
+  /**
+   * 删除人
+   */
+  detetedBy?: OcUser;
+};
+
+/**
+ * 业务流程
+ */
+export type SaveBpmBusinessProcessInput = Omit<BpmBusinessProcess, 'id' | 'createdAt' | 'createdBy' | 'updatedAt' | 'updatedBy'>;
+
+/**
+ * 业务流程版本
+ */
+export interface BpmBusinessProcessRevision {
+  /**
+   * id
+   */
+  id: number;
+  /**
+   * 业务流程
+   */
+  process: BpmBusinessProcess;
+  /**
+   * 名称
+   */
+  name: string;
+  /**
+   * 描述
+   */
+  description: string;
+  /**
+   * 表单配置
+   */
+  formConfig?: object;
+  /**
+   * 流程配置
+   */
+  flowConfig?: object;
+  /**
+   * 高级设置
+   */
+  advancedConfig?: object;
+  /**
+   * 状态
+   */
+  publishState: PublishState;
+  /**
+   * 创建时间
+   */
+  createdAt?: string;
+  /**
+   * 创建人
+   */
+  createdBy?: OcUser;
+  /**
+   * 更新时间
+   */
+  updatedAt?: string;
+  /**
+   * 更新人
+   */
+  updatedBy?: OcUser;
+  /**
+   * 删除时间
+   */
+  deletedAt?: string;
+  /**
+   * 删除人
+   */
+  detetedBy?: OcUser;
+};
+
+/**
+ * 业务流程版本
+ */
+export type SaveBpmBusinessProcessRevisionInput = Omit<BpmBusinessProcessRevision, 'id' | 'createdAt' | 'createdBy' | 'updatedAt' | 'updatedBy'>;
+
+/**
+ * 审批任务
+ */
+export interface BpmBusinessTask {
+  /**
+   * id
+   */
+  id: number;
+  /**
+   * 审批步骤
+   */
+  activity: BpmBusinessActivity;
+  /**
+   * 负责人
+   */
+  assignee: OcUser;
+  /**
+   * 任务状态
+   */
+  state: BusinessTaskState;
+  /**
+   * 任务决议
+   */
+  resolution?: string;
+  /**
+   * 创建时间
+   */
+  createdAt?: string;
+  /**
+   * 创建人
+   */
+  createdBy?: OcUser;
+  /**
+   * 更新时间
+   */
+  updatedAt?: string;
+  /**
+   * 更新人
+   */
+  updatedBy?: OcUser;
+  /**
+   * 删除时间
+   */
+  deletedAt?: string;
+  /**
+   * 删除人
+   */
+  detetedBy?: OcUser;
+};
+
+/**
+ * 审批任务
+ */
+export type SaveBpmBusinessTaskInput = Omit<BpmBusinessTask, 'id' | 'createdAt' | 'createdBy' | 'updatedAt' | 'updatedBy'>;
+
+/**
  * 检验类型
  */
 export interface InspectionCategory {
@@ -2541,6 +2923,10 @@ export interface OcUser {
    * 状态
    */
   state: EnabledDisabledState;
+  /**
+   * Email
+   */
+  email?: string;
   /**
    * 部门
    */

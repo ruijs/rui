@@ -1,6 +1,10 @@
 import type { SdRpdDataDictionary as TSdRpdDataDictionary } from '~/types/sd-rapid-types';
 import ActiveInactiveState from '../models/sd-rpd-dictionaries/ActiveInactiveState';
 import ApprovalState from '../models/sd-rpd-dictionaries/ApprovalState';
+import BusinessActivityKind from '../models/sd-rpd-dictionaries/BusinessActivityKind';
+import BusinessActivityState from '../models/sd-rpd-dictionaries/BusinessActivityState';
+import BusinessApplicationState from '../models/sd-rpd-dictionaries/BusinessApplicationState';
+import BusinessTaskState from '../models/sd-rpd-dictionaries/BusinessTaskState';
 import DataDictionaryValueType from '../models/sd-rpd-dictionaries/DataDictionaryValueType';
 import DataSecretLevel from '../models/sd-rpd-dictionaries/DataSecretLevel';
 import EmployeeState from '../models/sd-rpd-dictionaries/EmployeeState';
@@ -27,6 +31,10 @@ import UserSecretLevel from '../models/sd-rpd-dictionaries/UserSecretLevel';
 export default [
   ActiveInactiveState,
   ApprovalState,
+  BusinessActivityKind,
+  BusinessActivityState,
+  BusinessApplicationState,
+  BusinessTaskState,
   DataDictionaryValueType,
   DataSecretLevel,
   EmployeeState,

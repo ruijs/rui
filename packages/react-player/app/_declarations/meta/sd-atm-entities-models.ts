@@ -24,6 +24,12 @@ import BaseProdProcessCategory from '../models/sd-atm-entities/BaseProdProcessCa
 import BaseUnit from '../models/sd-atm-entities/BaseUnit';
 import BaseUnitCategory from '../models/sd-atm-entities/BaseUnitCategory';
 import BaseWarehouse from '../models/sd-atm-entities/BaseWarehouse';
+import BpmBusinessActivity from '../models/sd-atm-entities/BpmBusinessActivity';
+import BpmBusinessApplication from '../models/sd-atm-entities/BpmBusinessApplication';
+import BpmBusinessCategory from '../models/sd-atm-entities/BpmBusinessCategory';
+import BpmBusinessProcess from '../models/sd-atm-entities/BpmBusinessProcess';
+import BpmBusinessProcessRevision from '../models/sd-atm-entities/BpmBusinessProcessRevision';
+import BpmBusinessTask from '../models/sd-atm-entities/BpmBusinessTask';
 import InspectionCategory from '../models/sd-atm-entities/InspectionCategory';
 import InspectionCharacteristic from '../models/sd-atm-entities/InspectionCharacteristic';
 import InspectionCharacteristicCategory from '../models/sd-atm-entities/InspectionCharacteristicCategory';
@@ -83,6 +89,12 @@ export default [
   BaseUnit,
   BaseUnitCategory,
   BaseWarehouse,
+  BpmBusinessActivity,
+  BpmBusinessApplication,
+  BpmBusinessCategory,
+  BpmBusinessProcess,
+  BpmBusinessProcessRevision,
+  BpmBusinessTask,
   InspectionCategory,
   InspectionCharacteristic,
   InspectionCharacteristicCategory,

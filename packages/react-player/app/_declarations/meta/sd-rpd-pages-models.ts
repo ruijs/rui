@@ -12,10 +12,16 @@ import BaseMaterialListPage from '../models/sd-rpd-pages/BaseMaterialListPage';
 import BaseProdFlowListPage from '../models/sd-rpd-pages/BaseProdFlowListPage';
 import BaseProdProcessListPage from '../models/sd-rpd-pages/BaseProdProcessListPage';
 import BaseUnitListPage from '../models/sd-rpd-pages/BaseUnitListPage';
+import BpmCcToMeApplicationListPage from '../models/sd-rpd-pages/BpmCcToMeApplicationListPage';
+import BpmMyFinishedApprovalListPage from '../models/sd-rpd-pages/BpmMyFinishedApprovalListPage';
+import BpmMyInitiatedApplicationListPage from '../models/sd-rpd-pages/BpmMyInitiatedApplicationListPage';
+import BpmMyPendingApprovalListPage from '../models/sd-rpd-pages/BpmMyPendingApprovalListPage';
+import BpmPendingTaskListPage from '../models/sd-rpd-pages/BpmPendingTaskListPage';
 import DataDictionaryDetailsPage from '../models/sd-rpd-pages/DataDictionaryDetailsPage';
 import DataDictionaryEditPage from '../models/sd-rpd-pages/DataDictionaryEditPage';
 import DataDictionaryListPage from '../models/sd-rpd-pages/DataDictionaryListPage';
 import DataDictionaryNewPage from '../models/sd-rpd-pages/DataDictionaryNewPage';
+import EditMaterialPage from '../models/sd-rpd-pages/EditMaterialPage';
 import MetaModelDetailsPage from '../models/sd-rpd-pages/MetaModelDetailsPage';
 import MetaModelListPage from '../models/sd-rpd-pages/MetaModelListPage';
 import MetaRouteListPage from '../models/sd-rpd-pages/MetaRouteListPage';
@@ -25,6 +31,7 @@ import MomProdPlanDetailsPage from '../models/sd-rpd-pages/MomProdPlanDetailsPag
 import MomProdPlanListPage from '../models/sd-rpd-pages/MomProdPlanListPage';
 import MomProdTaskDetailsPage from '../models/sd-rpd-pages/MomProdTaskDetailsPage';
 import MomProdTaskListPage from '../models/sd-rpd-pages/MomProdTaskListPage';
+import NewMaterialPage from '../models/sd-rpd-pages/NewMaterialPage';
 import OcDepartmentListPage from '../models/sd-rpd-pages/OcDepartmentListPage';
 import OcRoleListPage from '../models/sd-rpd-pages/OcRoleListPage';
 import OcUserListPage from '../models/sd-rpd-pages/OcUserListPage';
@@ -44,10 +51,16 @@ export default [
   BaseProdFlowListPage,
   BaseProdProcessListPage,
   BaseUnitListPage,
+  BpmCcToMeApplicationListPage,
+  BpmMyFinishedApprovalListPage,
+  BpmMyInitiatedApplicationListPage,
+  BpmMyPendingApprovalListPage,
+  BpmPendingTaskListPage,
   DataDictionaryDetailsPage,
   DataDictionaryEditPage,
   DataDictionaryListPage,
   DataDictionaryNewPage,
+  EditMaterialPage,
   MetaModelDetailsPage,
   MetaModelListPage,
   MetaRouteListPage,
@@ -57,6 +70,7 @@ export default [
   MomProdPlanListPage,
   MomProdTaskDetailsPage,
   MomProdTaskListPage,
+  NewMaterialPage,
   OcDepartmentListPage,
   OcRoleListPage,
   OcUserListPage,

@@ -24,6 +24,12 @@ import BaseProdProcessCategory from '../models/sd-rpd-entities/BaseProdProcessCa
 import BaseUnit from '../models/sd-rpd-entities/BaseUnit';
 import BaseUnitCategory from '../models/sd-rpd-entities/BaseUnitCategory';
 import BaseWarehouse from '../models/sd-rpd-entities/BaseWarehouse';
+import BpmBusinessActivity from '../models/sd-rpd-entities/BpmBusinessActivity';
+import BpmBusinessApplication from '../models/sd-rpd-entities/BpmBusinessApplication';
+import BpmBusinessCategory from '../models/sd-rpd-entities/BpmBusinessCategory';
+import BpmBusinessProcess from '../models/sd-rpd-entities/BpmBusinessProcess';
+import BpmBusinessProcessRevision from '../models/sd-rpd-entities/BpmBusinessProcessRevision';
+import BpmBusinessTask from '../models/sd-rpd-entities/BpmBusinessTask';
 import InspectionCategory from '../models/sd-rpd-entities/InspectionCategory';
 import InspectionCharacteristic from '../models/sd-rpd-entities/InspectionCharacteristic';
 import InspectionCharacteristicCategory from '../models/sd-rpd-entities/InspectionCharacteristicCategory';
@@ -83,6 +89,12 @@ export default [
   BaseUnit,
   BaseUnitCategory,
   BaseWarehouse,
+  BpmBusinessActivity,
+  BpmBusinessApplication,
+  BpmBusinessCategory,
+  BpmBusinessProcess,
+  BpmBusinessProcessRevision,
+  BpmBusinessTask,
   InspectionCategory,
   InspectionCharacteristic,
   InspectionCharacteristicCategory,

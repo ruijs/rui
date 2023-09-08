@@ -9,6 +9,26 @@ export type ActiveInactiveState = never;
 export type ApprovalState = never;
 
 /**
+ * 业务活动类型
+ */
+export type BusinessActivityKind = never;
+
+/**
+ * 流程活动状态
+ */
+export type BusinessActivityState = never;
+
+/**
+ * 流程申请单状态
+ */
+export type BusinessApplicationState = never;
+
+/**
+ * 流程任务状态
+ */
+export type BusinessTaskState = never;
+
+/**
  * 字典值类型
  */
 export type DataDictionaryValueType = never;

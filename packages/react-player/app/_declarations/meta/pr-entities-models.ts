@@ -24,6 +24,12 @@ import BaseProdProcessCategory from '../models/pr-entities/BaseProdProcessCatego
 import BaseUnit from '../models/pr-entities/BaseUnit';
 import BaseUnitCategory from '../models/pr-entities/BaseUnitCategory';
 import BaseWarehouse from '../models/pr-entities/BaseWarehouse';
+import BpmBusinessActivity from '../models/pr-entities/BpmBusinessActivity';
+import BpmBusinessApplication from '../models/pr-entities/BpmBusinessApplication';
+import BpmBusinessCategory from '../models/pr-entities/BpmBusinessCategory';
+import BpmBusinessProcess from '../models/pr-entities/BpmBusinessProcess';
+import BpmBusinessProcessRevision from '../models/pr-entities/BpmBusinessProcessRevision';
+import BpmBusinessTask from '../models/pr-entities/BpmBusinessTask';
 import InspectionCategory from '../models/pr-entities/InspectionCategory';
 import InspectionCharacteristic from '../models/pr-entities/InspectionCharacteristic';
 import InspectionCharacteristicCategory from '../models/pr-entities/InspectionCharacteristicCategory';
@@ -83,6 +89,12 @@ export default [
   BaseUnit,
   BaseUnitCategory,
   BaseWarehouse,
+  BpmBusinessActivity,
+  BpmBusinessApplication,
+  BpmBusinessCategory,
+  BpmBusinessProcess,
+  BpmBusinessProcessRevision,
+  BpmBusinessTask,
   InspectionCategory,
   InspectionCharacteristic,
   InspectionCharacteristicCategory,

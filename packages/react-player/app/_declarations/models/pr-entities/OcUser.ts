@@ -30,6 +30,12 @@ export default {
       required: true,
     },
     {
+      code: 'email',
+      name: 'Email',
+      fieldType: 'string',
+      required: false,
+    },
+    {
       code: 'department',
       name: '部门',
       fieldType: 'relation',

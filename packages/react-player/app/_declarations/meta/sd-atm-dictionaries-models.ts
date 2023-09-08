@@ -1,6 +1,10 @@
 import type { SdAtmDictionary as TSdAtmDictionary } from '~/types/sd-autumn-types';
 import ActiveInactiveState from '../models/sd-atm-dictionaries/ActiveInactiveState';
 import ApprovalState from '../models/sd-atm-dictionaries/ApprovalState';
+import BusinessActivityKind from '../models/sd-atm-dictionaries/BusinessActivityKind';
+import BusinessActivityState from '../models/sd-atm-dictionaries/BusinessActivityState';
+import BusinessApplicationState from '../models/sd-atm-dictionaries/BusinessApplicationState';
+import BusinessTaskState from '../models/sd-atm-dictionaries/BusinessTaskState';
 import DataDictionaryValueType from '../models/sd-atm-dictionaries/DataDictionaryValueType';
 import DataSecretLevel from '../models/sd-atm-dictionaries/DataSecretLevel';
 import EmployeeState from '../models/sd-atm-dictionaries/EmployeeState';
@@ -27,6 +31,10 @@ import UserSecretLevel from '../models/sd-atm-dictionaries/UserSecretLevel';
 export default [
   ActiveInactiveState,
   ApprovalState,
+  BusinessActivityKind,
+  BusinessActivityState,
+  BusinessApplicationState,
+  BusinessTaskState,
   DataDictionaryValueType,
   DataSecretLevel,
   EmployeeState,

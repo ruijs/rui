@@ -19,6 +19,42 @@ export type ApprovalState =
   ;
 
 /**
+ * 业务活动类型
+ */
+export type BusinessActivityKind =
+  | 'approval'
+  | 'cc'
+  | 'comment'
+  ;
+
+/**
+ * 流程活动状态
+ */
+export type BusinessActivityState =
+  | 'pending'
+  | 'finished'
+  ;
+
+/**
+ * 流程申请单状态
+ */
+export type BusinessApplicationState =
+  | 'draft'
+  | 'processing'
+  | 'approved'
+  | 'refused'
+  | 'withdrawed'
+  ;
+
+/**
+ * 流程任务状态
+ */
+export type BusinessTaskState =
+  | 'pending'
+  | 'finished'
+  ;
+
+/**
  * 字典值类型
  */
 export type DataDictionaryValueType =

@@ -1,6 +1,10 @@
 import type { PrDictionary as TPrDictionary } from '~/types/pr-types';
 import ActiveInactiveState from '../models/pr-dictionaries/ActiveInactiveState';
 import ApprovalState from '../models/pr-dictionaries/ApprovalState';
+import BusinessActivityKind from '../models/pr-dictionaries/BusinessActivityKind';
+import BusinessActivityState from '../models/pr-dictionaries/BusinessActivityState';
+import BusinessApplicationState from '../models/pr-dictionaries/BusinessApplicationState';
+import BusinessTaskState from '../models/pr-dictionaries/BusinessTaskState';
 import DataDictionaryValueType from '../models/pr-dictionaries/DataDictionaryValueType';
 import DataSecretLevel from '../models/pr-dictionaries/DataSecretLevel';
 import EmployeeState from '../models/pr-dictionaries/EmployeeState';
@@ -25,6 +29,10 @@ import UserSecretLevel from '../models/pr-dictionaries/UserSecretLevel';
 export default [
   ActiveInactiveState,
   ApprovalState,
+  BusinessActivityKind,
+  BusinessActivityState,
+  BusinessApplicationState,
+  BusinessTaskState,
   DataDictionaryValueType,
   DataSecretLevel,
   EmployeeState,
