@@ -263,6 +263,7 @@ const entityFieldCodes = {
     'description',
     'formConfig',
     'flowConfig',
+    'listConfig',
     'advancedConfig',
     'state',
     'publishState',

@@ -12,6 +12,7 @@ const page: PrRapidPage = {
       $type: "sonicEntityList",
       entityCode: "BpmBusinessApplication",
       viewMode: "table",
+      extraProperties: ["process"],
       columns: [
         {
           columnType: 'auto',
@@ -27,32 +28,9 @@ const page: PrRapidPage = {
           rendererType: 'rapidDescriptionsRenderer',
           rendererProps: {
             size: 'small',
-            items: [
-              {
-                code: 'productionOrder',
-                label: '生产工单',
-              },
-              {
-                code: 'material',
-                label: '物料',
-              },
-              {
-                code: 'materialFlowProcess',
-                label: '工序',
-              },
-              {
-                code: 'operator',
-                label: '操作工',
-              },
-              {
-                code: 'equipment',
-                label: '设备',
-              },
-              {
-                code: 'qualifiedOutput',
-                label: '合格品数量',
-              },
-            ]
+            $exps: {
+              items: "_.get($slot.record, 'process.listConfig.listSummaryColumnRenderProps.items') || []"
+            }
           }
         },
         {

@@ -181,6 +181,7 @@ export default {
           ...fieldTypeRelatedRendererProps,
           ...column.rendererProps,
           $exps: {
+            ...(column.rendererProps?.$exps || {}),
             value: "$slot.value",
           }
         };

@@ -1041,6 +1041,10 @@ export interface BpmBusinessProcess {
    */
   flowConfig?: object;
   /**
+   * 列表配置
+   */
+  listConfig?: object;
+  /**
    * 高级设置
    */
   advancedConfig?: object;

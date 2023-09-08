@@ -12,6 +12,7 @@ const page: PrRapidPage = {
       $type: "sonicEntityList",
       entityCode: "BpmBusinessApplication",
       viewMode: "table",
+      extraProperties: ["process"],
       columns: [
         {
           columnType: 'auto',

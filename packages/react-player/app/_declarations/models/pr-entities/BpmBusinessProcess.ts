@@ -35,6 +35,12 @@ export default {
       required: false,
     },
     {
+      code: 'listConfig',
+      name: '列表配置',
+      fieldType: 'object',
+      required: false,
+    },
+    {
       code: 'advancedConfig',
       name: '高级设置',
       fieldType: 'object',
