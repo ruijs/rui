@@ -77,6 +77,31 @@ function generateSdRpdEntities(sdRpdEntitiesMetaDir: string, entityNames: string
   }
 }
 
+
+function generateSdRpdPage(sdRpdMetaFileName: string, pageName: string) {
+  console.log(`generating sd-rpd meta for page '${pageName}'`);
+
+  const codes: string[] = [];
+  codes.push(`import prDef from '../pr-pages/${pageName}';`);
+  codes.push(`import type { SdRapidPage  } from '~/types/sd-rapid-page-types';`);
+  codes.push('');
+  codes.push(`const page: SdRapidPage = prDef;`);
+  codes.push(`export default page;`);
+  codes.push('');
+
+  fs.writeFileSync(sdRpdMetaFileName, codes.join('\n'));
+}
+
+function generateSdRpdPages(sdRpdPagesMetaDir: string, pageNames: string[]) {
+  for (const pageName of pageNames) {
+    const sdRpdMetaFileName = path.join(sdRpdPagesMetaDir, `${pageName}.ts`);
+    if (fs.existsSync(sdRpdMetaFileName)) {
+      continue;
+    }
+    generateSdRpdPage(sdRpdMetaFileName, pageName);
+  }
+}
+
 export function generateSdRpdModelSkeleton(declarationsDirectory: string) {
   const modelsDir = path.join(declarationsDirectory, 'models');
 
@@ -89,4 +114,9 @@ export function generateSdRpdModelSkeleton(declarationsDirectory: string) {
   ensureDirectoryExists(entitiesOutputDirectory);
   const entityNames = getAvailableModelNames(path.join(modelsDir, 'pr-entities'));
   generateSdRpdEntities(entitiesOutputDirectory, entityNames);
+
+  const pagesOutputDirectory = path.join(modelsDir, 'sd-rpd-pages')
+  ensureDirectoryExists(entitiesOutputDirectory);
+  const pageNames = getAvailableModelNames(path.join(modelsDir, 'pr-pages'));
+  generateSdRpdPages(pagesOutputDirectory, pageNames);
 }
