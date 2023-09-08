@@ -151,7 +151,7 @@ export default {
         }
       } else if (column.columnType === "auto") {
         let fieldType = column.fieldType || rpdField?.type || "text";
-        let rendererType = props.rendererType || fieldTypeToDisplayRockTypeMap[fieldType] || "rapidTextRenderer";
+        let rendererType = column.rendererType || fieldTypeToDisplayRockTypeMap[fieldType] || "rapidTextRenderer";
         let defaultRendererProps: any = defaultDisplayPropsOfFieldType[fieldType] || {};
         let fieldTypeRelatedRendererProps: any = {};
         if (rpdField) {
