@@ -1,8 +1,7 @@
-import { RockConfig, Rock } from "@ruijs/move-style";
-import { convertToEventHandlers, convertToSlotProps } from "@ruijs/react-renderer";
-import { renderRockChildren } from "@ruijs/react-renderer";
+import { RockConfig, Rock, MoveStyleUtils } from "@ruijs/move-style";
 import React from "react";
 import AntdRocksMeta from "./AntdRocksMeta";
+import { convertToEventHandlers, convertToSlotProps, renderRockChildren } from "@ruijs/react-renderer";
 
 export function convertAntdComponentToRock(antdComponent: React.Component, rockType: string) {
   return {
@@ -14,34 +13,26 @@ export function convertAntdComponentToRock(antdComponent: React.Component, rockT
 
 function genAntdComponentRenderer(rockType: string, antdComponent: any) {
   return function AntdComponentRenderer(context, props: RockConfig) {
-    console.debug(`[RUI][AntdRocks] renderRock ${JSON.stringify({$id: props.$id, $type: props.$type})}`);
+    console.debug(`[RUI][AntdRocks] renderRock ${JSON.stringify({$id: props.$id, $type: rockType})}`);
+    const antdProps = MoveStyleUtils.omitSystemRockConfigFields(props);
 
-    const reactComponentProps = {};
-    for (const key in props) {
-      if (key.startsWith("$")) {
-        continue;
-      }
-      reactComponentProps[key] = props[key];
-    }
-
+    const rock: Rock = context.framework.getComponent(rockType)
     const eventHandlers = convertToEventHandlers({context, rockConfig: props});
-    const slotProps = convertToSlotProps({context, rockConfig: props, slotsMeta: AntdRocksMeta[rockType]?.slots});
+    const slotsMeta = rock.slots || {};
+    if (!rock.voidComponent && !slotsMeta.children) {
+      slotsMeta.children = {
+        allowMultiComponents: true,
+      };
+    };
+    const slotProps = convertToSlotProps({context, rockConfig: props, slotsMeta});
 
     return React.createElement(
       antdComponent,
       {
-        ...reactComponentProps,
+        ...antdProps,
         ...eventHandlers,
         ...slotProps,
       },
-      props.children ? renderRockChildren({context,
-        rockChildrenConfig: props.children,
-        expVars: {
-          $slot: props.$slot,
-        },
-        fixedProps: {
-          $slot: props.$slot,
-        }
-      }) : null);
+    );
   }
 }

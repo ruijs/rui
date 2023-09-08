@@ -39,6 +39,11 @@ export type RockMeta = {
   thumbnail?: string;
   document?: string;
   Presenter?: (props: any) => any; // TODO: rock type is perhaps better.
+
+  /**
+   * Void component has no children
+   */
+  voidComponent?: boolean;
   props?: RockMetaProps;
   slots?: RockMetaSlots;
   events?: RockMetaEvents;
@@ -52,8 +57,8 @@ export type RockMetaProps<TName extends string = string> = Record<TName, FieldSe
 export type RockMetaSlots = Record<string, RockMetaSlot>;
 
 export type RockMetaSlot = {
-  required: boolean;
-  allowMultiComponents: boolean;
+  required?: boolean;
+  allowMultiComponents: boolean;// TODO: rename to `onlyChild`
   argumentsToProps?: boolean;
   argumentNames?: string[];
   /**
@@ -65,6 +70,17 @@ export type RockMetaSlot = {
    * 适配器的插槽。默认为children。
    */
   adapterSlots?: string[];
+
+  /**
+   * 表示是否延迟创建插槽内组件。默认为`false`。
+   * 
+   */
+  lazyCreate?: boolean;
+
+  /**
+   * 表示是否在调用Rock.Renderer之前提前创建插槽内组件。默认为`false`。
+   */
+  earlyCreate?: boolean;
 }
 
 export type RockMetaEvents = Record<string, RockMetaEvent>;

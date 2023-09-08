@@ -3,6 +3,7 @@ import { renderRock } from "@ruijs/react-renderer";
 import RapidFormItemMeta from "./RapidFormItemMeta";
 import { RapidFormItemRockConfig } from "./rapid-form-item-types";
 import { RapidFieldType } from "../rapid-types";
+import { defaultDisplayPropsOfFieldType, fieldTypeToDisplayRockTypeMap } from "../utility";
 
 const formItemTypeToControlRockTypeMap: Record<string, string> = {
   text: "antdInput",
@@ -65,33 +66,6 @@ const valuePropNameOfFormInput: Record<string, string> = {
   antdUpload: "fileList",
 }
 
-
-const fieldTypeToDisplayRockTypeMap: Record<RapidFieldType, string> = {
-  text: "rapidTextRenderer",
-  integer: "rapidTextRenderer", // TODO: should use rapidNumberRenderer
-  long: "rapidTextRenderer",
-  float: "rapidTextRenderer",
-  double: "rapidTextRenderer",
-  boolean: "rapidBoolRenderer",
-  date: "rapidDateTimeRenderer",
-  time: "rapidDateTimeRenderer",
-  datetime: "rapidDateTimeRenderer",
-  datetimetz: "rapidDateTimeRenderer",
-  option: "rapidReferenceRenderer",
-  relation: "rapidObjectRenderer",
-  json: "rapidJsonRenderer",
-}
-
-
-const defaultDisplayPropsOfFieldType: Record<string, Record<string, any>> = {
-  date: {
-    format: "YYYY-MM-DD",
-  },
-
-  datetime: {
-    format: "YYYY-MM-DD HH:mm:ss",
-  },
-}
 
 export default {
   $type: "rapidFormItem",

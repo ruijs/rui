@@ -8,12 +8,12 @@ export type RapidFormItemConfig = {
   /**
    * 表单项类型
    */
-  type: RapidFormItemType,
+  type: RapidFormItemType;
 
   /**
    * 值的类型
    */
-  valueFieldType?: RapidFieldType,
+  valueFieldType?: RapidFieldType;
 
   /**
    * 多个值

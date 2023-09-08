@@ -1,7 +1,7 @@
-import { ConvertRockEventHandlerPropsOptions, ConvertRockSlotPropsOptions, GenerateRockSlotRendererOptions, handleComponentEvent, RenderRockChildrenOptions, RenderRockOptions, RenderRockSlotOptions, RenderRockSlotWithMetaOptions, RockInstance, RockInstanceContext, RockMetaSlot, RockMetaSlots, Scope } from "@ruijs/move-style";
+import { ConvertRockEventHandlerPropsOptions, ConvertRockSlotPropsOptions, GenerateRockSlotRendererOptions, handleComponentEvent, RenderRockChildrenOptions, RenderRockOptions, RenderRockSlotOptions, RenderRockSlotWithMetaOptions, Rock, RockInstance, RockInstanceContext, RockMeta, RockMetaSlot, RockMetaSlots, Scope } from "@ruijs/move-style";
 import { RockEventHandler } from "@ruijs/move-style";
-import { Framework, Page, RockConfig, MoveStyleUtils } from "@ruijs/move-style";
-import _, { forEach, isArray, pick } from "lodash";
+import { RockConfig, MoveStyleUtils } from "@ruijs/move-style";
+import { forEach, isArray, isFunction, pick } from "lodash";
 import React from "react";
 
 // TODO: support `$parent`?
@@ -15,15 +15,15 @@ export function renderRock(options: RenderRockOptions) {
 
   const {framework, page, scope} = context;
   const componentType = rockConfig.$type;
-  const component = framework.getComponent(componentType);
-  if (!component) {
+  const rock: Rock = framework.getComponent(componentType);
+  if (!rock) {
     console.debug(rockConfig);
     throw new Error(`Unknown component '${componentType}'`);
   }
 
-  const Renderer: any = component.Renderer;
+  const Renderer: any = rock.Renderer;
   if (!Renderer.displayName) {
-    Renderer.displayName = component.$type;
+    Renderer.displayName = rock.$type;
   }
 
   const configInstance = rockConfig as RockInstance;
@@ -38,7 +38,6 @@ export function renderRock(options: RenderRockOptions) {
     }
   }
 
-
   // TODO: remove $scope from expVars?
   if (expVars) {
     expVars.$scope = scope || page.scope;
@@ -52,26 +51,26 @@ export function renderRock(options: RenderRockOptions) {
     Object.assign(rockConfig, fixedProps);
   }
 
+  if (rockConfig._hidden) {
+    return null;
+  }
   const props = rockConfig;
   const $slot = expVars?.$slot;
   if ($slot) {
     props.$slot = $slot;
   }
 
-  if (props._hidden) {
-    return null;
-  }
-
   console.debug(`[RUI][ReactRenderer] createElement ${JSON.stringify({$id: rockConfig.$id, $type: rockConfig.$type})}`);
-  const result = React.createElement(
+  const slotProps = convertToSlotProps({context, rockConfig: props, slotsMeta: rock.slots, isEarly: true});
+  return React.createElement(
     Renderer,
     {
       key: rockConfig.$id,
       ...props,
+      ...slotProps,
       _context: context,
-    }
+    },
   );
-  return result;
 }
 
 export function renderRockChildren(options: RenderRockChildrenOptions) {
@@ -87,7 +86,7 @@ export function renderRockChildren(options: RenderRockChildrenOptions) {
     return rocks.map((rockConfig) => renderRock({context, rockConfig, expVars, fixedProps}));
   } else {
     const rockConfig = rockChildrenConfig as RockConfig;
-    return renderRock({context, rockConfig, expVars, fixedProps});
+    return [renderRock({context, rockConfig, expVars, fixedProps})];
   }
 }
 
@@ -168,7 +167,7 @@ export function convertToEventHandlers(options: ConvertRockEventHandlerPropsOpti
 
       // Some components set children's event handlers. For example, FormItem set onChange event handler.
       // Just keep this function props so that we will not break things.
-      if (_.isFunction(eventProp)) {
+      if (isFunction(eventProp)) {
         eventHandlers[propName] = eventProp;
         continue;
       }
@@ -214,19 +213,38 @@ export function renderSlotWithAdapter(options: RenderRockSlotWithMetaOptions) {
 }
 
 export function convertToSlotProps(options: ConvertRockSlotPropsOptions) {
-  const {context, rockConfig, slotsMeta} = options;
+  const {context, rockConfig, slotsMeta, isEarly} = options;
   const slotProps = {};
-  if (slotsMeta) {
-    for (const slotName in slotsMeta) {
-      const slot = rockConfig[slotName];
-      if (slot) {
-        const slotMeta = slotsMeta[slotName];
-        if (slotMeta.withAdapter) {
-          slotProps[slotName] = renderSlotWithAdapter({context, slotMeta, slot});
+  if (!slotsMeta) {
+    return slotProps;
+  }
+
+  for (const slotName in slotsMeta) {
+    // TODO: rename `slot` to `slotConfig`
+    const slot = rockConfig[slotName];
+    if (slot) {
+      const slotMeta = slotsMeta[slotName];
+        if (isEarly) {
+          if (slotMeta.earlyCreate) {
+            if (slotMeta.withAdapter) {
+              slotProps[slotName] = renderSlotWithAdapter({context, slotMeta, slot});
+            } else {
+              slotProps[slotName] = renderRockChildren({context, rockChildrenConfig: slot});
+            }
+          } else {
+            slotProps[slotName] = slot;
+          }
         } else {
-          slotProps[slotName] = renderRockChildren({context, rockChildrenConfig: slot});
+          if (slotMeta.lazyCreate) {
+            slotProps[slotName] = slot;
+          } else {
+            if (slotMeta.withAdapter) {
+              slotProps[slotName] = renderSlotWithAdapter({context, slotMeta, slot});
+            } else {
+              slotProps[slotName] = renderRockChildren({context, rockChildrenConfig: slot});
+            }
+          }
         }
-      }
     }
   }
   return slotProps;

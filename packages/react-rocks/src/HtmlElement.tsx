@@ -8,13 +8,6 @@ export interface HtmlElementProps extends ContainerRockConfig {
   attributes: Record<string, string>;
 }
 
-const boxStylePropNames = [
-  ...CommonProps.PositionStylePropNames,
-  ...CommonProps.SizeStylePropNames,
-  ...CommonProps.LayerStylePropNames,
-  ...CommonProps.TextStylePropNames,
-];
-
 export default {
   $type: "htmlElement",
 

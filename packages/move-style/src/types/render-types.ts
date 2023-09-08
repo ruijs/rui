@@ -1,6 +1,3 @@
-import { Framework } from "src/Framework";
-import { Page } from "src/Page";
-import { Scope } from "src/Scope";
 import { RockChildrenConfig, RockConfig, RockInstanceContext, RockMetaSlot, RockMetaSlots } from "./rock-types";
 
 export type RenderRockOptions = {
@@ -50,4 +47,5 @@ export type ConvertRockSlotPropsOptions = {
   context: RockInstanceContext;
   rockConfig: RockConfig;
   slotsMeta: RockMetaSlots;
+  isEarly?: boolean;
 }

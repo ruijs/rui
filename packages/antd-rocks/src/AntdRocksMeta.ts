@@ -20,6 +20,12 @@ regMetaOfRocks(Badge);
 import Button from "./rock-meta/Button";
 regMetaOfRocks(Button);
 
+import Descriptions from "./rock-meta/Descriptions";
+regMetaOfRocks(Descriptions);
+
+import DescriptionsItem from "./rock-meta/DescriptionsItem";
+regMetaOfRocks(DescriptionsItem);
+
 import FormItem from "./rock-meta/FormItem";
 regMetaOfRocks(FormItem);
 
