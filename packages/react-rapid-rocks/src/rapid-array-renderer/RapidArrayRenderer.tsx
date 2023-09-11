@@ -2,27 +2,29 @@ import { MoveStyleUtils, Rock, RockConfig } from "@ruijs/move-style";
 import RapidArrayRendererMeta from "./RapidArrayRendererMeta";
 import { RapidArrayRendererRockConfig } from "./rapid-array-renderer-types";
 import { map } from "lodash";
-import { renderRockChildren } from "@ruijs/react-renderer";
+import { renderRock } from "@ruijs/react-renderer";
 
 export default {
   $type: "rapidObjectRenderer",
 
   Renderer(context, props: RapidArrayRendererRockConfig) {
-    const { value, format, itemRenderer, defaultText } = props;
+    const { value, format, item, separator, defaultText } = props;
     if (!value) {
       return defaultText || "";
     }
 
-
-    if (itemRenderer) {
-      const rockChildrenConfig = map(value, (item, index) => {
-        return {
-          ...itemRenderer,
-          value: item,
-          $id: `${props.$id}-${index}`,
-        } as RockConfig;
-      })
-      return renderRockChildren({context, rockChildrenConfig});
+    if (item) {
+      const rockConfig: RockConfig = {
+        $id: props.$id,
+        $type: "list",
+        item: item,
+        separator: separator || {
+          $type: "antdDivider",
+          type: "vertical",
+        },
+        dataSource: value,
+      };
+      return renderRock({context, rockConfig})
     } else if (format) {
       return map(value, item => {
         return MoveStyleUtils.fulfillVariablesInString(format, item);

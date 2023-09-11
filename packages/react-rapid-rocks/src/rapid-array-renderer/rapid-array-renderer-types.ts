@@ -7,5 +7,7 @@ export interface RapidArrayRendererRockConfig extends SimpleRockConfig {
 
   format?: string;
 
-  itemRenderer?: RockConfig;
+  item?: RockConfig;
+
+  separator?: RockConfig;
 }

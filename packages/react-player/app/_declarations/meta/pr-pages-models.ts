@@ -32,6 +32,7 @@ import MomProdTaskDetailsPage from '../models/pr-pages/MomProdTaskDetailsPage';
 import MomProdTaskListPage from '../models/pr-pages/MomProdTaskListPage';
 import NewMaterialPage from '../models/pr-pages/NewMaterialPage';
 import OcDepartmentListPage from '../models/pr-pages/OcDepartmentListPage';
+import OcRoleDetailsPage from '../models/pr-pages/OcRoleDetailsPage';
 import OcRoleListPage from '../models/pr-pages/OcRoleListPage';
 import OcUserListPage from '../models/pr-pages/OcUserListPage';
 import SysWebhookListPage from '../models/pr-pages/SysWebhookListPage';
@@ -70,6 +71,7 @@ export default [
   MomProdTaskListPage,
   NewMaterialPage,
   OcDepartmentListPage,
+  OcRoleDetailsPage,
   OcRoleListPage,
   OcUserListPage,
   SysWebhookListPage,

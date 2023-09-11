@@ -33,6 +33,7 @@ import MomProdTaskDetailsPage from '../models/sd-rpd-pages/MomProdTaskDetailsPag
 import MomProdTaskListPage from '../models/sd-rpd-pages/MomProdTaskListPage';
 import NewMaterialPage from '../models/sd-rpd-pages/NewMaterialPage';
 import OcDepartmentListPage from '../models/sd-rpd-pages/OcDepartmentListPage';
+import OcRoleDetailsPage from '../models/sd-rpd-pages/OcRoleDetailsPage';
 import OcRoleListPage from '../models/sd-rpd-pages/OcRoleListPage';
 import OcUserListPage from '../models/sd-rpd-pages/OcUserListPage';
 import SysWebhookListPage from '../models/sd-rpd-pages/SysWebhookListPage';
@@ -72,6 +73,7 @@ export default [
   MomProdTaskListPage,
   NewMaterialPage,
   OcDepartmentListPage,
+  OcRoleDetailsPage,
   OcRoleListPage,
   OcUserListPage,
   SysWebhookListPage,

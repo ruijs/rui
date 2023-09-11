@@ -50,6 +50,11 @@ export function runProton(option: RunProtonOption) {
     generateSdRpdModelSkeleton(declarationsDirectory);
     console.log("generateSdRpdModelTypes");
     generateSdRpdModelTypes(declarationsDirectory);
+
+    console.log("re-generateModelIndexFiles");
+    generateModelIndexFiles(declarationsDirectory);
+    console.log("re-generateModelCodes");
+    generateModelCodes(declarationsDirectory);
     console.log("Done.");
   }
 

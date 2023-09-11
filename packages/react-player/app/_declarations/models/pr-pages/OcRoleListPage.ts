@@ -57,6 +57,9 @@ const page: PrRapidPage = {
           code: 'name',
           fixed: 'left',
           width: '300px',
+          rendererProps: {
+            url: "/pages/oc_role_details?id={{id}}",
+          },
         },
         {
           type: 'auto',

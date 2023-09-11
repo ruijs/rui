@@ -7,4 +7,5 @@ export { default as Box } from "./Box";
 export { default as Scope } from "./Scope";
 export { default as Text } from "./Text";
 export { default as Label } from "./Label";
+export { default as List } from "./List";
 export { default as CodeEditor } from "./CodeEditor";

@@ -57,7 +57,7 @@ const page: PrRapidPage = {
       ],
       columns: [
         {
-          type: 'link',
+          type: 'auto',
           code: 'name',
           fixed: 'left',
         },
@@ -77,7 +77,11 @@ const page: PrRapidPage = {
           code: 'roles',
           width: '250px',
           rendererProps: {
-            format: "{{name}}",
+            item: {
+              $type: "rapidLinkRenderer",
+              url: "/pages/oc_role_details?id={{id}}",
+              text: "{{name}}",
+            }
           },
         },
         {

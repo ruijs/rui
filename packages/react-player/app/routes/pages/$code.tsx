@@ -1,9 +1,9 @@
 import { Framework, Page, PageConfig, Rock } from "@ruijs/move-style";
 import { Rui } from "@ruijs/react-renderer";
-import { Rui as RuiRock, ErrorBoundary, Show, HtmlElement, Anchor, Box, Label, Scope, Text, CodeEditor } from "@ruijs/react-rocks";
+import { Rui as RuiRock, ErrorBoundary, Show, HtmlElement, Anchor, Box, Label, List, Scope, Text, CodeEditor } from "@ruijs/react-rocks";
 import { AntdRocks, AntdIconRock } from "@ruijs/antd-rocks";
 import { RapidRocks } from "@ruijs/react-rapid-rocks";
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import _, { find, first } from "lodash";
 import type { LoaderFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
@@ -35,6 +35,7 @@ framework.registerComponent(Text);
 framework.registerComponent(Anchor);
 framework.registerComponent(Box);
 framework.registerComponent(Label);
+framework.registerComponent(List);
 framework.registerComponent(CodeEditor);
 
 framework.loadExtension(RapidExtension);
