@@ -86,7 +86,7 @@ export function renderRockChildren(options: RenderRockChildrenOptions) {
     return rocks.map((rockConfig) => renderRock({context, rockConfig, expVars, fixedProps}));
   } else {
     const rockConfig = rockChildrenConfig as RockConfig;
-    return [renderRock({context, rockConfig, expVars, fixedProps})];
+    return renderRock({context, rockConfig, expVars, fixedProps});
   }
 }
 
