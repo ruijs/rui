@@ -1,7 +1,6 @@
 # todo list
 
 ## move-style
-[ ] remove React hooks in Rock.Renderer
 [ ] rock config process plugin
 [ ] remove props.$slot, props.$parent
 

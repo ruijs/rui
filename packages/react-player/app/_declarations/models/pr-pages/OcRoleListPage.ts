@@ -56,6 +56,7 @@ const page: PrRapidPage = {
           columnType: 'link',
           code: 'name',
           fixed: 'left',
+          width: '300px',
         },
         {
           columnType: 'auto',
@@ -64,12 +65,12 @@ const page: PrRapidPage = {
         {
           columnType: 'auto',
           code: 'orderNum',
-          width: '150px',
+          width: '100px',
         },
         {
           columnType: 'auto',
           code: 'state',
-          width: '150px',
+          width: '100px',
         },
         {
           columnType: 'auto',

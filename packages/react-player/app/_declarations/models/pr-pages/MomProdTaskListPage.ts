@@ -100,7 +100,7 @@ const page: PrRapidPage = {
         {
           columnType: 'link',
           code: 'code',
-          width: '100px',
+          width: '150px',
           fixed: 'left',
           rendererType: "link",
           rendererProps: {
@@ -123,7 +123,7 @@ const page: PrRapidPage = {
           code: 'materialProcess',
           width: '150px',
           rendererProps: {
-            format: "{{name}}",
+            format: "{{aliasName}}",
           },
         },
         {

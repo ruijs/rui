@@ -88,12 +88,13 @@ const page: PrRapidPage = {
         {
           columnType: 'link',
           code: 'code',
-          width: '150px',
           fixed: 'left',
+          minWidth: 300,
         },
         {
           columnType: 'auto',
           code: 'name',
+          width: '150px',
           fixed: 'left',
         },
         {
@@ -107,10 +108,12 @@ const page: PrRapidPage = {
         {
           columnType: 'auto',
           code: 'orderNum',
+          width: '100px',
         },
         {
           columnType: 'auto',
           code: 'icon',
+          width: '200px',
         },
         {
           columnType: 'auto',

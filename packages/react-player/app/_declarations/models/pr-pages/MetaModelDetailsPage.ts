@@ -6,7 +6,7 @@ const propertyFormConfig: Partial<RapidEntityFormRockConfig> = {
   items: [
     {
       type: 'auto',
-      code: 'value',
+      code: 'code',
     },
     {
       type: 'auto',
@@ -18,11 +18,7 @@ const propertyFormConfig: Partial<RapidEntityFormRockConfig> = {
     },
     {
       type: 'auto',
-      code: 'disabled',
-    },
-    {
-      type: 'auto',
-      code: 'orderNum',
+      code: 'required',
     },
   ],
 }
