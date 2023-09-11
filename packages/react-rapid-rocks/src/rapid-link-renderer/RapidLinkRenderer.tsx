@@ -7,7 +7,7 @@ export default {
   $type: "rapidLinkRenderer",
 
   Renderer(context, props: RapidLinkRendererRockConfig) {
-    const { value, linkText, linkUrl, defaultText } = props;
+    const { value, text, url, defaultText } = props;
     if (!value) {
       return defaultText || "";
     }
@@ -15,11 +15,11 @@ export default {
     const rockConfig: RockConfig = {
       $id: `${props.$id}`,
       $type: "anchor",
-      href: MoveStyleUtils.fulfillVariablesInString(linkUrl, value),
+      href: MoveStyleUtils.fulfillVariablesInString(url, value),
       children: {
         $id: `${props.$id}-text`,
         $type: "text",
-        text: MoveStyleUtils.fulfillVariablesInString(linkText, value),
+        text: MoveStyleUtils.fulfillVariablesInString(text, value),
       },
     };
 

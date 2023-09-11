@@ -91,9 +91,9 @@ export default {
         childRock.mode = "multiple";
       }
     } else {
-      const defaultValueRendererProps = props.valueFieldType && defaultDisplayPropsOfFieldType[props.valueFieldType];
+      const defaultRendererProps = props.valueFieldType && defaultDisplayPropsOfFieldType[props.valueFieldType];
       
-      let rendererType = props.valueRendererType;
+      let rendererType = props.rendererType;
       if (!rendererType) {
         if (props.multipleValues) {
           rendererType = "rapidArrayRenderer";
@@ -105,8 +105,8 @@ export default {
       childRock = {
         $id: `${props.$id}-display`,
         $type: rendererType,
-        ...defaultValueRendererProps,
-        ...props.valueRendererProps,
+        ...defaultRendererProps,
+        ...props.rendererProps,
         form: props.form,
       };
     }

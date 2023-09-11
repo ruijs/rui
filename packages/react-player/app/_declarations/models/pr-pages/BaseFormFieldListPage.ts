@@ -57,30 +57,30 @@ const page: PrRapidPage = {
       ],
       columns: [
         {
-          columnType: 'link',
+          type: 'link',
           code: 'code',
           width: '250px',
         },
         {
-          columnType: 'auto',
+          type: 'auto',
           code: 'name',
         },
         {
-          columnType: 'auto',
+          type: 'auto',
           code: 'description',
         },
         {
-          columnType: 'auto',
+          type: 'auto',
           code: 'fieldType',
           width: '150px',
         },
         {
-          columnType: 'auto',
+          type: 'auto',
           code: 'state',
           width: '150px',
         },
         {
-          columnType: 'auto',
+          type: 'auto',
           code: 'createdAt',
           width: '150px',
         },

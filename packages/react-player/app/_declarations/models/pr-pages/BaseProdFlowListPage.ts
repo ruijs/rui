@@ -78,16 +78,16 @@ const page: PrRapidPage = {
         ],
         columns: [
           {
-            columnType: 'auto',
+            type: 'auto',
             code: 'name',
           },
           {
-            columnType: 'auto',
+            type: 'auto',
             code: 'version',
             width: '80px',
           },
           {
-            columnType: 'auto',
+            type: 'auto',
             code: 'state',
             width: '100px',
           },
@@ -142,19 +142,19 @@ const page: PrRapidPage = {
           ],
           columns: [
             {
-              columnType: 'auto',
+              type: 'auto',
               code: 'orderNum',
               width: '100px',
             },
             {
-              columnType: 'auto',
+              type: 'auto',
               code: 'process',
               rendererProps: {
                 format: "{{name}}",
               }
             },
             {
-              columnType: 'auto',
+              type: 'auto',
               code: 'standardCycleTime',
               width: '100px',
             },

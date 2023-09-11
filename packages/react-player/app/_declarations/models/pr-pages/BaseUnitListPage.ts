@@ -82,11 +82,11 @@ const page: PrRapidPage = {
         ],
         columns: [
           {
-            columnType: 'auto',
+            type: 'auto',
             code: 'name',
           },
           {
-            columnType: 'auto',
+            type: 'auto',
             code: 'orderNum',
             width: '100px',
           },
@@ -140,28 +140,28 @@ const page: PrRapidPage = {
           ],
           columns: [
             {
-              columnType: 'auto',
+              type: 'auto',
               code: 'code',
               width: '100px',
               fixed: 'left',
             },
             {
-              columnType: 'auto',
+              type: 'auto',
               code: 'name',
               fixed: 'left',
             },
             {
-              columnType: 'auto',
+              type: 'auto',
               code: 'printSymbol',
               width: '100px',
             },
             {
-              columnType: 'auto',
+              type: 'auto',
               code: 'type',
               width: '100px',
             },
             {
-              columnType: 'auto',
+              type: 'auto',
               code: 'orderNum',
               width: '100px',
             },

@@ -98,7 +98,7 @@ const page: PrRapidPage = {
       ],
       columns: [
         {
-          columnType: 'link',
+          type: 'link',
           code: 'code',
           width: '150px',
           fixed: 'left',
@@ -108,7 +108,7 @@ const page: PrRapidPage = {
           },
         },
         {
-          columnType: 'link',
+          type: 'link',
           code: 'productionOrder',
           width: '150px',
           fixed: 'left',
@@ -119,7 +119,7 @@ const page: PrRapidPage = {
           },
         },
         {
-          columnType: 'auto',
+          type: 'auto',
           code: 'materialProcess',
           width: '150px',
           rendererProps: {
@@ -127,12 +127,12 @@ const page: PrRapidPage = {
           },
         },
         {
-          columnType: 'auto',
+          type: 'auto',
           code: 'amount',
           width: '100px',
         },
         {
-          columnType: 'auto',
+          type: 'auto',
           code: 'unit',
           width: '150px',
           rendererProps: {
@@ -140,7 +140,7 @@ const page: PrRapidPage = {
           },
         },
         {
-          columnType: 'auto',
+          type: 'auto',
           code: 'equipment',
           width: '150px',
           rendererProps: {
@@ -148,7 +148,7 @@ const page: PrRapidPage = {
           },
         },
         {
-          columnType: 'auto',
+          type: 'auto',
           code: 'assignees',
           width: '150px',
           rendererProps: {
@@ -156,12 +156,12 @@ const page: PrRapidPage = {
           },
         },
         {
-          columnType: 'auto',
+          type: 'auto',
           code: 'deadline',
           width: '150px',
         },
         {
-          columnType: 'auto',
+          type: 'auto',
           code: 'assigner',
           width: '150px',
           rendererProps: {
@@ -169,22 +169,22 @@ const page: PrRapidPage = {
           },
         },
         {
-          columnType: 'auto',
+          type: 'auto',
           code: 'assignedAt',
           width: '150px',
         },
         {
-          columnType: 'auto',
+          type: 'auto',
           code: 'acceptedAt',
           width: '150px',
         },
         {
-          columnType: 'auto',
+          type: 'auto',
           code: 'executionState',
           width: '100px',
         },
         {
-          columnType: 'auto',
+          type: 'auto',
           code: 'createdAt',
           width: '150px',
         },

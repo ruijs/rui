@@ -78,11 +78,11 @@ const page: PrRapidPage = {
         ],
         columns: [
           {
-            columnType: 'auto',
+            type: 'auto',
             code: 'name',
           },
           {
-            columnType: 'auto',
+            type: 'auto',
             code: 'orderNum',
             width: '100px',
           },
@@ -141,22 +141,22 @@ const page: PrRapidPage = {
           ],
           columns: [
             {
-              columnType: 'auto',
+              type: 'auto',
               code: 'code',
               fixed: 'left',
             },
             {
-              columnType: 'auto',
+              type: 'auto',
               code: 'name',
               fixed: 'left',
             },
             {
-              columnType: 'auto',
+              type: 'auto',
               code: 'planedDailyWorkingTime',
               width: '150px',
             },
             {
-              columnType: 'auto',
+              type: 'auto',
               code: 'state',
               width: '100px',
             },

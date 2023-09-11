@@ -20,12 +20,12 @@ export default {
     const itemsConfigs: any[] = [];
     each(props.items, (item) => {
       const rendererType = item.rendererType || (item.valueFieldType && fieldTypeToDisplayRockTypeMap[item.valueFieldType]) || "rapidTextRenderer";
-      const defaultValueRendererProps = item.valueFieldType && defaultDisplayPropsOfFieldType[item.valueFieldType];
+      const defaultRendererProps = item.valueFieldType && defaultDisplayPropsOfFieldType[item.valueFieldType];
 
       const itemDisplayRockConfig: RockConfig = {
         $id: `${props.$id}-${item.code}-display`,
         $type: rendererType,
-        ...defaultValueRendererProps,
+        ...defaultRendererProps,
         ...item.rendererProps,
         value: get(props.value, item.code),
       };

@@ -97,26 +97,26 @@ const page: PrRapidPage = {
               ],
               columns: [
                 {
-                  columnType: 'auto',
+                  type: 'auto',
                   code: 'value',
                   width: '250px',
                 },
                 {
-                  columnType: 'auto',
+                  type: 'auto',
                   code: 'name',
                   width: '250px',
                 },
                 {
-                  columnType: 'auto',
+                  type: 'auto',
                   code: 'description',
                 },
                 {
-                  columnType: 'auto',
+                  type: 'auto',
                   code: 'disabled',
                   width: '150px',
                 },
                 {
-                  columnType: 'auto',
+                  type: 'auto',
                   code: 'orderNum',
                   width: '150px',
                 },

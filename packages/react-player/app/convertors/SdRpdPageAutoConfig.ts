@@ -250,7 +250,7 @@ function configTable(page: SdRpdTablePage, entity: SdRpdEntity, meta: SdRpdMeta)
 
   const columns = table.columns;
   for (const column of columns) {
-    if (column.columnType === 'auto') {
+    if (column.type === 'auto') {
       const field = find(entity.fields, { code: column.code });
       if (!field) {
         throw new Error(`Unknown field code '${column.code}'`);

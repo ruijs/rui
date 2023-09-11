@@ -66,38 +66,38 @@ const page: PrRapidPage = {
       ],
       columns: [
         {
-          columnType: 'auto',
+          type: 'auto',
           code: 'name',
           width: '150px',
           fixed: 'left',
         },
         {
-          columnType: 'auto',
+          type: 'auto',
           code: 'url',
         },
         {
-          columnType: 'auto',
+          type: 'auto',
           code: 'secret',
           width: '100px',
         },
         {
-          columnType: 'auto',
+          type: 'auto',
           code: 'namespace',
           title: 'Ns.',
           width: '100px',
         },
         {
-          columnType: 'auto',
+          type: 'auto',
           code: 'modelSingularCode',
           width: '100px',
         },
         {
-          columnType: 'auto',
+          type: 'auto',
           code: 'events',
           width: '200px',
         },
         {
-          columnType: 'auto',
+          type: 'auto',
           code: 'enabled',
           width: '100px',
         },

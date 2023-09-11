@@ -15,13 +15,13 @@ const page: PrRapidPage = {
       extraProperties: ["process"],
       columns: [
         {
-          columnType: 'auto',
+          type: 'auto',
           code: 'title',
           fixed: 'left',
           width: '250px',
         },
         {
-          columnType: 'auto',
+          type: 'auto',
           code: 'formData',
           title: '摘要',
           minWidth: '200px',
@@ -34,7 +34,7 @@ const page: PrRapidPage = {
           }
         },
         {
-          columnType: 'auto',
+          type: 'auto',
           code: 'initiator',
           width: '150px',
           rendererProps: {
@@ -42,12 +42,12 @@ const page: PrRapidPage = {
           },
         },
         {
-          columnType: 'auto',
+          type: 'auto',
           code: 'initiatedAt',
           width: '150px',
         },
         {
-          columnType: 'auto',
+          type: 'auto',
           code: 'state',
           width: '150px',
         },

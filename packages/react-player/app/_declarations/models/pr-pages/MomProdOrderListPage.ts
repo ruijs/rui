@@ -95,7 +95,7 @@ const page: PrRapidPage = {
       ],
       columns: [
         {
-          columnType: 'link',
+          type: 'link',
           code: 'code',
           width: '150px',
           fixed: 'left',
@@ -105,7 +105,7 @@ const page: PrRapidPage = {
           },
         },
         {
-          columnType: 'link',
+          type: 'link',
           code: 'material',
           fixed: 'left',
           rendererType: "link",
@@ -115,7 +115,7 @@ const page: PrRapidPage = {
           },
         },
         {
-          columnType: 'auto',
+          type: 'auto',
           code: 'materialFlow',
           width: '100px',
           rendererProps: {
@@ -123,22 +123,22 @@ const page: PrRapidPage = {
           },
         },
         {
-          columnType: 'auto',
+          type: 'auto',
           code: 'scheduledStartDate',
           width: '100px',
         },
         {
-          columnType: 'auto',
+          type: 'auto',
           code: 'scheduledFinishDate',
           width: '100px',
         },
         {
-          columnType: 'auto',
+          type: 'auto',
           code: 'amount',
           width: '100px',
         },
         {
-          columnType: 'auto',
+          type: 'auto',
           code: 'unit',
           width: '100px',
           rendererProps: {
@@ -146,17 +146,17 @@ const page: PrRapidPage = {
           },
         },
         {
-          columnType: 'auto',
+          type: 'auto',
           code: 'assignmentState',
           width: '100px',
         },
         {
-          columnType: 'auto',
+          type: 'auto',
           code: 'executionState',
           width: '100px',
         },
         {
-          columnType: 'auto',
+          type: 'auto',
           code: 'createdAt',
           width: '150px',
         },

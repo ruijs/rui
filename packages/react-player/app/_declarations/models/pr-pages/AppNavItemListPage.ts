@@ -86,19 +86,19 @@ const page: PrRapidPage = {
       extraProperties: ['parent'],
       columns: [
         {
-          columnType: 'link',
+          type: 'link',
           code: 'code',
           fixed: 'left',
           minWidth: 300,
         },
         {
-          columnType: 'auto',
+          type: 'auto',
           code: 'name',
           width: '150px',
           fixed: 'left',
         },
         {
-          columnType: 'auto',
+          type: 'auto',
           code: 'client',
           width: '100px',
           rendererProps: {
@@ -106,26 +106,26 @@ const page: PrRapidPage = {
           },
         },
         {
-          columnType: 'auto',
+          type: 'auto',
           code: 'orderNum',
           width: '100px',
         },
         {
-          columnType: 'auto',
+          type: 'auto',
           code: 'icon',
           width: '200px',
         },
         {
-          columnType: 'auto',
+          type: 'auto',
           code: 'pageCode',
         },
         {
-          columnType: 'auto',
+          type: 'auto',
           code: 'createdAt',
           width: '150px',
         },
         {
-          columnType: 'auto',
+          type: 'auto',
           code: 'state',
           width: '100px',
         },

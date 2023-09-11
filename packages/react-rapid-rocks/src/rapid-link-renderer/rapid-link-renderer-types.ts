@@ -5,7 +5,7 @@ export interface RapidLinkRendererRockConfig extends SimpleRockConfig {
 
   defaultText?: string;
 
-  linkText?: string;
+  text?: string;
 
-  linkUrl?: string;
+  url?: string;
 }

@@ -57,23 +57,23 @@ const page: PrRapidPage = {
       ],
       columns: [
         {
-          columnType: 'link',
+          type: 'link',
           code: 'code',
           width: '100px',
           fixed: 'left',
         },
         {
-          columnType: 'auto',
+          type: 'auto',
           code: 'name',
           fixed: 'left',
         },
         {
-          columnType: 'auto',
+          type: 'auto',
           code: 'shop',
           width: '150px',
         },
         {
-          columnType: 'auto',
+          type: 'auto',
           code: 'department',
           width: '150px',
           rendererProps: {
@@ -81,12 +81,12 @@ const page: PrRapidPage = {
           },
         },
         {
-          columnType: 'auto',
+          type: 'auto',
           code: 'state',
           width: '100px',
         },
         {
-          columnType: 'auto',
+          type: 'auto',
           code: 'createdAt',
           width: '150px',
         },

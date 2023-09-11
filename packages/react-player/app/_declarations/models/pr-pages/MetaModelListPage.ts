@@ -57,7 +57,7 @@ const page: PrRapidPage = {
       ],
       columns: [
         {
-          columnType: 'link',
+          type: 'link',
           code: 'name',
           width: '200px',
           fixed: 'left',
@@ -67,23 +67,23 @@ const page: PrRapidPage = {
           },
         },
         {
-          columnType: 'auto',
+          type: 'auto',
           code: 'namespace',
           title: 'Ns.',
           width: '100px',
         },
         {
-          columnType: 'auto',
+          type: 'auto',
           code: 'singularCode',
           width: '250px',
         },
         {
-          columnType: 'auto',
+          type: 'auto',
           code: 'pluralCode',
           width: '250px',
         },
         {
-          columnType: 'auto',
+          type: 'auto',
           code: 'description',
         },
       ],

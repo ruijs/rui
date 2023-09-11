@@ -57,7 +57,7 @@ const page: PrRapidPage = {
       ],
       columns: [
         {
-          columnType: 'link',
+          type: 'link',
           code: 'code',
           fixed: 'left',
           // rendererType: "link",
@@ -66,27 +66,27 @@ const page: PrRapidPage = {
           },
         },
         {
-          columnType: 'auto',
+          type: 'auto',
           code: 'scheduledStartDate',
           width: '100px',
         },
         {
-          columnType: 'auto',
+          type: 'auto',
           code: 'scheduledFinishDate',
           width: '100px',
         },
         {
-          columnType: 'auto',
+          type: 'auto',
           code: 'scheduleState',
           width: '100px',
         },
         {
-          columnType: 'auto',
+          type: 'auto',
           code: 'executionState',
           width: '100px',
         },
         {
-          columnType: 'auto',
+          type: 'auto',
           code: 'createdAt',
           width: '150px',
         },

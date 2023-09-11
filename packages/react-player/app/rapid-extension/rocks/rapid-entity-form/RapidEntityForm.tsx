@@ -54,7 +54,7 @@ function generateDataFormItemForOptionProperty(option: GenerateEntityFormItemOpt
     listValueFieldName: "value",
     ...formItemConfig.formControlProps,
   };
-  let valueRendererProps: RapidReferenceRendererConfig = {
+  let rendererProps: RapidReferenceRendererConfig = {
     list: dataDictionary?.entries || [],
     textFieldName: "name",
     valueFieldName: "value",
@@ -66,7 +66,7 @@ function generateDataFormItemForOptionProperty(option: GenerateEntityFormItemOpt
     required: formItemConfig.required,
     label: formItemConfig.label,
     formControlProps,
-    valueRendererProps,
+    rendererProps,
     $exps: formItemConfig.$exps,
   };
   return formItem;
@@ -97,8 +97,8 @@ export function generateDataFormItemForRelationProperty(option: GenerateEntityFo
     label: formItemConfig.label,
     formControlType: formItemConfig.formControlType,
     formControlProps,
-    valueRendererType: formItemConfig.valueRendererType,
-    valueRendererProps: formItemConfig.valueRendererProps,
+    rendererType: formItemConfig.rendererType,
+    rendererProps: formItemConfig.rendererProps,
     $exps: formItemConfig.$exps,
   };
   return formItem;

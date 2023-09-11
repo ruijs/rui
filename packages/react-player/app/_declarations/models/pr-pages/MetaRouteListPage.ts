@@ -70,40 +70,40 @@ const page: PrRapidPage = {
       ],
       columns: [
         {
-          columnType: 'auto',
+          type: 'auto',
           code: 'namespace',
           title: 'Ns.',
           width: '100px',
           fixed: 'left',
         },
         {
-          columnType: 'auto',
+          type: 'auto',
           code: 'code',
           width: '200px',
           fixed: 'left',
         },
         {
-          columnType: 'auto',
+          type: 'auto',
           code: 'name',
           width: '200px',
         },
         {
-          columnType: 'auto',
+          type: 'auto',
           code: 'type',
           width: '100px',
         },
         {
-          columnType: 'auto',
+          type: 'auto',
           code: 'method',
           width: '100px',
         },
         {
-          columnType: 'auto',
+          type: 'auto',
           code: 'endpoint',
           width: '300px',
         },
         {
-          columnType: 'auto',
+          type: 'auto',
           code: 'description',
         },
       ],

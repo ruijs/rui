@@ -42,16 +42,16 @@ const page: PrRapidPage = {
         {
           type: 'auto',
           code: 'material',
-          valueRendererType: "rapidLinkRenderer",
-          valueRendererProps: {
-            linkText: "{{code}} {{name}}",
-            linkUrl: "/pages/base_material_details?id={{id}}",
+          rendererType: "rapidLinkRenderer",
+          rendererProps: {
+            text: "{{code}} {{name}}",
+            url: "/pages/base_material_details?id={{id}}",
           },
         },
         {
           type: 'auto',
           code: 'materialProcess',
-          valueRendererProps: {
+          rendererProps: {
             format: "{{name}}",
           },
         },
@@ -62,21 +62,21 @@ const page: PrRapidPage = {
         {
           type: 'auto',
           code: 'unit',
-          valueRendererProps: {
+          rendererProps: {
             format: "{{name}}",
           },
         },
         {
           type: 'auto',
           code: 'equipment',
-          valueRendererProps: {
+          rendererProps: {
             format: "{{code}} {{name}}",
           },
         },
         {
           type: 'auto',
           code: 'assignees',
-          valueRendererProps: {
+          rendererProps: {
             format: "{{name}}",
           },
         },
@@ -87,7 +87,7 @@ const page: PrRapidPage = {
         {
           type: 'auto',
           code: 'assigner',
-          valueRendererProps: {
+          rendererProps: {
             format: "{{name}}",
           },
         },
@@ -137,24 +137,24 @@ const page: PrRapidPage = {
               ],
               columns: [
                 {
-                  columnType: 'auto',
+                  type: 'auto',
                   code: 'createdAt',
                   title: '报工时间',
                   width: '150px',
                   fixed: 'left',
                 },
                 {
-                  columnType: 'auto',
+                  type: 'auto',
                   code: 'code',
                   fixed: 'left',
                 },
                 {
-                  columnType: 'auto',
+                  type: 'auto',
                   code: 'amount',
                   width: '100px',
                 },
                 {
-                  columnType: 'auto',
+                  type: 'auto',
                   code: 'unit',
                   width: '100px',
                   rendererProps: {
@@ -162,7 +162,7 @@ const page: PrRapidPage = {
                   },
                 },
                 {
-                  columnType: 'auto',
+                  type: 'auto',
                   code: 'operators',
                   width: '250px',
                   rendererProps: {

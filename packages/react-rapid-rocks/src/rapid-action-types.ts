@@ -105,7 +105,7 @@ export type RapidRecordActionLink = RapidRecordActionBase & {
   /**
    * 链接地址
    */
-  linkUrl?: string;
+  url?: string;
 }
 
 export type RapidRecordActionPageLink = RapidRecordActionBase & {

@@ -103,7 +103,7 @@ const page: PrRapidPage = {
         {
           type: 'auto',
           code: 'category',
-          valueRendererProps: {
+          rendererProps: {
             format: "{{name}}",
           },
         },
@@ -169,16 +169,16 @@ const page: PrRapidPage = {
                 ],
                 columns: [
                   {
-                    columnType: 'auto',
+                    type: 'auto',
                     code: 'version',
                   },
                   {
-                    columnType: 'auto',
+                    type: 'auto',
                     code: 'state',
                     width: '100px',
                   },
                   {
-                    columnType: 'auto',
+                    type: 'auto',
                     code: 'publishState',
                     width: '100px',
                   },
@@ -241,32 +241,32 @@ const page: PrRapidPage = {
                   ],
                   columns: [
                     {
-                      columnType: 'auto',
+                      type: 'auto',
                       code: 'orderNum',
                       width: '100px',
                     },
                     {
-                      columnType: 'auto',
+                      type: 'auto',
                       code: 'process',
                       rendererProps: {
                         format: "{{name}}",
                       }
                     },
                     {
-                      columnType: 'auto',
+                      type: 'auto',
                       code: 'aliasName',
                       width: '200px',
                     },
                     {
-                      columnType: 'auto',
+                      type: 'auto',
                       code: 'inputs',
                     },
                     {
-                      columnType: 'auto',
+                      type: 'auto',
                       code: 'outputs',
                     },
                     {
-                      columnType: 'auto',
+                      type: 'auto',
                       code: 'standardCycleTime',
                       width: '100px',
                     },
@@ -344,22 +344,22 @@ const page: PrRapidPage = {
                 ],
                 columns: [
                   {
-                    columnType: 'auto',
+                    type: 'auto',
                     code: 'version',
                   },
                   {
-                    columnType: 'auto',
+                    type: 'auto',
                     code: 'amount',
                   },
                   {
-                    columnType: 'auto',
+                    type: 'auto',
                     code: 'unit',
                     rendererProps: {
                       format: "{{name}}",
                     },
                   },
                   {
-                    columnType: 'auto',
+                    type: 'auto',
                     code: 'state',
                     width: '100px',
                   },
@@ -419,27 +419,26 @@ const page: PrRapidPage = {
                   ],
                   columns: [
                     {
-                      columnType: 'auto',
+                      type: 'auto',
                       code: 'orderNum',
                       width: '100px',
                     },
                     {
-                      columnType: 'auto',
+                      type: 'auto',
                       code: 'subMaterial',
                       rendererType: "rapidLinkRenderer",
                       rendererProps: {
-                        linkText: "{{name}}",
-                        linkUrl: "/pages/base_material_details?id={{id}}",
-                        // format: "{{name}}",
+                        text: "{{name}}",
+                        url: "/pages/base_material_details?id={{id}}",
                       },
                     },
                     {
-                      columnType: 'auto',
+                      type: 'auto',
                       code: 'amount',
                       width: '100px',
                     },
                     {
-                      columnType: 'auto',
+                      type: 'auto',
                       code: 'unit',
                       rendererProps: {
                         format: "{{name}}",

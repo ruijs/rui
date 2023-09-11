@@ -120,7 +120,7 @@ export type SdRpdPageTableColumnOriginal = {
   /**
    * 渲染器为`link`时，设置链接地址
    */
-  linkUrl?: string;
+  url?: string;
 }
 
 export type SdRpdPageTableActionOriginal = {

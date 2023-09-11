@@ -95,19 +95,19 @@ const page: PrRapidPage = {
         {
           type: 'auto',
           code: 'productionPlan',
-          valueRendererType: "rapidLinkRenderer",
-          valueRendererProps: {
-            linkText: "{{code}}",
-            linkUrl: "/pages/mom_prod_plan_details?id={{id}}",
+          rendererType: "rapidLinkRenderer",
+          rendererProps: {
+            text: "{{code}}",
+            url: "/pages/mom_prod_plan_details?id={{id}}",
           },
         },
         {
           type: 'auto',
           code: 'material',
-          valueRendererType: "rapidLinkRenderer",
-          valueRendererProps: {
-            linkText: "{{code}} {{name}}",
-            linkUrl: "/pages/base_material_details?id={{id}}",
+          rendererType: "rapidLinkRenderer",
+          rendererProps: {
+            text: "{{code}} {{name}}",
+            url: "/pages/base_material_details?id={{id}}",
           },
         },
         {
@@ -117,7 +117,7 @@ const page: PrRapidPage = {
         {
           type: 'auto',
           code: 'unit',
-          valueRendererProps: {
+          rendererProps: {
             format: "{{name}}",
           },
         },
@@ -171,7 +171,7 @@ const page: PrRapidPage = {
               ],
               columns: [
                 {
-                  columnType: 'link',
+                  type: 'link',
                   code: 'code',
                   width: '100px',
                   fixed: 'left',
@@ -181,7 +181,7 @@ const page: PrRapidPage = {
                   },
                 },
                 {
-                  columnType: 'auto',
+                  type: 'auto',
                   code: 'materialProcess',
                   width: '150px',
                   fixed: 'left',
@@ -190,12 +190,12 @@ const page: PrRapidPage = {
                   },
                 },
                 {
-                  columnType: 'auto',
+                  type: 'auto',
                   code: 'amount',
                   width: '100px',
                 },
                 {
-                  columnType: 'auto',
+                  type: 'auto',
                   code: 'unit',
                   width: '150px',
                   rendererProps: {
@@ -203,7 +203,7 @@ const page: PrRapidPage = {
                   },
                 },
                 {
-                  columnType: 'auto',
+                  type: 'auto',
                   code: 'equipment',
                   width: '150px',
                   rendererProps: {
@@ -211,7 +211,7 @@ const page: PrRapidPage = {
                   },
                 },
                 {
-                  columnType: 'auto',
+                  type: 'auto',
                   code: 'assignees',
                   width: '150px',
                   rendererProps: {
@@ -219,12 +219,12 @@ const page: PrRapidPage = {
                   },
                 },
                 {
-                  columnType: 'auto',
+                  type: 'auto',
                   code: 'deadline',
                   width: '150px',
                 },
                 {
-                  columnType: 'auto',
+                  type: 'auto',
                   code: 'assigner',
                   width: '150px',
                   rendererProps: {
@@ -232,22 +232,22 @@ const page: PrRapidPage = {
                   },
                 },
                 {
-                  columnType: 'auto',
+                  type: 'auto',
                   code: 'assignedAt',
                   width: '150px',
                 },
                 {
-                  columnType: 'auto',
+                  type: 'auto',
                   code: 'acceptedAt',
                   width: '150px',
                 },
                 {
-                  columnType: 'auto',
+                  type: 'auto',
                   code: 'assignmentState',
                   width: '150px',
                 },
                 {
-                  columnType: 'auto',
+                  type: 'auto',
                   code: 'executionState',
                   width: '150px',
                 },

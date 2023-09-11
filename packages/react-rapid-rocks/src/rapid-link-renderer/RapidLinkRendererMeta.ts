@@ -14,13 +14,13 @@ export default {
         },
         {
           $type: "textPropSetter",
-          label: "linkText",
-          propName: "linkText",
+          label: "text",
+          propName: "text",
         },
         {
           $type: "textPropSetter",
-          label: "linkUrl",
-          propName: "linkUrl",
+          label: "url",
+          propName: "url",
         },
       ],
     },

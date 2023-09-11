@@ -234,12 +234,12 @@ export function generateRuiPageConfig(option: GenerateRuiPageConfigOption<SdRpdT
   tableConfig.columns.forEach((column) => {
     let cell: RockConfig | RockConfig[] | null = null;
 
-    if (column.columnType === "link") {
-      const linkUrl: string | undefined = column.rendererProps?.url;
-      if (linkUrl) {
+    if (column.type === "link") {
+      const url: string | undefined = column.rendererProps?.url;
+      if (url) {
         cell = {
           $type: "anchor",
-          href: linkUrl,
+          href: url,
           children: {
             $type: "text",
             $exps: {
@@ -247,7 +247,7 @@ export function generateRuiPageConfig(option: GenerateRuiPageConfigOption<SdRpdT
             },
           },
           $exps: {
-            href: `$rui.execVarText('${linkUrl}', $slot.record)`,
+            href: `$rui.execVarText('${url}', $slot.record)`,
           }
         };
       }

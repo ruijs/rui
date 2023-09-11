@@ -86,7 +86,7 @@ const page: PrRapidPage = {
         extraProperties: ["name"],
         columns: [
           {
-            columnType: 'auto',
+            type: 'auto',
             code: 'code',
             width: '200px',
             cell: {
@@ -98,7 +98,7 @@ const page: PrRapidPage = {
             }
           },
           {
-            columnType: 'auto',
+            type: 'auto',
             code: 'valueType',
             width: '50px',
           },
@@ -146,27 +146,27 @@ const page: PrRapidPage = {
           ],
           columns: [
             {
-              columnType: 'auto',
+              type: 'auto',
               code: 'value',
               width: '150px',
               fixed: 'left',
             },
             {
-              columnType: 'auto',
+              type: 'auto',
               code: 'name',
               width: '150px',
             },
             {
-              columnType: 'auto',
+              type: 'auto',
               code: 'description',
             },
             {
-              columnType: 'auto',
+              type: 'auto',
               code: 'disabled',
               width: '100px',
             },
             {
-              columnType: 'auto',
+              type: 'auto',
               code: 'orderNum',
               width: '100px',
             },

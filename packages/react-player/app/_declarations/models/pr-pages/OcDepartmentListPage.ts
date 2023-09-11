@@ -62,16 +62,16 @@ const page: PrRapidPage = {
       extraProperties: ['parent'],
       columns: [
         {
-          columnType: 'link',
+          type: 'link',
           code: 'code',
           width: '200px',
         },
         {
-          columnType: 'auto',
+          type: 'auto',
           code: 'name',
         },
         {
-          columnType: 'auto',
+          type: 'auto',
           code: 'createdAt',
           width: '150px',
         },

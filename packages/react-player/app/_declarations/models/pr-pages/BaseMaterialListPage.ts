@@ -90,11 +90,11 @@ const page: PrRapidPage = {
         ],
         columns: [
           {
-            columnType: 'auto',
+            type: 'auto',
             code: 'name',
           },
           {
-            columnType: 'auto',
+            type: 'auto',
             code: 'orderNum',
             width: '100px',
           },
@@ -153,7 +153,7 @@ const page: PrRapidPage = {
           ],
           columns: [
             {
-              columnType: 'link',
+              type: 'link',
               code: 'code',
               width: '100px',
               fixed: 'left',
@@ -163,7 +163,7 @@ const page: PrRapidPage = {
               },
             },
             {
-              columnType: 'link',
+              type: 'link',
               code: 'name',
               width: '150px',
               fixed: 'left',
@@ -173,26 +173,26 @@ const page: PrRapidPage = {
               },
             },
             {
-              columnType: 'auto',
+              type: 'auto',
               code: 'description',
             },
             {
-              columnType: 'auto',
+              type: 'auto',
               code: 'canProduce',
               width: '80px',
             },
             {
-              columnType: 'auto',
+              type: 'auto',
               code: 'canPurchase',
               width: '80px',
             },
             {
-              columnType: 'auto',
+              type: 'auto',
               code: 'canSale',
               width: '80px',
             },
             {
-              columnType: 'auto',
+              type: 'auto',
               code: 'state',
               width: '100px',
             },

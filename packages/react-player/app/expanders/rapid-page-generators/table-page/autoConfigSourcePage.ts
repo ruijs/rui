@@ -136,7 +136,7 @@ function configTable(page: SdRpdTablePage, entity: SdRpdEntity, meta: SdRpdMeta)
 
     column.title = field.name;
 
-    if (column.columnType === 'auto') {
+    if (column.type === 'auto') {
       if (!column.rendererType) {
         column.rendererType = field.type;
       }

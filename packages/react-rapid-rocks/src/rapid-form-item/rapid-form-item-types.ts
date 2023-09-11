@@ -77,12 +77,12 @@ export type RapidFormItemConfig = {
   /**
    * 展示值的渲染器类型
    */
-  valueRendererType?: string;
+  rendererType?: string;
 
   /**
    * 展示值的渲染器属性
    */
-  valueRendererProps?: Record<string, any>;
+  rendererProps?: Record<string, any>;
 
   $exps?: RockPropExpressions;
 }

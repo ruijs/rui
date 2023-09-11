@@ -131,25 +131,25 @@ export default {
 
       if (column.cell) {
         cell = column.cell;
-      } else if (column.columnType === "link") {
-        const linkUrl: string | undefined = column.rendererProps?.url;
-        const linkText: string | undefined = column.rendererProps?.text;
-        if (linkUrl) {
+      } else if (column.type === "link") {
+        const url: string | undefined = column.rendererProps?.url;
+        const text: string | undefined = column.rendererProps?.text;
+        if (url) {
           cell = {
             $type: "anchor",
-            href: linkUrl,
+            href: url,
             children: {
               $type: "text",
               $exps: {
-                text: linkText ? `$rui.execVarText('${linkText}', $slot.record)` : "$slot.value",
+                text: text ? `$rui.execVarText('${text}', $slot.record)` : "$slot.value",
               },
             },
             $exps: {
-              href: `$rui.execVarText('${linkUrl}', $slot.record)`,
+              href: `$rui.execVarText('${url}', $slot.record)`,
             }
           };
         }
-      } else if (column.columnType === "auto") {
+      } else if (column.type === "auto") {
         let fieldType = column.fieldType || rpdField?.type || "text";
         let rendererType = column.rendererType || fieldTypeToDisplayRockTypeMap[fieldType] || "rapidTextRenderer";
         let defaultRendererProps: any = defaultDisplayPropsOfFieldType[fieldType] || {};
@@ -166,7 +166,7 @@ export default {
               valueFieldName: "value",
               textFieldName: "name",
             };
-          } else if (fieldType === "relation") {
+          } else if (fieldType === "relation" && !column.rendererType) {
             if (rpdField.relation === "many") {
               rendererType = "rapidArrayRenderer";
             } else {

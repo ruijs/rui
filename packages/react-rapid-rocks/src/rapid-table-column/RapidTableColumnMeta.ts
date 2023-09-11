@@ -36,8 +36,8 @@ export default {
 
         {
           $type: "selectPropSetter",
-          label: "columnType",
-          propName: "columnType",
+          label: "type",
+          propName: "type",
           options: [
             {
               label: "text",
