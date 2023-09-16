@@ -328,6 +328,7 @@ export type RockEventHandlerHandleEvent = {
 export type RockEventHandlerNotifyEvent = {
   $action: "notifyEvent";
   eventName?: string;
+  scopeId?: string;
 }
 
 export type RockEventHandlerNotifyToPage = {

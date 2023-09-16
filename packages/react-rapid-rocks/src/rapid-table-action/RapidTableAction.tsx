@@ -1,26 +1,44 @@
-import { Rock, RockConfig } from "@ruijs/move-style";
+import { Rock, RockConfig, RockEvent, handleComponentEvent } from "@ruijs/move-style";
 import RapidToolbarMeta from "./RapidTableActionMeta";
 import { renderRock } from "@ruijs/react-renderer";
 import { RapidTableActionRockConfig } from "./rapid-table-action-types";
+import { Modal } from "antd";
 
 
 export default {
   $type: "rapidTableAction",
 
   Renderer(context, props) {
+    const {recordId, actionText, confirmText, onAction } = props;
     const rockConfig: RockConfig = {
       $id: `${props.$id}-anchor`,
       $type: 'anchor',
       className: "rui-table-action-link",
-      "data-record-id": props.recordId,
+      "data-record-id": recordId,
       children: {
         $type: "text",
-        text: props.actionText,
+        text: actionText,
       },
     };
 
-    if (props.onAction) {
-      rockConfig.onClick = props.onAction;
+    if (onAction) {
+      if (confirmText) {
+        rockConfig.onClick = [
+          {
+            $action: "script",
+            script: (event: RockEvent) => {
+              Modal.confirm({
+                title: confirmText,
+                onOk: async () => {
+                  handleComponentEvent("onAction", event.framework, event.page as any, event.scope, event.sender, onAction, null);
+                },
+              });
+            }
+          }
+        ]
+      } else {
+        rockConfig.onClick = props.onAction;
+      }
     }
 
     return renderRock({context, rockConfig});

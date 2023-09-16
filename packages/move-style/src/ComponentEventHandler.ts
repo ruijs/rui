@@ -48,6 +48,7 @@ async function doHandleComponentEvent(eventName: string, framework: Framework, p
       }
       set(eventHandler, propName, page.interpreteExpression(expressions[propName], {
         $event: event,
+        $scope: scope,
         $slot: sender.$slot,
       }));
     }
@@ -122,20 +123,29 @@ async function handleHandleEvent(eventName: string, framework: Framework, page: 
   await handleComponentEvent(eventHandler.eventName, framework, page as any, eventHandler.scope || scope, sender, eventHandler.handlers, eventHandler.args)
 }
 
-function handleNotifyEvent(eventName: string, framework: Framework, page: Page, scope: Scope, sender: any, eventHandler: RockEventHandlerNotifyEvent, eventArgs: any) {
+async function handleNotifyEvent(eventName: string, framework: Framework, page: Page, scope: Scope, sender: any, eventHandler: RockEventHandlerNotifyEvent, eventArgs: any) {
+  const { scopeId } = eventHandler;
+  let targetScope = scope;
+  if (scopeId) {
+    targetScope = page.getScope(scopeId);
+  }
+  if (!targetScope) {
+    targetScope = scope || page.scope;
+  }
+
   const eventToNotify: RockEvent = {
     framework,
     page,
-    scope,
+    scope: targetScope,
     sender,
     name: eventHandler.eventName,
     senderCategory: "component",
     args: eventArgs,
   };
-  scope.notifyEvent(eventToNotify);
+  await targetScope.notifyEvent(eventToNotify);
 }
 
-function handleNotifyToPage(eventName: string, framework: Framework, page: Page, scope: Scope, sender: any, eventHandler: RockEventHandlerNotifyToPage, eventArgs: any) {
+async function handleNotifyToPage(eventName: string, framework: Framework, page: Page, scope: Scope, sender: any, eventHandler: RockEventHandlerNotifyToPage, eventArgs: any) {
   const eventToNotify: RockEvent = {
     framework,
     page,
@@ -145,7 +155,7 @@ function handleNotifyToPage(eventName: string, framework: Framework, page: Page,
     senderCategory: "component",
     args: eventArgs,
   };
-  page.notifyEvent(eventToNotify);
+  await page.notifyEvent(eventToNotify);
 }
 
 function handleSetComponentProperty(eventName: string, framework: Framework, page: Page, scope: Scope, sender: any, eventHandler: RockEventHandlerSetComponentProperty, eventArgs: any) {

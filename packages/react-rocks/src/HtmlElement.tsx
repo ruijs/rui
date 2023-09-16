@@ -11,6 +11,32 @@ export interface HtmlElementProps extends ContainerRockConfig {
 export default {
   $type: "htmlElement",
 
+  propertyPanels: [
+    {
+      $type: "componentPropPanel",
+      setters: [
+        {
+          $type: "textPropSetter",
+          label: "htmlTag",
+          propName: "htmlTag",
+          defaultValue: "div",
+        },
+
+        {
+          $type: "jsonPropSetter",
+          label: "style",
+          propName: "style",
+        },
+
+        {
+          $type: "jsonPropSetter",
+          label: "attributes",
+          propName: "attributes",
+        },
+      ]
+    }
+  ],
+
   Renderer: (context, props: HtmlElementProps) => {
     const eventHandlers = convertToEventHandlers({context, rockConfig: props});
 

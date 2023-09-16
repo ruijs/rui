@@ -87,7 +87,7 @@ const page: PrRapidPage = {
         {
           type: 'auto',
           code: 'state',
-          width: '150px',
+          width: '100px',
         },
         {
           type: 'auto',

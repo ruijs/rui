@@ -60,6 +60,7 @@ const page: PrRapidPage = {
           label: "用户",
           children: [
             {
+              $id: "userList",
               $type: "sonicEntityList",
               entityCode: "OcUser",
               viewMode: "table",
@@ -78,10 +79,46 @@ const page: PrRapidPage = {
               ],
               listActions: [
                 {
+                  $type: "sonicToolbarSelectEntityButton",
+                  text: "添加",
+                  icon: "PlusOutlined",
+                  actionStyle: "primary",
+                  entityCode: "OcUser",
+                  columns: [
+                    {
+                      type: 'auto',
+                      code: 'name',
+                    },
+                    {
+                      type: 'auto',
+                      code: 'login',
+                    },
+                  ],
+                  onSelected: [
+                    {
+                      $action: "sendHttpRequest",
+                      method: "POST",
+                      url: "/api/app/oc_roles/operations/add_relations",
+                      data: {
+                        property: "users",
+                      },
+                      $exps: {
+                        "data.id": "$rui.parseQuery().id",
+                        "data.relations": "_.map($event.args.selectedIds, function(id) {return {id: id}})",
+                      },
+                    },
+                    {
+                      $action: "loadStoreData",
+                      scopeId: "userList-scope",
+                      storeName: "list",
+                    },
+                  ]
+                },
+                {
                   $type: "sonicToolbarRefreshButton",
                   text: "刷新",
                   icon: "ReloadOutlined",
-                }
+                },
               ],
               columns: [
                 {
@@ -115,7 +152,7 @@ const page: PrRapidPage = {
                 {
                   type: 'auto',
                   code: 'state',
-                  width: '150px',
+                  width: '100px',
                 },
                 {
                   type: 'auto',
@@ -124,6 +161,30 @@ const page: PrRapidPage = {
                 },
               ],
               actions: [
+                {
+                  $type: "rapidTableAction",
+                  code: "remove",
+                  actionText: '移除',
+                  confirmText: "您确定要从角色中移除此用户吗？",
+                  onAction: [
+                    {
+                      $action: "sendHttpRequest",
+                      method: "POST",
+                      url: "/api/app/oc_roles/operations/remove_relations",
+                      data: {
+                        property: "users",
+                      },
+                      $exps: {
+                        "data.id": "$rui.parseQuery().id",
+                        "data.relations": "[{id: $event.sender['data-record-id']}]",
+                      },
+                    },
+                    {
+                      $action: "loadStoreData",
+                      storeName: "list",
+                    }
+                  ]
+                },
               ],
               newForm: cloneDeep(formConfig),
               editForm: cloneDeep(formConfig),

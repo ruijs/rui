@@ -1,4 +1,4 @@
-import type { RockConfig, SimpleRockConfig } from "@ruijs/move-style";
+import type { RockConfig, RockEventHandlerConfig, SimpleRockConfig } from "@ruijs/move-style";
 import type { EntityFilterOptions, FindEntityOrderByOptions, RapidRecordAction, RapidTableColumnConfig } from "@ruijs/react-rapid-rocks";
 
 export interface RapidEntityListConfig {
@@ -84,6 +84,8 @@ export interface RapidEntityListConfig {
    * 表格的属性
    */
   tableProps?: Record<string, any>;
+
+  onSelectedIdsChange?: RockEventHandlerConfig;
 }
 
 export interface RapidEntityListRockConfig extends SimpleRockConfig, RapidEntityListConfig {

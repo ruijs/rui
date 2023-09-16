@@ -1,4 +1,4 @@
-import { RockConfig, Rock, MoveStyleUtils } from "@ruijs/move-style";
+import { RockConfig, Rock, MoveStyleUtils, RockInstanceContext } from "@ruijs/move-style";
 import React from "react";
 import AntdRocksMeta from "./AntdRocksMeta";
 import { convertToEventHandlers, convertToSlotProps, renderRockChildren } from "@ruijs/react-renderer";
@@ -12,7 +12,7 @@ export function convertAntdComponentToRock(antdComponent: React.Component, rockT
 }
 
 function genAntdComponentRenderer(rockType: string, antdComponent: any) {
-  return function AntdComponentRenderer(context, props: RockConfig) {
+  return function AntdComponentRenderer(context: RockInstanceContext, props: RockConfig) {
     console.debug(`[RUI][AntdRocks] renderRock ${JSON.stringify({$id: props.$id, $type: rockType})}`);
     const antdProps = MoveStyleUtils.omitSystemRockConfigFields(props);
 

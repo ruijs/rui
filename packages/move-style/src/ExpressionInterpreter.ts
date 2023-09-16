@@ -32,7 +32,7 @@ export class ExpressionInterpreter {
       result = expression(...varValues);
       console.debug(`[RUI][ExpressionInterpreter] result:`, result);
     } catch (err) {
-      console.error(`Expression interprete error:`, err.message);
+      console.error(`Expression interprete error. expression: '${expressionString}', error:`, err.message);
     }
     return result;
   }

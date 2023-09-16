@@ -7,6 +7,7 @@ import SonicRecordActionEditEntity from "./sonic-record-action-edit-entity/Sonic
 import SonicToolbarNewEntityButton from "./sonic-toolbar-new-entity-button/SonicToolbarNewEntityButton";
 import SonicToolbarRefreshButton from "./sonic-toolbar-refresh-button/SonicToolbarRefreshButton";
 import SonicMainSecondaryLayout from "./sonic-main-secondary-layout/SonicMainSecondaryLayout";
+import SonicToolbarSelectEntityButton from "./sonic-toolbar-select-entity-button/SonicToolbarSelectEntityButton";
 
 export default [
   RapidEntityForm,
@@ -18,6 +19,7 @@ export default [
   SonicRecordActionEditEntity,
   SonicToolbarNewEntityButton,
   SonicToolbarRefreshButton,
+  SonicToolbarSelectEntityButton,
 ]
 
 export * from "./rapid-entity-form/rapid-entity-form-types";
@@ -29,3 +31,4 @@ export * from "./sonic-record-action-edit-entity/sonic-record-action-edit-entity
 export * from "./sonic-toolbar-form-item/sonic-toolbar-form-item-types";
 export * from "./sonic-toolbar-new-entity-button/sonic-toolbar-new-entity-button-types";
 export * from "./sonic-toolbar-refresh-button/sonic-toolbar-refresh-button-types";
+export * from "./sonic-toolbar-select-entity-button/sonic-toolbar-select-entity-button-types";

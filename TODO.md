@@ -13,3 +13,7 @@
 [ ] rapid table should supports manual order support
 [ ] rapid entity list should supports list view mode
 [ ] search form should suports date/datetime range filter
+
+
+## misc
+[ ] remove `type: 'auto'`
