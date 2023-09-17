@@ -493,6 +493,12 @@ const page: PrRapidPage = {
               listActions: [
                 {
                   $type: "sonicToolbarRefreshButton",
+                  text: "上传",
+                  icon: "UploadOutlined",
+                  actionStyle: "primary",
+                },
+                {
+                  $type: "sonicToolbarRefreshButton",
                   text: "刷新",
                   icon: "ReloadOutlined",
                 },
