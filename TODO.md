@@ -21,6 +21,7 @@
 
 ## react-player
 - [ ] add breadcrumb
+- [ ] link rock compatible with remix
 - [ ] remove expanders
 
 ## misc
