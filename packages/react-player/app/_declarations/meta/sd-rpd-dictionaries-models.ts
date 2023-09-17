@@ -7,6 +7,7 @@ import BusinessApplicationState from '../models/sd-rpd-dictionaries/BusinessAppl
 import BusinessTaskState from '../models/sd-rpd-dictionaries/BusinessTaskState';
 import DataDictionaryValueType from '../models/sd-rpd-dictionaries/DataDictionaryValueType';
 import DataSecretLevel from '../models/sd-rpd-dictionaries/DataSecretLevel';
+import DocumentType from '../models/sd-rpd-dictionaries/DocumentType';
 import EmployeeState from '../models/sd-rpd-dictionaries/EmployeeState';
 import EnabledDisabledState from '../models/sd-rpd-dictionaries/EnabledDisabledState';
 import EquipmentPowerState from '../models/sd-rpd-dictionaries/EquipmentPowerState';
@@ -37,6 +38,7 @@ export default [
   BusinessTaskState,
   DataDictionaryValueType,
   DataSecretLevel,
+  DocumentType,
   EmployeeState,
   EnabledDisabledState,
   EquipmentPowerState,

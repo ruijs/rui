@@ -9,7 +9,7 @@ import type { RemoveField } from "./type-utils";
 /**
  * 实体
  */
-export type PrEntity = {
+export type PrEntity<TEntityCodes=string, TDictionaryCodes=string> = {
   /**
    * 实体编码
    */
@@ -28,13 +28,13 @@ export type PrEntity = {
   /**
    * 实体字段
    */
-  fields: PrField[];
+  fields: PrField<TEntityCodes, TDictionaryCodes>[];
 }
 
 /**
  * 实体字段
  */
-export type PrField = {
+export type PrField<TEntityCodes=string, TDictionaryCodes=string> = {
   /**
    * 字段编码
    */
@@ -74,12 +74,12 @@ export type PrField = {
   /**
    * 数据字典编码。当类型为`option`时设置
    */
-  dictionaryCode?: string;
+  dictionaryCode?: TDictionaryCodes;
 
   /**
    * 引用实体编码
    */
-  referenceEntityCode?: string;
+  referenceEntityCode?: TEntityCodes;
 }
 
 /**

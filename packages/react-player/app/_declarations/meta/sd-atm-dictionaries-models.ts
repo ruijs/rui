@@ -7,6 +7,7 @@ import BusinessApplicationState from '../models/sd-atm-dictionaries/BusinessAppl
 import BusinessTaskState from '../models/sd-atm-dictionaries/BusinessTaskState';
 import DataDictionaryValueType from '../models/sd-atm-dictionaries/DataDictionaryValueType';
 import DataSecretLevel from '../models/sd-atm-dictionaries/DataSecretLevel';
+import DocumentType from '../models/sd-atm-dictionaries/DocumentType';
 import EmployeeState from '../models/sd-atm-dictionaries/EmployeeState';
 import EnabledDisabledState from '../models/sd-atm-dictionaries/EnabledDisabledState';
 import EquipmentPowerState from '../models/sd-atm-dictionaries/EquipmentPowerState';
@@ -37,6 +38,7 @@ export default [
   BusinessTaskState,
   DataDictionaryValueType,
   DataSecretLevel,
+  DocumentType,
   EmployeeState,
   EnabledDisabledState,
   EquipmentPowerState,

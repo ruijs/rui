@@ -474,6 +474,63 @@ const page: PrRapidPage = {
             },
           ]
         },
+        {
+          key: "documents",
+          label: "文档",
+          children: [
+            {
+              $id: "userList",
+              $type: "sonicEntityList",
+              entityCode: "BaseMaterialDocument",
+              viewMode: "table",
+              fixedFilters: [
+                {
+                  field: "material_id",
+                  operator: "eq",
+                  value: "",
+                }
+              ],
+              listActions: [
+                {
+                  $type: "sonicToolbarRefreshButton",
+                  text: "刷新",
+                  icon: "ReloadOutlined",
+                },
+              ],
+              extraProperties: ["document", "createdBy"],
+              columns: [
+                {
+                  type: 'auto',
+                  code: 'document',
+                  title: "名称",
+                  fixed: 'left',
+                  cell: {
+                    $type: "antdListItemMeta",
+                    $exps: {
+                      title: "$slot.value.name",
+                      description: "$functions.formatFileSize($slot.value.size) + ' | ' + $slot.record.createdBy.name + ' 创建于 ' + $functions.formatDateTime($slot.value.createdAt)",
+                    }
+                  },
+                },
+                {
+                  type: 'auto',
+                  code: 'state',
+                  width: '100px',
+                },
+                {
+                  type: 'auto',
+                  code: 'createdAt',
+                  width: '150px',
+                },
+              ],
+              actions: [
+              ],
+              $exps: {
+                "fixedFilters[0].value": "$rui.parseQuery().id",
+              },
+            } 
+          ]
+        },
       ]
     }
   ],

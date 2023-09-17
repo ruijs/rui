@@ -73,6 +73,15 @@ export type DataSecretLevel =
   ;
 
 /**
+ * 文档类型
+ */
+export type DocumentType =
+  | 'directory'
+  | 'file'
+  | 'link'
+  ;
+
+/**
  * 员工状态
  */
 export type EmployeeState =
@@ -226,6 +235,7 @@ export type PublishState =
   | 'in_review'
   | 'published'
   | 'withdrawed'
+  | 'archived'
   ;
 
 /**

@@ -9,6 +9,7 @@ import BaseMaterial from '../models/sd-rpd-entities/BaseMaterial';
 import BaseMaterialBreakdown from '../models/sd-rpd-entities/BaseMaterialBreakdown';
 import BaseMaterialBreakdownPart from '../models/sd-rpd-entities/BaseMaterialBreakdownPart';
 import BaseMaterialCategory from '../models/sd-rpd-entities/BaseMaterialCategory';
+import BaseMaterialDocument from '../models/sd-rpd-entities/BaseMaterialDocument';
 import BaseMaterialFlow from '../models/sd-rpd-entities/BaseMaterialFlow';
 import BaseMaterialFlowProcess from '../models/sd-rpd-entities/BaseMaterialFlowProcess';
 import BaseMaterialFlowProcessInput from '../models/sd-rpd-entities/BaseMaterialFlowProcessInput';
@@ -30,6 +31,9 @@ import BpmBusinessCategory from '../models/sd-rpd-entities/BpmBusinessCategory';
 import BpmBusinessProcess from '../models/sd-rpd-entities/BpmBusinessProcess';
 import BpmBusinessProcessRevision from '../models/sd-rpd-entities/BpmBusinessProcessRevision';
 import BpmBusinessTask from '../models/sd-rpd-entities/BpmBusinessTask';
+import EcmDocument from '../models/sd-rpd-entities/EcmDocument';
+import EcmRevision from '../models/sd-rpd-entities/EcmRevision';
+import EcmStorageObject from '../models/sd-rpd-entities/EcmStorageObject';
 import InspectionCategory from '../models/sd-rpd-entities/InspectionCategory';
 import InspectionCharacteristic from '../models/sd-rpd-entities/InspectionCharacteristic';
 import InspectionCharacteristicCategory from '../models/sd-rpd-entities/InspectionCharacteristicCategory';
@@ -74,6 +78,7 @@ export default [
   BaseMaterialBreakdown,
   BaseMaterialBreakdownPart,
   BaseMaterialCategory,
+  BaseMaterialDocument,
   BaseMaterialFlow,
   BaseMaterialFlowProcess,
   BaseMaterialFlowProcessInput,
@@ -95,6 +100,9 @@ export default [
   BpmBusinessProcess,
   BpmBusinessProcessRevision,
   BpmBusinessTask,
+  EcmDocument,
+  EcmRevision,
+  EcmStorageObject,
   InspectionCategory,
   InspectionCharacteristic,
   InspectionCharacteristicCategory,

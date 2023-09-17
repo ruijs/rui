@@ -2,6 +2,7 @@ import path from "path";
 import chokidar from 'chokidar';
 import { generateModelIndexFiles } from "~/expanders/model-index-generator";
 import { generateModelCodes } from "~/expanders/pr-model-codes-generator";
+import { generateDictionaryCodes } from "~/expanders/pr-dictionary-codes-generator";
 import { generateSdAtmModelTypes } from "~/expanders/sd-atm-model-types-generator";
 import { generateSdAtmModelSkeleton } from "~/expanders/sd-atm-model-skeleton-generator";
 
@@ -40,6 +41,8 @@ export function runProton(option: RunProtonOption) {
     generateModelIndexFiles(declarationsDirectory);
     console.log("generateModelCodes");
     generateModelCodes(declarationsDirectory);
+    console.log("generateDictionaryCodes");
+    generateDictionaryCodes(declarationsDirectory);
 
     console.log("generateSdAtmModelSkeleton");
     generateSdAtmModelSkeleton(declarationsDirectory);

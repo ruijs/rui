@@ -646,6 +646,57 @@ export interface BaseMaterialCategory {
 export type SaveBaseMaterialCategoryInput = Omit<BaseMaterialCategory, 'id' | 'createdAt' | 'createdBy' | 'updatedAt' | 'updatedBy'>;
 
 /**
+ * 物料文档
+ */
+export interface BaseMaterialDocument {
+  /**
+   * id
+   */
+  id: number;
+  /**
+   * 物料
+   */
+  material: BaseMaterial;
+  /**
+   * 文档
+   */
+  document: EcmDocument;
+  /**
+   * 状态
+   */
+  state: EnabledDisabledState;
+  /**
+   * 创建时间
+   */
+  createdAt?: string;
+  /**
+   * 创建人
+   */
+  createdBy?: OcUser;
+  /**
+   * 更新时间
+   */
+  updatedAt?: string;
+  /**
+   * 更新人
+   */
+  updatedBy?: OcUser;
+  /**
+   * 删除时间
+   */
+  deletedAt?: string;
+  /**
+   * 删除人
+   */
+  detetedBy?: OcUser;
+};
+
+/**
+ * 物料文档
+ */
+export type SaveBaseMaterialDocumentInput = Omit<BaseMaterialDocument, 'id' | 'createdAt' | 'createdBy' | 'updatedAt' | 'updatedBy'>;
+
+/**
  * 物料工艺流程
  */
 export interface BaseMaterialFlow {
@@ -1855,6 +1906,191 @@ export interface BpmBusinessTask {
  * 审批任务
  */
 export type SaveBpmBusinessTaskInput = Omit<BpmBusinessTask, 'id' | 'createdAt' | 'createdBy' | 'updatedAt' | 'updatedBy'>;
+
+/**
+ * 文档
+ */
+export interface EcmDocument {
+  /**
+   * id
+   */
+  id: number;
+  /**
+   * Code
+   */
+  code: string;
+  /**
+   * 名称
+   */
+  name: string;
+  /**
+   * 扩展名
+   */
+  extName?: string;
+  /**
+   * 标题
+   */
+  title?: string;
+  /**
+   * 大小
+   */
+  size: number;
+  /**
+   * 最新版本
+   */
+  lastRevision?: EcmRevision;
+  /**
+   * 存储对象
+   */
+  storageObject?: EcmStorageObject;
+  /**
+   * 链接
+   */
+  ref?: EcmDocument;
+  /**
+   * 父文档
+   */
+  parent?: EcmDocument;
+  /**
+   * 状态
+   */
+  publishState: PublishState;
+  /**
+   * 创建时间
+   */
+  createdAt?: string;
+  /**
+   * 创建人
+   */
+  createdBy?: OcUser;
+  /**
+   * 更新时间
+   */
+  updatedAt?: string;
+  /**
+   * 更新人
+   */
+  updatedBy?: OcUser;
+  /**
+   * 删除时间
+   */
+  deletedAt?: string;
+  /**
+   * 删除人
+   */
+  detetedBy?: OcUser;
+};
+
+/**
+ * 文档
+ */
+export type SaveEcmDocumentInput = Omit<EcmDocument, 'id' | 'createdAt' | 'createdBy' | 'updatedAt' | 'updatedBy'>;
+
+/**
+ * 文档版本
+ */
+export interface EcmRevision {
+  /**
+   * id
+   */
+  id: number;
+  /**
+   * 文档
+   */
+  document: EcmDocument;
+  /**
+   * 大小
+   */
+  size: number;
+  /**
+   * 存储对象
+   */
+  storageObject?: EcmStorageObject;
+  /**
+   * 状态
+   */
+  publishState: PublishState;
+  /**
+   * 创建时间
+   */
+  createdAt?: string;
+  /**
+   * 创建人
+   */
+  createdBy?: OcUser;
+  /**
+   * 更新时间
+   */
+  updatedAt?: string;
+  /**
+   * 更新人
+   */
+  updatedBy?: OcUser;
+  /**
+   * 删除时间
+   */
+  deletedAt?: string;
+  /**
+   * 删除人
+   */
+  detetedBy?: OcUser;
+};
+
+/**
+ * 文档版本
+ */
+export type SaveEcmRevisionInput = Omit<EcmRevision, 'id' | 'createdAt' | 'createdBy' | 'updatedAt' | 'updatedBy'>;
+
+/**
+ * 存储对象
+ */
+export interface EcmStorageObject {
+  /**
+   * id
+   */
+  id: number;
+  /**
+   * 大小
+   */
+  size: number;
+  /**
+   * 对象唯一键
+   */
+  key: string;
+  /**
+   * 哈希值
+   */
+  hash?: string;
+  /**
+   * 创建时间
+   */
+  createdAt?: string;
+  /**
+   * 创建人
+   */
+  createdBy?: OcUser;
+  /**
+   * 更新时间
+   */
+  updatedAt?: string;
+  /**
+   * 更新人
+   */
+  updatedBy?: OcUser;
+  /**
+   * 删除时间
+   */
+  deletedAt?: string;
+  /**
+   * 删除人
+   */
+  detetedBy?: OcUser;
+};
+
+/**
+ * 存储对象
+ */
+export type SaveEcmStorageObjectInput = Omit<EcmStorageObject, 'id' | 'createdAt' | 'createdBy' | 'updatedAt' | 'updatedBy'>;
 
 /**
  * 检验类型

@@ -416,6 +416,34 @@ export interface BaseMaterialCategory {
 export type SaveBaseMaterialCategoryInput = Omit<BaseMaterialCategory, 'id' | 'createdAt' | 'createdBy' | 'updatedAt' | 'updatedBy'>;
 
 /**
+ * 物料文档
+ */
+export interface BaseMaterialDocument {
+  id: string;
+  createdAt?: string;
+  createdBy?: string;
+  updatedAt?: string;
+  updatedBy?: string;
+  /**
+   * 物料
+   */
+  material: undefined;
+  /**
+   * 文档
+   */
+  document: undefined;
+  /**
+   * 状态
+   */
+  state: EnabledDisabledState;
+};
+
+/**
+ * 物料文档
+ */
+export type SaveBaseMaterialDocumentInput = Omit<BaseMaterialDocument, 'id' | 'createdAt' | 'createdBy' | 'updatedAt' | 'updatedBy'>;
+
+/**
  * 物料工艺流程
  */
 export interface BaseMaterialFlow {
@@ -1142,6 +1170,122 @@ export interface BpmBusinessTask {
  * 审批任务
  */
 export type SaveBpmBusinessTaskInput = Omit<BpmBusinessTask, 'id' | 'createdAt' | 'createdBy' | 'updatedAt' | 'updatedBy'>;
+
+/**
+ * 文档
+ */
+export interface EcmDocument {
+  id: string;
+  createdAt?: string;
+  createdBy?: string;
+  updatedAt?: string;
+  updatedBy?: string;
+  /**
+   * Code
+   */
+  code: string;
+  /**
+   * 名称
+   */
+  name: string;
+  /**
+   * 扩展名
+   */
+  extName?: string;
+  /**
+   * 标题
+   */
+  title?: string;
+  /**
+   * 大小
+   */
+  size: number;
+  /**
+   * 最新版本
+   */
+  lastRevision?: undefined;
+  /**
+   * 存储对象
+   */
+  storageObject?: undefined;
+  /**
+   * 链接
+   */
+  ref?: undefined;
+  /**
+   * 父文档
+   */
+  parent?: undefined;
+  /**
+   * 状态
+   */
+  publishState: PublishState;
+};
+
+/**
+ * 文档
+ */
+export type SaveEcmDocumentInput = Omit<EcmDocument, 'id' | 'createdAt' | 'createdBy' | 'updatedAt' | 'updatedBy'>;
+
+/**
+ * 文档版本
+ */
+export interface EcmRevision {
+  id: string;
+  createdAt?: string;
+  createdBy?: string;
+  updatedAt?: string;
+  updatedBy?: string;
+  /**
+   * 文档
+   */
+  document: undefined;
+  /**
+   * 大小
+   */
+  size: number;
+  /**
+   * 存储对象
+   */
+  storageObject?: undefined;
+  /**
+   * 状态
+   */
+  publishState: PublishState;
+};
+
+/**
+ * 文档版本
+ */
+export type SaveEcmRevisionInput = Omit<EcmRevision, 'id' | 'createdAt' | 'createdBy' | 'updatedAt' | 'updatedBy'>;
+
+/**
+ * 存储对象
+ */
+export interface EcmStorageObject {
+  id: string;
+  createdAt?: string;
+  createdBy?: string;
+  updatedAt?: string;
+  updatedBy?: string;
+  /**
+   * 大小
+   */
+  size: number;
+  /**
+   * 对象唯一键
+   */
+  key: string;
+  /**
+   * 哈希值
+   */
+  hash?: string;
+};
+
+/**
+ * 存储对象
+ */
+export type SaveEcmStorageObjectInput = Omit<EcmStorageObject, 'id' | 'createdAt' | 'createdBy' | 'updatedAt' | 'updatedBy'>;
 
 /**
  * 检验类型

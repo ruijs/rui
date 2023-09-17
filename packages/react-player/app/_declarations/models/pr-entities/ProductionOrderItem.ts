@@ -1,3 +1,5 @@
+import type { TDictionaryCodes } from '~/_declarations/meta/pr-dictionary-codes';
+import type { TEntityCodes } from '~/_declarations/meta/pr-model-codes';
 import type { PrEntity } from '~/types/pr-types';
 
 export default {
@@ -28,4 +30,4 @@ export default {
       referenceEntityCode: 'BaseUnit',
     },
   ],
-} as PrEntity;
+} as PrEntity<TEntityCodes, TDictionaryCodes>

@@ -7,6 +7,7 @@ import BusinessApplicationState from '../models/pr-dictionaries/BusinessApplicat
 import BusinessTaskState from '../models/pr-dictionaries/BusinessTaskState';
 import DataDictionaryValueType from '../models/pr-dictionaries/DataDictionaryValueType';
 import DataSecretLevel from '../models/pr-dictionaries/DataSecretLevel';
+import DocumentType from '../models/pr-dictionaries/DocumentType';
 import EmployeeState from '../models/pr-dictionaries/EmployeeState';
 import EnabledDisabledState from '../models/pr-dictionaries/EnabledDisabledState';
 import EquipmentPowerState from '../models/pr-dictionaries/EquipmentPowerState';
@@ -35,6 +36,7 @@ export default [
   BusinessTaskState,
   DataDictionaryValueType,
   DataSecretLevel,
+  DocumentType,
   EmployeeState,
   EnabledDisabledState,
   EquipmentPowerState,

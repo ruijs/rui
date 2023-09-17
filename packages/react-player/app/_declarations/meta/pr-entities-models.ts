@@ -9,6 +9,7 @@ import BaseMaterial from '../models/pr-entities/BaseMaterial';
 import BaseMaterialBreakdown from '../models/pr-entities/BaseMaterialBreakdown';
 import BaseMaterialBreakdownPart from '../models/pr-entities/BaseMaterialBreakdownPart';
 import BaseMaterialCategory from '../models/pr-entities/BaseMaterialCategory';
+import BaseMaterialDocument from '../models/pr-entities/BaseMaterialDocument';
 import BaseMaterialFlow from '../models/pr-entities/BaseMaterialFlow';
 import BaseMaterialFlowProcess from '../models/pr-entities/BaseMaterialFlowProcess';
 import BaseMaterialFlowProcessInput from '../models/pr-entities/BaseMaterialFlowProcessInput';
@@ -30,6 +31,9 @@ import BpmBusinessCategory from '../models/pr-entities/BpmBusinessCategory';
 import BpmBusinessProcess from '../models/pr-entities/BpmBusinessProcess';
 import BpmBusinessProcessRevision from '../models/pr-entities/BpmBusinessProcessRevision';
 import BpmBusinessTask from '../models/pr-entities/BpmBusinessTask';
+import EcmDocument from '../models/pr-entities/EcmDocument';
+import EcmRevision from '../models/pr-entities/EcmRevision';
+import EcmStorageObject from '../models/pr-entities/EcmStorageObject';
 import InspectionCategory from '../models/pr-entities/InspectionCategory';
 import InspectionCharacteristic from '../models/pr-entities/InspectionCharacteristic';
 import InspectionCharacteristicCategory from '../models/pr-entities/InspectionCharacteristicCategory';
@@ -74,6 +78,7 @@ export default [
   BaseMaterialBreakdown,
   BaseMaterialBreakdownPart,
   BaseMaterialCategory,
+  BaseMaterialDocument,
   BaseMaterialFlow,
   BaseMaterialFlowProcess,
   BaseMaterialFlowProcessInput,
@@ -95,6 +100,9 @@ export default [
   BpmBusinessProcess,
   BpmBusinessProcessRevision,
   BpmBusinessTask,
+  EcmDocument,
+  EcmRevision,
+  EcmStorageObject,
   InspectionCategory,
   InspectionCharacteristic,
   InspectionCharacteristicCategory,

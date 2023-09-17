@@ -39,6 +39,11 @@ export type DataDictionaryValueType = never;
 export type DataSecretLevel = never;
 
 /**
+ * 文档类型
+ */
+export type DocumentType = never;
+
+/**
  * 员工状态
  */
 export type EmployeeState = never;

@@ -9,6 +9,7 @@ import BaseMaterial from '../models/sd-atm-entities/BaseMaterial';
 import BaseMaterialBreakdown from '../models/sd-atm-entities/BaseMaterialBreakdown';
 import BaseMaterialBreakdownPart from '../models/sd-atm-entities/BaseMaterialBreakdownPart';
 import BaseMaterialCategory from '../models/sd-atm-entities/BaseMaterialCategory';
+import BaseMaterialDocument from '../models/sd-atm-entities/BaseMaterialDocument';
 import BaseMaterialFlow from '../models/sd-atm-entities/BaseMaterialFlow';
 import BaseMaterialFlowProcess from '../models/sd-atm-entities/BaseMaterialFlowProcess';
 import BaseMaterialFlowProcessInput from '../models/sd-atm-entities/BaseMaterialFlowProcessInput';
@@ -30,6 +31,9 @@ import BpmBusinessCategory from '../models/sd-atm-entities/BpmBusinessCategory';
 import BpmBusinessProcess from '../models/sd-atm-entities/BpmBusinessProcess';
 import BpmBusinessProcessRevision from '../models/sd-atm-entities/BpmBusinessProcessRevision';
 import BpmBusinessTask from '../models/sd-atm-entities/BpmBusinessTask';
+import EcmDocument from '../models/sd-atm-entities/EcmDocument';
+import EcmRevision from '../models/sd-atm-entities/EcmRevision';
+import EcmStorageObject from '../models/sd-atm-entities/EcmStorageObject';
 import InspectionCategory from '../models/sd-atm-entities/InspectionCategory';
 import InspectionCharacteristic from '../models/sd-atm-entities/InspectionCharacteristic';
 import InspectionCharacteristicCategory from '../models/sd-atm-entities/InspectionCharacteristicCategory';
@@ -74,6 +78,7 @@ export default [
   BaseMaterialBreakdown,
   BaseMaterialBreakdownPart,
   BaseMaterialCategory,
+  BaseMaterialDocument,
   BaseMaterialFlow,
   BaseMaterialFlowProcess,
   BaseMaterialFlowProcessInput,
@@ -95,6 +100,9 @@ export default [
   BpmBusinessProcess,
   BpmBusinessProcessRevision,
   BpmBusinessTask,
+  EcmDocument,
+  EcmRevision,
+  EcmStorageObject,
   InspectionCategory,
   InspectionCharacteristic,
   InspectionCharacteristicCategory,
