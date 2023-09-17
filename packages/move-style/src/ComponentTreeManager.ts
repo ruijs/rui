@@ -138,6 +138,7 @@ export class ComponentTreeManager {
       const expVars = Object.assign({}, this.#framework.getExpressionVars(), {
         $framework: this.#framework,
         $page: this.#page,
+        $functions: this.#framework.getFunctions(),
         $self: config,
         $parent: parentConfig,
       }, vars);

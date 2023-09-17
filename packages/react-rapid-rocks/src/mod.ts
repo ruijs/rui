@@ -20,6 +20,7 @@ import RapidObjectRenderer from "./rapid-object-renderer/RapidObjectRenderer";
 import RapidDictionaryEntryRenderer from "./rapid-dictionary-entry-renderer/RapidDictionaryEntryRenderer";
 import RapidDatePicker from "./rapid-date-picker/RapidDatePicker";
 import RapidLinkRenderer from "./rapid-link-renderer/RapidLinkRenderer";
+import RapidFileSizeRenderer from "./rapid-file-size-renderer/RapidFileSizeRenderer";
 
 const rapidRocks: Record<string, Rock> = {};
 rapidRocks[RapidTextRenderer.$type] = RapidTextRenderer;
@@ -29,6 +30,7 @@ rapidRocks[RapidDatePicker.$type] = RapidDatePicker;
 rapidRocks[RapidDateTimeRenderer.$type] = RapidDateTimeRenderer;
 rapidRocks[RapidDescriptionsRenderer.$type] = RapidDescriptionsRenderer;
 rapidRocks[RapidDictionaryEntryRenderer.$type] = RapidDictionaryEntryRenderer;
+rapidRocks[RapidFileSizeRenderer.$type] = RapidFileSizeRenderer;
 rapidRocks[RapidJsonRenderer.$type] = RapidJsonRenderer;
 rapidRocks[RapidLinkRenderer.$type] = RapidLinkRenderer;
 rapidRocks[RapidObjectRenderer.$type] = RapidObjectRenderer;
@@ -45,6 +47,8 @@ rapidRocks[RapidToolbarLink.$type] = RapidToolbarLink;
 rapidRocks[RapidToolbarPageLink.$type] = RapidToolbarPageLink;
 export const RapidRocks = rapidRocks;
 
+export * from "./utility";
+
 export * from "./rapid-types";
 export * from "./rapid-text-renderer/rapid-text-renderer-types";
 export * from "./rapid-json-renderer/rapid-json-renderer-types";
@@ -52,6 +56,7 @@ export * from "./rapid-link-renderer/rapid-link-renderer-types";
 export * from "./rapid-date-picker/rapid-date-picker-types";
 export * from "./rapid-descriptions-renderer/rapid-descriptions-renderer-types";
 export * from "./rapid-dictionary-entry-renderer/rapid-dictionary-entry-renderer-types";
+export * from "./rapid-file-size-renderer/rapid-file-size-renderer-types";
 export * from "./rapid-reference-renderer/rapid-reference-renderer-types";
 export * from "./rapid-select/rapid-select-types";
 export * from "./rapid-form/rapid-form-types";
