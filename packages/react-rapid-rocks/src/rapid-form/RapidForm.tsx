@@ -38,18 +38,27 @@ export default {
       props.items.forEach((formItemConfig) => {
         (formItemConfig as any).form = state.form;
 
-        const formItemWrapRock: RockConfig = {
-          $id: `${props.$id}-item-${formItemConfig.code}-col`,
-          $type: "antdCol",
-          span: (24 / (props.column || 1)) * (formItemConfig.column || 1),
-          children: {
+        let formItemRockConfig: RockConfig;
+        if (formItemConfig.hidden) {
+          formItemRockConfig = {
             $id: `${props.$id}-item-${formItemConfig.code}`,
             $type: "rapidFormItem",
             ...formItemConfig,
-          },
-        };
+          };
+        } else {
+          formItemRockConfig = {
+            $id: `${props.$id}-item-${formItemConfig.code}-col`,
+            $type: "antdCol",
+            span: (24 / (props.column || 1)) * (formItemConfig.column || 1),
+            children: {
+              $id: `${props.$id}-item-${formItemConfig.code}`,
+              $type: "rapidFormItem",
+              ...formItemConfig,
+            },
+          };
+        }
 
-        dataFormItemRocks.push(formItemWrapRock);
+        dataFormItemRocks.push(formItemRockConfig);
       })
     }
 

@@ -20,7 +20,7 @@ const formItemTypeToControlRockTypeMap: Record<string, string> = {
   dateTimeRange: "antdDatePickerRangePicker",
   select: "rapidSelect",
   search: "antdInputSearch",
-  file: "antdUpload",
+  file: "rapidUploaderFormInput",
   json: "jsonSetterInput",
 }
 
@@ -42,21 +42,6 @@ const defaultControlPropsOfFormItemType: Record<string, Record<string, any>> = {
     name: "file",
     action: "/api/upload",
     headers: {},
-    children: [
-      {
-        $type: "antdButton",
-        type: "default",
-        icon: { $type: "antdIcon", name: "UploadOutlined" },
-        children: {
-          $type: "htmlElement",
-          htmlTag: "span",
-          children: {
-            $type: "text",
-            text: "选择文件",
-          },
-        },
-      }
-    ]
   }
 }
 
@@ -117,6 +102,7 @@ export default {
       required: props.required,
       name: props.code?.split("."), // TODO: should `code` be required for a search form item?
       label: props.label,
+      hidden: props.hidden,
       valuePropName: inputRockType && valuePropNameOfFormInput[inputRockType] || "value",
       form: props.form,
       children: childRock,

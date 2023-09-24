@@ -123,10 +123,13 @@ function generateDataFormItem(option: GenerateEntityFormItemOption) {
 
   let formItem: RemoveField<RapidFormItemConfig, "$type"> = {
     type: formItemConfig.type,
-    valueFieldType,
     code: formItemConfig.code,
     required: formItemConfig.required,
     label: formItemConfig.label,
+    hidden: formItemConfig.hidden,
+    valueFieldType,
+    formControlType: formItemConfig.formControlType,
+    formControlProps: formItemConfig.formControlProps,
     $exps: formItemConfig.$exps,
   }
 

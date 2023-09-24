@@ -1,6 +1,6 @@
 import { EventEmitter } from "./EventEmitter";
 import { RockConfig, RockPropValue, PageConfig, PageWithLayoutConfig, PageWithoutLayoutConfig, RockMessage, RockInstance, RockMessageToComponent, ScopeConfig } from "./types/rock-types";
-import _, { set } from "lodash";
+import { clone, findIndex, isArray, isString, set } from "lodash";
 import { ExpressionInterpreter } from "./ExpressionInterpreter";
 import { Framework } from "./Framework";
 import { Page } from "./Page";
@@ -45,7 +45,7 @@ export class ComponentTreeManager {
     // this.#parentIdMapById = new Map();
     // this.#scopeMapById = new Map();
 
-    var processedConfig = _.clone(config);
+    var processedConfig = clone(config);
     if ((processedConfig as PageWithLayoutConfig).layout) {
       // TODO: finish process config of page with layout.
     } else {
@@ -88,6 +88,10 @@ export class ComponentTreeManager {
 
   attachComponent(scope: Scope, parentConfig: RockConfig, config: RockConfig) {
     this.travelRockConfig((scope: Scope, parentConfig: RockInstance, config: RockInstance) => {
+      if (isString(config)) {
+        return;
+      }
+
       let rockType = config.$type;
       if (!rockType) {
         // Adapter slot
@@ -216,7 +220,7 @@ export class ComponentTreeManager {
       if (componentHost) {
         if (!allowMultiComponents) {
           throw new Error(`Create component failed. Multi-components in slot '${parentComponent.$type}#${slotName}' is not allowed.`);
-        } else if (!_.isArray(componentHost)) {
+        } else if (!isArray(componentHost)) {
           parentComponent[componentHostPropName] = [componentHost];
         }
       } else {
@@ -227,13 +231,13 @@ export class ComponentTreeManager {
       let pageView = this.#config.view;
       if (!pageView) {
         pageView = [];
-      } else if (!_.isArray(pageView)) {
+      } else if (!isArray(pageView)) {
         pageView = [pageView];
       }
       childComponents = pageView;
     }
 
-    const prevSiblingComponentIndex = _.findIndex(childComponents, (item) => item.$id === prevSiblingComponentId);
+    const prevSiblingComponentIndex = findIndex(childComponents, (item) => item.$id === prevSiblingComponentId);
     if (prevSiblingComponentIndex === -1 ||
         prevSiblingComponentIndex === childComponents.length - 1) {
       // append to end.
@@ -271,10 +275,10 @@ export class ComponentTreeManager {
       if (!parentComponentId) {
         // this means the parent component is page view.
         childComponents = (this.#config as PageWithoutLayoutConfig).view;
-        if (!_.isArray(childComponents)) {
+        if (!isArray(childComponents)) {
           childComponents = [childComponents];
         }
-        const componentIndex = _.findIndex(childComponents, (item) => item.$id === componentId);
+        const componentIndex = findIndex(childComponents, (item) => item.$id === componentId);
         if (componentIndex !== -1) {
           childComponents.splice(componentIndex, 1);
 
@@ -297,11 +301,11 @@ export class ComponentTreeManager {
 
           const slotMeta = meta?.slots?.[childrenPropName];
 
-          if (!_.isArray(childComponents)) {
+          if (!isArray(childComponents)) {
             childComponents = [childComponents];
           }
     
-          const componentIndex = _.findIndex(childComponents, (item) => item.$id === componentId);
+          const componentIndex = findIndex(childComponents, (item) => item.$id === componentId);
           if (componentIndex !== -1) {
             childComponents.splice(componentIndex, 1);
             if (slotMeta && !slotMeta.allowMultiComponents) {

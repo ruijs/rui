@@ -88,6 +88,55 @@ const breakdownPartFormConfig: Partial<RapidEntityFormRockConfig> = {
 };
 
 
+
+const materialDocumentFormConfig: Partial<RapidEntityFormRockConfig> = {
+  items: [
+    {
+      type: 'auto',
+      code: 'document',
+      label: '文件',
+      valueFieldType: 'json',
+      formControlType: "rapidDocumentFormControl",
+      formControlProps: {
+        uploadProps: {
+          name: "file",
+          action: "/api/upload",
+          headers: {},
+          maxCount: 1,
+        },
+        onUploaded: [
+          {$action: "printToConsole"},
+          {
+            $action: "script",
+            script: `function (event) {
+              var fileInfo = event.args;
+              event.sender.form.setFieldsValue({
+                name: fileInfo.name,
+                size: fileInfo.size,
+                document: {
+                  code: "",
+                  name: fileInfo.name,
+                  size: fileInfo.size,
+                  storageObject: {
+                    size: fileInfo.size,
+                    key: fileInfo.key,
+                  },
+                  publishState: "published",
+                },
+              });
+            }`
+          }
+        ],
+      }
+    },
+    {
+      type: 'auto',
+      code: 'state',
+    },
+  ],
+};
+
+
 const page: PrRapidPage = {
   code: 'base_material_details',
   name: '物料详情',
@@ -492,9 +541,9 @@ const page: PrRapidPage = {
               ],
               listActions: [
                 {
-                  $type: "sonicToolbarRefreshButton",
-                  text: "上传",
-                  icon: "UploadOutlined",
+                  $type: "sonicToolbarNewEntityButton",
+                  text: "新建",
+                  icon: "PlusOutlined",
                   actionStyle: "primary",
                 },
                 {
@@ -510,13 +559,30 @@ const page: PrRapidPage = {
                   code: 'document',
                   title: "名称",
                   fixed: 'left',
-                  cell: {
-                    $type: "antdListItemMeta",
-                    $exps: {
-                      title: "$slot.value.name",
-                      description: "$functions.formatFileSize($slot.value.size) + ' | ' + $slot.record.createdBy.name + ' 创建于 ' + $functions.formatDateTime($slot.value.createdAt)",
+                  cell: [
+                    {
+                      $type: "antdListItemMeta",
+                      title: {
+                        $type: "antdSpace",
+                        children: [
+                          {
+                            $type: "text",
+                            text: "",
+                          },
+                          {
+                            $type: "anchor",
+                            href: "",
+                            children: "下载"
+                          }
+                        ]
+                      },
+                      $exps: {
+                        "title.children[0].text": "$slot.value.name",
+                        "title.children[1].href": "'/api/download/document?documentId=' + $slot.value.id",
+                        description: "$functions.formatFileSize($slot.value.size) + ' | ' + $slot.record.createdBy.name + ' 创建于 ' + $functions.formatDateTime($slot.value.createdAt)",
+                      }
                     }
-                  },
+                  ],
                 },
                 {
                   type: 'auto',
@@ -530,9 +596,19 @@ const page: PrRapidPage = {
                 },
               ],
               actions: [
+                {
+                  $type: "sonicRecordActionDeleteEntity",
+                  code: 'delete',
+                  actionType: 'delete',
+                  actionText: '删除',
+                  dataSourceCode: "list",
+                  entityCode: "BaseMaterialDocument",
+                },
               ],
+              newForm: cloneDeep(materialDocumentFormConfig),
               $exps: {
                 "fixedFilters[0].value": "$rui.parseQuery().id",
+                "newForm.fixedFields.material_id": "$rui.parseQuery().id",
               },
             } 
           ]

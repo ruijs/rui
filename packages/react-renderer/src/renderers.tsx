@@ -1,7 +1,7 @@
 import { ConvertRockEventHandlerPropsOptions, ConvertRockSlotPropsOptions, GenerateRockSlotRendererOptions, handleComponentEvent, RenderRockChildrenOptions, RenderRockOptions, RenderRockSlotOptions, RenderRockSlotWithMetaOptions, Rock, RockInstance, RockInstanceContext, RockMeta, RockMetaSlot, RockMetaSlots, Scope } from "@ruijs/move-style";
 import { RockEventHandler } from "@ruijs/move-style";
 import { RockConfig, MoveStyleUtils } from "@ruijs/move-style";
-import { forEach, isArray, isFunction, pick } from "lodash";
+import { forEach, isArray, isFunction, isString, pick } from "lodash";
 import React from "react";
 
 // TODO: support `$parent`?
@@ -11,6 +11,10 @@ export function renderRock(options: RenderRockOptions) {
 
   if (rockConfig == null) {
     return null;
+  }
+
+  if (isString(rockConfig)) {
+    return rockConfig;
   }
 
   const {framework, page, scope} = context;

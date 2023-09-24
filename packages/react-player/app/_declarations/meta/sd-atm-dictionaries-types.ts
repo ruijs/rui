@@ -234,8 +234,8 @@ export type PublishState =
   | 'draft'
   | 'in_review'
   | 'published'
-  | 'withdrawed'
   | 'archived'
+  | 'withdrawed'
   ;
 
 /**

@@ -1,3 +1,4 @@
+import RapidDocumentFormControl from "./rapid-document-form-control/RapidDocumentFormControl";
 import RapidEntityForm from "./rapid-entity-form/RapidEntityForm";
 import RapidEntityList from "./rapid-entity-list/RapidEntityList";
 import SonicEntityList from "./sonic-entity-list/SonicEntityList";
@@ -10,6 +11,7 @@ import SonicMainSecondaryLayout from "./sonic-main-secondary-layout/SonicMainSec
 import SonicToolbarSelectEntityButton from "./sonic-toolbar-select-entity-button/SonicToolbarSelectEntityButton";
 
 export default [
+  RapidDocumentFormControl,
   RapidEntityForm,
   RapidEntityList,
   SonicEntityList,
@@ -22,6 +24,7 @@ export default [
   SonicToolbarSelectEntityButton,
 ]
 
+export * from "./rapid-document-form-control/rapid-document-form-control-types";
 export * from "./rapid-entity-form/rapid-entity-form-types";
 export * from "./rapid-entity-list/rapid-entity-list-types";
 export * from "./sonic-entity-list/sonic-entity-list-types";

@@ -26,6 +26,11 @@ export type RapidFormItemConfig = {
   code: string;
 
   /**
+   * 是否隐藏字段（依然会收集和校验字段）
+   */
+  hidden?: boolean;
+
+  /**
    * 表单项标签文字
    */
   label?: string;
