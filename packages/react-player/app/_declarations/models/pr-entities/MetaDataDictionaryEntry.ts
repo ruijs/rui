@@ -25,6 +25,16 @@ export default {
       required: true,
     },
     {
+      code: 'color',
+      name: '颜色',
+      fieldType: 'string',
+    },
+    {
+      code: 'icon',
+      name: '图标',
+      fieldType: 'string',
+    },
+    {
       code: 'description',
       name: '描述',
       fieldType: 'string',

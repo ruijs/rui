@@ -4,6 +4,7 @@ export default {
   code: 'RouteHttpMethod',
   name: 'HTTP方法',
   valueType: 'string',
+  level: "sys",
   items: [
     { name: 'get', value: 'get' },
     { name: 'post', value: 'post' },

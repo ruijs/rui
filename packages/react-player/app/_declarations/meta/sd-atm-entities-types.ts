@@ -4,6 +4,7 @@ import type {
   BusinessActivityState,
   BusinessApplicationState,
   BusinessTaskState,
+  DataDictionaryLevel,
   DataDictionaryValueType,
   EmployeeState,
   EnabledDisabledState,
@@ -1589,21 +1590,17 @@ export interface DataDictionary {
    */
   name: string;
   /**
-   * 颜色
+   * 值类型
    */
-  color: string;
+  valueType: DataDictionaryValueType;
   /**
-   * 图标
+   * 级别
    */
-  icon: string;
+  level: DataDictionaryLevel;
   /**
    * 描述
    */
   description?: string;
-  /**
-   * 值类型
-   */
-  valueType: DataDictionaryValueType;
   /**
    * 状态
    */
@@ -1640,6 +1637,14 @@ export interface DataDictionaryEntry {
    * 名称
    */
   name: string;
+  /**
+   * 颜色
+   */
+  color?: string;
+  /**
+   * 图标
+   */
+  icon?: string;
   /**
    * 描述
    */

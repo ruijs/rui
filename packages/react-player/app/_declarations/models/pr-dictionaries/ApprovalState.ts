@@ -4,6 +4,7 @@ export default {
   code: 'ApprovalState',
   name: '审批状态',
   valueType: 'string',
+  level: "app",
   items: [
     { name: '未发起', value: 'uninitiated' },
     { name: '待审批', value: 'pending' },

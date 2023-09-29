@@ -12,6 +12,7 @@ const dictionaryCodes = [
   'EnabledDisabledState',
   'EquipmentPowerState',
   'EquipmentProductionState',
+  'DataDictionaryLevel',
   'PropertyType',
   'RouteHttpMethod',
   'RouteType',

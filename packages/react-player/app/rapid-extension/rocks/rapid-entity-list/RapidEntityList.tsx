@@ -20,7 +20,7 @@ const fieldTypeToDisplayRockTypeMap: Record<RapidFieldType, string> = {
   time: "rapidDateTimeRenderer",
   datetime: "rapidDateTimeRenderer",
   datetimetz: "rapidDateTimeRenderer",
-  option: "rapidReferenceRenderer",
+  option: "rapidOptionFieldRenderer",
   relation: "rapidObjectRenderer",
   json: "rapidJsonRenderer",
 };
@@ -99,7 +99,7 @@ export default {
   },
 
   Renderer(context, props, state) {
-    const { entities, dataDictionaries } = rapidAppDefinition;
+    const { entities } = rapidAppDefinition;
     const entityCode = props.entityCode;
     let mainEntity: SdRpdEntity | undefined;
 
@@ -156,15 +156,8 @@ export default {
         let fieldTypeRelatedRendererProps: any = {};
         if (rpdField) {
           if (fieldType === "option") {
-            const dataDictionaryCode = rpdField.dataDictionary;
-            let dataDictionary = find(dataDictionaries, {code: dataDictionaryCode})!; 
             fieldTypeRelatedRendererProps = {
-              list: dataDictionary.entries,
-              itemRenderer: {
-                $type: "rapidDictionaryEntryRenderer",
-              },
-              valueFieldName: "value",
-              textFieldName: "name",
+              dictionaryCode: rpdField.dataDictionary,
             };
           } else if (fieldType === "relation" && !column.rendererType) {
             if (rpdField.relation === "many") {

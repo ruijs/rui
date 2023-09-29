@@ -4,6 +4,7 @@ export default {
   code: 'PublishState',
   name: '发布状态',
   valueType: 'string',
+  level: "app",
   items: [
     { name: '草稿', value: 'draft' },
     { name: '审核中', value: 'in_review', color: 'orange' },

@@ -64,6 +64,11 @@ export type EquipmentPowerState = never;
 export type EquipmentProductionState = never;
 
 /**
+ * 数据字典级别
+ */
+export type DataDictionaryLevel = never;
+
+/**
  * 实体属性类型
  */
 export type PropertyType = never;

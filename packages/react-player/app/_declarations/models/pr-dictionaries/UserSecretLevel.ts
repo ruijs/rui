@@ -4,6 +4,7 @@ export default {
   code: 'UserSecretLevel',
   name: '用户密级',
   valueType: 'integer',
+  level: "app",
   items: [
     { name: '非密', value: '1' },
     { name: '内部', value: '2' },

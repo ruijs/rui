@@ -4,6 +4,7 @@ export default {
   code: 'ProductionPlanScheduleState',
   name: '计划排期状态',
   valueType: 'string',
+  level: "app",
   items: [
     { name: '未计划', value: 'unscheduled' },
     { name: '计划中', value: 'scheduling', color: 'orange' },

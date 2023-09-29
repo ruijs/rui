@@ -4,6 +4,7 @@ export default {
   code: 'DocumentType',
   name: '文档类型',
   valueType: 'string',
+  level: "app",
   items: [
     { name: '文件夹', value: 'directory' },
     { name: '文件', value: 'file' },

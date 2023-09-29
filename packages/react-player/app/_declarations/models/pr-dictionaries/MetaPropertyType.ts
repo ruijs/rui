@@ -4,6 +4,7 @@ export default {
   code: 'PropertyType',
   name: '实体属性类型',
   valueType: 'string',
+  level: "sys",
   items: [
     { name: 'integer', value: 'integer' },
     { name: 'long', value: 'long' },

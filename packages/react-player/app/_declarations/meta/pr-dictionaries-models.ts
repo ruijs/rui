@@ -12,6 +12,7 @@ import EmployeeState from '../models/pr-dictionaries/EmployeeState';
 import EnabledDisabledState from '../models/pr-dictionaries/EnabledDisabledState';
 import EquipmentPowerState from '../models/pr-dictionaries/EquipmentPowerState';
 import EquipmentProductionState from '../models/pr-dictionaries/EquipmentProductionState';
+import MetaDataDictionaryLevel from '../models/pr-dictionaries/MetaDataDictionaryLevel';
 import MetaPropertyType from '../models/pr-dictionaries/MetaPropertyType';
 import MetaRouteHttpMethod from '../models/pr-dictionaries/MetaRouteHttpMethod';
 import MetaRouteType from '../models/pr-dictionaries/MetaRouteType';
@@ -41,6 +42,7 @@ export default [
   EnabledDisabledState,
   EquipmentPowerState,
   EquipmentProductionState,
+  MetaDataDictionaryLevel,
   MetaPropertyType,
   MetaRouteHttpMethod,
   MetaRouteType,

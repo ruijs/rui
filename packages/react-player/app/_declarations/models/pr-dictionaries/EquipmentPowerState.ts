@@ -4,6 +4,7 @@ export default {
   code: 'EquipmentPowerState',
   name: '设备电源状态',
   valueType: 'string',
+  level: "app",
   items: [
     { name: '开', value: 'on' },
     { name: '关', value: 'off' },

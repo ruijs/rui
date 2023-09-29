@@ -4,6 +4,7 @@ export default {
   code: 'BusinessApplicationState',
   name: '流程申请单状态',
   valueType: 'string',
+  level: "app",
   items: [
     { name: '草稿', value: 'draft' },
     { name: '审批中', value: 'processing', color: 'orange' },

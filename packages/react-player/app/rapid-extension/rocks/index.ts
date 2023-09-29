@@ -9,11 +9,13 @@ import SonicToolbarNewEntityButton from "./sonic-toolbar-new-entity-button/Sonic
 import SonicToolbarRefreshButton from "./sonic-toolbar-refresh-button/SonicToolbarRefreshButton";
 import SonicMainSecondaryLayout from "./sonic-main-secondary-layout/SonicMainSecondaryLayout";
 import SonicToolbarSelectEntityButton from "./sonic-toolbar-select-entity-button/SonicToolbarSelectEntityButton";
+import RapidOptionFieldRenderer from "./rapid-option-field-renderer/RapidOptionFieldRenderer";
 
 export default [
   RapidDocumentFormControl,
   RapidEntityForm,
   RapidEntityList,
+  RapidOptionFieldRenderer,
   SonicEntityList,
   SonicMainSecondaryLayout,
   SonicToolbarFormItem,
@@ -27,6 +29,7 @@ export default [
 export * from "./rapid-document-form-control/rapid-document-form-control-types";
 export * from "./rapid-entity-form/rapid-entity-form-types";
 export * from "./rapid-entity-list/rapid-entity-list-types";
+export * from "./rapid-option-field-renderer/rapid-option-field-renderer-types";
 export * from "./sonic-entity-list/sonic-entity-list-types";
 export * from "./sonic-main-secondary-layout/sonic-main-secondary-layout-types";
 export * from "./sonic-record-action-delete-entity/sonic-record-action-delete-entity-types";

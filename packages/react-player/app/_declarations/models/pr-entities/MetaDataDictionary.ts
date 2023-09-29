@@ -19,15 +19,17 @@ export default {
       required: true,
     },
     {
-      code: 'color',
-      name: '颜色',
-      fieldType: 'string',
+      code: 'valueType',
+      name: '值类型',
+      fieldType: 'option',
+      dictionaryCode: 'DataDictionaryValueType',
       required: true,
     },
     {
-      code: 'icon',
-      name: '图标',
-      fieldType: 'string',
+      code: 'level',
+      name: '级别',
+      fieldType: 'option',
+      dictionaryCode: 'DataDictionaryLevel',
       required: true,
     },
     {
@@ -36,13 +38,7 @@ export default {
       fieldType: 'string',
       required: false,
     },
-    {
-      code: 'valueType',
-      name: '值类型',
-      fieldType: 'option',
-      dictionaryCode: 'DataDictionaryValueType',
-      required: true,
-    },
+
     {
       code: 'state',
       name: '状态',

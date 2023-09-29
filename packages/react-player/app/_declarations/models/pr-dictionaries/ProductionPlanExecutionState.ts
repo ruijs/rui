@@ -4,6 +4,7 @@ export default {
   code: 'ProductionPlanExecutionState',
   name: '计划执行状态',
   valueType: 'string',
+  level: "app",
   items: [
     { name: '未开始', value: 'pending' },
     { name: '进行中', value: 'processing', color: 'lime' },

@@ -117,6 +117,15 @@ export type EquipmentProductionState =
   ;
 
 /**
+ * 数据字典级别
+ */
+export type DataDictionaryLevel =
+  | 'sys'
+  | 'app'
+  | 'user'
+  ;
+
+/**
  * 实体属性类型
  */
 export type PropertyType =

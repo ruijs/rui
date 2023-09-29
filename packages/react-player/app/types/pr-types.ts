@@ -139,6 +139,11 @@ export type PrDictionary = {
   valueType: "string" | "integer";
 
   /**
+   * 字典级别
+   */
+  level: "sys" | "app" | "user";
+
+  /**
    * 字典项
    */
   items: PrDictionaryItem[];

@@ -4,6 +4,7 @@ export default {
   code: 'EquipmentProductionState',
   name: '设备生产状态',
   valueType: 'string',
+  level: "app",
   items: [
     { name: '闲置', value: 'idle' },
     { name: '调试', value: 'commissioning' },

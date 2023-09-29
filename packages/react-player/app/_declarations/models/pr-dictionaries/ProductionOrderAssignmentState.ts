@@ -4,6 +4,7 @@ export default {
   code: 'ProductionOrderAssignmentState',
   name: '工单分配状态',
   valueType: 'string',
+  level: "app",
   items: [
     { name: '未开始', value: 'unassigned' },
     { name: '分配中', value: 'assigned', color: 'orange' },

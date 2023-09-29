@@ -4,6 +4,7 @@ export default {
   code: 'QuantityType',
   name: '物理量类型',
   valueType: 'string',
+  level: "app",
   items: [
     { name: '时间', value: 'time' },
     { name: '长度', value: 'length' },

@@ -56,6 +56,7 @@ const page: PrRapidPage = {
   view: [
     {
       $type: "sonicMainSecondaryLayout",
+      $id: "dictionariesLayout",
       mainTitle: "数据字典",
       mainColSpan: 8,
       secondaryTitle: "字典项",
@@ -83,24 +84,35 @@ const page: PrRapidPage = {
             filterFields: ["code", "name"],
           }
         ],
-        extraProperties: ["name"],
+        extraProperties: ["name", "level"],
         columns: [
           {
             type: 'auto',
             code: 'code',
+            title: '字典',
             width: '200px',
             cell: {
               $type: "antdListItemMeta",
+              title: {
+                $type: "antdSpace",
+                children: [
+                  {
+                    $type: "text",
+                    text: "",
+                  },
+                  {
+                    $type: "rapidOptionFieldRenderer",
+                    dictionaryCode: "DataDictionaryLevel",
+                    value: "",
+                  }
+                ]
+              },
               $exps: {
-                title: "$slot.value",
+                "title.children[0].text": "$slot.value",
+                "title.children[1].value": "$slot.record.level",
                 description: "$slot.record.name",
               }
             }
-          },
-          {
-            type: 'auto',
-            code: 'valueType',
-            width: '50px',
           },
         ],
         actions: [
@@ -109,6 +121,9 @@ const page: PrRapidPage = {
             code: 'edit',
             actionType: "edit",
             actionText: '修改',
+            $exps: {
+              _hidden: "$slot.record.level !== 'user'",
+            },
           },
           {
             $type: "sonicRecordActionDeleteEntity",
@@ -117,11 +132,17 @@ const page: PrRapidPage = {
             actionText: '删除',
             dataSourceCode: "list",
             entityCode: "DataDictionary",
+            $exps: {
+              _hidden: "$slot.record.level !== 'user'",
+            },
           },
         ],
         actionsColumnWidth: "80px",
         newForm: cloneDeep(formConfig),
         editForm: cloneDeep(formConfig),
+        $exps: {
+          "newForm.fixedFields.level": "'user'",
+        }
       },
       secondary: [
         {
@@ -142,6 +163,9 @@ const page: PrRapidPage = {
               text: "新建",
               icon: "PlusOutlined",
               actionStyle: "primary",
+              $exps: {
+                _hidden: "_.get($page.getScope('dictionariesLayout-scope'), 'vars.activeRecord.level') !== 'user'",
+              },
             },
           ],
           columns: [
@@ -177,6 +201,9 @@ const page: PrRapidPage = {
               code: 'edit',
               actionType: "edit",
               actionText: '修改',
+              $exps: {
+                _hidden: "_.get($page.getScope('dictionariesLayout-scope'), 'vars.activeRecord.level') !== 'user'",
+              },
             },
             {
               $type: "sonicRecordActionDeleteEntity",
@@ -185,6 +212,9 @@ const page: PrRapidPage = {
               actionText: '删除',
               dataSourceCode: "list",
               entityCode: "DataDictionaryEntry",
+              $exps: {
+                _hidden: "_.get($page.getScope('dictionariesLayout-scope'), 'vars.activeRecord.level') !== 'user'",
+              },
             },
           ],
           newForm: cloneDeep(entryFormConfig),

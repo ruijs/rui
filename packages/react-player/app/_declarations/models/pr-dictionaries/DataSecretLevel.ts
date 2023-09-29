@@ -4,6 +4,7 @@ export default {
   code: 'DataSecretLevel',
   name: '数据密级',
   valueType: 'integer',
+  level: "app",
   items: [
     { name: '公开', value: '1' },
     { name: '内部', value: '2' },
