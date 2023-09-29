@@ -6,7 +6,7 @@
 }
 
 .rui-player-left-sider {
-  min-height: 100vh;
+  height: 100vh;
   overflow: auto;
   background-color: #1A5699;
 }

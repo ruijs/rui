@@ -1,139 +1,139 @@
 /**
  * 活跃/不活跃状态
  */
-export type ActiveInactiveState = never;
+export type ActiveInactiveState = any;
 
 /**
  * 审批状态
  */
-export type ApprovalState = never;
+export type ApprovalState = any;
 
 /**
  * 业务活动类型
  */
-export type BusinessActivityKind = never;
+export type BusinessActivityKind = any;
 
 /**
  * 流程活动状态
  */
-export type BusinessActivityState = never;
+export type BusinessActivityState = any;
 
 /**
  * 流程申请单状态
  */
-export type BusinessApplicationState = never;
+export type BusinessApplicationState = any;
 
 /**
  * 流程任务状态
  */
-export type BusinessTaskState = never;
+export type BusinessTaskState = any;
 
 /**
  * 字典值类型
  */
-export type DataDictionaryValueType = never;
+export type DataDictionaryValueType = any;
 
 /**
  * 数据密级
  */
-export type DataSecretLevel = never;
+export type DataSecretLevel = any;
 
 /**
  * 文档类型
  */
-export type DocumentType = never;
+export type DocumentType = any;
 
 /**
  * 员工状态
  */
-export type EmployeeState = never;
+export type EmployeeState = any;
 
 /**
  * 启用/禁用状态
  */
-export type EnabledDisabledState = never;
+export type EnabledDisabledState = any;
 
 /**
  * 设备电源状态
  */
-export type EquipmentPowerState = never;
+export type EquipmentPowerState = any;
 
 /**
  * 设备生产状态
  */
-export type EquipmentProductionState = never;
+export type EquipmentProductionState = any;
 
 /**
  * 数据字典级别
  */
-export type DataDictionaryLevel = never;
+export type DataDictionaryLevel = any;
 
 /**
  * 实体属性类型
  */
-export type PropertyType = never;
+export type PropertyType = any;
 
 /**
  * HTTP方法
  */
-export type RouteHttpMethod = never;
+export type RouteHttpMethod = any;
 
 /**
  * 路由类型
  */
-export type RouteType = never;
+export type RouteType = any;
 
 /**
  * 工单分配状态
  */
-export type ProductionOrderAssignmentState = never;
+export type ProductionOrderAssignmentState = any;
 
 /**
  * 工单执行状态
  */
-export type ProductionOrderExecutionState = never;
+export type ProductionOrderExecutionState = any;
 
 /**
  * 计划执行状态
  */
-export type ProductionPlanExecutionState = never;
+export type ProductionPlanExecutionState = any;
 
 /**
  * 计划排期状态
  */
-export type ProductionPlanScheduleState = never;
+export type ProductionPlanScheduleState = any;
 
 /**
  * 生产任务分配状态
  */
-export type ProductionTaskAssignmentState = never;
+export type ProductionTaskAssignmentState = any;
 
 /**
  * 任务执行状态
  */
-export type ProductionTaskExecutionState = never;
+export type ProductionTaskExecutionState = any;
 
 /**
  * 发布状态
  */
-export type PublishState = never;
+export type PublishState = any;
 
 /**
  * 物理量类型
  */
-export type QuantityType = never;
+export type QuantityType = any;
 
 /**
  * 未删除/已删除状态
  */
-export type UndeletedDeletedState = never;
+export type UndeletedDeletedState = any;
 
 /**
  * 单位类型
  */
-export type UnitType = never;
+export type UnitType = any;
 
 /**
  * 用户密级
  */
-export type UserSecretLevel = never;
+export type UserSecretLevel = any;

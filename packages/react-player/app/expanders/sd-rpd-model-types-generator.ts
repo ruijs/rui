@@ -44,7 +44,7 @@ function generateDictionaryTypes(metaDir: string) {
     codes.push(` * ${dictionary.name}`);
     codes.push(` */`);
     if (!dictionary.items) {
-      codes.push(`export type ${dictionary.code} = never;`);
+      codes.push(`export type ${dictionary.code} = any;`);
     } else {
       codes.push(`export type ${dictionary.code} =`);
       for (const item of dictionary.items) {

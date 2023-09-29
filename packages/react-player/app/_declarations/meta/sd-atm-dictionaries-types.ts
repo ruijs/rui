@@ -179,16 +179,6 @@ export type ProductionOrderExecutionState =
   ;
 
 /**
- * 工单分配状态
- */
-export type ProductionOrderAssignmentState =
-  | 'unassigned'
-  | 'assigned'
-  | 'assigned'
-  | 'canceled'
-  ;
-
-/**
  * 计划执行状态
  */
 export type ProductionPlanExecutionState =
@@ -224,15 +214,6 @@ export type ProductionTaskExecutionState =
   | 'pending'
   | 'processing'
   | 'finished'
-  | 'canceled'
-  ;
-
-/**
- * 生产任务分配状态
- */
-export type ProductionTaskAssignmentState =
-  | 'unassigned'
-  | 'assigned'
   | 'canceled'
   ;
 
