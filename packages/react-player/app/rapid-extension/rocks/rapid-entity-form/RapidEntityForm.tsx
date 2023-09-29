@@ -201,6 +201,12 @@ export default {
         }
 
         if (rpdField.type === "relation") {
+          let listDataSourceCode = formItemConfig.formControlProps?.listDataSourceCode;
+          if (listDataSourceCode) {
+            // use specified data store.
+            return;
+          }
+
           const listDataStoreName = `dataFormItemList-${formItemConfig.code}`;
 
           const rpdField = find(mainEntity.fields, {code: formItemConfig.code})!;

@@ -123,6 +123,7 @@ export type RapidFormItemType =
   | "dateRange"
   | "dateTimeRange"
   | "select"
+  | "treeSelect"
   | "search"
   | "json"
   | "file"

@@ -19,6 +19,7 @@ const formItemTypeToControlRockTypeMap: Record<string, string> = {
   dateRange: "antdDatePickerRangePicker",
   dateTimeRange: "antdDatePickerRangePicker",
   select: "rapidSelect",
+  treeSelect: "rapidTreeSelect",
   search: "antdInputSearch",
   file: "rapidUploaderFormInput",
   json: "jsonSetterInput",

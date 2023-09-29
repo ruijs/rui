@@ -176,6 +176,7 @@ export default {
     const rockConfig: RockConfig = {
       $id: `${props.$id}-scope`,
       $type: "scope",
+      stores: props.stores,
       children: compact([
         entityListRockConfig,
         newModalRockConfig,

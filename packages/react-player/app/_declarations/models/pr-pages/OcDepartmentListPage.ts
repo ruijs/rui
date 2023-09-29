@@ -5,8 +5,12 @@ import type { PrRapidPage } from '~/types/pr-types';
 const formConfig: Partial<RapidEntityFormConfig> = {
   items: [
     {
-      type: 'auto',
+      type: 'treeSelect',
       code: 'parent',
+      formControlProps: {
+        listDataSourceCode: "departments",
+        listParentField: "parent.id",
+      }
     },
     {
       type: 'auto',
@@ -109,6 +113,21 @@ const page: PrRapidPage = {
           },
         ],
       },
+      stores: [
+        {
+          type: "entityStore",
+          name: "departments",
+          entityCode: "OcDepartment",
+          properties: ["id", "code", "name", "parent", "orderNum", "createdAt"],
+          filters: [
+          ],
+          orderBy: [
+            {
+              field: 'orderNum',
+            }
+          ],
+        }
+      ],
     },
   ],
 };

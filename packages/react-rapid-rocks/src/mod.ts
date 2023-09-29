@@ -22,6 +22,7 @@ import RapidDatePicker from "./rapid-date-picker/RapidDatePicker";
 import RapidLinkRenderer from "./rapid-link-renderer/RapidLinkRenderer";
 import RapidFileSizeRenderer from "./rapid-file-size-renderer/RapidFileSizeRenderer";
 import RapidUploaderFormInput from "./rapid-uploader-form-input/RapidUploaderFormInput";
+import RapidTreeSelect from "./rapid-tree-select/RapidTreeSelect";
 
 const rapidRocks: Record<string, Rock> = {};
 rapidRocks[RapidTextRenderer.$type] = RapidTextRenderer;
@@ -46,6 +47,7 @@ rapidRocks[RapidToolbar.$type] = RapidToolbar;
 rapidRocks[RapidToolbarButton.$type] = RapidToolbarButton;
 rapidRocks[RapidToolbarLink.$type] = RapidToolbarLink;
 rapidRocks[RapidToolbarPageLink.$type] = RapidToolbarPageLink;
+rapidRocks[RapidTreeSelect.$type] = RapidTreeSelect;
 rapidRocks[RapidUploaderFormInput.$type] = RapidUploaderFormInput;
 export const RapidRocks = rapidRocks;
 
@@ -71,3 +73,4 @@ export * from "./rapid-toolbar-button/rapid-toolbar-button-types";
 export * from "./rapid-toolbar-link/rapid-toolbar-link-types";
 export * from "./rapid-toolbar-page-link/rapid-toolbar-page-link-types";
 export * from "./rapid-uploader-form-input/rapid-uploader-form-input-types";
+export * from "./rapid-tree-select/rapid-tree-select-types";
