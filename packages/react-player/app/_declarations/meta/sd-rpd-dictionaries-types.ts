@@ -94,11 +94,6 @@ export type ProductionOrderAssignmentState = never;
 export type ProductionOrderExecutionState = never;
 
 /**
- * 工单分配状态
- */
-export type ProductionOrderAssignmentState = never;
-
-/**
  * 计划执行状态
  */
 export type ProductionPlanExecutionState = never;
@@ -117,11 +112,6 @@ export type ProductionTaskAssignmentState = never;
  * 任务执行状态
  */
 export type ProductionTaskExecutionState = never;
-
-/**
- * 生产任务分配状态
- */
-export type ProductionTaskAssignmentState = never;
 
 /**
  * 发布状态

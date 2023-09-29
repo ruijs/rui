@@ -18,12 +18,10 @@ import MetaRouteHttpMethod from '../models/sd-rpd-dictionaries/MetaRouteHttpMeth
 import MetaRouteType from '../models/sd-rpd-dictionaries/MetaRouteType';
 import ProductionOrderAssignmentState from '../models/sd-rpd-dictionaries/ProductionOrderAssignmentState';
 import ProductionOrderExecutionState from '../models/sd-rpd-dictionaries/ProductionOrderExecutionState';
-import ProductionOrderState from '../models/sd-rpd-dictionaries/ProductionOrderState';
 import ProductionPlanExecutionState from '../models/sd-rpd-dictionaries/ProductionPlanExecutionState';
 import ProductionPlanScheduleState from '../models/sd-rpd-dictionaries/ProductionPlanScheduleState';
 import ProductionTaskAssignmentState from '../models/sd-rpd-dictionaries/ProductionTaskAssignmentState';
 import ProductionTaskExecutionState from '../models/sd-rpd-dictionaries/ProductionTaskExecutionState';
-import ProductionTaskState from '../models/sd-rpd-dictionaries/ProductionTaskState';
 import PublishState from '../models/sd-rpd-dictionaries/PublishState';
 import QuantityType from '../models/sd-rpd-dictionaries/QuantityType';
 import UndeletedDeletedState from '../models/sd-rpd-dictionaries/UndeletedDeletedState';
@@ -50,12 +48,10 @@ export default [
   MetaRouteType,
   ProductionOrderAssignmentState,
   ProductionOrderExecutionState,
-  ProductionOrderState,
   ProductionPlanExecutionState,
   ProductionPlanScheduleState,
   ProductionTaskAssignmentState,
   ProductionTaskExecutionState,
-  ProductionTaskState,
   PublishState,
   QuantityType,
   UndeletedDeletedState,
