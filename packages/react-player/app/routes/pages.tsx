@@ -52,7 +52,7 @@ export default function Index() {
           <AppLeftNav navItems={viewModel.navItems} />
         </Sider>
         <Layout>
-          <Content>
+          <Content className="rui-player-main-content">
             <Outlet />
           </Content>
         </Layout>

@@ -20,6 +20,18 @@
   font-size: 18px;
 }
 
+.rui-player-main-content {
+  height: 100vh;
+  overflow: auto;
+}
+
+.rui-player-main-content .ant-page-header {
+  position: sticky;
+  width: 100%;
+  top: 0;
+  z-index: 10;
+}
+
 .rui-play-main-container-body {
   padding: 16px;
 }
