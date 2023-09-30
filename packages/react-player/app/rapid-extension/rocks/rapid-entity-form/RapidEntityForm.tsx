@@ -1,4 +1,4 @@
-import type { RockEvent, Rock, RockEventHandler } from "@ruijs/move-style";
+import type { RockEvent, Rock, RockEventHandler, FieldValueType } from "@ruijs/move-style";
 import { handleComponentEvent } from "@ruijs/move-style";
 import { renderRock } from "@ruijs/react-renderer";
 import RapidEntityFormMeta from "./RapidEntityFormMeta";
@@ -27,6 +27,23 @@ const fieldTypeToFormItemTypeMap: Record<SdRpdFieldType, RapidFormItemType | nul
   relation: 'select',
   json: 'json',
 };
+
+const validationMessagesByFieldType: Partial<Record<SdRpdFieldType, any>> = {
+  option: {
+    // eslint-disable-next-line no-template-curly-in-string
+    required: "请选择${label}",
+  },
+
+  relation: {
+    // eslint-disable-next-line no-template-curly-in-string
+    required: "请选择${label}",
+  },
+}
+
+const defaultValidationMessages = {
+    // eslint-disable-next-line no-template-curly-in-string
+  required: "请输入${label}",
+}
 
 export interface GenerateEntityFormItemOption {
   formItemConfig: BlockDataFormItem;
@@ -257,7 +274,7 @@ export default {
     }
   },
 
-  Renderer(context, props) {
+  Renderer(context, props, state) {
     const { entities, dataDictionaries } = rapidAppDefinition;
     const formConfig = props;
     const mainEntityCode = formConfig.entityCode;
@@ -281,6 +298,18 @@ export default {
         if (formConfig.mode === "view") {
           formItem.required = false;
           formItem.mode = "display";
+        } else {
+          // auto config formItem.rules
+          const validationMessagesOfFieldType = validationMessagesByFieldType[formItem.valueFieldType!]
+          if (formItem.required) {
+            if (!formItem.rules || !formItem.rules.length) {
+              formItem.rules = [
+                {
+                  required: true,
+                  message: validationMessagesOfFieldType?.required || defaultValidationMessages.required }
+              ]
+            }
+          }
         }
         formItems.push(formItem as RapidFormItemConfig);
       })

@@ -7,7 +7,7 @@ export default {
   level: "app",
   items: [
     { name: '未分配', value: 'unassigned', color: 'orange' },
-    { name: '已分配', value: 'assigned', color: 'orange' },
+    { name: '已分配', value: 'assigned', color: 'green' },
     { name: '已取消', value: 'canceled', color: 'red' },
   ],
 } as PrDictionary;

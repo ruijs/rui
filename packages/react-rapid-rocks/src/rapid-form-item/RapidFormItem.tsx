@@ -107,6 +107,7 @@ export default {
       valuePropName: inputRockType && valuePropNameOfFormInput[inputRockType] || "value",
       form: props.form,
       children: childRock,
+      rules: props.rules,
       $exps: props.$exps,
     };
     return renderRock({context, rockConfig});

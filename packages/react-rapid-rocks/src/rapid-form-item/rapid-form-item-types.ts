@@ -1,5 +1,6 @@
 import { RockPropExpressions, SimpleRockConfig } from "@ruijs/move-style";
 import { FindEntityOptions, RapidFieldType, RapidSearchFormItemFilterMode } from "../rapid-types";
+import { FormItemProps } from "antd";
 
 /**
  * 表单项
@@ -59,6 +60,11 @@ export type RapidFormItemConfig = {
    * 默认值
    */
   defaultValue?: any;
+
+  /**
+   * 表单校验规则
+   */
+  rules?: FormItemProps["rules"];
 
   /**
    * 查询列表数据的选项

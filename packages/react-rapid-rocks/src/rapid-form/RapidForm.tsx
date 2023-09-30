@@ -3,7 +3,7 @@ import { renderRock } from "@ruijs/react-renderer";
 import RapidFormMeta from "./RapidFormMeta";
 import type { RapidFormRockConfig } from "./rapid-form-types";
 import { each, get } from "lodash";
-import { Form } from "antd";
+import { Form, message as antdMessage } from "antd";
 
 export default {
   $type: "rapidForm",
@@ -15,10 +15,18 @@ export default {
     };
   },
 
-  onReceiveMessage(message, state, props) {
+  async onReceiveMessage(message, state, props) {
     // TODO: refactor to write less if-else
     if (message.name === "submit") {
-      state.form.submit();
+      const form = state.form;
+      try {
+        const values = await form.validateFields();
+        form.submit();
+      } catch(err) {
+        console.log(err);
+      }
+    } else if (message.name === "validateFields") {
+      state.form.validateFields();
     } else if (message.name === "setFieldsValue") {
       state.form.setFieldsValue(message.payload);
     } else if (message.name === "resetFields") {
