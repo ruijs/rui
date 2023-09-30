@@ -1,7 +1,7 @@
 {
-  "name": "@ruijs/react-renderer",
+  "name": "@ruijs/echarts-extension",
   "version": "0.0.1",
-  "description": "Rui widget renderer in React.js",
+  "description": "",
   "main": "dist/mod.js",
   "scripts": {
     "build": "rimraf dist && rollup --config",
@@ -13,7 +13,6 @@
   "license": "MIT",
   "devDependencies": {
     "@types/lodash": "^4.14.186",
-    "@types/node": "^18.14.6",
     "@types/react": "^18.0.15",
     "@types/react-dom": "^18.0.6",
     "lodash": "^4.17.21",
@@ -24,11 +23,14 @@
     "rollup-plugin-typescript2": "^0.34.1",
     "typescript": "^4.8.4"
   },
-  "dependencies": {
-    "@ruijs/move-style": "workspace:^0.0.1"
-  },
   "peerDependencies": {
+    "lodash": "^4.17.21",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
+  },
+  "dependencies": {
+    "@ruijs/move-style": "workspace:^0.0.1",
+    "@ruijs/react-renderer": "workspace:^0.0.1",
+    "echarts-for-react": "^3.0.2"
   }
 }

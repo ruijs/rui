@@ -11,7 +11,8 @@
     "dev:react-designer": "pnpm --filter=react-designer run dev",
     "dev:react-player": "pnpm --filter=react-player run dev",
     "dev:antd-rocks": "pnpm --filter=antd-rocks run dev",
-    "libs": "pnpm dev:move-style && pnpm dev:react-renderer && pnpm dev:react-rocks && pnpm dev:antd-rocks && pnpm dev:react-designer && pnpm dev:react-rapid-rocks",
+    "dev:echarts-extension": "pnpm --filter=echarts-extension run dev",
+    "libs": "pnpm dev:move-style && pnpm dev:react-renderer && pnpm dev:react-rocks && pnpm dev:antd-rocks && pnpm dev:react-designer && pnpm dev:react-rapid-rocks && pnpm dev:echarts-extension",
     "test": "lerna run test"
   },
   "devDependencies": {

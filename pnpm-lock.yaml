@@ -58,6 +58,49 @@ importers:
         specifier: ^4.8.4
         version: 4.8.4
 
+  packages/echarts-extension:
+    dependencies:
+      '@ruijs/move-style':
+        specifier: workspace:^0.0.1
+        version: link:../move-style
+      '@ruijs/react-renderer':
+        specifier: workspace:^0.0.1
+        version: link:../react-renderer
+      echarts-for-react:
+        specifier: ^3.0.2
+        version: 3.0.2(echarts@5.4.3)(react@18.2.0)
+    devDependencies:
+      '@types/lodash':
+        specifier: ^4.14.186
+        version: 4.14.186
+      '@types/react':
+        specifier: ^18.0.15
+        version: 18.0.21
+      '@types/react-dom':
+        specifier: ^18.0.6
+        version: 18.0.6
+      lodash:
+        specifier: ^4.17.21
+        version: 4.17.21
+      react:
+        specifier: ^18.2.0
+        version: 18.2.0
+      react-dom:
+        specifier: ^18.2.0
+        version: 18.2.0(react@18.2.0)
+      rimraf:
+        specifier: ^3.0.2
+        version: 3.0.2
+      rollup:
+        specifier: ^2.79.1
+        version: 2.79.1
+      rollup-plugin-typescript2:
+        specifier: ^0.34.1
+        version: 0.34.1(rollup@2.79.1)(typescript@4.8.4)
+      typescript:
+        specifier: ^4.8.4
+        version: 4.8.4
+
   packages/move-style:
     dependencies:
       axios:
@@ -146,6 +189,9 @@ importers:
       '@ruijs/antd-rocks':
         specifier: workspace:^0.0.1
         version: link:../antd-rocks
+      '@ruijs/echarts-extension':
+        specifier: workspace:^0.0.1
+        version: link:../echarts-extension
       '@ruijs/move-style':
         specifier: workspace:^0.0.1
         version: link:../move-style
@@ -182,6 +228,9 @@ importers:
       dayjs:
         specifier: ^1.11.7
         version: 1.11.7
+      echarts:
+        specifier: ^5.4.3
+        version: 5.4.3
       express:
         specifier: ^4.18.1
         version: 4.18.1
@@ -317,6 +366,9 @@ importers:
       '@types/lodash':
         specifier: ^4.14.186
         version: 4.14.186
+      '@types/node':
+        specifier: ^18.14.6
+        version: 18.14.6
       '@types/react':
         specifier: ^18.0.15
         version: 18.0.21
@@ -5445,6 +5497,25 @@ packages:
       stream-shift: 1.0.1
     dev: true
 
+  /echarts-for-react@3.0.2(echarts@5.4.3)(react@18.2.0):
+    resolution: {integrity: sha512-DRwIiTzx8JfwPOVgGttDytBqdp5VzCSyMRIxubgU/g2n9y3VLUmF2FK7Icmg/sNVkv4+rktmrLN9w22U2yy3fA==}
+    peerDependencies:
+      echarts: ^3.0.0 || ^4.0.0 || ^5.0.0
+      react: ^15.0.0 || >=16.0.0
+    dependencies:
+      echarts: 5.4.3
+      fast-deep-equal: 3.1.3
+      react: 18.2.0
+      size-sensor: 1.0.2
+    dev: false
+
+  /echarts@5.4.3:
+    resolution: {integrity: sha512-mYKxLxhzy6zyTi/FaEbJMOZU1ULGEQHaeIeuMR5L+JnJTpz+YR03mnnpBhbR4+UYJAgiXgpyTVLffPAjOTLkZA==}
+    dependencies:
+      tslib: 2.3.0
+      zrender: 5.4.4
+    dev: false
+
   /ee-first@1.1.1:
     resolution: {integrity: sha512-WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow==}
 
@@ -6332,7 +6403,6 @@ packages:
 
   /fast-deep-equal@3.1.3:
     resolution: {integrity: sha512-f3qQ9oQy9j2AhBe/H9VC91wLmKBCCU/gDOnKNAYG5hswO7BLKj09Hc5HYNz9cGI++xlpDCIgDaitVs03ATR84Q==}
-    dev: true
 
   /fast-glob@3.2.11:
     resolution: {integrity: sha512-xrO3+1bxSo3ZVHAnqzyuewYT6aMFHRAd4Kcs92MAonjwQZLsK9d0SF1IyQ3k5PoirxTW0Oe/RqFgMQ6TcNE5Ew==}
@@ -11360,6 +11430,10 @@ packages:
       semver: 7.0.0
     dev: true
 
+  /size-sensor@1.0.2:
+    resolution: {integrity: sha512-2NCmWxY7A9pYKGXNBfteo4hy14gWu47rg5692peVMst6lQLPKrVjhY+UTEsPI5ceFRJSl3gVgMYaUi/hKuaiKw==}
+    dev: false
+
   /slash@3.0.0:
     resolution: {integrity: sha512-g9Q1haeby36OSStwb4ntCGGGaKsaVSjQ68fBxoQcutl5fS1vuY18H3wSt3jFyFtrkx+Kz0V1G85A4MyAdDMi2Q==}
     engines: {node: '>=8'}
@@ -12027,6 +12101,10 @@ packages:
   /tslib@1.14.1:
     resolution: {integrity: sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==}
     dev: true
+
+  /tslib@2.3.0:
+    resolution: {integrity: sha512-N82ooyxVNm6h1riLCoyS9e3fuJ3AMG2zIZs2Gd1ATcSFjSA23Q0fzjjZeh0jbJvWVDZ0cJT8yaNNaaXHzueNjg==}
+    dev: false
 
   /tslib@2.4.0:
     resolution: {integrity: sha512-d6xOpEDfsi2CZVlPQzGeux8XMwLT9hssAsaPYExaQMuYskwb+x1x7J371tWlbBdWHroy99KnVB6qIkUbs5X3UQ==}
@@ -12809,6 +12887,12 @@ packages:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
     dev: true
+
+  /zrender@5.4.4:
+    resolution: {integrity: sha512-0VxCNJ7AGOMCWeHVyTrGzUgrK4asT4ml9PEkeGirAkKNYXYzoPJCLvmyfdoOXcjTHPs10OZVMfD1Rwg16AZyYw==}
+    dependencies:
+      tslib: 2.3.0
+    dev: false
 
   /zwitch@2.0.2:
     resolution: {integrity: sha512-JZxotl7SxAJH0j7dN4pxsTV6ZLXoLdGME+PsjkL/DaBrVryK9kTGq06GfKrwcSOqypP+fdXGoCHE36b99fWVoA==}
