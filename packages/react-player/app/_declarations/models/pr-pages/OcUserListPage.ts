@@ -13,8 +13,12 @@ const formConfig: Partial<RapidEntityFormConfig> = {
       code: 'login',
     },
     {
-      type: 'auto',
+      type: 'treeSelect',
       code: 'department',
+      formControlProps: {
+        listDataSourceCode: "departments",
+        listParentField: "parent.id"
+      }
     },
     {
       type: 'auto',
@@ -177,6 +181,21 @@ const page: PrRapidPage = {
           },
         ],
       },
+      stores: [
+        {
+          type: "entityStore",
+          name: "departments",
+          entityCode: "OcDepartment",
+          properties: ["id", "code", "name", "parent", "orderNum", "createdAt"],
+          filters: [
+          ],
+          orderBy: [
+            {
+              field: 'orderNum',
+            }
+          ],
+        }
+      ],
     },
   ],
 };
