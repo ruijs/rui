@@ -30,6 +30,17 @@
   width: 100%;
   top: 0;
   z-index: 10;
+  background-color: #fff;
+  box-shadow: #ccc 0 0 8px;
+}
+
+.rui-player-main-content .ant-page-header-heading-extra {
+  display: flex;
+}
+
+.rui-current-user-indicator {
+  cursor: pointer;
+  border-radius: 4px;
 }
 
 .rui-play-main-container-body {

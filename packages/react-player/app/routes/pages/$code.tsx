@@ -6,7 +6,7 @@ import { RapidRocks } from "@ruijs/react-rapid-rocks";
 import { useMemo } from "react";
 import _, { find, first } from "lodash";
 import { redirect, type LoaderFunction } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
+import { Link, useLoaderData } from "@remix-run/react";
 import { sdRpdEntitiesModels, sdRpdDictionariesModels, sdRpdPagesModels } from "~/proton";
 import type { SdRpdPage, SdRpdEntity, SdRpdDataDictionary } from "~/proton";
 
@@ -16,6 +16,8 @@ import { generateRuiPage } from "~/expanders/rui-page-generator";
 
 import RapidExtension from "~/rapid-extension";
 import { DesignerRocks } from "@ruijs/react-designer";
+import { Avatar, Dropdown, MenuProps, PageHeader, Space } from "antd";
+import { ExportOutlined, UserOutlined } from "@ant-design/icons";
 
 export function links() {
   return [{ rel: "stylesheet", href: styles }];
@@ -111,7 +113,7 @@ export const loader: LoaderFunction = async ({ request, params }) => {
 export default function Index() {
   const viewModel = useLoaderData<ViewModel>();
   console.warn('viewModel', viewModel);
-  const { pageCode, sdPage, entities, dataDictionaries } = viewModel;
+  const { myProfile, pageCode, sdPage, entities, dataDictionaries } = viewModel;
 
   const page = useMemo(() => {
     let ruiPageConfig: PageConfig | undefined;
@@ -134,12 +136,29 @@ export default function Index() {
     return new Page(framework, ruiPageConfig);
   }, [pageCode, sdPage, entities, dataDictionaries]);
 
+  const profileMenuItems: MenuProps['items'] = [
+    {
+      key: "signout",
+      label: <a href="/api/signout">登出</a>,
+      icon: <ExportOutlined rev={undefined} />
+    }
+  ]
+
   return <>
-    <div className="ant-page-header">
-      <div className="ant-page-header-heading-title">
-        {sdPage?.title || sdPage?.name}
-      </div>
-    </div>
+    <PageHeader
+      title={sdPage?.title || sdPage?.name || pageCode}
+      extra={
+        <div>
+            <Dropdown menu={{items: profileMenuItems}}>
+              <div className="rui-current-user-indicator">
+                <Avatar icon={<UserOutlined rev={undefined} />} />
+                {"" + myProfile?.name}
+              </div>
+            </Dropdown>
+        </div>
+      }
+    >
+    </PageHeader>
     <div className="rui-play-main-container-body">
       <Rui framework={framework} page={page} />
     </div>
