@@ -5,7 +5,7 @@ import { AntdRocks, AntdIconRock } from "@ruijs/antd-rocks";
 import { RapidRocks } from "@ruijs/react-rapid-rocks";
 import { useMemo } from "react";
 import _, { find, first } from "lodash";
-import type { LoaderFunction } from "@remix-run/node";
+import { redirect, type LoaderFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { sdRpdEntitiesModels, sdRpdDictionariesModels, sdRpdPagesModels } from "~/proton";
 import type { SdRpdPage, SdRpdEntity, SdRpdDataDictionary } from "~/proton";
@@ -59,6 +59,7 @@ export type Params = {
 }
 
 type ViewModel = {
+  myProfile: any;
   pageCode: string;
   navItem: any;
   sdPage: SdRpdPage;
@@ -67,6 +68,17 @@ type ViewModel = {
 }
 
 export const loader: LoaderFunction = async ({ request, params }) => {
+  const myProfile = (await rapidService.get(`me`, {
+    headers: {
+      "Cookie": request.headers.get("Cookie"),
+    }
+  })).data?.user;
+
+  if (!myProfile) {
+    return redirect("/signin");
+  }
+
+
   const pageCode = params.code;
   const navItems = (await rapidService.post(`app/app_nav_items/operations/find`, {
     filters: [
@@ -77,11 +89,16 @@ export const loader: LoaderFunction = async ({ request, params }) => {
       }
     ],
     properties: ["id", "code", "name", "pageCode"],
+  }, {
+    headers: {
+      "Cookie": request.headers.get("Cookie"),
+    }
   })).data;
 
   const sdPage: SdRpdPage | undefined = find(sdRpdPagesModels, item => item.code === pageCode);
 
   return {
+    myProfile,
     pageCode,
     navItem: first(navItems.list),
     sdPage,
@@ -109,7 +126,7 @@ export default function Index() {
 
     console.log(`[RUI][ReactPlayer] Generating RUI page config...`);
     ruiPageConfig = generateRuiPage({
-      sdPage,
+      sdPage: sdPage as any,
       entities,
       dataDictionaries,
     });

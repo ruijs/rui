@@ -2,7 +2,7 @@ import { Rock, RockConfig, RockEvent, RockEventHandlerScript, handleComponentEve
 import { renderRock } from "@ruijs/react-renderer";
 import RapidFormMeta from "./RapidFormMeta";
 import type { RapidFormRockConfig } from "./rapid-form-types";
-import { each, get } from "lodash";
+import { assign, each, get } from "lodash";
 import { Form, message as antdMessage } from "antd";
 
 export default {
@@ -84,8 +84,11 @@ export default {
         formActionRock.type = "primary";
         formActionRock.htmlType = "submit";
       }
+      assign(formActionRock, formAction.actionProps);
       formActionRocks.push(formActionRock);
     });
+
+    const isHorizonLayout = !(props.layout === "vertical" || props.layout === "inline");
 
     const formActionsRowConfig: RockConfig = {
       $id: `${props.$id}-actions`,
@@ -100,7 +103,7 @@ export default {
             {
               $id: `${props.$id}-actions-wrap-form-item`,
               $type: "antdFormItem",
-              wrapperCol: { offset: 8 },
+              wrapperCol: isHorizonLayout ? { offset: 8 } : null,
               children: formActionRocks,
             },
           ],
@@ -126,8 +129,9 @@ export default {
       $id: `${props.$id}-antdForm`,
       $type: "antdForm",
       form: state.form,
-      labelCol: { span: 8 },
-      wrapperCol: { span: 16},
+      labelCol: isHorizonLayout ? { span: 8 } : null,
+      wrapperCol: isHorizonLayout ? { span: 16} : null,
+      layout: props.layout,
       initialValues,
       children: [
         {

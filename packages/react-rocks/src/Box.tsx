@@ -1,8 +1,9 @@
 import { Rock, RockEventHandler, ContainerRockConfig, CommonProps, handleComponentEvent } from "@ruijs/move-style";
 import { renderRockChildren } from "@ruijs/react-renderer"
-import { pick } from "lodash";
+import { assign, pick } from "lodash";
 
 export interface BoxProps extends ContainerRockConfig {
+  style?: any;
   onClick: RockEventHandler;
 }
 
@@ -32,7 +33,7 @@ export default {
 
   Renderer: (context, props: BoxProps) => {
     const { framework, page, scope } = context;
-    const style: React.CSSProperties = pick(props, boxStylePropNames) as any;
+    const style: React.CSSProperties = assign(pick(props, boxStylePropNames), props.style) as any;
     return <div data-component-id={props.id} className={props.className} style={style} onClick={(e) => handleComponentEvent("onClick", framework, page, scope, props, props.onClick, e)}>
       {
         renderRockChildren({context,

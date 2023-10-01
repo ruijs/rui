@@ -59,6 +59,11 @@ export type RapidFormAction = {
   actionText?: string;
 
   /**
+   * 操作按钮其它属性
+   */
+  actionProps?: any;
+
+  /**
    * 动作数据，提交时会合并到表单数据中
    */
   actionData?: Record<string, any>;

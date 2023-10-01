@@ -8,6 +8,7 @@ import { defaultDisplayPropsOfFieldType, fieldTypeToDisplayRockTypeMap } from ".
 const formItemTypeToControlRockTypeMap: Record<string, string> = {
   text: "antdInput",
   textarea: "antdInputTextArea",
+  password: "antdInputPassword",
   number: "antdInputNumber",
   switch: "antdSwitch",
   checkbox: "antdCheckbox",

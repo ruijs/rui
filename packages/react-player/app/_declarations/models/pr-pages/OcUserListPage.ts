@@ -95,6 +95,14 @@ const page: PrRapidPage = {
         },
         {
           type: 'auto',
+          code: 'createdBy',
+          width: '150px',
+          rendererProps: {
+            format: "{{name}}"
+          }
+        },
+        {
+          type: 'auto',
           code: 'createdAt',
           width: '150px',
         },
