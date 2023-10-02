@@ -64,6 +64,11 @@ export type EquipmentPowerState = any;
 export type EquipmentProductionState = any;
 
 /**
+ * 表单字段类型
+ */
+export type FormFieldType = any;
+
+/**
  * 数据字典级别
  */
 export type DataDictionaryLevel = any;

@@ -12,6 +12,7 @@ import EmployeeState from '../models/sd-rpd-dictionaries/EmployeeState';
 import EnabledDisabledState from '../models/sd-rpd-dictionaries/EnabledDisabledState';
 import EquipmentPowerState from '../models/sd-rpd-dictionaries/EquipmentPowerState';
 import EquipmentProductionState from '../models/sd-rpd-dictionaries/EquipmentProductionState';
+import FormFieldType from '../models/sd-rpd-dictionaries/FormFieldType';
 import MetaDataDictionaryLevel from '../models/sd-rpd-dictionaries/MetaDataDictionaryLevel';
 import MetaPropertyType from '../models/sd-rpd-dictionaries/MetaPropertyType';
 import MetaRouteHttpMethod from '../models/sd-rpd-dictionaries/MetaRouteHttpMethod';
@@ -42,6 +43,7 @@ export default [
   EnabledDisabledState,
   EquipmentPowerState,
   EquipmentProductionState,
+  FormFieldType,
   MetaDataDictionaryLevel,
   MetaPropertyType,
   MetaRouteHttpMethod,

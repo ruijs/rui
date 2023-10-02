@@ -117,6 +117,19 @@ export type EquipmentProductionState =
   ;
 
 /**
+ * 表单字段类型
+ */
+export type FormFieldType =
+  | 'text'
+  | 'long'
+  | 'double'
+  | 'date'
+  | 'datetime'
+  | 'boolean'
+  | 'option'
+  ;
+
+/**
  * 数据字典级别
  */
 export type DataDictionaryLevel =
@@ -163,7 +176,6 @@ export type RouteType =
  */
 export type ProductionOrderAssignmentState =
   | 'unassigned'
-  | 'assigned'
   | 'assigned'
   | 'canceled'
   ;

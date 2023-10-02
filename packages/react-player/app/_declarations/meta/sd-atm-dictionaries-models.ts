@@ -12,6 +12,7 @@ import EmployeeState from '../models/sd-atm-dictionaries/EmployeeState';
 import EnabledDisabledState from '../models/sd-atm-dictionaries/EnabledDisabledState';
 import EquipmentPowerState from '../models/sd-atm-dictionaries/EquipmentPowerState';
 import EquipmentProductionState from '../models/sd-atm-dictionaries/EquipmentProductionState';
+import FormFieldType from '../models/sd-atm-dictionaries/FormFieldType';
 import MetaDataDictionaryLevel from '../models/sd-atm-dictionaries/MetaDataDictionaryLevel';
 import MetaPropertyType from '../models/sd-atm-dictionaries/MetaPropertyType';
 import MetaRouteHttpMethod from '../models/sd-atm-dictionaries/MetaRouteHttpMethod';
@@ -42,6 +43,7 @@ export default [
   EnabledDisabledState,
   EquipmentPowerState,
   EquipmentProductionState,
+  FormFieldType,
   MetaDataDictionaryLevel,
   MetaPropertyType,
   MetaRouteHttpMethod,
