@@ -38,7 +38,21 @@ export default {
       fieldType: 'string',
       required: false,
     },
-
+    {
+      code: 'source',
+      name: '来源',
+      fieldType: 'string',
+    },
+    {
+      code: 'externalId',
+      name: '外部id',
+      fieldType: 'string',
+    },
+    {
+      code: 'externalData',
+      name: '外部数据',
+      fieldType: 'object',
+    },
     {
       code: 'state',
       name: '状态',

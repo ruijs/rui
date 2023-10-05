@@ -2613,6 +2613,18 @@ export interface DataDictionary {
    */
   description?: string;
   /**
+   * 来源
+   */
+  source?: string;
+  /**
+   * 外部id
+   */
+  externalId?: string;
+  /**
+   * 外部数据
+   */
+  externalData?: object;
+  /**
    * 状态
    */
   state: UndeletedDeletedState;
