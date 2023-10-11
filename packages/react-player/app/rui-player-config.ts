@@ -6,5 +6,5 @@ if (global.process) {
 }
 
 export default {
-  apiBase: env.API_BASE || "http://127.0.0.1:8000/api",
+  apiBase: env.BACKEND_URL ? `${env.BACKEND_URL}/api` : "http://127.0.0.1:8000/api",
 }

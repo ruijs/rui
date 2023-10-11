@@ -1,3 +1,4 @@
+const process = require("process");
 const path = require("path");
 const express = require("express");
 const compression = require("compression");
@@ -27,7 +28,8 @@ app.use(express.static("public", { maxAge: "1h" }));
 
 app.use(morgan("tiny"));
 
-app.use('/api', createProxyMiddleware({ target: 'http://127.0.0.1:8000', changeOrigin: true }));
+const backendAPI = process.env.BACKEND_URL || 'http://127.0.0.1:8000';
+app.use('/api', createProxyMiddleware({ target: backendAPI, changeOrigin: true }));
 
 app.all(
   "*",
