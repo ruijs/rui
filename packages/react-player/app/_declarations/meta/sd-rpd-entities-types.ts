@@ -55,7 +55,7 @@ export interface AppClient {
   /**
    * 创建人
    */
-  createdBy?: OcUser;
+  createdBy?: Partial<OcUser>;
   /**
    * 更新时间
    */
@@ -63,7 +63,7 @@ export interface AppClient {
   /**
    * 更新人
    */
-  updatedBy?: OcUser;
+  updatedBy?: Partial<OcUser>;
   /**
    * 删除时间
    */
@@ -71,7 +71,7 @@ export interface AppClient {
   /**
    * 删除人
    */
-  detetedBy?: OcUser;
+  detetedBy?: Partial<OcUser>;
 };
 
 /**
@@ -98,11 +98,11 @@ export interface AppNavItem {
   /**
    * 客户端
    */
-  client?: AppClient;
+  client?: Partial<AppClient>;
   /**
    * 上级菜单
    */
-  parent?: AppNavItem;
+  parent?: Partial<AppNavItem>;
   /**
    * 排序号
    */
@@ -130,7 +130,7 @@ export interface AppNavItem {
   /**
    * 创建人
    */
-  createdBy?: OcUser;
+  createdBy?: Partial<OcUser>;
   /**
    * 更新时间
    */
@@ -138,7 +138,7 @@ export interface AppNavItem {
   /**
    * 更新人
    */
-  updatedBy?: OcUser;
+  updatedBy?: Partial<OcUser>;
   /**
    * 删除时间
    */
@@ -146,7 +146,7 @@ export interface AppNavItem {
   /**
    * 删除人
    */
-  detetedBy?: OcUser;
+  detetedBy?: Partial<OcUser>;
 };
 
 /**
@@ -173,11 +173,11 @@ export interface BaseEmployee {
   /**
    * 车间
    */
-  shop?: OcShop;
+  shop?: Partial<OcShop>;
   /**
    * 部门
    */
-  department?: OcDepartment;
+  department?: Partial<OcDepartment>;
   /**
    * 状态
    */
@@ -189,7 +189,7 @@ export interface BaseEmployee {
   /**
    * 创建人
    */
-  createdBy?: OcUser;
+  createdBy?: Partial<OcUser>;
   /**
    * 更新时间
    */
@@ -197,7 +197,7 @@ export interface BaseEmployee {
   /**
    * 更新人
    */
-  updatedBy?: OcUser;
+  updatedBy?: Partial<OcUser>;
   /**
    * 删除时间
    */
@@ -205,7 +205,7 @@ export interface BaseEmployee {
   /**
    * 删除人
    */
-  detetedBy?: OcUser;
+  detetedBy?: Partial<OcUser>;
 };
 
 /**
@@ -232,7 +232,7 @@ export interface BaseEquipment {
   /**
    * 分类
    */
-  category: BaseEquipmentCategory;
+  category: Partial<BaseEquipmentCategory>;
   /**
    * 状态
    */
@@ -256,7 +256,7 @@ export interface BaseEquipment {
   /**
    * 创建人
    */
-  createdBy?: OcUser;
+  createdBy?: Partial<OcUser>;
   /**
    * 更新时间
    */
@@ -264,7 +264,7 @@ export interface BaseEquipment {
   /**
    * 更新人
    */
-  updatedBy?: OcUser;
+  updatedBy?: Partial<OcUser>;
   /**
    * 删除时间
    */
@@ -272,7 +272,7 @@ export interface BaseEquipment {
   /**
    * 删除人
    */
-  detetedBy?: OcUser;
+  detetedBy?: Partial<OcUser>;
 };
 
 /**
@@ -299,11 +299,11 @@ export interface BaseEquipmentCategory {
   /**
    * 上级分类
    */
-  parent?: BaseEquipmentCategory;
+  parent?: Partial<BaseEquipmentCategory>;
   /**
    * 设备
    */
-  equipments?: BaseEquipment[];
+  equipments?: Partial<BaseEquipment>[];
   /**
    * 创建时间
    */
@@ -311,7 +311,7 @@ export interface BaseEquipmentCategory {
   /**
    * 创建人
    */
-  createdBy?: OcUser;
+  createdBy?: Partial<OcUser>;
   /**
    * 更新时间
    */
@@ -319,7 +319,7 @@ export interface BaseEquipmentCategory {
   /**
    * 更新人
    */
-  updatedBy?: OcUser;
+  updatedBy?: Partial<OcUser>;
   /**
    * 删除时间
    */
@@ -327,7 +327,7 @@ export interface BaseEquipmentCategory {
   /**
    * 删除人
    */
-  detetedBy?: OcUser;
+  detetedBy?: Partial<OcUser>;
 };
 
 /**
@@ -370,7 +370,7 @@ export interface BaseFormField {
   /**
    * 创建人
    */
-  createdBy?: OcUser;
+  createdBy?: Partial<OcUser>;
   /**
    * 更新时间
    */
@@ -378,7 +378,7 @@ export interface BaseFormField {
   /**
    * 更新人
    */
-  updatedBy?: OcUser;
+  updatedBy?: Partial<OcUser>;
   /**
    * 删除时间
    */
@@ -386,7 +386,7 @@ export interface BaseFormField {
   /**
    * 删除人
    */
-  detetedBy?: OcUser;
+  detetedBy?: Partial<OcUser>;
 };
 
 /**
@@ -417,7 +417,7 @@ export interface BaseMaterial {
   /**
    * 分类
    */
-  category: BaseMaterialCategory;
+  category: Partial<BaseMaterialCategory>;
   /**
    * 可生产
    */
@@ -437,7 +437,7 @@ export interface BaseMaterial {
   /**
    * 生产计划项
    */
-  productionPlanItems?: ProductionPlanItem[];
+  productionPlanItems?: Partial<ProductionPlanItem>[];
   /**
    * 创建时间
    */
@@ -445,7 +445,7 @@ export interface BaseMaterial {
   /**
    * 创建人
    */
-  createdBy?: OcUser;
+  createdBy?: Partial<OcUser>;
   /**
    * 更新时间
    */
@@ -453,7 +453,7 @@ export interface BaseMaterial {
   /**
    * 更新人
    */
-  updatedBy?: OcUser;
+  updatedBy?: Partial<OcUser>;
   /**
    * 删除时间
    */
@@ -461,7 +461,7 @@ export interface BaseMaterial {
   /**
    * 删除人
    */
-  detetedBy?: OcUser;
+  detetedBy?: Partial<OcUser>;
 };
 
 /**
@@ -480,7 +480,7 @@ export interface BaseMaterialBreakdown {
   /**
    * 物料
    */
-  material?: BaseMaterial;
+  material?: Partial<BaseMaterial>;
   /**
    * 版本
    */
@@ -492,7 +492,7 @@ export interface BaseMaterialBreakdown {
   /**
    * 单位
    */
-  unit?: BaseUnit;
+  unit?: Partial<BaseUnit>;
   /**
    * 状态
    */
@@ -500,7 +500,7 @@ export interface BaseMaterialBreakdown {
   /**
    * 下级物料
    */
-  parts?: BaseMaterialBreakdownPart[];
+  parts?: Partial<BaseMaterialBreakdownPart>[];
   /**
    * 创建时间
    */
@@ -508,7 +508,7 @@ export interface BaseMaterialBreakdown {
   /**
    * 创建人
    */
-  createdBy?: OcUser;
+  createdBy?: Partial<OcUser>;
   /**
    * 更新时间
    */
@@ -516,7 +516,7 @@ export interface BaseMaterialBreakdown {
   /**
    * 更新人
    */
-  updatedBy?: OcUser;
+  updatedBy?: Partial<OcUser>;
   /**
    * 删除时间
    */
@@ -524,7 +524,7 @@ export interface BaseMaterialBreakdown {
   /**
    * 删除人
    */
-  detetedBy?: OcUser;
+  detetedBy?: Partial<OcUser>;
 };
 
 /**
@@ -543,7 +543,7 @@ export interface BaseMaterialBreakdownPart {
   /**
    * BOM
    */
-  materialBreakdown?: BaseMaterialBreakdown;
+  materialBreakdown?: Partial<BaseMaterialBreakdown>;
   /**
    * 排序号
    */
@@ -551,7 +551,7 @@ export interface BaseMaterialBreakdownPart {
   /**
    * 下级物料
    */
-  subMaterial?: BaseMaterial;
+  subMaterial?: Partial<BaseMaterial>;
   /**
    * 数量
    */
@@ -559,7 +559,7 @@ export interface BaseMaterialBreakdownPart {
   /**
    * 单位
    */
-  unit?: BaseUnit;
+  unit?: Partial<BaseUnit>;
   /**
    * 创建时间
    */
@@ -567,7 +567,7 @@ export interface BaseMaterialBreakdownPart {
   /**
    * 创建人
    */
-  createdBy?: OcUser;
+  createdBy?: Partial<OcUser>;
   /**
    * 更新时间
    */
@@ -575,7 +575,7 @@ export interface BaseMaterialBreakdownPart {
   /**
    * 更新人
    */
-  updatedBy?: OcUser;
+  updatedBy?: Partial<OcUser>;
   /**
    * 删除时间
    */
@@ -583,7 +583,7 @@ export interface BaseMaterialBreakdownPart {
   /**
    * 删除人
    */
-  detetedBy?: OcUser;
+  detetedBy?: Partial<OcUser>;
 };
 
 /**
@@ -610,11 +610,11 @@ export interface BaseMaterialCategory {
   /**
    * 上级分类
    */
-  parent?: BaseMaterialCategory;
+  parent?: Partial<BaseMaterialCategory>;
   /**
    * 物料
    */
-  materials?: BaseMaterial[];
+  materials?: Partial<BaseMaterial>[];
   /**
    * 创建时间
    */
@@ -622,7 +622,7 @@ export interface BaseMaterialCategory {
   /**
    * 创建人
    */
-  createdBy?: OcUser;
+  createdBy?: Partial<OcUser>;
   /**
    * 更新时间
    */
@@ -630,7 +630,7 @@ export interface BaseMaterialCategory {
   /**
    * 更新人
    */
-  updatedBy?: OcUser;
+  updatedBy?: Partial<OcUser>;
   /**
    * 删除时间
    */
@@ -638,7 +638,7 @@ export interface BaseMaterialCategory {
   /**
    * 删除人
    */
-  detetedBy?: OcUser;
+  detetedBy?: Partial<OcUser>;
 };
 
 /**
@@ -657,11 +657,11 @@ export interface BaseMaterialDocument {
   /**
    * 物料
    */
-  material: BaseMaterial;
+  material: Partial<BaseMaterial>;
   /**
    * 文档
    */
-  document: EcmDocument;
+  document: Partial<EcmDocument>;
   /**
    * 状态
    */
@@ -673,7 +673,7 @@ export interface BaseMaterialDocument {
   /**
    * 创建人
    */
-  createdBy?: OcUser;
+  createdBy?: Partial<OcUser>;
   /**
    * 更新时间
    */
@@ -681,7 +681,7 @@ export interface BaseMaterialDocument {
   /**
    * 更新人
    */
-  updatedBy?: OcUser;
+  updatedBy?: Partial<OcUser>;
   /**
    * 删除时间
    */
@@ -689,7 +689,7 @@ export interface BaseMaterialDocument {
   /**
    * 删除人
    */
-  detetedBy?: OcUser;
+  detetedBy?: Partial<OcUser>;
 };
 
 /**
@@ -708,7 +708,7 @@ export interface BaseMaterialFlow {
   /**
    * 物料
    */
-  material?: BaseMaterial;
+  material?: Partial<BaseMaterial>;
   /**
    * 版本
    */
@@ -724,7 +724,7 @@ export interface BaseMaterialFlow {
   /**
    * 物料生产工序
    */
-  processes?: BaseMaterialFlowProcess[];
+  processes?: Partial<BaseMaterialFlowProcess>[];
   /**
    * 创建时间
    */
@@ -732,7 +732,7 @@ export interface BaseMaterialFlow {
   /**
    * 创建人
    */
-  createdBy?: OcUser;
+  createdBy?: Partial<OcUser>;
   /**
    * 更新时间
    */
@@ -740,7 +740,7 @@ export interface BaseMaterialFlow {
   /**
    * 更新人
    */
-  updatedBy?: OcUser;
+  updatedBy?: Partial<OcUser>;
   /**
    * 删除时间
    */
@@ -748,7 +748,7 @@ export interface BaseMaterialFlow {
   /**
    * 删除人
    */
-  detetedBy?: OcUser;
+  detetedBy?: Partial<OcUser>;
 };
 
 /**
@@ -767,7 +767,7 @@ export interface BaseMaterialFlowProcess {
   /**
    * 物料工艺流程
    */
-  materialFlow: BaseMaterialFlow;
+  materialFlow: Partial<BaseMaterialFlow>;
   /**
    * 排序号
    */
@@ -775,7 +775,7 @@ export interface BaseMaterialFlowProcess {
   /**
    * 生产工序
    */
-  process: BaseProdProcess;
+  process: Partial<BaseProdProcess>;
   /**
    * 工序别名
    */
@@ -783,11 +783,11 @@ export interface BaseMaterialFlowProcess {
   /**
    * 输入物料
    */
-  inputs?: BaseMaterialFlowProcessInput[];
+  inputs?: Partial<BaseMaterialFlowProcessInput>[];
   /**
    * 输出物料
    */
-  outputs?: BaseMaterialFlowProcessOutput[];
+  outputs?: Partial<BaseMaterialFlowProcessOutput>[];
   /**
    * 标准周期时间
    */
@@ -803,7 +803,7 @@ export interface BaseMaterialFlowProcess {
   /**
    * 创建人
    */
-  createdBy?: OcUser;
+  createdBy?: Partial<OcUser>;
   /**
    * 更新时间
    */
@@ -811,7 +811,7 @@ export interface BaseMaterialFlowProcess {
   /**
    * 更新人
    */
-  updatedBy?: OcUser;
+  updatedBy?: Partial<OcUser>;
   /**
    * 删除时间
    */
@@ -819,7 +819,7 @@ export interface BaseMaterialFlowProcess {
   /**
    * 删除人
    */
-  detetedBy?: OcUser;
+  detetedBy?: Partial<OcUser>;
 };
 
 /**
@@ -838,11 +838,11 @@ export interface BaseMaterialFlowProcessInput {
   /**
    * 物料生产工序
    */
-  materialProcess: BaseMaterialFlowProcess;
+  materialProcess: Partial<BaseMaterialFlowProcess>;
   /**
    * 物料
    */
-  material: BaseMaterial;
+  material: Partial<BaseMaterial>;
   /**
    * 数量
    */
@@ -850,7 +850,7 @@ export interface BaseMaterialFlowProcessInput {
   /**
    * 单位
    */
-  unit: undefined;
+  unit: Partial<undefined>;
   /**
    * 配置
    */
@@ -862,7 +862,7 @@ export interface BaseMaterialFlowProcessInput {
   /**
    * 创建人
    */
-  createdBy?: OcUser;
+  createdBy?: Partial<OcUser>;
   /**
    * 更新时间
    */
@@ -870,7 +870,7 @@ export interface BaseMaterialFlowProcessInput {
   /**
    * 更新人
    */
-  updatedBy?: OcUser;
+  updatedBy?: Partial<OcUser>;
   /**
    * 删除时间
    */
@@ -878,7 +878,7 @@ export interface BaseMaterialFlowProcessInput {
   /**
    * 删除人
    */
-  detetedBy?: OcUser;
+  detetedBy?: Partial<OcUser>;
 };
 
 /**
@@ -897,11 +897,11 @@ export interface BaseMaterialFlowProcessOutput {
   /**
    * 物料生产工序
    */
-  materialProcess?: BaseMaterialFlowProcess;
+  materialProcess?: Partial<BaseMaterialFlowProcess>;
   /**
    * 物料
    */
-  material?: BaseMaterial;
+  material?: Partial<BaseMaterial>;
   /**
    * 数量
    */
@@ -909,7 +909,7 @@ export interface BaseMaterialFlowProcessOutput {
   /**
    * 单位
    */
-  unit?: undefined;
+  unit?: Partial<undefined>;
   /**
    * 配置
    */
@@ -921,7 +921,7 @@ export interface BaseMaterialFlowProcessOutput {
   /**
    * 创建人
    */
-  createdBy?: OcUser;
+  createdBy?: Partial<OcUser>;
   /**
    * 更新时间
    */
@@ -929,7 +929,7 @@ export interface BaseMaterialFlowProcessOutput {
   /**
    * 更新人
    */
-  updatedBy?: OcUser;
+  updatedBy?: Partial<OcUser>;
   /**
    * 删除时间
    */
@@ -937,7 +937,7 @@ export interface BaseMaterialFlowProcessOutput {
   /**
    * 删除人
    */
-  detetedBy?: OcUser;
+  detetedBy?: Partial<OcUser>;
 };
 
 /**
@@ -964,7 +964,7 @@ export interface BasePartner {
   /**
    * 分类
    */
-  categories?: BasePartnerCategory[];
+  categories?: Partial<BasePartnerCategory>[];
   /**
    * 创建时间
    */
@@ -972,7 +972,7 @@ export interface BasePartner {
   /**
    * 创建人
    */
-  createdBy?: OcUser;
+  createdBy?: Partial<OcUser>;
   /**
    * 更新时间
    */
@@ -980,7 +980,7 @@ export interface BasePartner {
   /**
    * 更新人
    */
-  updatedBy?: OcUser;
+  updatedBy?: Partial<OcUser>;
   /**
    * 删除时间
    */
@@ -988,7 +988,7 @@ export interface BasePartner {
   /**
    * 删除人
    */
-  detetedBy?: OcUser;
+  detetedBy?: Partial<OcUser>;
 };
 
 /**
@@ -1019,7 +1019,7 @@ export interface BasePartnerCategory {
   /**
    * 创建人
    */
-  createdBy?: OcUser;
+  createdBy?: Partial<OcUser>;
   /**
    * 更新时间
    */
@@ -1027,7 +1027,7 @@ export interface BasePartnerCategory {
   /**
    * 更新人
    */
-  updatedBy?: OcUser;
+  updatedBy?: Partial<OcUser>;
   /**
    * 删除时间
    */
@@ -1035,7 +1035,7 @@ export interface BasePartnerCategory {
   /**
    * 删除人
    */
-  detetedBy?: OcUser;
+  detetedBy?: Partial<OcUser>;
 };
 
 /**
@@ -1066,7 +1066,7 @@ export interface BaseProdFlow {
   /**
    * 工序
    */
-  processes?: BaseProdFlowProcess[];
+  processes?: Partial<BaseProdFlowProcess>[];
   /**
    * 创建时间
    */
@@ -1074,7 +1074,7 @@ export interface BaseProdFlow {
   /**
    * 创建人
    */
-  createdBy?: OcUser;
+  createdBy?: Partial<OcUser>;
   /**
    * 更新时间
    */
@@ -1082,7 +1082,7 @@ export interface BaseProdFlow {
   /**
    * 更新人
    */
-  updatedBy?: OcUser;
+  updatedBy?: Partial<OcUser>;
   /**
    * 删除时间
    */
@@ -1090,7 +1090,7 @@ export interface BaseProdFlow {
   /**
    * 删除人
    */
-  detetedBy?: OcUser;
+  detetedBy?: Partial<OcUser>;
 };
 
 /**
@@ -1109,7 +1109,7 @@ export interface BaseProdFlowProcess {
   /**
    * 工艺流程
    */
-  flow: BaseProdFlow;
+  flow: Partial<BaseProdFlow>;
   /**
    * 排序号
    */
@@ -1117,7 +1117,7 @@ export interface BaseProdFlowProcess {
   /**
    * 生产工序
    */
-  process: BaseProdProcess;
+  process: Partial<BaseProdProcess>;
   /**
    * 标准周期时间
    */
@@ -1129,7 +1129,7 @@ export interface BaseProdFlowProcess {
   /**
    * 创建人
    */
-  createdBy?: OcUser;
+  createdBy?: Partial<OcUser>;
   /**
    * 更新时间
    */
@@ -1137,7 +1137,7 @@ export interface BaseProdFlowProcess {
   /**
    * 更新人
    */
-  updatedBy?: OcUser;
+  updatedBy?: Partial<OcUser>;
   /**
    * 删除时间
    */
@@ -1145,7 +1145,7 @@ export interface BaseProdFlowProcess {
   /**
    * 删除人
    */
-  detetedBy?: OcUser;
+  detetedBy?: Partial<OcUser>;
 };
 
 /**
@@ -1168,7 +1168,7 @@ export interface BaseProdFlowTemplate {
   /**
    * 工序
    */
-  processes?: BaseProdFlowTemplateProcess;
+  processes?: Partial<BaseProdFlowTemplateProcess>;
   /**
    * 创建时间
    */
@@ -1176,7 +1176,7 @@ export interface BaseProdFlowTemplate {
   /**
    * 创建人
    */
-  createdBy?: OcUser;
+  createdBy?: Partial<OcUser>;
   /**
    * 更新时间
    */
@@ -1184,7 +1184,7 @@ export interface BaseProdFlowTemplate {
   /**
    * 更新人
    */
-  updatedBy?: OcUser;
+  updatedBy?: Partial<OcUser>;
   /**
    * 删除时间
    */
@@ -1192,7 +1192,7 @@ export interface BaseProdFlowTemplate {
   /**
    * 删除人
    */
-  detetedBy?: OcUser;
+  detetedBy?: Partial<OcUser>;
 };
 
 /**
@@ -1211,11 +1211,11 @@ export interface BaseProdFlowTemplateProcess {
   /**
    * 工艺流程模板
    */
-  flowTemplate: BaseProdFlowTemplate;
+  flowTemplate: Partial<BaseProdFlowTemplate>;
   /**
    * 生产工序
    */
-  process: BaseProdProcess;
+  process: Partial<BaseProdProcess>;
   /**
    * 标准周期时间
    */
@@ -1227,7 +1227,7 @@ export interface BaseProdFlowTemplateProcess {
   /**
    * 创建人
    */
-  createdBy?: OcUser;
+  createdBy?: Partial<OcUser>;
   /**
    * 更新时间
    */
@@ -1235,7 +1235,7 @@ export interface BaseProdFlowTemplateProcess {
   /**
    * 更新人
    */
-  updatedBy?: OcUser;
+  updatedBy?: Partial<OcUser>;
   /**
    * 删除时间
    */
@@ -1243,7 +1243,7 @@ export interface BaseProdFlowTemplateProcess {
   /**
    * 删除人
    */
-  detetedBy?: OcUser;
+  detetedBy?: Partial<OcUser>;
 };
 
 /**
@@ -1270,7 +1270,7 @@ export interface BaseProdProcess {
   /**
    * 工序类型
    */
-  category: BaseProdProcessCategory;
+  category: Partial<BaseProdProcessCategory>;
   /**
    * 排序号
    */
@@ -1286,7 +1286,7 @@ export interface BaseProdProcess {
   /**
    * 创建人
    */
-  createdBy?: OcUser;
+  createdBy?: Partial<OcUser>;
   /**
    * 更新时间
    */
@@ -1294,7 +1294,7 @@ export interface BaseProdProcess {
   /**
    * 更新人
    */
-  updatedBy?: OcUser;
+  updatedBy?: Partial<OcUser>;
   /**
    * 删除时间
    */
@@ -1302,7 +1302,7 @@ export interface BaseProdProcess {
   /**
    * 删除人
    */
-  detetedBy?: OcUser;
+  detetedBy?: Partial<OcUser>;
 };
 
 /**
@@ -1337,7 +1337,7 @@ export interface BaseProdProcessCategory {
   /**
    * 创建人
    */
-  createdBy?: OcUser;
+  createdBy?: Partial<OcUser>;
   /**
    * 更新时间
    */
@@ -1345,7 +1345,7 @@ export interface BaseProdProcessCategory {
   /**
    * 更新人
    */
-  updatedBy?: OcUser;
+  updatedBy?: Partial<OcUser>;
   /**
    * 删除时间
    */
@@ -1353,7 +1353,7 @@ export interface BaseProdProcessCategory {
   /**
    * 删除人
    */
-  detetedBy?: OcUser;
+  detetedBy?: Partial<OcUser>;
 };
 
 /**
@@ -1396,7 +1396,7 @@ export interface BaseUnit {
   /**
    * 单位分组
    */
-  category: BaseUnitCategory;
+  category: Partial<BaseUnitCategory>;
   /**
    * 创建时间
    */
@@ -1404,7 +1404,7 @@ export interface BaseUnit {
   /**
    * 创建人
    */
-  createdBy?: OcUser;
+  createdBy?: Partial<OcUser>;
   /**
    * 更新时间
    */
@@ -1412,7 +1412,7 @@ export interface BaseUnit {
   /**
    * 更新人
    */
-  updatedBy?: OcUser;
+  updatedBy?: Partial<OcUser>;
   /**
    * 删除时间
    */
@@ -1420,7 +1420,7 @@ export interface BaseUnit {
   /**
    * 删除人
    */
-  detetedBy?: OcUser;
+  detetedBy?: Partial<OcUser>;
 };
 
 /**
@@ -1447,7 +1447,7 @@ export interface BaseUnitCategory {
   /**
    * 单位
    */
-  units?: BaseUnit[];
+  units?: Partial<BaseUnit>[];
   /**
    * 创建时间
    */
@@ -1455,7 +1455,7 @@ export interface BaseUnitCategory {
   /**
    * 创建人
    */
-  createdBy?: OcUser;
+  createdBy?: Partial<OcUser>;
   /**
    * 更新时间
    */
@@ -1463,7 +1463,7 @@ export interface BaseUnitCategory {
   /**
    * 更新人
    */
-  updatedBy?: OcUser;
+  updatedBy?: Partial<OcUser>;
   /**
    * 删除时间
    */
@@ -1471,7 +1471,7 @@ export interface BaseUnitCategory {
   /**
    * 删除人
    */
-  detetedBy?: OcUser;
+  detetedBy?: Partial<OcUser>;
 };
 
 /**
@@ -1502,7 +1502,7 @@ export interface BaseWarehouse {
   /**
    * 创建人
    */
-  createdBy?: OcUser;
+  createdBy?: Partial<OcUser>;
   /**
    * 更新时间
    */
@@ -1510,7 +1510,7 @@ export interface BaseWarehouse {
   /**
    * 更新人
    */
-  updatedBy?: OcUser;
+  updatedBy?: Partial<OcUser>;
   /**
    * 删除时间
    */
@@ -1518,7 +1518,7 @@ export interface BaseWarehouse {
   /**
    * 删除人
    */
-  detetedBy?: OcUser;
+  detetedBy?: Partial<OcUser>;
 };
 
 /**
@@ -1537,7 +1537,7 @@ export interface BpmBusinessActivity {
   /**
    * 申请单
    */
-  application: BpmBusinessApplication;
+  application: Partial<BpmBusinessApplication>;
   /**
    * 步骤名
    */
@@ -1549,7 +1549,7 @@ export interface BpmBusinessActivity {
   /**
    * 审批任务
    */
-  tasks?: BpmBusinessTask[];
+  tasks?: Partial<BpmBusinessTask>[];
   /**
    * 步骤状态
    */
@@ -1565,7 +1565,7 @@ export interface BpmBusinessActivity {
   /**
    * 创建人
    */
-  createdBy?: OcUser;
+  createdBy?: Partial<OcUser>;
   /**
    * 更新时间
    */
@@ -1573,7 +1573,7 @@ export interface BpmBusinessActivity {
   /**
    * 更新人
    */
-  updatedBy?: OcUser;
+  updatedBy?: Partial<OcUser>;
   /**
    * 删除时间
    */
@@ -1581,7 +1581,7 @@ export interface BpmBusinessActivity {
   /**
    * 删除人
    */
-  detetedBy?: OcUser;
+  detetedBy?: Partial<OcUser>;
 };
 
 /**
@@ -1600,7 +1600,7 @@ export interface BpmBusinessApplication {
   /**
    * 业务流程
    */
-  process: BpmBusinessProcess;
+  process: Partial<BpmBusinessProcess>;
   /**
    * 申请单号
    */
@@ -1616,7 +1616,7 @@ export interface BpmBusinessApplication {
   /**
    * 发起人
    */
-  initiator?: OcUser;
+  initiator?: Partial<OcUser>;
   /**
    * 发起时间
    */
@@ -1636,7 +1636,7 @@ export interface BpmBusinessApplication {
   /**
    * 创建人
    */
-  createdBy?: OcUser;
+  createdBy?: Partial<OcUser>;
   /**
    * 更新时间
    */
@@ -1644,7 +1644,7 @@ export interface BpmBusinessApplication {
   /**
    * 更新人
    */
-  updatedBy?: OcUser;
+  updatedBy?: Partial<OcUser>;
   /**
    * 删除时间
    */
@@ -1652,7 +1652,7 @@ export interface BpmBusinessApplication {
   /**
    * 删除人
    */
-  detetedBy?: OcUser;
+  detetedBy?: Partial<OcUser>;
 };
 
 /**
@@ -1683,7 +1683,7 @@ export interface BpmBusinessCategory {
   /**
    * 创建人
    */
-  createdBy?: OcUser;
+  createdBy?: Partial<OcUser>;
   /**
    * 更新时间
    */
@@ -1691,7 +1691,7 @@ export interface BpmBusinessCategory {
   /**
    * 更新人
    */
-  updatedBy?: OcUser;
+  updatedBy?: Partial<OcUser>;
   /**
    * 删除时间
    */
@@ -1699,7 +1699,7 @@ export interface BpmBusinessCategory {
   /**
    * 删除人
    */
-  detetedBy?: OcUser;
+  detetedBy?: Partial<OcUser>;
 };
 
 /**
@@ -1718,7 +1718,7 @@ export interface BpmBusinessProcess {
   /**
    * 分组
    */
-  category?: BpmBusinessCategory;
+  category?: Partial<BpmBusinessCategory>;
   /**
    * 名称
    */
@@ -1754,7 +1754,7 @@ export interface BpmBusinessProcess {
   /**
    * 当前版本
    */
-  activeRevision?: BpmBusinessProcessRevision;
+  activeRevision?: Partial<BpmBusinessProcessRevision>;
   /**
    * 创建时间
    */
@@ -1762,7 +1762,7 @@ export interface BpmBusinessProcess {
   /**
    * 创建人
    */
-  createdBy?: OcUser;
+  createdBy?: Partial<OcUser>;
   /**
    * 更新时间
    */
@@ -1770,7 +1770,7 @@ export interface BpmBusinessProcess {
   /**
    * 更新人
    */
-  updatedBy?: OcUser;
+  updatedBy?: Partial<OcUser>;
   /**
    * 删除时间
    */
@@ -1778,7 +1778,7 @@ export interface BpmBusinessProcess {
   /**
    * 删除人
    */
-  detetedBy?: OcUser;
+  detetedBy?: Partial<OcUser>;
 };
 
 /**
@@ -1797,7 +1797,7 @@ export interface BpmBusinessProcessRevision {
   /**
    * 业务流程
    */
-  process: BpmBusinessProcess;
+  process: Partial<BpmBusinessProcess>;
   /**
    * 名称
    */
@@ -1829,7 +1829,7 @@ export interface BpmBusinessProcessRevision {
   /**
    * 创建人
    */
-  createdBy?: OcUser;
+  createdBy?: Partial<OcUser>;
   /**
    * 更新时间
    */
@@ -1837,7 +1837,7 @@ export interface BpmBusinessProcessRevision {
   /**
    * 更新人
    */
-  updatedBy?: OcUser;
+  updatedBy?: Partial<OcUser>;
   /**
    * 删除时间
    */
@@ -1845,7 +1845,7 @@ export interface BpmBusinessProcessRevision {
   /**
    * 删除人
    */
-  detetedBy?: OcUser;
+  detetedBy?: Partial<OcUser>;
 };
 
 /**
@@ -1864,11 +1864,11 @@ export interface BpmBusinessTask {
   /**
    * 审批步骤
    */
-  activity: BpmBusinessActivity;
+  activity: Partial<BpmBusinessActivity>;
   /**
    * 负责人
    */
-  assignee: OcUser;
+  assignee: Partial<OcUser>;
   /**
    * 任务状态
    */
@@ -1884,7 +1884,7 @@ export interface BpmBusinessTask {
   /**
    * 创建人
    */
-  createdBy?: OcUser;
+  createdBy?: Partial<OcUser>;
   /**
    * 更新时间
    */
@@ -1892,7 +1892,7 @@ export interface BpmBusinessTask {
   /**
    * 更新人
    */
-  updatedBy?: OcUser;
+  updatedBy?: Partial<OcUser>;
   /**
    * 删除时间
    */
@@ -1900,7 +1900,7 @@ export interface BpmBusinessTask {
   /**
    * 删除人
    */
-  detetedBy?: OcUser;
+  detetedBy?: Partial<OcUser>;
 };
 
 /**
@@ -1939,19 +1939,19 @@ export interface EcmDocument {
   /**
    * 最新版本
    */
-  lastRevision?: EcmRevision;
+  lastRevision?: Partial<EcmRevision>;
   /**
    * 存储对象
    */
-  storageObject?: EcmStorageObject;
+  storageObject?: Partial<EcmStorageObject>;
   /**
    * 链接
    */
-  ref?: EcmDocument;
+  ref?: Partial<EcmDocument>;
   /**
    * 父文档
    */
-  parent?: EcmDocument;
+  parent?: Partial<EcmDocument>;
   /**
    * 状态
    */
@@ -1963,7 +1963,7 @@ export interface EcmDocument {
   /**
    * 创建人
    */
-  createdBy?: OcUser;
+  createdBy?: Partial<OcUser>;
   /**
    * 更新时间
    */
@@ -1971,7 +1971,7 @@ export interface EcmDocument {
   /**
    * 更新人
    */
-  updatedBy?: OcUser;
+  updatedBy?: Partial<OcUser>;
   /**
    * 删除时间
    */
@@ -1979,7 +1979,7 @@ export interface EcmDocument {
   /**
    * 删除人
    */
-  detetedBy?: OcUser;
+  detetedBy?: Partial<OcUser>;
 };
 
 /**
@@ -1998,7 +1998,7 @@ export interface EcmRevision {
   /**
    * 文档
    */
-  document: EcmDocument;
+  document: Partial<EcmDocument>;
   /**
    * 大小
    */
@@ -2006,7 +2006,7 @@ export interface EcmRevision {
   /**
    * 存储对象
    */
-  storageObject?: EcmStorageObject;
+  storageObject?: Partial<EcmStorageObject>;
   /**
    * 状态
    */
@@ -2018,7 +2018,7 @@ export interface EcmRevision {
   /**
    * 创建人
    */
-  createdBy?: OcUser;
+  createdBy?: Partial<OcUser>;
   /**
    * 更新时间
    */
@@ -2026,7 +2026,7 @@ export interface EcmRevision {
   /**
    * 更新人
    */
-  updatedBy?: OcUser;
+  updatedBy?: Partial<OcUser>;
   /**
    * 删除时间
    */
@@ -2034,7 +2034,7 @@ export interface EcmRevision {
   /**
    * 删除人
    */
-  detetedBy?: OcUser;
+  detetedBy?: Partial<OcUser>;
 };
 
 /**
@@ -2069,7 +2069,7 @@ export interface EcmStorageObject {
   /**
    * 创建人
    */
-  createdBy?: OcUser;
+  createdBy?: Partial<OcUser>;
   /**
    * 更新时间
    */
@@ -2077,7 +2077,7 @@ export interface EcmStorageObject {
   /**
    * 更新人
    */
-  updatedBy?: OcUser;
+  updatedBy?: Partial<OcUser>;
   /**
    * 删除时间
    */
@@ -2085,7 +2085,7 @@ export interface EcmStorageObject {
   /**
    * 删除人
    */
-  detetedBy?: OcUser;
+  detetedBy?: Partial<OcUser>;
 };
 
 /**
@@ -2116,7 +2116,7 @@ export interface InspectionCategory {
   /**
    * 创建人
    */
-  createdBy?: OcUser;
+  createdBy?: Partial<OcUser>;
   /**
    * 更新时间
    */
@@ -2124,7 +2124,7 @@ export interface InspectionCategory {
   /**
    * 更新人
    */
-  updatedBy?: OcUser;
+  updatedBy?: Partial<OcUser>;
   /**
    * 删除时间
    */
@@ -2132,7 +2132,7 @@ export interface InspectionCategory {
   /**
    * 删除人
    */
-  detetedBy?: OcUser;
+  detetedBy?: Partial<OcUser>;
 };
 
 /**
@@ -2151,7 +2151,7 @@ export interface InspectionCharacteristic {
   /**
    * 检验规则
    */
-  rule?: InspectionRule;
+  rule?: Partial<InspectionRule>;
   /**
    * 名称
    */
@@ -2159,19 +2159,19 @@ export interface InspectionCharacteristic {
   /**
    * 特征类型
    */
-  category?: InspectionCharacteristicCategory;
+  category?: Partial<InspectionCharacteristicCategory>;
   /**
    * 检验方法
    */
-  method?: InspectionMethod;
+  method?: Partial<InspectionMethod>;
   /**
    * 检验仪器类型
    */
-  instrumentCategory?: InspectionInstrumentCategory;
+  instrumentCategory?: Partial<InspectionInstrumentCategory>;
   /**
    * 检验仪器
    */
-  instrument?: InspectionInstrument;
+  instrument?: Partial<InspectionInstrument>;
   /**
    * 配置
    */
@@ -2183,7 +2183,7 @@ export interface InspectionCharacteristic {
   /**
    * 创建人
    */
-  createdBy?: OcUser;
+  createdBy?: Partial<OcUser>;
   /**
    * 更新时间
    */
@@ -2191,7 +2191,7 @@ export interface InspectionCharacteristic {
   /**
    * 更新人
    */
-  updatedBy?: OcUser;
+  updatedBy?: Partial<OcUser>;
   /**
    * 删除时间
    */
@@ -2199,7 +2199,7 @@ export interface InspectionCharacteristic {
   /**
    * 删除人
    */
-  detetedBy?: OcUser;
+  detetedBy?: Partial<OcUser>;
 };
 
 /**
@@ -2230,7 +2230,7 @@ export interface InspectionCharacteristicCategory {
   /**
    * 创建人
    */
-  createdBy?: OcUser;
+  createdBy?: Partial<OcUser>;
   /**
    * 更新时间
    */
@@ -2238,7 +2238,7 @@ export interface InspectionCharacteristicCategory {
   /**
    * 更新人
    */
-  updatedBy?: OcUser;
+  updatedBy?: Partial<OcUser>;
   /**
    * 删除时间
    */
@@ -2246,7 +2246,7 @@ export interface InspectionCharacteristicCategory {
   /**
    * 删除人
    */
-  detetedBy?: OcUser;
+  detetedBy?: Partial<OcUser>;
 };
 
 /**
@@ -2269,7 +2269,7 @@ export interface InspectionInstrument {
   /**
    * 仪器类型
    */
-  category?: InspectionInstrumentCategory;
+  category?: Partial<InspectionInstrumentCategory>;
   /**
    * 创建时间
    */
@@ -2277,7 +2277,7 @@ export interface InspectionInstrument {
   /**
    * 创建人
    */
-  createdBy?: OcUser;
+  createdBy?: Partial<OcUser>;
   /**
    * 更新时间
    */
@@ -2285,7 +2285,7 @@ export interface InspectionInstrument {
   /**
    * 更新人
    */
-  updatedBy?: OcUser;
+  updatedBy?: Partial<OcUser>;
   /**
    * 删除时间
    */
@@ -2293,7 +2293,7 @@ export interface InspectionInstrument {
   /**
    * 删除人
    */
-  detetedBy?: OcUser;
+  detetedBy?: Partial<OcUser>;
 };
 
 /**
@@ -2324,7 +2324,7 @@ export interface InspectionInstrumentCategory {
   /**
    * 创建人
    */
-  createdBy?: OcUser;
+  createdBy?: Partial<OcUser>;
   /**
    * 更新时间
    */
@@ -2332,7 +2332,7 @@ export interface InspectionInstrumentCategory {
   /**
    * 更新人
    */
-  updatedBy?: OcUser;
+  updatedBy?: Partial<OcUser>;
   /**
    * 删除时间
    */
@@ -2340,7 +2340,7 @@ export interface InspectionInstrumentCategory {
   /**
    * 删除人
    */
-  detetedBy?: OcUser;
+  detetedBy?: Partial<OcUser>;
 };
 
 /**
@@ -2371,7 +2371,7 @@ export interface InspectionMethod {
   /**
    * 创建人
    */
-  createdBy?: OcUser;
+  createdBy?: Partial<OcUser>;
   /**
    * 更新时间
    */
@@ -2379,7 +2379,7 @@ export interface InspectionMethod {
   /**
    * 更新人
    */
-  updatedBy?: OcUser;
+  updatedBy?: Partial<OcUser>;
   /**
    * 删除时间
    */
@@ -2387,7 +2387,7 @@ export interface InspectionMethod {
   /**
    * 删除人
    */
-  detetedBy?: OcUser;
+  detetedBy?: Partial<OcUser>;
 };
 
 /**
@@ -2406,15 +2406,15 @@ export interface InspectionRule {
   /**
    * 检验类型
    */
-  category?: InspectionCategory;
+  category?: Partial<InspectionCategory>;
   /**
    * 物品
    */
-  material?: BaseMaterial;
+  material?: Partial<BaseMaterial>;
   /**
    * 物料生产工序
    */
-  materialProcess?: BaseMaterialFlowProcess;
+  materialProcess?: Partial<BaseMaterialFlowProcess>;
   /**
    * 配置
    */
@@ -2426,7 +2426,7 @@ export interface InspectionRule {
   /**
    * 创建人
    */
-  createdBy?: OcUser;
+  createdBy?: Partial<OcUser>;
   /**
    * 更新时间
    */
@@ -2434,7 +2434,7 @@ export interface InspectionRule {
   /**
    * 更新人
    */
-  updatedBy?: OcUser;
+  updatedBy?: Partial<OcUser>;
   /**
    * 删除时间
    */
@@ -2442,7 +2442,7 @@ export interface InspectionRule {
   /**
    * 删除人
    */
-  detetedBy?: OcUser;
+  detetedBy?: Partial<OcUser>;
 };
 
 /**
@@ -2469,23 +2469,23 @@ export interface InspectionSheet {
   /**
    * 工序任务
    */
-  productionTask?: ProductionTask;
+  productionTask?: Partial<ProductionTask>;
   /**
    * 检验规则
    */
-  rule?: InspectionRule;
+  rule?: Partial<InspectionRule>;
   /**
    * 物料生产工序
    */
-  materialProcess?: BaseMaterialFlowProcess;
+  materialProcess?: Partial<BaseMaterialFlowProcess>;
   /**
    * 检验员
    */
-  inspector?: BaseEmployee;
+  inspector?: Partial<BaseEmployee>;
   /**
    * 检验记录
    */
-  records?: InspectionSheetRecord[];
+  records?: Partial<InspectionSheetRecord>[];
   /**
    * 创建时间
    */
@@ -2493,7 +2493,7 @@ export interface InspectionSheet {
   /**
    * 创建人
    */
-  createdBy?: OcUser;
+  createdBy?: Partial<OcUser>;
   /**
    * 更新时间
    */
@@ -2501,7 +2501,7 @@ export interface InspectionSheet {
   /**
    * 更新人
    */
-  updatedBy?: OcUser;
+  updatedBy?: Partial<OcUser>;
   /**
    * 删除时间
    */
@@ -2509,7 +2509,7 @@ export interface InspectionSheet {
   /**
    * 删除人
    */
-  detetedBy?: OcUser;
+  detetedBy?: Partial<OcUser>;
 };
 
 /**
@@ -2528,7 +2528,7 @@ export interface InspectionSheetRecord {
   /**
    * 检验单
    */
-  sheet?: InspectionSheet;
+  sheet?: Partial<InspectionSheet>;
   /**
    * 样本号
    */
@@ -2536,15 +2536,15 @@ export interface InspectionSheetRecord {
   /**
    * 检验特征
    */
-  characteristic?: InspectionCharacteristic;
+  characteristic?: Partial<InspectionCharacteristic>;
   /**
    * 检验仪器类型
    */
-  instrumentCategory?: InspectionInstrumentCategory;
+  instrumentCategory?: Partial<InspectionInstrumentCategory>;
   /**
    * 检验仪器
    */
-  instrument?: InspectionInstrument;
+  instrument?: Partial<InspectionInstrument>;
   /**
    * 检验时间
    */
@@ -2560,7 +2560,7 @@ export interface InspectionSheetRecord {
   /**
    * 创建人
    */
-  createdBy?: OcUser;
+  createdBy?: Partial<OcUser>;
   /**
    * 更新时间
    */
@@ -2568,7 +2568,7 @@ export interface InspectionSheetRecord {
   /**
    * 更新人
    */
-  updatedBy?: OcUser;
+  updatedBy?: Partial<OcUser>;
   /**
    * 删除时间
    */
@@ -2576,7 +2576,7 @@ export interface InspectionSheetRecord {
   /**
    * 删除人
    */
-  detetedBy?: OcUser;
+  detetedBy?: Partial<OcUser>;
 };
 
 /**
@@ -2631,7 +2631,7 @@ export interface DataDictionary {
   /**
    * 条目
    */
-  entries?: DataDictionary[];
+  entries?: Partial<DataDictionary>[];
   /**
    * 创建时间
    */
@@ -2639,7 +2639,7 @@ export interface DataDictionary {
   /**
    * 创建人
    */
-  createdBy?: OcUser;
+  createdBy?: Partial<OcUser>;
   /**
    * 更新时间
    */
@@ -2647,7 +2647,7 @@ export interface DataDictionary {
   /**
    * 更新人
    */
-  updatedBy?: OcUser;
+  updatedBy?: Partial<OcUser>;
   /**
    * 删除时间
    */
@@ -2655,7 +2655,7 @@ export interface DataDictionary {
   /**
    * 删除人
    */
-  detetedBy?: OcUser;
+  detetedBy?: Partial<OcUser>;
 };
 
 /**
@@ -2674,7 +2674,7 @@ export interface DataDictionaryEntry {
   /**
    * 数据字典
    */
-  dictionary?: DataDictionary;
+  dictionary?: Partial<DataDictionary>;
   /**
    * 值
    */
@@ -2710,7 +2710,7 @@ export interface DataDictionaryEntry {
   /**
    * 创建人
    */
-  createdBy?: OcUser;
+  createdBy?: Partial<OcUser>;
   /**
    * 更新时间
    */
@@ -2718,7 +2718,7 @@ export interface DataDictionaryEntry {
   /**
    * 更新人
    */
-  updatedBy?: OcUser;
+  updatedBy?: Partial<OcUser>;
   /**
    * 删除时间
    */
@@ -2726,7 +2726,7 @@ export interface DataDictionaryEntry {
   /**
    * 删除人
    */
-  detetedBy?: OcUser;
+  detetedBy?: Partial<OcUser>;
 };
 
 /**
@@ -2765,7 +2765,7 @@ export interface Model {
   /**
    * 属性
    */
-  properties?: Property[];
+  properties?: Partial<Property>[];
   /**
    * 创建时间
    */
@@ -2773,7 +2773,7 @@ export interface Model {
   /**
    * 创建人
    */
-  createdBy?: OcUser;
+  createdBy?: Partial<OcUser>;
   /**
    * 更新时间
    */
@@ -2781,7 +2781,7 @@ export interface Model {
   /**
    * 更新人
    */
-  updatedBy?: OcUser;
+  updatedBy?: Partial<OcUser>;
   /**
    * 删除时间
    */
@@ -2789,7 +2789,7 @@ export interface Model {
   /**
    * 删除人
    */
-  detetedBy?: OcUser;
+  detetedBy?: Partial<OcUser>;
 };
 
 /**
@@ -2808,7 +2808,7 @@ export interface Property {
   /**
    * 模型
    */
-  model?: Model;
+  model?: Partial<Model>;
   /**
    * 属性类型
    */
@@ -2888,7 +2888,7 @@ export interface Property {
   /**
    * 创建人
    */
-  createdBy?: OcUser;
+  createdBy?: Partial<OcUser>;
   /**
    * 更新时间
    */
@@ -2896,7 +2896,7 @@ export interface Property {
   /**
    * 更新人
    */
-  updatedBy?: OcUser;
+  updatedBy?: Partial<OcUser>;
   /**
    * 删除时间
    */
@@ -2904,7 +2904,7 @@ export interface Property {
   /**
    * 删除人
    */
-  detetedBy?: OcUser;
+  detetedBy?: Partial<OcUser>;
 };
 
 /**
@@ -2959,7 +2959,7 @@ export interface Route {
   /**
    * 创建人
    */
-  createdBy?: OcUser;
+  createdBy?: Partial<OcUser>;
   /**
    * 更新时间
    */
@@ -2967,7 +2967,7 @@ export interface Route {
   /**
    * 更新人
    */
-  updatedBy?: OcUser;
+  updatedBy?: Partial<OcUser>;
   /**
    * 删除时间
    */
@@ -2975,7 +2975,7 @@ export interface Route {
   /**
    * 删除人
    */
-  detetedBy?: OcUser;
+  detetedBy?: Partial<OcUser>;
 };
 
 /**
@@ -2994,7 +2994,7 @@ export interface OcDepartment {
   /**
    * 上级部门
    */
-  parent?: OcDepartment;
+  parent?: Partial<OcDepartment>;
   /**
    * Code
    */
@@ -3010,7 +3010,7 @@ export interface OcDepartment {
   /**
    * 用户
    */
-  users?: OcUser[];
+  users?: Partial<OcUser>[];
   /**
    * 创建时间
    */
@@ -3018,7 +3018,7 @@ export interface OcDepartment {
   /**
    * 创建人
    */
-  createdBy?: OcUser;
+  createdBy?: Partial<OcUser>;
   /**
    * 更新时间
    */
@@ -3026,7 +3026,7 @@ export interface OcDepartment {
   /**
    * 更新人
    */
-  updatedBy?: OcUser;
+  updatedBy?: Partial<OcUser>;
   /**
    * 删除时间
    */
@@ -3034,7 +3034,7 @@ export interface OcDepartment {
   /**
    * 删除人
    */
-  detetedBy?: OcUser;
+  detetedBy?: Partial<OcUser>;
 };
 
 /**
@@ -3069,7 +3069,7 @@ export interface OcRole {
   /**
    * 用户
    */
-  users?: OcUser[];
+  users?: Partial<OcUser>[];
   /**
    * 创建时间
    */
@@ -3077,7 +3077,7 @@ export interface OcRole {
   /**
    * 创建人
    */
-  createdBy?: OcUser;
+  createdBy?: Partial<OcUser>;
   /**
    * 更新时间
    */
@@ -3085,7 +3085,7 @@ export interface OcRole {
   /**
    * 更新人
    */
-  updatedBy?: OcUser;
+  updatedBy?: Partial<OcUser>;
   /**
    * 删除时间
    */
@@ -3093,7 +3093,7 @@ export interface OcRole {
   /**
    * 删除人
    */
-  detetedBy?: OcUser;
+  detetedBy?: Partial<OcUser>;
 };
 
 /**
@@ -3132,7 +3132,7 @@ export interface OcShop {
   /**
    * 创建人
    */
-  createdBy?: OcUser;
+  createdBy?: Partial<OcUser>;
   /**
    * 更新时间
    */
@@ -3140,7 +3140,7 @@ export interface OcShop {
   /**
    * 更新人
    */
-  updatedBy?: OcUser;
+  updatedBy?: Partial<OcUser>;
   /**
    * 删除时间
    */
@@ -3148,7 +3148,7 @@ export interface OcShop {
   /**
    * 删除人
    */
-  detetedBy?: OcUser;
+  detetedBy?: Partial<OcUser>;
 };
 
 /**
@@ -3187,11 +3187,11 @@ export interface OcUser {
   /**
    * 部门
    */
-  department?: OcDepartment;
+  department?: Partial<OcDepartment>;
   /**
    * 角色
    */
-  roles?: OcRole[];
+  roles?: Partial<OcRole>[];
   /**
    * 创建时间
    */
@@ -3199,7 +3199,7 @@ export interface OcUser {
   /**
    * 创建人
    */
-  createdBy?: OcUser;
+  createdBy?: Partial<OcUser>;
   /**
    * 更新时间
    */
@@ -3207,7 +3207,7 @@ export interface OcUser {
   /**
    * 更新人
    */
-  updatedBy?: OcUser;
+  updatedBy?: Partial<OcUser>;
   /**
    * 删除时间
    */
@@ -3215,7 +3215,7 @@ export interface OcUser {
   /**
    * 删除人
    */
-  detetedBy?: OcUser;
+  detetedBy?: Partial<OcUser>;
 };
 
 /**
@@ -3238,7 +3238,7 @@ export interface ProductionOrder {
   /**
    * 生产计划
    */
-  productionPlan?: ProductionPlan;
+  productionPlan?: Partial<ProductionPlan>;
   /**
    * 分配状态
    */
@@ -3250,11 +3250,11 @@ export interface ProductionOrder {
   /**
    * 物品
    */
-  material?: BaseMaterial;
+  material?: Partial<BaseMaterial>;
   /**
    * 工艺路线
    */
-  materialFlow?: BaseMaterialFlow;
+  materialFlow?: Partial<BaseMaterialFlow>;
   /**
    * 数量
    */
@@ -3262,7 +3262,7 @@ export interface ProductionOrder {
   /**
    * 单位
    */
-  unit?: BaseUnit;
+  unit?: Partial<BaseUnit>;
   /**
    * 计划开始日期
    */
@@ -3282,11 +3282,11 @@ export interface ProductionOrder {
   /**
    * 生产任务
    */
-  productionTasks?: ProductionTask[];
+  productionTasks?: Partial<ProductionTask>[];
   /**
    * 工单项
    */
-  lineItems?: ProductionOrderItem[];
+  lineItems?: Partial<ProductionOrderItem>[];
   /**
    * 创建时间
    */
@@ -3294,7 +3294,7 @@ export interface ProductionOrder {
   /**
    * 创建人
    */
-  createdBy?: OcUser;
+  createdBy?: Partial<OcUser>;
   /**
    * 更新时间
    */
@@ -3302,7 +3302,7 @@ export interface ProductionOrder {
   /**
    * 更新人
    */
-  updatedBy?: OcUser;
+  updatedBy?: Partial<OcUser>;
   /**
    * 删除时间
    */
@@ -3310,7 +3310,7 @@ export interface ProductionOrder {
   /**
    * 删除人
    */
-  detetedBy?: OcUser;
+  detetedBy?: Partial<OcUser>;
 };
 
 /**
@@ -3329,11 +3329,11 @@ export interface ProductionOrderItem {
   /**
    * 生产工单
    */
-  productionOrder?: ProductionOrder;
+  productionOrder?: Partial<ProductionOrder>;
   /**
    * 物品
    */
-  material?: BaseMaterial;
+  material?: Partial<BaseMaterial>;
   /**
    * 数量
    */
@@ -3341,7 +3341,7 @@ export interface ProductionOrderItem {
   /**
    * 单位
    */
-  unit?: BaseUnit;
+  unit?: Partial<BaseUnit>;
   /**
    * 创建时间
    */
@@ -3349,7 +3349,7 @@ export interface ProductionOrderItem {
   /**
    * 创建人
    */
-  createdBy?: OcUser;
+  createdBy?: Partial<OcUser>;
   /**
    * 更新时间
    */
@@ -3357,7 +3357,7 @@ export interface ProductionOrderItem {
   /**
    * 更新人
    */
-  updatedBy?: OcUser;
+  updatedBy?: Partial<OcUser>;
   /**
    * 删除时间
    */
@@ -3365,7 +3365,7 @@ export interface ProductionOrderItem {
   /**
    * 删除人
    */
-  detetedBy?: OcUser;
+  detetedBy?: Partial<OcUser>;
 };
 
 /**
@@ -3412,11 +3412,11 @@ export interface ProductionPlan {
   /**
    * 计划项
    */
-  lineItems?: ProductionPlanItem[];
+  lineItems?: Partial<ProductionPlanItem>[];
   /**
    * 生产工单
    */
-  productionOrders?: ProductionOrder[];
+  productionOrders?: Partial<ProductionOrder>[];
   /**
    * 创建时间
    */
@@ -3424,7 +3424,7 @@ export interface ProductionPlan {
   /**
    * 创建人
    */
-  createdBy?: OcUser;
+  createdBy?: Partial<OcUser>;
   /**
    * 更新时间
    */
@@ -3432,7 +3432,7 @@ export interface ProductionPlan {
   /**
    * 更新人
    */
-  updatedBy?: OcUser;
+  updatedBy?: Partial<OcUser>;
   /**
    * 删除时间
    */
@@ -3440,7 +3440,7 @@ export interface ProductionPlan {
   /**
    * 删除人
    */
-  detetedBy?: OcUser;
+  detetedBy?: Partial<OcUser>;
 };
 
 /**
@@ -3459,11 +3459,11 @@ export interface ProductionPlanItem {
   /**
    * 生产计划
    */
-  productionPlan?: ProductionPlan;
+  productionPlan?: Partial<ProductionPlan>;
   /**
    * 物品
    */
-  material?: BaseMaterial;
+  material?: Partial<BaseMaterial>;
   /**
    * 数量
    */
@@ -3471,7 +3471,7 @@ export interface ProductionPlanItem {
   /**
    * 单位
    */
-  unit?: BaseUnit;
+  unit?: Partial<BaseUnit>;
   /**
    * 创建时间
    */
@@ -3479,7 +3479,7 @@ export interface ProductionPlanItem {
   /**
    * 创建人
    */
-  createdBy?: OcUser;
+  createdBy?: Partial<OcUser>;
   /**
    * 更新时间
    */
@@ -3487,7 +3487,7 @@ export interface ProductionPlanItem {
   /**
    * 更新人
    */
-  updatedBy?: OcUser;
+  updatedBy?: Partial<OcUser>;
   /**
    * 删除时间
    */
@@ -3495,7 +3495,7 @@ export interface ProductionPlanItem {
   /**
    * 删除人
    */
-  detetedBy?: OcUser;
+  detetedBy?: Partial<OcUser>;
 };
 
 /**
@@ -3518,19 +3518,19 @@ export interface ProductionTask {
   /**
    * 生产工单
    */
-  productionOrder?: ProductionOrder;
+  productionOrder?: Partial<ProductionOrder>;
   /**
    * 物品
    */
-  material?: BaseMaterial;
+  material?: Partial<BaseMaterial>;
   /**
    * 工艺路线
    */
-  materialFlow?: BaseMaterialFlow;
+  materialFlow?: Partial<BaseMaterialFlow>;
   /**
    * 生产工序
    */
-  materialProcess?: BaseMaterialFlowProcess;
+  materialProcess?: Partial<BaseMaterialFlowProcess>;
   /**
    * 计划开始日期
    */
@@ -3554,15 +3554,15 @@ export interface ProductionTask {
   /**
    * 单位
    */
-  unit?: BaseUnit;
+  unit?: Partial<BaseUnit>;
   /**
    * 设备
    */
-  equipment?: BaseEquipment;
+  equipment?: Partial<BaseEquipment>;
   /**
    * 操作工
    */
-  assignees?: BaseEmployee[];
+  assignees?: Partial<BaseEmployee>[];
   /**
    * 最晚完成日期
    */
@@ -3570,7 +3570,7 @@ export interface ProductionTask {
   /**
    * 派工人员
    */
-  assigner?: BaseEmployee;
+  assigner?: Partial<BaseEmployee>;
   /**
    * 派工时间
    */
@@ -3590,11 +3590,11 @@ export interface ProductionTask {
   /**
    * 生产报工单
    */
-  workReports?: ProductionWorkReport[];
+  workReports?: Partial<ProductionWorkReport>[];
   /**
    * 检验单
    */
-  inspectionSheets?: InspectionSheet[];
+  inspectionSheets?: Partial<InspectionSheet>[];
   /**
    * 创建时间
    */
@@ -3602,7 +3602,7 @@ export interface ProductionTask {
   /**
    * 创建人
    */
-  createdBy?: OcUser;
+  createdBy?: Partial<OcUser>;
   /**
    * 更新时间
    */
@@ -3610,7 +3610,7 @@ export interface ProductionTask {
   /**
    * 更新人
    */
-  updatedBy?: OcUser;
+  updatedBy?: Partial<OcUser>;
   /**
    * 删除时间
    */
@@ -3618,7 +3618,7 @@ export interface ProductionTask {
   /**
    * 删除人
    */
-  detetedBy?: OcUser;
+  detetedBy?: Partial<OcUser>;
 };
 
 /**
@@ -3641,7 +3641,7 @@ export interface ProductionWorkReport {
   /**
    * 生产任务
    */
-  productionTask?: ProductionTask;
+  productionTask?: Partial<ProductionTask>;
   /**
    * 数量
    */
@@ -3649,11 +3649,11 @@ export interface ProductionWorkReport {
   /**
    * 单位
    */
-  unit?: BaseUnit;
+  unit?: Partial<BaseUnit>;
   /**
    * 操作工
    */
-  operators?: BaseEmployee[];
+  operators?: Partial<BaseEmployee>[];
   /**
    * 创建时间
    */
@@ -3661,7 +3661,7 @@ export interface ProductionWorkReport {
   /**
    * 创建人
    */
-  createdBy?: OcUser;
+  createdBy?: Partial<OcUser>;
   /**
    * 更新时间
    */
@@ -3669,7 +3669,7 @@ export interface ProductionWorkReport {
   /**
    * 更新人
    */
-  updatedBy?: OcUser;
+  updatedBy?: Partial<OcUser>;
   /**
    * 删除时间
    */
@@ -3677,7 +3677,7 @@ export interface ProductionWorkReport {
   /**
    * 删除人
    */
-  detetedBy?: OcUser;
+  detetedBy?: Partial<OcUser>;
 };
 
 /**
@@ -3700,11 +3700,11 @@ export interface PurchaseOrder {
   /**
    * 供应商
    */
-  supplier?: BasePartner;
+  supplier?: Partial<BasePartner>;
   /**
    * 订单项
    */
-  lineItems?: PurchaseOrderItem[];
+  lineItems?: Partial<PurchaseOrderItem>[];
   /**
    * 创建时间
    */
@@ -3712,7 +3712,7 @@ export interface PurchaseOrder {
   /**
    * 创建人
    */
-  createdBy?: OcUser;
+  createdBy?: Partial<OcUser>;
   /**
    * 更新时间
    */
@@ -3720,7 +3720,7 @@ export interface PurchaseOrder {
   /**
    * 更新人
    */
-  updatedBy?: OcUser;
+  updatedBy?: Partial<OcUser>;
   /**
    * 删除时间
    */
@@ -3728,7 +3728,7 @@ export interface PurchaseOrder {
   /**
    * 删除人
    */
-  detetedBy?: OcUser;
+  detetedBy?: Partial<OcUser>;
 };
 
 /**
@@ -3747,11 +3747,11 @@ export interface PurchaseOrderItem {
   /**
    * 采购订单
    */
-  order?: PurchaseOrder;
+  order?: Partial<PurchaseOrder>;
   /**
    * 物品
    */
-  material?: BaseMaterial;
+  material?: Partial<BaseMaterial>;
   /**
    * 数量
    */
@@ -3759,7 +3759,7 @@ export interface PurchaseOrderItem {
   /**
    * 单位
    */
-  unit?: BaseUnit;
+  unit?: Partial<BaseUnit>;
   /**
    * 创建时间
    */
@@ -3767,7 +3767,7 @@ export interface PurchaseOrderItem {
   /**
    * 创建人
    */
-  createdBy?: OcUser;
+  createdBy?: Partial<OcUser>;
   /**
    * 更新时间
    */
@@ -3775,7 +3775,7 @@ export interface PurchaseOrderItem {
   /**
    * 更新人
    */
-  updatedBy?: OcUser;
+  updatedBy?: Partial<OcUser>;
   /**
    * 删除时间
    */
@@ -3783,7 +3783,7 @@ export interface PurchaseOrderItem {
   /**
    * 删除人
    */
-  detetedBy?: OcUser;
+  detetedBy?: Partial<OcUser>;
 };
 
 /**
@@ -3834,7 +3834,7 @@ export interface Webhook {
   /**
    * 创建人
    */
-  createdBy?: OcUser;
+  createdBy?: Partial<OcUser>;
   /**
    * 更新时间
    */
@@ -3842,7 +3842,7 @@ export interface Webhook {
   /**
    * 更新人
    */
-  updatedBy?: OcUser;
+  updatedBy?: Partial<OcUser>;
   /**
    * 删除时间
    */
@@ -3850,7 +3850,7 @@ export interface Webhook {
   /**
    * 删除人
    */
-  detetedBy?: OcUser;
+  detetedBy?: Partial<OcUser>;
 };
 
 /**
@@ -3869,15 +3869,15 @@ export interface WarehouseInventory {
   /**
    * 仓库
    */
-  warehouse?: BaseWarehouse;
+  warehouse?: Partial<BaseWarehouse>;
   /**
    * 物品
    */
-  material?: BaseMaterial;
+  material?: Partial<BaseMaterial>;
   /**
    * 库位
    */
-  region?: WarehouseRegion;
+  region?: Partial<WarehouseRegion>;
   /**
    * 入库单号
    */
@@ -3889,7 +3889,7 @@ export interface WarehouseInventory {
   /**
    * 单位
    */
-  unit?: BaseUnit;
+  unit?: Partial<BaseUnit>;
   /**
    * 创建时间
    */
@@ -3897,7 +3897,7 @@ export interface WarehouseInventory {
   /**
    * 创建人
    */
-  createdBy?: OcUser;
+  createdBy?: Partial<OcUser>;
   /**
    * 更新时间
    */
@@ -3905,7 +3905,7 @@ export interface WarehouseInventory {
   /**
    * 更新人
    */
-  updatedBy?: OcUser;
+  updatedBy?: Partial<OcUser>;
   /**
    * 删除时间
    */
@@ -3913,7 +3913,7 @@ export interface WarehouseInventory {
   /**
    * 删除人
    */
-  detetedBy?: OcUser;
+  detetedBy?: Partial<OcUser>;
 };
 
 /**
@@ -3932,7 +3932,7 @@ export interface WarehouseRegion {
   /**
    * 仓库
    */
-  warehouse?: BaseWarehouse;
+  warehouse?: Partial<BaseWarehouse>;
   /**
    * Code
    */
@@ -3948,7 +3948,7 @@ export interface WarehouseRegion {
   /**
    * 创建人
    */
-  createdBy?: OcUser;
+  createdBy?: Partial<OcUser>;
   /**
    * 更新时间
    */
@@ -3956,7 +3956,7 @@ export interface WarehouseRegion {
   /**
    * 更新人
    */
-  updatedBy?: OcUser;
+  updatedBy?: Partial<OcUser>;
   /**
    * 删除时间
    */
@@ -3964,7 +3964,7 @@ export interface WarehouseRegion {
   /**
    * 删除人
    */
-  detetedBy?: OcUser;
+  detetedBy?: Partial<OcUser>;
 };
 
 /**
@@ -3983,7 +3983,7 @@ export interface WarehouseTransfer {
   /**
    * 仓库
    */
-  warehouse?: BaseWarehouse;
+  warehouse?: Partial<BaseWarehouse>;
   /**
    * 出入库单号
    */
@@ -3991,7 +3991,7 @@ export interface WarehouseTransfer {
   /**
    * 出入库类型
    */
-  category?: WarehouseTransferCategory;
+  category?: Partial<WarehouseTransferCategory>;
   /**
    * 审核状态
    */
@@ -4007,7 +4007,7 @@ export interface WarehouseTransfer {
   /**
    * 创建人
    */
-  createdBy?: OcUser;
+  createdBy?: Partial<OcUser>;
   /**
    * 更新时间
    */
@@ -4015,7 +4015,7 @@ export interface WarehouseTransfer {
   /**
    * 更新人
    */
-  updatedBy?: OcUser;
+  updatedBy?: Partial<OcUser>;
   /**
    * 删除时间
    */
@@ -4023,7 +4023,7 @@ export interface WarehouseTransfer {
   /**
    * 删除人
    */
-  detetedBy?: OcUser;
+  detetedBy?: Partial<OcUser>;
 };
 
 /**
@@ -4054,7 +4054,7 @@ export interface WarehouseTransferCategory {
   /**
    * 创建人
    */
-  createdBy?: OcUser;
+  createdBy?: Partial<OcUser>;
   /**
    * 更新时间
    */
@@ -4062,7 +4062,7 @@ export interface WarehouseTransferCategory {
   /**
    * 更新人
    */
-  updatedBy?: OcUser;
+  updatedBy?: Partial<OcUser>;
   /**
    * 删除时间
    */
@@ -4070,7 +4070,7 @@ export interface WarehouseTransferCategory {
   /**
    * 删除人
    */
-  detetedBy?: OcUser;
+  detetedBy?: Partial<OcUser>;
 };
 
 /**
@@ -4089,19 +4089,19 @@ export interface WarehouseTransferItem {
   /**
    * 出入库单
    */
-  transfer?: WarehouseTransfer;
+  transfer?: Partial<WarehouseTransfer>;
   /**
    * 出库区域
    */
-  fromRegion?: WarehouseRegion;
+  fromRegion?: Partial<WarehouseRegion>;
   /**
    * 入库区域
    */
-  toRegion?: WarehouseRegion;
+  toRegion?: Partial<WarehouseRegion>;
   /**
    * 物品
    */
-  material?: BaseMaterial;
+  material?: Partial<BaseMaterial>;
   /**
    * 数量
    */
@@ -4109,7 +4109,7 @@ export interface WarehouseTransferItem {
   /**
    * 单位
    */
-  unit?: BaseUnit;
+  unit?: Partial<BaseUnit>;
   /**
    * 创建时间
    */
@@ -4117,7 +4117,7 @@ export interface WarehouseTransferItem {
   /**
    * 创建人
    */
-  createdBy?: OcUser;
+  createdBy?: Partial<OcUser>;
   /**
    * 更新时间
    */
@@ -4125,7 +4125,7 @@ export interface WarehouseTransferItem {
   /**
    * 更新人
    */
-  updatedBy?: OcUser;
+  updatedBy?: Partial<OcUser>;
   /**
    * 删除时间
    */
@@ -4133,7 +4133,7 @@ export interface WarehouseTransferItem {
   /**
    * 删除人
    */
-  detetedBy?: OcUser;
+  detetedBy?: Partial<OcUser>;
 };
 
 /**

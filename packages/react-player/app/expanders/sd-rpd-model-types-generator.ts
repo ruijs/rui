@@ -29,7 +29,7 @@ function convertSdRpdFieldTypeToTypeScriptType(field: SdRpdField, entities: SdRp
       return dataDictionary;
     case 'relation':
       const targetCode = find(entities, { singularCode: targetSingularCode })?.code;
-      return relation === 'one' ? targetCode : `${targetCode}[]`;
+      return relation === 'one' ? `Partial<${targetCode}>` : `Partial<${targetCode}>[]`;
   }
   return 'any';
 }
