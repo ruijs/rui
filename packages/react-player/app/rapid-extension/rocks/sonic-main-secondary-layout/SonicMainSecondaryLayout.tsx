@@ -58,6 +58,7 @@ export default {
         bordered: false,
         size: "small",
         title: props.mainTitle,
+        className: props.mainClassName,
         children: props.main,
       };
     }
@@ -69,6 +70,7 @@ export default {
         bordered: false,
         size: "small",
         title: props.secondaryTitle,
+        className: props.secondaryClassName,
         children: props.secondary,
       };
     }

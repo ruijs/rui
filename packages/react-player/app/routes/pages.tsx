@@ -8,14 +8,18 @@ import Sider from "antd/lib/layout/Sider";
 import AppLeftNav from "~/components/AppLeftNav";
 import rapidService from "~/rapidService";
 
-import styles from "~/styles/index.css";
+import indexStyles from "~/styles/index.css";
+import customizeStyles from "~/styles/customize.css";
 
 
 export function links() {
   return [
-    { rel: "stylesheet", href: antdStyles },
-    { rel: "stylesheet", href: styles }
-  ];
+    antdStyles,
+    indexStyles,
+    customizeStyles,
+  ].map(styles => {
+    return { rel: "stylesheet", href: styles }
+  })
 }
 
 export const loader: LoaderFunction = async () => {
