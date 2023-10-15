@@ -147,6 +147,8 @@ function generateDataFormItem(option: GenerateEntityFormItemOption) {
     valueFieldType,
     formControlType: formItemConfig.formControlType,
     formControlProps: formItemConfig.formControlProps,
+    rendererType: formItemConfig.rendererType,
+    rendererProps: formItemConfig.rendererProps,
     $exps: formItemConfig.$exps,
   }
 
