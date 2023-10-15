@@ -13,6 +13,10 @@ const formConfig: Partial<RapidEntityFormConfig> = {
       code: 'login',
     },
     {
+      type: 'auto',
+      code: 'email',
+    },
+    {
       type: 'treeSelect',
       code: 'department',
       formControlProps: {
@@ -69,6 +73,11 @@ const page: PrRapidPage = {
           type: 'auto',
           code: 'login',
           fixed: 'left',
+        },
+        {
+          type: 'auto',
+          code: 'email',
+          width: '200px',
         },
         {
           type: 'auto',

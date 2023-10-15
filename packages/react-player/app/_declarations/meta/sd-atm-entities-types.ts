@@ -1982,6 +1982,10 @@ export interface OcUser {
    */
   password: string;
   /**
+   * 是否隐藏
+   */
+  hidden?: boolean;
+  /**
    * 状态
    */
   state: EnabledDisabledState;

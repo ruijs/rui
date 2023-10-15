@@ -25,6 +25,13 @@ export default {
       required: true,
     },
     {
+      code: 'hidden',
+      name: '是否隐藏',
+      fieldType: 'bool',
+      defaultValue: 'false',
+      required: true,
+    },
+    {
       code: 'state',
       name: '状态',
       fieldType: 'option',

@@ -454,6 +454,7 @@ const entityFieldCodes = {
     'name',
     'login',
     'password',
+    'hidden',
     'state',
     'email',
     'department',
