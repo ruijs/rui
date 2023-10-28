@@ -28,6 +28,11 @@ app.use(express.static("public", { maxAge: "1h" }));
 
 app.use(morgan("tiny"));
 
+const customizeAPI = process.env.CUSTOMIZE_SERVICE_URL || 'http://127.0.0.1:3001';
+app.use('/api/customize', createProxyMiddleware({ target: customizeAPI, changeOrigin: true, pathRewrite: {
+  '^/api/customize': '/',
+}, }));
+
 const backendAPI = process.env.BACKEND_URL || 'http://127.0.0.1:8000';
 app.use('/api', createProxyMiddleware({ target: backendAPI, changeOrigin: true }));
 
