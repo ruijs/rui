@@ -20,7 +20,7 @@ export interface RapidEntityListConfig {
   /**
    * 数据源编号
    */
-  dataSourceCode: string;
+  dataSourceCode?: string;
 
   /**
    * 固定过滤器
@@ -35,7 +35,7 @@ export interface RapidEntityListConfig {
   /**
    * 分页大小。小于或者等于0时表示不分页。
    */
-  pageSize: number;
+  pageSize?: number;
 
   pageNum?: number;
 
