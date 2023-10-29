@@ -6,7 +6,7 @@ export interface RockEventHandlerModalMessage {
   title: string;
 }
 
-export async function modalMessage(eventName: string, framework: Framework, page: Page, scope: Scope, senderId: string, eventHandler: RockEventHandlerModalMessage, eventArgs: any) {
+export async function modalMessage(eventName: string, framework: Framework, page: Page, scope: Scope, sender: any, eventHandler: RockEventHandlerModalMessage, eventArgs: any) {
   return new Promise((resolve, reject) => {
     Modal.info({
       title: eventHandler.title,
