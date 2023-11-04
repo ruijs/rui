@@ -16,7 +16,7 @@ import rapidService from "~/rapidService";
 import { generateRuiPage } from "~/expanders/rui-page-generator";
 
 import RapidExtension from "~/rapid-extension";
-import { DesignerRocks } from "@ruiapp/react-designer";
+import { DesignerRocks } from "@ruiapp/designer-extension";
 import { Avatar, Dropdown, MenuProps, PageHeader, Space } from "antd";
 import { ExportOutlined, UserOutlined } from "@ant-design/icons";
 

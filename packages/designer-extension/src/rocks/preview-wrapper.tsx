@@ -1,7 +1,7 @@
 import { ContainerRockConfig, PageCommand, Rock } from "@ruiapp/move-style";
 import { renderRockChildren } from "@ruiapp/react-renderer";
 import { useCallback, useEffect } from "react";
-import DesignerStore from "../DesignerStore";
+import { DesignerStore } from "../stores/DesignerStore";
 
 export default {
   $type: "designerPreviewWrapper",

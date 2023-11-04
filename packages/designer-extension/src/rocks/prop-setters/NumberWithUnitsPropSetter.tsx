@@ -1,8 +1,8 @@
 import { NumberWithUnitsRockPropSetter, RockConfig, RockEvent, RockEventHandlerScript, Rock, MoveStyleUtils } from "@ruiapp/move-style";
 import { renderRock } from "@ruiapp/react-renderer";
 import { isNull, isString, isUndefined } from "lodash";
-import DesignerStore from "../DesignerStore";
-import { sendDesignerCommand } from "../DesignerUtility";
+import { DesignerStore } from "../../stores/DesignerStore";
+import { sendDesignerCommand } from "../../utilities/DesignerUtility";
 import { ExpressionPropSetterProps } from "../internal-prop-setters/ExpressionPropSetter";
 import { MultiControlsPropSetterProps } from "../internal-prop-setters/MultiControlsPropSetter";
 

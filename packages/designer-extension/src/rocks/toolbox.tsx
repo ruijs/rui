@@ -2,8 +2,8 @@ import { MoveStyleUtils } from "@ruiapp/move-style";
 import { PageCommandAddComponent, Rock, RockConfig, RockEvent, RockEventHandlerScript } from "@ruiapp/move-style";
 import { renderRock } from "@ruiapp/react-renderer";
 import { useCallback, useMemo, useState } from "react";
-import DesignerStore from "../DesignerStore";
-import { sendDesignerCommand } from "../DesignerUtility";
+import { DesignerStore } from "../stores/DesignerStore";
+import { sendDesignerCommand } from "../utilities/DesignerUtility";
 
 export default {
   $type: "designerToolbox",

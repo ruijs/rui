@@ -1,10 +1,10 @@
 import { RockConfig, RockEvent, RockEventHandlerScript, Rock, SingleControlRockPropSetter } from "@ruiapp/move-style";
 import { renderRock } from "@ruiapp/react-renderer";
 import { useMemo } from "react";
-import DesignerStore from "../DesignerStore";
-import { sendDesignerCommand } from "../DesignerUtility";
-import { PropSetterProps } from "../rocks/PropSetter";
-import { getComponentPropValue } from "../SetterUtility";
+import { DesignerStore } from "../../stores/DesignerStore";
+import { sendDesignerCommand } from "../../utilities/DesignerUtility";
+import { PropSetterProps } from "../PropSetter";
+import { getComponentPropValue } from "../../utilities/SetterUtility";
 
 export interface SingleControlPropSetterProps extends SingleControlRockPropSetter {
   $id: string;

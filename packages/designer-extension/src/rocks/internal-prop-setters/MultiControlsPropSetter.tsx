@@ -2,9 +2,9 @@ import { ContainerRockConfig, MultiControlsRockPropSetter, RockConfig, RockEvent
 import { renderRock } from "@ruiapp/react-renderer";
 import _ from "lodash";
 import { useMemo } from "react";
-import DesignerStore from "../DesignerStore";
-import { sendDesignerCommand } from "../DesignerUtility";
-import { PropSetterProps } from "../rocks/PropSetter";
+import { DesignerStore } from "../../stores/DesignerStore";
+import { sendDesignerCommand } from "../../utilities/DesignerUtility";
+import { PropSetterProps } from "../PropSetter";
 
 export interface MultiControlsPropSetterProps extends MultiControlsRockPropSetter {
   $id: string;

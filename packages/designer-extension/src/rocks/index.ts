@@ -1,12 +1,9 @@
-export { default as DesignerStore} from "./DesignerStore";
-export * as DesignerUtility from "./DesignerUtility";
-
-import ComponentPropertiesPanel from "./rocks/component-properties-panel";
-import ComponentTree from "./rocks/component-tree";
-import JsonValueDisplay from "./rocks/json-value-display";
-import PreviewWrapper from "./rocks/preview-wrapper";
-import PropSetter from "./rocks/PropSetter";
-import Toolbox from "./rocks/toolbox";
+import ComponentPropertiesPanel from "./component-properties-panel";
+import ComponentTree from "./component-tree";
+import JsonValueDisplay from "./json-value-display";
+import PreviewWrapper from "./preview-wrapper";
+import PropSetter from "./PropSetter";
+import Toolbox from "./toolbox";
 
 // prop panels
 import AppearancePropPanel from "./prop-panels/AppearancePropPanel";
@@ -38,7 +35,7 @@ import SliderSetterInput from "./setter-input-controls/SliderSetterInput";
 import SwitchSetterInput from "./setter-input-controls/SwitchSetterInput";
 import TextSetterInput from "./setter-input-controls/TextSetterInput";
 
-export const DesignerRocks = {
+export default [
   ComponentPropertiesPanel,
   ComponentTree,
   JsonValueDisplay,
@@ -75,4 +72,4 @@ export const DesignerRocks = {
   SliderSetterInput,
   SwitchSetterInput,
   TextSetterInput,
-};
+]

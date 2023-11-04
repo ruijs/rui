@@ -8,12 +8,12 @@
     "dev:react-renderer": "pnpm --filter=react-renderer run dev",
     "dev:react-rocks": "pnpm --filter=react-rocks run dev",
     "dev:react-rapid-rocks": "pnpm --filter=react-rapid-rocks run dev",
-    "dev:react-designer": "pnpm --filter=react-designer run dev",
+    "dev:designer-extension": "pnpm --filter=designer-extension run dev",
     "dev:react-player": "pnpm --filter=react-player run dev",
     "dev:antd-extension": "pnpm --filter=antd-extension run dev",
     "dev:monaco-extension": "pnpm --filter=monaco-extension run dev",
     "dev:echarts-extension": "pnpm --filter=echarts-extension run dev",
-    "libs": "pnpm dev:move-style && pnpm dev:react-renderer && pnpm dev:react-rocks && pnpm dev:monaco-extension && pnpm dev:antd-extension && pnpm dev:react-designer && pnpm dev:react-rapid-rocks && pnpm dev:echarts-extension",
+    "libs": "pnpm dev:move-style && pnpm dev:react-renderer && pnpm dev:react-rocks && pnpm dev:monaco-extension && pnpm dev:antd-extension && pnpm dev:designer-extension && pnpm dev:react-rapid-rocks && pnpm dev:echarts-extension",
     "test": "lerna run test"
   },
   "devDependencies": {

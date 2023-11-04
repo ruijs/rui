@@ -1,7 +1,7 @@
 import { Framework, Page, PageConfig, RockEvent, Rock } from "@ruiapp/move-style";
 import { Rui } from "@ruiapp/react-renderer";
 import { Rui as RuiRock, ErrorBoundary, Show, HtmlElement, Box, Label, Text } from "@ruiapp/react-rocks";
-import { DesignerRocks, DesignerStore, DesignerUtility } from "@ruiapp/react-designer";
+import DesignerExtension, { DesignerStore, DesignerUtility } from "@ruiapp/designer-extension";
 import AntdExtension from "@ruiapp/antd-extension";
 import MonacoExtension from "@ruiapp/monaco-extension";
 import { RapidRocks } from "@ruiapp/react-rapid-rocks";
@@ -20,8 +20,6 @@ export const links: LinksFunction = () => {
 
 const framework = new Framework();
 
-framework.registerStore("designerStore", DesignerStore)
-
 framework.registerComponent(RuiRock);
 framework.registerComponent(ErrorBoundary);
 framework.registerComponent(Show);
@@ -33,13 +31,10 @@ framework.registerComponent(Text);
 framework.loadExtension(AntdExtension);
 framework.loadExtension(MonacoExtension);
 framework.loadExtension(RapidExtension);
+framework.loadExtension(DesignerExtension);
 
 for(const name in RapidRocks) {
   framework.registerComponent(RapidRocks[name]);
-}
-
-for (const name in DesignerRocks) {
-  framework.registerComponent((DesignerRocks as Record<string, Rock>)[name]);
 }
 
 const canvasPageConfig: PageConfig = {

@@ -1,11 +1,11 @@
-import { EventEmitter, Framework, IStore, Page, PageCommand, PageConfig, RockConfig, StoreConfigBase } from "@ruiapp/move-style";
+import { EventEmitter, Framework, IStore, Page, PageCommand, PageConfig, RockConfig, StoreConfigBase, StoreMeta } from "@ruiapp/move-style";
 import _ from "lodash";
 
 export interface DesignerStoreConfig extends StoreConfigBase {
   pageConfig?: PageConfig;
 }
 
-export default class DesignerStore implements IStore<DesignerStoreConfig> {
+export class DesignerStore implements IStore<DesignerStoreConfig> {
   #emitter: EventEmitter;
   #name: string;
   #page: Page;
@@ -143,3 +143,8 @@ export default class DesignerStore implements IStore<DesignerStoreConfig> {
     }
   }
 }
+
+export default {
+  type: "designerStore",
+  store: DesignerStore,
+} as StoreMeta<DesignerStoreConfig>;

@@ -1,8 +1,8 @@
 import { ContainerRockConfig, RockConfig, Rock, MoveStyleUtils } from "@ruiapp/move-style";
 import { renderRock } from "@ruiapp/react-renderer";
 import React, { useState } from "react";
-import DesignerStore from "../DesignerStore";
-import { sendDesignerCommand } from "../DesignerUtility";
+import { DesignerStore } from "../stores/DesignerStore";
+import { sendDesignerCommand } from "../utilities/DesignerUtility";
 
 export interface PropSetterProps extends ContainerRockConfig {
   $type: "propSetter",

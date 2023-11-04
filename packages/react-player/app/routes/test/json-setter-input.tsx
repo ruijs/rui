@@ -1,7 +1,7 @@
 import { Framework, PageConfig, MoveStyleUtils, Rock, RockEvent, Page } from "@ruiapp/move-style";
 import { Rui } from "@ruiapp/react-renderer";
 import { HtmlElement, Box, Label, Text, Show } from "@ruiapp/react-rocks";
-import { DesignerRocks, DesignerStore, DesignerUtility } from "@ruiapp/react-designer";
+import { DesignerRocks, DesignerStore, DesignerUtility } from "@ruiapp/designer-extension";
 import AntdExtension from "@ruiapp/antd-extension";
 import MonacoExtension from "@ruiapp/monaco-extension";
 import { useState } from "react";

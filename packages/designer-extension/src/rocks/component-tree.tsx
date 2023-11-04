@@ -1,7 +1,7 @@
 import { Framework, Page, PageConfig, PageWithoutLayoutConfig, RockConfig, RockConfigBase, RockEvent, RockEventHandlerScript, Rock } from "@ruiapp/move-style";
 import { renderRock } from "@ruiapp/react-renderer";
 import { useCallback, useMemo } from "react";
-import DesignerStore from "../DesignerStore";
+import { DesignerStore } from "../stores/DesignerStore";
 
 export interface ComponentTreeProps extends RockConfigBase {
   designingPage: Page;

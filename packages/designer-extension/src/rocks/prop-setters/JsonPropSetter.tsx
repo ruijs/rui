@@ -3,7 +3,7 @@ import { renderRock } from "@ruiapp/react-renderer";
 import { isUndefined } from "lodash";
 import { ExpressionPropSetterProps } from "../internal-prop-setters/ExpressionPropSetter";
 import { SingleControlPropSetterProps } from "../internal-prop-setters/SingleControlPropSetter";
-import { getComponentPropValue } from "../SetterUtility";
+import { getComponentPropValue } from "../../utilities/SetterUtility";
 
 export interface JsonPropSetterProps extends TextRockPropSetter {
   $id: string;

@@ -1,9 +1,9 @@
 import { RockConfig, RockEvent, RockEventHandlerScript, Rock, ExpressionRockPropSetter } from "@ruiapp/move-style";
 import { renderRock } from "@ruiapp/react-renderer";
 import { useMemo } from "react";
-import DesignerStore from "../DesignerStore";
-import { sendDesignerCommand } from "../DesignerUtility";
-import { PropSetterProps } from "../rocks/PropSetter";
+import { DesignerStore } from "../../stores/DesignerStore";
+import { sendDesignerCommand } from "../../utilities/DesignerUtility";
+import { PropSetterProps } from "../PropSetter";
 
 export interface ExpressionPropSetterProps extends ExpressionRockPropSetter {
   $id: string;

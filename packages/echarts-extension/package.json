@@ -1,6 +1,6 @@
 {
   "name": "@ruiapp/echarts-extension",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "",
   "main": "dist/mod.js",
   "scripts": {
@@ -31,8 +31,8 @@
     "react-dom": "^18.2.0"
   },
   "dependencies": {
-    "@ruiapp/move-style": "workspace:^0.0.1",
-    "@ruiapp/react-renderer": "workspace:^0.0.1",
+    "@ruiapp/move-style": "workspace:^",
+    "@ruiapp/react-renderer": "workspace:^",
     "echarts-for-react": "^3.0.2"
   }
 }
