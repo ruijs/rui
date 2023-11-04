@@ -1,5 +1,5 @@
-import { Rock, RockConfig } from "@ruijs/move-style";
-import { renderRockSlot, renderRockChildren, renderRock } from "@ruijs/react-renderer";
+import { Rock, RockConfig } from "@ruiapp/move-style";
+import { renderRockSlot, renderRockChildren, renderRock } from "@ruiapp/react-renderer";
 import { Descriptions, DescriptionsProps } from "antd";
 import RapidDescriptionsRendererMeta from "./RapidDescriptionsRendererMeta";
 import { RapidDescriptionsRockConfig } from "./rapid-descriptions-renderer-types";

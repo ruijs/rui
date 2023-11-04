@@ -1,7 +1,7 @@
-import { RockConfig, Rock, MoveStyleUtils, RockInstanceContext } from "@ruijs/move-style";
+import { RockConfig, Rock, MoveStyleUtils, RockInstanceContext } from "@ruiapp/move-style";
 import React from "react";
 import AntdRocksMeta from "./AntdRocksMeta";
-import { convertToEventHandlers, convertToSlotProps, renderRockChildren } from "@ruijs/react-renderer";
+import { convertToEventHandlers, convertToSlotProps, renderRockChildren } from "@ruiapp/react-renderer";
 
 export function convertAntdComponentToRock(antdComponent: React.Component, rockType: string) {
   return {

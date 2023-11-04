@@ -1,5 +1,5 @@
-import type { RockConfig, Rock, SimpleRockConfig } from "@ruijs/move-style";
-import { renderRockChildren } from "@ruijs/react-renderer";
+import type { RockConfig, Rock, SimpleRockConfig } from "@ruiapp/move-style";
+import { renderRockChildren } from "@ruiapp/react-renderer";
 import { each } from "lodash";
 
 export interface ListProps extends SimpleRockConfig {

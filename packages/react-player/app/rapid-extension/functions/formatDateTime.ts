@@ -1,5 +1,5 @@
-import type { FunctionMeta } from "@ruijs/move-style";
-import { formatDateTime } from "@ruijs/react-rapid-rocks";
+import type { FunctionMeta } from "@ruiapp/move-style";
+import { formatDateTime } from "@ruiapp/react-rapid-rocks";
 
 export default {
   name: "formatDateTime",

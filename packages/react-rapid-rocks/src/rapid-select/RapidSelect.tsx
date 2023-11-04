@@ -1,4 +1,4 @@
-import { MoveStyleUtils, Rock } from "@ruijs/move-style";
+import { MoveStyleUtils, Rock } from "@ruiapp/move-style";
 import { Select, SelectProps } from "antd";
 import { RapidSelectConfig } from "./rapid-select-types";
 import { get, isObject, map } from "lodash";

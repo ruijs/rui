@@ -1,4 +1,4 @@
-import type { RockEventHandler, RockEventHandlerConfig, SimpleRockConfig } from "@ruijs/move-style";
+import type { RockEventHandler, RockEventHandlerConfig, SimpleRockConfig } from "@ruiapp/move-style";
 
 /**
  * 下拉选择组件

@@ -1,7 +1,7 @@
-import { Framework, Page, PageConfig } from "@ruijs/move-style";
-import { Rui } from "@ruijs/react-renderer";
-import { HtmlElement, Box, Label, Text } from "@ruijs/react-rocks";
-import { AntdRocks } from "@ruijs/antd-rocks";
+import { Framework, Page, PageConfig } from "@ruiapp/move-style";
+import { Rui } from "@ruiapp/react-renderer";
+import { HtmlElement, Box, Label, Text } from "@ruiapp/react-rocks";
+import { AntdRocks } from "@ruiapp/antd-rocks";
 import { useState } from "react";
 
 import styles from "antd/dist/antd.css";

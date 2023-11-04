@@ -1,5 +1,5 @@
-import { EventEmitter, Framework, HttpRequestOptions, IStore, MoveStyleUtils, Page, Scope, StoreConfigBase, StoreMeta } from "@ruijs/move-style";
-import { FindEntityOptions } from "@ruijs/react-rapid-rocks";
+import { EventEmitter, Framework, HttpRequestOptions, IStore, MoveStyleUtils, Page, Scope, StoreConfigBase, StoreMeta } from "@ruiapp/move-style";
+import { FindEntityOptions } from "@ruiapp/react-rapid-rocks";
 import { cloneDeep, find, set } from "lodash";
 import { SdRpdEntity } from "~/proton";
 import rapidAppDefinition from "~/rapidAppDefinition";

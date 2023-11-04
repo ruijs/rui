@@ -1,8 +1,8 @@
-import { MoveStyleUtils, Rock, RockConfig } from "@ruijs/move-style";
+import { MoveStyleUtils, Rock, RockConfig } from "@ruiapp/move-style";
 import RapidArrayRendererMeta from "./RapidArrayRendererMeta";
 import { RapidArrayRendererRockConfig } from "./rapid-array-renderer-types";
 import { map } from "lodash";
-import { renderRock } from "@ruijs/react-renderer";
+import { renderRock } from "@ruiapp/react-renderer";
 
 export default {
   $type: "rapidObjectRenderer",

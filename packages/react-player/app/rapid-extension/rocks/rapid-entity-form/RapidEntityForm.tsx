@@ -1,11 +1,11 @@
-import type { RockEvent, Rock, RockEventHandler, FieldValueType } from "@ruijs/move-style";
-import { handleComponentEvent } from "@ruijs/move-style";
-import { renderRock } from "@ruijs/react-renderer";
+import type { RockEvent, Rock, RockEventHandler, FieldValueType } from "@ruiapp/move-style";
+import { handleComponentEvent } from "@ruiapp/move-style";
+import { renderRock } from "@ruiapp/react-renderer";
 import RapidEntityFormMeta from "./RapidEntityFormMeta";
 import type { RapidEntityFormRockConfig } from "./rapid-entity-form-types";
 import { filter, find, map, uniq } from "lodash";
 import rapidAppDefinition from "~/rapidAppDefinition";
-import type { RapidFormItemConfig, RapidFormItemType, RapidFormRockConfig, RapidReferenceRendererConfig, RapidSelectConfig } from "@ruijs/react-rapid-rocks";
+import type { RapidFormItemConfig, RapidFormItemType, RapidFormRockConfig, RapidReferenceRendererConfig, RapidSelectConfig } from "@ruiapp/react-rapid-rocks";
 import type { RemoveField } from "~/types/type-utils";
 import type { BlockDataFormItem, SdRpdDataDictionary, SdRpdEntity, SdRpdField, SdRpdFieldType } from "~/proton";
 import { generateRockConfigOfError } from "~/rock-generators/generateRockConfigOfError";

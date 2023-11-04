@@ -1,6 +1,6 @@
-import type { RapidFormAction, RapidFormActionType, RapidFormConfig, RapidFormItemConfig, RapidFormItemType } from "@ruijs/react-rapid-rocks";
+import type { RapidFormAction, RapidFormActionType, RapidFormConfig, RapidFormItemConfig, RapidFormItemType } from "@ruiapp/react-rapid-rocks";
 import type { PageAction } from "./page-action-types";
-import type { RockPageEventSubscriptionConfig, RockPropExpressions } from "@ruijs/move-style";
+import type { RockPageEventSubscriptionConfig, RockPropExpressions } from "@ruiapp/move-style";
 
 export interface BlockDataForm extends RapidFormConfig {
   type: "dataForm";

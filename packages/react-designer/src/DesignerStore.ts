@@ -1,4 +1,4 @@
-import { EventEmitter, Framework, IStore, Page, PageCommand, PageConfig, RockConfig, StoreConfigBase } from "@ruijs/move-style";
+import { EventEmitter, Framework, IStore, Page, PageCommand, PageConfig, RockConfig, StoreConfigBase } from "@ruiapp/move-style";
 import _ from "lodash";
 
 export interface DesignerStoreConfig extends StoreConfigBase {

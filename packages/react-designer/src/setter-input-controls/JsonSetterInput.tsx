@@ -1,5 +1,5 @@
-import { RockConfig, RockConfigBase, RockEvent, RockEventHandler, RockEventHandlerScript, Rock, MoveStyleUtils } from "@ruijs/move-style";
-import { convertToEventHandlers, renderRockChildren } from "@ruijs/react-renderer";
+import { RockConfig, RockConfigBase, RockEvent, RockEventHandler, RockEventHandlerScript, Rock, MoveStyleUtils } from "@ruiapp/move-style";
+import { convertToEventHandlers, renderRockChildren } from "@ruiapp/react-renderer";
 import { useRef, useState } from "react";
 
 export interface JsonSetterInputProps extends RockConfigBase {

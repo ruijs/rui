@@ -1,5 +1,5 @@
-import type { FunctionMeta } from "@ruijs/move-style";
-import type { SearchFormFilterConfiguration } from "@ruijs/react-rapid-rocks";
+import type { FunctionMeta } from "@ruiapp/move-style";
+import type { SearchFormFilterConfiguration } from "@ruiapp/react-rapid-rocks";
 import { isNull, isUndefined, map } from "lodash";
 
 

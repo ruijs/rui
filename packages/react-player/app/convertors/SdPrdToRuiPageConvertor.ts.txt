@@ -1,4 +1,4 @@
-import type { PageConfig, RockConfig, StoreConfig } from "@ruijs/move-style";
+import type { PageConfig, RockConfig, StoreConfig } from "@ruiapp/move-style";
 import _, { each } from "lodash";
 import { find, map } from "lodash";
 import { PrBlock } from "~/proton";

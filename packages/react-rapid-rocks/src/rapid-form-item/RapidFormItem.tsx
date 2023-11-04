@@ -1,5 +1,5 @@
-import { Rock, RockConfig } from "@ruijs/move-style";
-import { renderRock } from "@ruijs/react-renderer";
+import { Rock, RockConfig } from "@ruiapp/move-style";
+import { renderRock } from "@ruiapp/react-renderer";
 import RapidFormItemMeta from "./RapidFormItemMeta";
 import { RapidFormItemRockConfig } from "./rapid-form-item-types";
 import { RapidFieldType } from "../rapid-types";

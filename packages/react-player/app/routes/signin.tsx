@@ -1,11 +1,11 @@
-import { Framework, MoveStyleUtils, Page, PageConfig, RuiEvent } from "@ruijs/move-style";
-import { Rui } from "@ruijs/react-renderer";
-import { HtmlElement, Box, Label, Text } from "@ruijs/react-rocks";
-import { AntdIconRock, AntdRocks } from "@ruijs/antd-rocks";
+import { Framework, MoveStyleUtils, Page, PageConfig, RuiEvent } from "@ruiapp/move-style";
+import { Rui } from "@ruiapp/react-renderer";
+import { HtmlElement, Box, Label, Text } from "@ruiapp/react-rocks";
+import { AntdIconRock, AntdRocks } from "@ruiapp/antd-rocks";
 import { useState } from "react";
 
 import styles from "antd/dist/antd.css";
-import { RapidFormConfig, RapidFormRockConfig, RapidRocks } from "@ruijs/react-rapid-rocks";
+import { RapidFormConfig, RapidFormRockConfig, RapidRocks } from "@ruiapp/react-rapid-rocks";
 import { message } from "antd";
 import RapidExtension from "~/rapid-extension";
 

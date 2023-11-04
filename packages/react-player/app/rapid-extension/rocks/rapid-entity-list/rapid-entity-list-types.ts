@@ -1,5 +1,5 @@
-import type { RockConfig, RockEventHandlerConfig, SimpleRockConfig } from "@ruijs/move-style";
-import type { EntityFilterOptions, FindEntityOrderByOptions, RapidRecordAction, RapidTableColumnConfig } from "@ruijs/react-rapid-rocks";
+import type { RockConfig, RockEventHandlerConfig, SimpleRockConfig } from "@ruiapp/move-style";
+import type { EntityFilterOptions, FindEntityOrderByOptions, RapidRecordAction, RapidTableColumnConfig } from "@ruiapp/react-rapid-rocks";
 
 export interface RapidEntityListConfig {
   /**

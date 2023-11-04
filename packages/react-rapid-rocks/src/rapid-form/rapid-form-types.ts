@@ -1,4 +1,4 @@
-import { ContainerRockConfig, RockConfig, RockEventHandlerConfig } from "@ruijs/move-style";
+import { ContainerRockConfig, RockConfig, RockEventHandlerConfig } from "@ruiapp/move-style";
 import { RapidFormItemConfig } from "../rapid-form-item/rapid-form-item-types";
 
 export type RapidFormConfig = {

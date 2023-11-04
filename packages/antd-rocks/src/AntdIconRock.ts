@@ -1,6 +1,6 @@
 import * as antdIcons from "@ant-design/icons";
-import { RockMetaProps } from "@ruijs/move-style";
-import { Rock, unitOptions } from "@ruijs/move-style";
+import { RockMetaProps } from "@ruiapp/move-style";
+import { Rock, unitOptions } from "@ruiapp/move-style";
 import React from "react";
 import { isComponentName } from "./utils";
 

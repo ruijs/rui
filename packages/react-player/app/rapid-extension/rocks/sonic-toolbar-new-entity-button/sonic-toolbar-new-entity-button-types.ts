@@ -1,5 +1,5 @@
-import type { SimpleRockConfig } from "@ruijs/move-style";
-import type { RapidToolbarButtonConfig } from "@ruijs/react-rapid-rocks";
+import type { SimpleRockConfig } from "@ruiapp/move-style";
+import type { RapidToolbarButtonConfig } from "@ruiapp/react-rapid-rocks";
 
 export interface SonicToolbarNewEntityButtonConfig extends Omit<RapidToolbarButtonConfig, "actionEventName"> {
 };

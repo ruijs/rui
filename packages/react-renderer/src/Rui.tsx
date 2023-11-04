@@ -1,4 +1,4 @@
-import { Framework, Page } from "@ruijs/move-style";
+import { Framework, Page } from "@ruiapp/move-style";
 import { useEffect } from "react";
 import RuiPage from "./RuiPage";
 

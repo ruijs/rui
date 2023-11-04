@@ -1,4 +1,4 @@
-import type { SimpleRockConfig } from "@ruijs/move-style";
+import type { SimpleRockConfig } from "@ruiapp/move-style";
 import { EChartsReactProps } from "echarts-for-react";
 
 export type EChartsConfig = EChartsReactProps

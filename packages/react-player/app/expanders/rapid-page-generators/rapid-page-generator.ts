@@ -1,7 +1,7 @@
 import type { SdRapidPage, SdRpdMeta, SdRpdPage } from "~/proton";
 import type { GenerateBlockRuiConfigOption, GenerateRuiPageConfigOption, PageRockConfigGenerationContext } from "~/expanders/rui-page-generator-types";
 import { preConfigRapidPage } from "./page-pre-configure";
-import type { PageConfig, RockConfig } from "@ruijs/move-style";
+import type { PageConfig, RockConfig } from "@ruiapp/move-style";
 import { forEach } from "lodash";
 import type { RuiConfigGenerator } from "./block-types";
 import { getBlock } from "./block-manager";

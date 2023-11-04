@@ -1,5 +1,5 @@
 import Antd from "antd";
-import { Rock } from "@ruijs/move-style";
+import { Rock } from "@ruiapp/move-style";
 import { isComponentName } from "./utils";
 import { convertAntdComponentToRock } from "./antd-component-convert";
 

@@ -1,4 +1,4 @@
-import { RockMeta } from "@ruijs/move-style";
+import { RockMeta } from "@ruiapp/move-style";
 
 export default {
   $type: "rapidTableAction",

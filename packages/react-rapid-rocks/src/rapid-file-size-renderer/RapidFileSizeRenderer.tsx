@@ -1,4 +1,4 @@
-import { MoveStyleUtils, Rock } from "@ruijs/move-style";
+import { MoveStyleUtils, Rock } from "@ruiapp/move-style";
 import RapidFileSizeRendererMeta from "./RapidFileSizeRendererMeta";
 import { RapidFileSizeRendererConfig } from "./rapid-file-size-renderer-types";
 import { isNull, isObject, isUndefined } from "lodash";

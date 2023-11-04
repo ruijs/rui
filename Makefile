@@ -1,4 +1,4 @@
-DEPLOY_VERSION ?= $(shell git describe --tags --always)
+DEPLOY_VERSION ?= $(shell date '+%Y%m%d')-$(shell git describe --tags --always)
 REPO = rui
 
 build:

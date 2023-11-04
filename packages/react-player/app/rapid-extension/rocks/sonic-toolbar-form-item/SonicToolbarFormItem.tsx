@@ -1,9 +1,9 @@
-import type { IStore, Rock, RockEvent } from "@ruijs/move-style";
+import type { IStore, Rock, RockEvent } from "@ruiapp/move-style";
 import RapidToolbarFormItemMeta from "./SonicToolbarFormItemMeta";
-import { renderRock } from "@ruijs/react-renderer";
+import { renderRock } from "@ruiapp/react-renderer";
 import type { SonicToolbarFormItemRockConfig } from "./sonic-toolbar-form-item-types";
-import type { SearchFormFilterConfiguration } from "@ruijs/react-rapid-rocks/src/rapid-types";
-import type { RapidFormItemRockConfig } from "@ruijs/react-rapid-rocks/src/rapid-form-item/rapid-form-item-types";
+import type { SearchFormFilterConfiguration } from "@ruiapp/react-rapid-rocks/src/rapid-types";
+import type { RapidFormItemRockConfig } from "@ruiapp/react-rapid-rocks/src/rapid-form-item/rapid-form-item-types";
 
 
 export default {

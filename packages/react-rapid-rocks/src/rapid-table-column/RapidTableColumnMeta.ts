@@ -1,4 +1,4 @@
-import { RockMeta, unitOptions } from "@ruijs/move-style";
+import { RockMeta, unitOptions } from "@ruiapp/move-style";
 
 export default {
   $type: "rapidTableColumn",

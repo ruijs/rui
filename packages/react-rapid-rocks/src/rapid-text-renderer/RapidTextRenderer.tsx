@@ -1,4 +1,4 @@
-import { MoveStyleUtils, Rock } from "@ruijs/move-style";
+import { MoveStyleUtils, Rock } from "@ruiapp/move-style";
 import RapidTextRendererMeta from "./RapidTextRendererMeta";
 import { RapidTextRendererConfig } from "./rapid-text-renderer-types";
 import { isNull, isObject, isUndefined } from "lodash";

@@ -1,5 +1,5 @@
 /// <reference path="../node_modules/monaco-editor/monaco.d.ts" />
-import { Rock, SimpleRockConfig, MoveStyleUtils } from "@ruijs/move-style";
+import { Rock, SimpleRockConfig, MoveStyleUtils } from "@ruiapp/move-style";
 import { MutableRefObject, useEffect, useRef } from "react";
 
 function loadMonacoEditor() {

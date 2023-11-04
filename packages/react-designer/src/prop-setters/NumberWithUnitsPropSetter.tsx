@@ -1,5 +1,5 @@
-import { NumberWithUnitsRockPropSetter, RockConfig, RockEvent, RockEventHandlerScript, Rock, MoveStyleUtils } from "@ruijs/move-style";
-import { renderRock } from "@ruijs/react-renderer";
+import { NumberWithUnitsRockPropSetter, RockConfig, RockEvent, RockEventHandlerScript, Rock, MoveStyleUtils } from "@ruiapp/move-style";
+import { renderRock } from "@ruiapp/react-renderer";
 import { isNull, isString, isUndefined } from "lodash";
 import DesignerStore from "../DesignerStore";
 import { sendDesignerCommand } from "../DesignerUtility";

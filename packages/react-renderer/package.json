@@ -1,5 +1,5 @@
 {
-  "name": "@ruijs/react-renderer",
+  "name": "@ruiapp/react-renderer",
   "version": "0.0.1",
   "description": "Rui widget renderer in React.js",
   "main": "dist/mod.js",
@@ -25,7 +25,7 @@
     "typescript": "^4.8.4"
   },
   "dependencies": {
-    "@ruijs/move-style": "workspace:^0.0.1"
+    "@ruiapp/move-style": "workspace:^0.0.1"
   },
   "peerDependencies": {
     "react": "^18.2.0",

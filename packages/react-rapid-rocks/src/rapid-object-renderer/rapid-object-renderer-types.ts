@@ -1,4 +1,4 @@
-import { SimpleRockConfig } from "@ruijs/move-style";
+import { SimpleRockConfig } from "@ruiapp/move-style";
 
 export interface RapidObjectRendererRockConfig extends SimpleRockConfig {
   value: Record<string, any> | null | undefined;

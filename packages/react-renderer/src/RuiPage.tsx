@@ -1,4 +1,4 @@
-import { Framework, Page, PageWithLayoutConfig, PageWithoutLayoutConfig, RockInstanceContext } from "@ruijs/move-style";
+import { Framework, Page, PageWithLayoutConfig, PageWithoutLayoutConfig, RockInstanceContext } from "@ruiapp/move-style";
 import { useEffect, useState } from "react";
 import { renderRockChildren } from "./renderers";
 

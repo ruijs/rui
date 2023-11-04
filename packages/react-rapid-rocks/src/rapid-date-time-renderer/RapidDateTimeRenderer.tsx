@@ -1,4 +1,4 @@
-import { Rock, SimpleRockConfig } from "@ruijs/move-style";
+import { Rock, SimpleRockConfig } from "@ruiapp/move-style";
 import _, { find } from "lodash";
 import RapidDateTimeRendererMeta from "./RapidDateTimeRendererMeta";
 import dayjs from "dayjs";

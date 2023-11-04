@@ -1,5 +1,5 @@
-import { Rock, ContainerRockConfig, CommonProps } from "@ruijs/move-style";
-import { convertToEventHandlers, renderRockChildren } from "@ruijs/react-renderer";
+import { Rock, ContainerRockConfig, CommonProps } from "@ruiapp/move-style";
+import { convertToEventHandlers, renderRockChildren } from "@ruiapp/react-renderer";
 import React from "react";
 
 export interface HtmlElementProps extends ContainerRockConfig {

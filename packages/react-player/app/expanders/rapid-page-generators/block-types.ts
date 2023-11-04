@@ -1,4 +1,4 @@
-import type { RockConfig } from "@ruijs/move-style";
+import type { RockConfig } from "@ruiapp/move-style";
 import type { GenerateBlockRuiConfigOption, PageRockConfigGenerationContext, Block, SdRpdMeta, SdRpdPageBase } from "~/proton";
 
 export type BlockPreConfigure = (page: SdRpdPageBase, block: Block, meta: SdRpdMeta, configure: BlockPreConfigure) => void;

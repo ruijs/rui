@@ -1,6 +1,6 @@
-import { Rock, RockConfig } from "@ruijs/move-style";
+import { Rock, RockConfig } from "@ruiapp/move-style";
 import RapidToolbarLinkMeta from "./RapidDatePickerMeta";
-import { renderRock } from "@ruijs/react-renderer";
+import { renderRock } from "@ruiapp/react-renderer";
 import { RapidDatePickerRockConfig } from "./rapid-date-picker-types";
 import { isString } from "lodash";
 import dayjs from "dayjs";

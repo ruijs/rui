@@ -1,4 +1,4 @@
-import { MoveStyleUtils, Rock } from "@ruijs/move-style";
+import { MoveStyleUtils, Rock } from "@ruiapp/move-style";
 import { Select, SelectProps, TreeSelect, TreeSelectProps } from "antd";
 import { RapidTreeSelectConfig } from "./rapid-tree-select-types";
 import { get, isObject, map } from "lodash";

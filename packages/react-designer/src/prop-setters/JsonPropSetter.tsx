@@ -1,5 +1,5 @@
-import { TextRockPropSetter, RockConfig, Rock, MoveStyleUtils } from "@ruijs/move-style";
-import { renderRock } from "@ruijs/react-renderer";
+import { TextRockPropSetter, RockConfig, Rock, MoveStyleUtils } from "@ruiapp/move-style";
+import { renderRock } from "@ruiapp/react-renderer";
 import { isUndefined } from "lodash";
 import { ExpressionPropSetterProps } from "../internal-prop-setters/ExpressionPropSetter";
 import { SingleControlPropSetterProps } from "../internal-prop-setters/SingleControlPropSetter";

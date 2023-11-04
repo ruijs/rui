@@ -1,4 +1,4 @@
-import type { RockConfig, SimpleRockConfig, StoreConfig } from "@ruijs/move-style";
+import type { RockConfig, SimpleRockConfig, StoreConfig } from "@ruiapp/move-style";
 
 export interface SonicMainSecondaryLayoutConfig {
   stores?: StoreConfig[];

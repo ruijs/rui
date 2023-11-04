@@ -1,4 +1,4 @@
-import { Rock, SimpleRockConfig, CommonProps } from "@ruijs/move-style";
+import { Rock, SimpleRockConfig, CommonProps } from "@ruiapp/move-style";
 import React from "react";
 import _ from "lodash";
 

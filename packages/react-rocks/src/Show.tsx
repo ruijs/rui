@@ -1,5 +1,5 @@
-import type { ContainerRockConfig, RockConfig, Rock } from "@ruijs/move-style";
-import { renderRockChildren } from "@ruijs/react-renderer";
+import type { ContainerRockConfig, RockConfig, Rock } from "@ruiapp/move-style";
+import { renderRockChildren } from "@ruiapp/react-renderer";
 
 export interface ShowProps extends ContainerRockConfig {
   when: boolean;

@@ -1,4 +1,4 @@
-import type { PageConfig } from "@ruijs/move-style";
+import type { PageConfig } from "@ruiapp/move-style";
 import { generateRockConfigOfError } from "./generateRockConfigOfError";
 
 export function generateRuiPageConfigOfError(error: Error) {

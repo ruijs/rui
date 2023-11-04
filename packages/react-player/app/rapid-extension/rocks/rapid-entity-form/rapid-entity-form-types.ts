@@ -1,5 +1,5 @@
-import type { ContainerRockConfig, RockEventHandlerConfig } from "@ruijs/move-style";
-import type { RapidFormConfig } from "@ruijs/react-rapid-rocks";
+import type { ContainerRockConfig, RockEventHandlerConfig } from "@ruiapp/move-style";
+import type { RapidFormConfig } from "@ruiapp/react-rapid-rocks";
 
 export interface RapidEntityFormConfig extends RapidFormConfig {
   mode?: "view" | "edit" | "new";

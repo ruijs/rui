@@ -1,5 +1,5 @@
 // deprecated
-import { Framework, Page, ScopeState, StoreConfig } from "@ruijs/move-style";
+import { Framework, Page, ScopeState, StoreConfig } from "@ruiapp/move-style";
 import { useEffect, useState } from "react";
 import { renderRockChildren } from "./renderers";
 

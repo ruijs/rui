@@ -1,4 +1,4 @@
-import type { EventAction, Framework, Page, Scope } from "@ruijs/move-style";
+import type { EventAction, Framework, Page, Scope } from "@ruiapp/move-style";
 import { message } from "antd";
 import rapidApi from "~/rapidApi";
 

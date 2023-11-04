@@ -1,5 +1,5 @@
-import type { RockEventHandlerConfig, SimpleRockConfig } from "@ruijs/move-style";
-import type { EntityFilterOptions, FindEntityOrderByOptions, RapidTableColumnConfig, RapidToolbarButtonConfig } from "@ruijs/react-rapid-rocks";
+import type { RockEventHandlerConfig, SimpleRockConfig } from "@ruiapp/move-style";
+import type { EntityFilterOptions, FindEntityOrderByOptions, RapidTableColumnConfig, RapidToolbarButtonConfig } from "@ruiapp/react-rapid-rocks";
 
 export interface SonicToolbarSelectEntityButtonConfig extends Omit<RapidToolbarButtonConfig, "actionEventName"> {
   /**

@@ -1,4 +1,4 @@
-import type { IStore, PageConfig, RockConfig, RockEvent, StoreConfig } from "@ruijs/move-style";
+import type { IStore, PageConfig, RockConfig, RockEvent, StoreConfig } from "@ruiapp/move-style";
 import type { SdRpdSearchFormItem, SdRpdTablePage, SdRpdDataDictionary, SdRpdEntity } from "~/proton";
 import { each, find, forEach, map } from "lodash";
 import type { GenerateRuiPageConfigOption, PageRockConfigGenerationContext } from "~/expanders/rui-page-generator-types";
@@ -7,7 +7,7 @@ import { generateAntdIcon } from "../../../rock-generators/generateAntdIcon";
 import { Modal, message } from "antd";
 import rapidApi from "~/rapidApi";
 import { generateRockConfigForPageBlocks } from "../rapid-page-generator";
-import { SearchFormFilterConfiguration } from "@ruijs/react-rapid-rocks";
+import { SearchFormFilterConfiguration } from "@ruiapp/react-rapid-rocks";
 import { EntityStoreConfig } from "~/rapid-extension/stores/entity-store";
 
 

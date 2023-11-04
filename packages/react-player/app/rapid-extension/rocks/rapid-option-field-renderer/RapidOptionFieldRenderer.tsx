@@ -1,7 +1,7 @@
-import type { Rock, RockConfig } from "@ruijs/move-style";
+import type { Rock, RockConfig } from "@ruiapp/move-style";
 import RapidOptionFieldRendererMeta from "./RapidOptionFieldRendererMeta";
 import type { RapidOptionFieldRendererRockConfig } from "./rapid-option-field-renderer-types";
-import { renderRock } from "@ruijs/react-renderer";
+import { renderRock } from "@ruiapp/react-renderer";
 import { find } from "lodash";
 import rapidAppDefinition from "~/rapidAppDefinition";
 

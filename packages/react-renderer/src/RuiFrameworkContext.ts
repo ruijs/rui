@@ -1,4 +1,4 @@
-import { Framework } from "@ruijs/move-style";
+import { Framework } from "@ruiapp/move-style";
 import { createContext, useContext } from "react";
 
 export const RuiFrameworkContext = createContext<Framework>(null);

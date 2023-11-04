@@ -1,4 +1,4 @@
-import type { Rock } from "@ruijs/move-style";
+import type { Rock } from "@ruiapp/move-style";
 import RapidTextRenderer from "./rapid-text-renderer/RapidTextRenderer";
 import RapidBoolRenderer from "./rapid-bool-renderer/RapidBoolRenderer";
 import RapidDateTimeRenderer from "./rapid-date-time-renderer/RapidDateTimeRenderer";

@@ -1,4 +1,4 @@
-import { Page } from "@ruijs/move-style";
+import { Page } from "@ruiapp/move-style";
 import { createContext, useContext } from "react";
 
 export const RuiPageContext = createContext<Page>(null);

@@ -1,4 +1,4 @@
-import { MoveStyleUtils, Rock } from "@ruijs/move-style";
+import { MoveStyleUtils, Rock } from "@ruiapp/move-style";
 import RapidObjectRendererMeta from "./RapidObjectRendererMeta";
 import { RapidObjectRendererRockConfig } from "./rapid-object-renderer-types";
 

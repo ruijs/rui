@@ -1,8 +1,8 @@
-import { Framework, PageConfig, MoveStyleUtils, Rock, RockEvent, Page } from "@ruijs/move-style";
-import { Rui } from "@ruijs/react-renderer";
-import { HtmlElement, Box, Label, Text, Show, CodeEditor } from "@ruijs/react-rocks";
-import { DesignerRocks, DesignerStore, DesignerUtility } from "@ruijs/react-designer";
-import { AntdRocks } from "@ruijs/antd-rocks";
+import { Framework, PageConfig, MoveStyleUtils, Rock, RockEvent, Page } from "@ruiapp/move-style";
+import { Rui } from "@ruiapp/react-renderer";
+import { HtmlElement, Box, Label, Text, Show, CodeEditor } from "@ruiapp/react-rocks";
+import { DesignerRocks, DesignerStore, DesignerUtility } from "@ruiapp/react-designer";
+import { AntdRocks } from "@ruiapp/antd-rocks";
 import { useState } from "react";
 import { Modal } from "antd";
 

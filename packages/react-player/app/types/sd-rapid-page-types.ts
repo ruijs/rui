@@ -1,10 +1,10 @@
-import type { RockEventHandler, RockPropExpressions } from "@ruijs/move-style";
+import type { RockEventHandler, RockPropExpressions } from "@ruiapp/move-style";
 import type { BlockSearchForm } from "./block-search-form-types";
 import type { BlockPageToolbar } from "./block-toolbar-types";
 import type { Block, BlockDataForm, BlockDataFormItem } from "./block-types";
 import type { RemoveField } from "./type-utils";
 import type { BlockEntityList } from "./block-entity-list-types";
-import type { RapidFormItemConfig, RapidFormItemType } from "@ruijs/react-rapid-rocks";
+import type { RapidFormItemConfig, RapidFormItemType } from "@ruiapp/react-rapid-rocks";
 import type { PrRapidPage } from "./pr-types";
 
 export type SdRpdPage =

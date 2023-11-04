@@ -1,4 +1,4 @@
-import { RockChildrenConfig, SimpleRockConfig } from "@ruijs/move-style";
+import { RockChildrenConfig, SimpleRockConfig } from "@ruiapp/move-style";
 import { RapidFieldType } from "../rapid-entity-types";
 
 /**

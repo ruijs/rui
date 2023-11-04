@@ -1,4 +1,4 @@
-import { Rock, SimpleRockConfig } from "@ruijs/move-style";
+import { Rock, SimpleRockConfig } from "@ruiapp/move-style";
 import RapidBoolRendererMeta from "./RapidBoolRendererMeta";
 
 export interface RapidReferenceRendererProps extends SimpleRockConfig {

@@ -2,7 +2,7 @@
  * 针对 Rapid 后端低代码服务进行系统设计的类型定义
  */
 
-import { RapidDataDictionary, RapidDataDictionaryEntry, RapidFieldType } from "@ruijs/react-rapid-rocks";
+import { RapidDataDictionary, RapidDataDictionaryEntry, RapidFieldType } from "@ruiapp/react-rapid-rocks";
 
 export type SdRpdEntity<TEntityCodes = string> = {
   /**

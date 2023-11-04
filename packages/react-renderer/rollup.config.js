@@ -14,7 +14,7 @@ export default {
         typescript(),
     ],
     external: [
-        "@ruijs/move-style",
+        "@ruiapp/move-style",
         "lodash",
         "react",
         "react/jsx-runtime"

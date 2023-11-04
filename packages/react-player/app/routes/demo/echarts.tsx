@@ -1,8 +1,8 @@
-import { Framework, PageConfig, MoveStyleUtils, Page } from "@ruijs/move-style";
-import { Rui } from "@ruijs/react-renderer";
-import { HtmlElement, Box, Label, Text, Show } from "@ruijs/react-rocks";
-import { AntdRocks } from "@ruijs/antd-rocks";
-import EChartsExtension from "@ruijs/echarts-extension";
+import { Framework, PageConfig, MoveStyleUtils, Page } from "@ruiapp/move-style";
+import { Rui } from "@ruiapp/react-renderer";
+import { HtmlElement, Box, Label, Text, Show } from "@ruiapp/react-rocks";
+import { AntdRocks } from "@ruiapp/antd-rocks";
+import EChartsExtension from "@ruiapp/echarts-extension";
 import { useState } from "react";
 
 import antdStyles from "antd/dist/antd.css";

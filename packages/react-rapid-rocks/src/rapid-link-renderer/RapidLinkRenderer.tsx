@@ -1,7 +1,7 @@
-import { MoveStyleUtils, Rock, RockConfig } from "@ruijs/move-style";
+import { MoveStyleUtils, Rock, RockConfig } from "@ruiapp/move-style";
 import RapidLinkRendererMeta from "./RapidLinkRendererMeta";
 import { RapidLinkRendererRockConfig } from "./rapid-link-renderer-types";
-import { renderRock } from "@ruijs/react-renderer";
+import { renderRock } from "@ruiapp/react-renderer";
 
 export default {
   $type: "rapidLinkRenderer",

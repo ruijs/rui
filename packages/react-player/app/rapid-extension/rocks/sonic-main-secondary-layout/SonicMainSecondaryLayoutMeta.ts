@@ -1,4 +1,4 @@
-import type { RockMeta } from "@ruijs/move-style";
+import type { RockMeta } from "@ruiapp/move-style";
 
 
 export default {

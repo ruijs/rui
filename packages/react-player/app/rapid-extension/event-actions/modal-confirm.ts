@@ -1,4 +1,4 @@
-import { handleComponentEvent, type EventAction, type Framework, type Page, type Scope } from "@ruijs/move-style";
+import { handleComponentEvent, type EventAction, type Framework, type Page, type Scope } from "@ruiapp/move-style";
 import { Modal } from "antd";
 
 export interface RockEventHandlerModalConfirm {

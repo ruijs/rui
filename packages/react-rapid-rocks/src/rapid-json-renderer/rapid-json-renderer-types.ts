@@ -1,4 +1,4 @@
-import { SimpleRockConfig } from "@ruijs/move-style";
+import { SimpleRockConfig } from "@ruiapp/move-style";
 
 export type RapidJsonRendererConfig = {
   value: any;

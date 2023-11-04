@@ -1,5 +1,5 @@
-import { handleComponentEvent, type Rock, type RockConfig } from "@ruijs/move-style";
-import { renderRock } from "@ruijs/react-renderer";
+import { handleComponentEvent, type Rock, type RockConfig } from "@ruiapp/move-style";
+import { renderRock } from "@ruiapp/react-renderer";
 import RapidEntityListMeta from "./SonicMainSecondaryLayoutMeta";
 import type { SonicMainSecondaryLayoutRockConfig } from "./sonic-main-secondary-layout-types";
 import { each, map } from "lodash";

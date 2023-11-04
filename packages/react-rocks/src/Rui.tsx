@@ -1,5 +1,5 @@
-import { Framework, Page, PageConfig, Rock, SimpleRockConfig } from "@ruijs/move-style";
-import { Rui } from "@ruijs/react-renderer";
+import { Framework, Page, PageConfig, Rock, SimpleRockConfig } from "@ruiapp/move-style";
+import { Rui } from "@ruiapp/react-renderer";
 import _ from "lodash";
 
 export interface RuiProps extends SimpleRockConfig {

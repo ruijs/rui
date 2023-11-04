@@ -1,10 +1,10 @@
 import type { GenerateBlockRuiConfigOption, PageRockConfigGenerationContext, SdRpdMeta, BlockDataForm, SdRpdFieldType, BlockFormItemType, SdRpdPageBase, SdRpdEntity, SdRpdDataDictionary, BlockDataFormItem } from "~/proton";
 import type { BlockComponent, BlockPreConfigure, RuiConfigGenerator } from "../block-types";
-import type { RockEvent, RockConfig, StoreConfig, RockEventHandler } from "@ruijs/move-style";
-import { handleComponentEvent } from "@ruijs/move-style";
+import type { RockEvent, RockConfig, StoreConfig, RockEventHandler } from "@ruiapp/move-style";
+import { handleComponentEvent } from "@ruiapp/move-style";
 import { find, set  } from "lodash";
 import { generateRockConfigOfError } from "~/rock-generators/generateRockConfigOfError";
-import type { RapidFormItemConfig, RapidFormRockConfig, RapidReferenceRendererConfig, RapidSelectConfig } from "@ruijs/react-rapid-rocks";
+import type { RapidFormItemConfig, RapidFormRockConfig, RapidReferenceRendererConfig, RapidSelectConfig } from "@ruiapp/react-rapid-rocks";
 import type { RemoveField } from "~/types/type-utils";
 import type { RapidEntityFormRockConfig } from "~/rapid-extension/rocks";
 import { EntityStoreConfig } from "~/rapid-extension/stores/entity-store";

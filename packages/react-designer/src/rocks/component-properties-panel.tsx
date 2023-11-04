@@ -1,5 +1,5 @@
-import { Page, RockConfig, Rock } from "@ruijs/move-style";
-import { renderRockChildren } from "@ruijs/react-renderer";
+import { Page, RockConfig, Rock } from "@ruiapp/move-style";
+import { renderRockChildren } from "@ruiapp/react-renderer";
 import { useMemo } from "react";
 
 export interface DesignerComponentPropertiesPanelProps {

@@ -14,10 +14,10 @@ importers:
 
   packages/antd-rocks:
     dependencies:
-      '@ruijs/move-style':
+      '@ruiapp/move-style':
         specifier: workspace:^0.0.1
         version: link:../move-style
-      '@ruijs/react-renderer':
+      '@ruiapp/react-renderer':
         specifier: workspace:^0.0.1
         version: link:../react-renderer
     devDependencies:
@@ -60,10 +60,10 @@ importers:
 
   packages/echarts-extension:
     dependencies:
-      '@ruijs/move-style':
+      '@ruiapp/move-style':
         specifier: workspace:^0.0.1
         version: link:../move-style
-      '@ruijs/react-renderer':
+      '@ruiapp/react-renderer':
         specifier: workspace:^0.0.1
         version: link:../react-renderer
       echarts-for-react:
@@ -134,10 +134,10 @@ importers:
 
   packages/react-designer:
     dependencies:
-      '@ruijs/move-style':
+      '@ruiapp/move-style':
         specifier: workspace:^0.0.1
         version: link:../move-style
-      '@ruijs/react-renderer':
+      '@ruiapp/react-renderer':
         specifier: workspace:^0.0.1
         version: link:../react-renderer
     devDependencies:
@@ -186,25 +186,25 @@ importers:
       '@remix-run/react':
         specifier: ^1.7.2
         version: 1.7.2(react-dom@18.2.0)(react@18.2.0)
-      '@ruijs/antd-rocks':
+      '@ruiapp/antd-rocks':
         specifier: workspace:^0.0.1
         version: link:../antd-rocks
-      '@ruijs/echarts-extension':
+      '@ruiapp/echarts-extension':
         specifier: workspace:^0.0.1
         version: link:../echarts-extension
-      '@ruijs/move-style':
+      '@ruiapp/move-style':
         specifier: workspace:^0.0.1
         version: link:../move-style
-      '@ruijs/react-designer':
+      '@ruiapp/react-designer':
         specifier: workspace:^0.0.1
         version: link:../react-designer
-      '@ruijs/react-rapid-rocks':
+      '@ruiapp/react-rapid-rocks':
         specifier: workspace:^0.0.1
         version: link:../react-rapid-rocks
-      '@ruijs/react-renderer':
+      '@ruiapp/react-renderer':
         specifier: workspace:^0.0.1
         version: link:../react-renderer
-      '@ruijs/react-rocks':
+      '@ruiapp/react-rocks':
         specifier: workspace:^0.0.1
         version: link:../react-rocks
       antd:
@@ -307,10 +307,10 @@ importers:
 
   packages/react-rapid-rocks:
     dependencies:
-      '@ruijs/move-style':
+      '@ruiapp/move-style':
         specifier: workspace:^0.0.1
         version: link:../move-style
-      '@ruijs/react-renderer':
+      '@ruiapp/react-renderer':
         specifier: workspace:^0.0.1
         version: link:../react-renderer
       react-json-view:
@@ -359,7 +359,7 @@ importers:
 
   packages/react-renderer:
     dependencies:
-      '@ruijs/move-style':
+      '@ruiapp/move-style':
         specifier: workspace:^0.0.1
         version: link:../move-style
     devDependencies:
@@ -399,10 +399,10 @@ importers:
 
   packages/react-rocks:
     dependencies:
-      '@ruijs/move-style':
+      '@ruiapp/move-style':
         specifier: workspace:^0.0.1
         version: link:../move-style
-      '@ruijs/react-renderer':
+      '@ruiapp/react-renderer':
         specifier: workspace:^0.0.1
         version: link:../react-renderer
       monaco-editor:

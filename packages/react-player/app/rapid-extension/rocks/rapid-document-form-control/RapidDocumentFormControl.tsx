@@ -1,8 +1,8 @@
-import type { Rock } from "@ruijs/move-style";
+import type { Rock } from "@ruiapp/move-style";
 import RapidToolbarLinkMeta from "./RapidDocumentFormControlMeta";
-import { renderRock } from "@ruijs/react-renderer";
+import { renderRock } from "@ruiapp/react-renderer";
 import type { RapidDocumentFormControlRockConfig } from "./rapid-document-form-control-types";
-import { RapidUploaderFormInputRockConfig } from "@ruijs/react-rapid-rocks";
+import { RapidUploaderFormInputRockConfig } from "@ruiapp/react-rapid-rocks";
 
 
 export default {

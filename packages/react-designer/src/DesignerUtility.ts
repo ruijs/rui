@@ -1,4 +1,4 @@
-import { IPage, PageCommand } from "@ruijs/move-style";
+import { IPage, PageCommand } from "@ruiapp/move-style";
 import DesignerStore from "./DesignerStore";
 
 export function sendDesignerCommand(designerPage: IPage, designerStore: DesignerStore, command: PageCommand) {

@@ -1,5 +1,5 @@
-import type { RockMeta } from "@ruijs/move-style";
-import { RapidRocks } from "@ruijs/react-rapid-rocks";
+import type { RockMeta } from "@ruiapp/move-style";
+import { RapidRocks } from "@ruiapp/react-rapid-rocks";
 
 
 export default {

@@ -1,5 +1,5 @@
-import type { PageConfig, RockConfig, RockEvent, StoreConfig } from "@ruijs/move-style";
-import { handleComponentEvent } from "@ruijs/move-style";
+import type { PageConfig, RockConfig, RockEvent, StoreConfig } from "@ruiapp/move-style";
+import { handleComponentEvent } from "@ruiapp/move-style";
 import type { SdRpdDataFormItem, SdRpdDetailsPage, SdRpdDataDictionary, SdRpdEntity } from "~/proton";
 import { find, map } from "lodash";
 import type { GenerateRuiPageConfigOption, PageRockConfigGenerationContext } from "~/expanders/rui-page-generator-types";

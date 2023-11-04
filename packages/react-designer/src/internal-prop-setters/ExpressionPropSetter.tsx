@@ -1,5 +1,5 @@
-import { RockConfig, RockEvent, RockEventHandlerScript, Rock, ExpressionRockPropSetter } from "@ruijs/move-style";
-import { renderRock } from "@ruijs/react-renderer";
+import { RockConfig, RockEvent, RockEventHandlerScript, Rock, ExpressionRockPropSetter } from "@ruiapp/move-style";
+import { renderRock } from "@ruiapp/react-renderer";
 import { useMemo } from "react";
 import DesignerStore from "../DesignerStore";
 import { sendDesignerCommand } from "../DesignerUtility";

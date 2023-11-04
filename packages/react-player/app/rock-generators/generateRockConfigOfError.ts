@@ -1,4 +1,4 @@
-import type { SimpleRockConfig } from "@ruijs/move-style";
+import type { SimpleRockConfig } from "@ruiapp/move-style";
 
 export function generateRockConfigOfError(error: Error | string) {
   const rockConfig: SimpleRockConfig  = {

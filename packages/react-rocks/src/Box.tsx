@@ -1,5 +1,5 @@
-import { Rock, RockEventHandler, ContainerRockConfig, CommonProps, handleComponentEvent } from "@ruijs/move-style";
-import { renderRockChildren } from "@ruijs/react-renderer"
+import { Rock, RockEventHandler, ContainerRockConfig, CommonProps, handleComponentEvent } from "@ruiapp/move-style";
+import { renderRockChildren } from "@ruiapp/react-renderer"
 import { assign, pick } from "lodash";
 
 export interface BoxProps extends ContainerRockConfig {

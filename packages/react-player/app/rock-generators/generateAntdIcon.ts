@@ -1,4 +1,4 @@
-import type { RockConfig } from "@ruijs/move-style";
+import type { RockConfig } from "@ruiapp/move-style";
 
 export function generateAntdIcon(option: any) {
   const rock: RockConfig = {

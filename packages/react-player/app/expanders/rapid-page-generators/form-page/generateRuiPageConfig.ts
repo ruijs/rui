@@ -1,4 +1,4 @@
-import type { PageConfig } from "@ruijs/move-style";
+import type { PageConfig } from "@ruiapp/move-style";
 import type { SdRpdFormPage } from "~/proton";
 import { find } from "lodash";
 import type { GenerateRuiPageConfigOption, PageRockConfigGenerationContext } from "~/expanders/rui-page-generator-types";

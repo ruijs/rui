@@ -1,5 +1,5 @@
-import { handleComponentEvent, RockConfig, RockConfigBase, RockEvent, RockEventHandler, RockEventHandlerScript, Rock } from "@ruijs/move-style";
-import { renderRock } from "@ruijs/react-renderer";
+import { handleComponentEvent, RockConfig, RockConfigBase, RockEvent, RockEventHandler, RockEventHandlerScript, Rock } from "@ruiapp/move-style";
+import { renderRock } from "@ruiapp/react-renderer";
 import { useCallback } from "react";
 
 export interface NumberSetterInputProps extends RockConfigBase {

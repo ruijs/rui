@@ -1,6 +1,6 @@
 import type { RapidEntityListConfig } from "~/rapid-extension/rocks/rapid-entity-list/rapid-entity-list-types";
 import { RemoveField } from "./type-utils";
-import { RockPropExpressions } from "@ruijs/move-style";
+import { RockPropExpressions } from "@ruiapp/move-style";
 
 export type BlockEntityList<TBlock=any> = RemoveField<RapidEntityListConfig, "dataSourceCode"> & {
   type: "entityList";

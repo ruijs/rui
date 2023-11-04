@@ -1,5 +1,5 @@
-import { MoveStyleUtils, type Rock, type RockConfig } from "@ruijs/move-style";
-import { renderRock } from "@ruijs/react-renderer";
+import { MoveStyleUtils, type Rock, type RockConfig } from "@ruiapp/move-style";
+import { renderRock } from "@ruiapp/react-renderer";
 import RapidEntityListMeta from "./SonicToolbarSelectEntityButtonMeta";
 import type { SonicToolbarSelectEntityButtonRockConfig } from "./sonic-toolbar-select-entity-button-types";
 import rapidAppDefinition from "~/rapidAppDefinition";

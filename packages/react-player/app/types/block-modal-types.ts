@@ -1,5 +1,5 @@
-import { RockEventHandlerConfig } from "@ruijs/move-style";
-import type { RapidActionButton } from "@ruijs/react-rapid-rocks";
+import { RockEventHandlerConfig } from "@ruiapp/move-style";
+import type { RapidActionButton } from "@ruiapp/react-rapid-rocks";
 
 export type BlockModal<TBlock=any> = {
   type: "modal";

@@ -1,5 +1,5 @@
-import { Page, RockConfig, RockEventHandler, Rock } from "@ruijs/move-style";
-import { renderRock } from "@ruijs/react-renderer";
+import { Page, RockConfig, RockEventHandler, Rock } from "@ruiapp/move-style";
+import { renderRock } from "@ruiapp/react-renderer";
 
 export interface ColorPropSetterProps {
   designingPage: Page;

@@ -1,4 +1,4 @@
-import type { RuiExtension } from "@ruijs/move-style";
+import type { RuiExtension } from "@ruiapp/move-style";
 import rocks from "./rocks";
 import eventActions from "./event-actions";
 import functions from "./functions";

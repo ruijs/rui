@@ -1,6 +1,6 @@
 import type { GenerateBlockRuiConfigOption, PageRockConfigGenerationContext, SdRpdMeta, SdRpdPageBase, BlockEntityList } from "~/proton";
 import type { BlockComponent, BlockPreConfigure, RuiConfigGenerator } from "../block-types";
-import type { RockConfig } from "@ruijs/move-style";
+import type { RockConfig } from "@ruiapp/move-style";
 import type { RapidEntityListRockConfig } from "~/rapid-extension/rocks/rapid-entity-list/rapid-entity-list-types";
 import { get } from "lodash";
 

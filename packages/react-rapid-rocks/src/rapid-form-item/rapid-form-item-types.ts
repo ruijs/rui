@@ -1,4 +1,4 @@
-import { RockPropExpressions, SimpleRockConfig } from "@ruijs/move-style";
+import { RockPropExpressions, SimpleRockConfig } from "@ruiapp/move-style";
 import { FindEntityOptions, RapidFieldType, RapidSearchFormItemFilterMode } from "../rapid-types";
 import { FormItemProps } from "antd";
 

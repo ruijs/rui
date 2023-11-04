@@ -1,6 +1,6 @@
-import { Rock, RockConfig } from "@ruijs/move-style";
+import { Rock, RockConfig } from "@ruiapp/move-style";
 import RapidToolbarMeta from "./RapidToolbarButtonMeta";
-import { renderRock } from "@ruijs/react-renderer";
+import { renderRock } from "@ruiapp/react-renderer";
 import { RapidToolbarButtonRockConfig } from "./rapid-toolbar-button-types";
 
 

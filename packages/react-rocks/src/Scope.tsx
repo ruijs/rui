@@ -1,5 +1,5 @@
-import { Rock, ContainerRockConfig, StoreConfig, Framework, Page, ScopeState } from "@ruijs/move-style";
-import { renderRockChildren } from "@ruijs/react-renderer";
+import { Rock, ContainerRockConfig, StoreConfig, Framework, Page, ScopeState } from "@ruiapp/move-style";
+import { renderRockChildren } from "@ruiapp/react-renderer";
 import { useEffect, useState } from "react";
 
 export interface ScopeProps extends ContainerRockConfig {

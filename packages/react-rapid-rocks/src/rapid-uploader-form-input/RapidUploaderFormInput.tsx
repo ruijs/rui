@@ -1,6 +1,6 @@
-import { Rock, RockConfig, handleComponentEvent } from "@ruijs/move-style";
+import { Rock, RockConfig, handleComponentEvent } from "@ruiapp/move-style";
 import RapidToolbarLinkMeta from "./RapidUploaderFormInputMeta";
-import { renderRock } from "@ruijs/react-renderer";
+import { renderRock } from "@ruiapp/react-renderer";
 import { RapidUploaderFormInputRockConfig } from "./rapid-uploader-form-input-types";
 import { Button, Upload, UploadProps } from "antd";
 import { UploadOutlined } from "@ant-design/icons";

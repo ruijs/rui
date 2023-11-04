@@ -1,5 +1,5 @@
-import { ContainerRockConfig, PageCommand, Rock } from "@ruijs/move-style";
-import { renderRockChildren } from "@ruijs/react-renderer";
+import { ContainerRockConfig, PageCommand, Rock } from "@ruiapp/move-style";
+import { renderRockChildren } from "@ruiapp/react-renderer";
 import { useCallback, useEffect } from "react";
 import DesignerStore from "../DesignerStore";
 

@@ -1,6 +1,6 @@
 import type { GenerateBlockRuiConfigOption, BlockTabs, PageRockConfigGenerationContext, SdRpdMeta, SdRpdPageBase } from "~/proton";
 import type { BlockComponent, BlockPreConfigure, RuiConfigGenerator } from "../block-types";
-import type { RockConfig } from "@ruijs/move-style";
+import type { RockConfig } from "@ruiapp/move-style";
 import { forEach, map } from "lodash";
 
 const block: BlockComponent = {

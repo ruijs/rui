@@ -1,4 +1,4 @@
-import { Scope } from "@ruijs/move-style";
+import { Scope } from "@ruiapp/move-style";
 import { createContext, useContext } from "react";
 
 export const ScopeContext = createContext<Scope>(null);

@@ -1,8 +1,8 @@
-import { MoveStyleUtils, type Rock } from "@ruijs/move-style";
-import { renderRock } from "@ruijs/react-renderer";
+import { MoveStyleUtils, type Rock } from "@ruiapp/move-style";
+import { renderRock } from "@ruiapp/react-renderer";
 import RapidEntityListMeta from "./SonicRecordActionEditEntityMeta";
 import type { SonicRecordActionEditEntityConfig, SonicRecordActionEditEntityRockConfig } from "./sonic-record-action-edit-entity-types";
-import type { RapidTableActionRockConfig } from "@ruijs/react-rapid-rocks";
+import type { RapidTableActionRockConfig } from "@ruiapp/react-rapid-rocks";
 
 export default {
   onInit(context, props) {

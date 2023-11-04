@@ -1,4 +1,4 @@
-import { RockEventHandlerConfig, SimpleRockConfig } from "@ruijs/move-style";
+import { RockEventHandlerConfig, SimpleRockConfig } from "@ruiapp/move-style";
 import { SizeType } from "antd/lib/config-provider/SizeContext";
 import { RapidTableColumnRockConfig } from "../rapid-table-column/rapid-table-column-types";
 

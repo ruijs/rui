@@ -1,8 +1,8 @@
-import { Framework, Page, PageConfig, Rock } from "@ruijs/move-style";
-import { Rui } from "@ruijs/react-renderer";
-import { Rui as RuiRock, ErrorBoundary, Show, HtmlElement, Anchor, Box, Label, List, Scope, Text, CodeEditor } from "@ruijs/react-rocks";
-import { AntdRocks, AntdIconRock } from "@ruijs/antd-rocks";
-import { RapidRocks } from "@ruijs/react-rapid-rocks";
+import { Framework, Page, PageConfig, Rock } from "@ruiapp/move-style";
+import { Rui } from "@ruiapp/react-renderer";
+import { Rui as RuiRock, ErrorBoundary, Show, HtmlElement, Anchor, Box, Label, List, Scope, Text, CodeEditor } from "@ruiapp/react-rocks";
+import { AntdRocks, AntdIconRock } from "@ruiapp/antd-rocks";
+import { RapidRocks } from "@ruiapp/react-rapid-rocks";
 import { useMemo } from "react";
 import _, { find, first } from "lodash";
 import { redirect, type LoaderFunction } from "@remix-run/node";
@@ -15,7 +15,7 @@ import rapidService from "~/rapidService";
 import { generateRuiPage } from "~/expanders/rui-page-generator";
 
 import RapidExtension from "~/rapid-extension";
-import { DesignerRocks } from "@ruijs/react-designer";
+import { DesignerRocks } from "@ruiapp/react-designer";
 import { Avatar, Dropdown, MenuProps, PageHeader, Space } from "antd";
 import { ExportOutlined, UserOutlined } from "@ant-design/icons";
 

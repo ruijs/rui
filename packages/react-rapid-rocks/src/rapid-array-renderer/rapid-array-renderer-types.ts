@@ -1,4 +1,4 @@
-import { RockConfig, SimpleRockConfig } from "@ruijs/move-style";
+import { RockConfig, SimpleRockConfig } from "@ruiapp/move-style";
 
 export interface RapidArrayRendererRockConfig extends SimpleRockConfig {
   value: any[] | null | undefined;

@@ -1,4 +1,4 @@
-import { RockConfig, SimpleRockConfig } from "@ruijs/move-style";
+import { RockConfig, SimpleRockConfig } from "@ruiapp/move-style";
 
 export type RapidReferenceRendererConfig = {
   value?: any;

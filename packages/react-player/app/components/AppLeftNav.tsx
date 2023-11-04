@@ -6,7 +6,7 @@ import { useMemo } from "react";
 import { get } from "lodash";
 import { arrayToTree } from "~/utils/array-utils";
 import React from "react";
-import { MoveStyleUtils } from "@ruijs/move-style";
+import { MoveStyleUtils } from "@ruiapp/move-style";
 
 
 function getMenuItem(label: string, path: string) {

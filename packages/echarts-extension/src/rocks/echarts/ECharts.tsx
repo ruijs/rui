@@ -1,7 +1,7 @@
-import type { Rock, RockConfig } from "@ruijs/move-style";
+import type { Rock, RockConfig } from "@ruiapp/move-style";
 import RapidOptionFieldRendererMeta from "./ECartsMeta";
 import type { EChartsRockConfig } from "./echarts-types";
-import { renderRock } from "@ruijs/react-renderer";
+import { renderRock } from "@ruiapp/react-renderer";
 import { find } from "lodash";
 import EChartsReact, { EChartsReactProps } from "echarts-for-react";
 

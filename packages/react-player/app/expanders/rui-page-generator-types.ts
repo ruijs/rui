@@ -1,4 +1,4 @@
-import type { RockConfig, StoreConfig } from "@ruijs/move-style";
+import type { RockConfig, StoreConfig } from "@ruiapp/move-style";
 import type { Block, SdRpdDataDictionary, SdRpdEntity, SdRpdPage } from "~/proton";
 
 export interface PageRockConfigGenerationContext {

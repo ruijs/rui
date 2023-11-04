@@ -1,6 +1,6 @@
-import { Rock, RockConfig, RockEvent, handleComponentEvent } from "@ruijs/move-style";
+import { Rock, RockConfig, RockEvent, handleComponentEvent } from "@ruiapp/move-style";
 import RapidToolbarMeta from "./RapidTableActionMeta";
-import { renderRock } from "@ruijs/react-renderer";
+import { renderRock } from "@ruiapp/react-renderer";
 import { RapidTableActionRockConfig } from "./rapid-table-action-types";
 import { Modal } from "antd";
 

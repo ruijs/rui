@@ -1,4 +1,4 @@
-import { Rock } from "@ruijs/move-style";
+import { Rock } from "@ruiapp/move-style";
 import RapidJsonRendererMeta from "./RapidJsonRendererMeta";
 import { RapidJsonRendererConfig } from "./rapid-json-renderer-types";
 

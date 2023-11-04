@@ -1,5 +1,5 @@
-import type { FunctionMeta } from "@ruijs/move-style";
-import { formatFileSize } from "@ruijs/react-rapid-rocks";
+import type { FunctionMeta } from "@ruiapp/move-style";
+import { formatFileSize } from "@ruiapp/react-rapid-rocks";
 
 export default {
   name: "formatFileSize",

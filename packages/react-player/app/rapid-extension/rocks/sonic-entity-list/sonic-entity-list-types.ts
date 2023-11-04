@@ -1,4 +1,4 @@
-import type { SimpleRockConfig, StoreConfig } from "@ruijs/move-style";
+import type { SimpleRockConfig, StoreConfig } from "@ruiapp/move-style";
 import type { RapidEntityListConfig } from "../rapid-entity-list/rapid-entity-list-types";
 import type { RapidEntityFormConfig } from "../rapid-entity-form/rapid-entity-form-types";
 
