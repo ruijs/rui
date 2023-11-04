@@ -1,7 +1,8 @@
 import { Framework, PageConfig, MoveStyleUtils, Page } from "@ruiapp/move-style";
 import { Rui } from "@ruiapp/react-renderer";
-import { HtmlElement, Box, Label, Text, Show, CodeEditor } from "@ruiapp/react-rocks";
+import { HtmlElement, Box, Label, Text, Show } from "@ruiapp/react-rocks";
 import { AntdRocks } from "@ruiapp/antd-rocks";
+import MonacoExtension from "@ruiapp/monaco-extension";
 import { useState } from "react";
 
 import antdStyles from "antd/dist/antd.css";
@@ -21,8 +22,8 @@ framework.registerComponent(HtmlElement);
 framework.registerComponent(Box);
 framework.registerComponent(Label);
 framework.registerComponent(Text);
-framework.registerComponent(CodeEditor);
 
+framework.loadExtension(MonacoExtension);
 
 const initialPageConfig: PageConfig = {
   stores: [
@@ -34,7 +35,7 @@ const initialPageConfig: PageConfig = {
       height: "500px",
       children: [
         {
-          $type: "codeEditor"
+          $type: "monacoEditor"
         }
       ],
     }

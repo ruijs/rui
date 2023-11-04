@@ -1,7 +1,8 @@
 import { Framework, Page, PageConfig, RockEvent, Rock, MoveStyleUtils } from "@ruiapp/move-style";
 import { Rui } from "@ruiapp/react-renderer";
-import { Rui as RuiRock, ErrorBoundary, Show, HtmlElement, Box, Label, Text, CodeEditor } from "@ruiapp/react-rocks";
+import { Rui as RuiRock, ErrorBoundary, Show, HtmlElement, Box, Label, Text } from "@ruiapp/react-rocks";
 import { DesignerRocks, DesignerStore } from "@ruiapp/react-designer";
+import MonacoExtension from "@ruiapp/monaco-extension";
 import { AntdIconRock, AntdRocks } from "@ruiapp/antd-rocks";
 import { RapidRocks } from "@ruiapp/react-rapid-rocks";
 import { useCallback, useEffect, useState } from "react";
@@ -25,8 +26,8 @@ framework.registerComponent(HtmlElement);
 framework.registerComponent(Box);
 framework.registerComponent(Label);
 framework.registerComponent(Text);
-framework.registerComponent(CodeEditor);
 
+framework.loadExtension(MonacoExtension);
 framework.loadExtension(RapidExtension);
 
 for(const name in RapidRocks) {

@@ -1,8 +1,9 @@
 import { Framework, PageConfig, MoveStyleUtils, Rock, RockEvent, Page } from "@ruiapp/move-style";
 import { Rui } from "@ruiapp/react-renderer";
-import { HtmlElement, Box, Label, Text, Show, CodeEditor } from "@ruiapp/react-rocks";
+import { HtmlElement, Box, Label, Text, Show } from "@ruiapp/react-rocks";
 import { DesignerRocks, DesignerStore, DesignerUtility } from "@ruiapp/react-designer";
 import { AntdRocks } from "@ruiapp/antd-rocks";
+import MonacoExtension from "@ruiapp/monaco-extension";
 import { useState } from "react";
 import { Modal } from "antd";
 
@@ -25,7 +26,8 @@ framework.registerComponent(HtmlElement);
 framework.registerComponent(Box);
 framework.registerComponent(Label);
 framework.registerComponent(Text);
-framework.registerComponent(CodeEditor);
+
+framework.loadExtension(MonacoExtension);
 
 for(const name in AntdRocks) {
   framework.registerComponent(AntdRocks[name]);

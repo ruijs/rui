@@ -36,9 +36,7 @@ module.exports = {
   externalsType: "commonjs",
   externals: {
     "@ruiapp/move-style": "@ruiapp/move-style",
-    "@ruiapp/react-renderer": "@ruiapp/react-renderer",
     react: 'react',
     'react-dom': 'react-dom',
-    lodash: 'lodash',
   },
 };

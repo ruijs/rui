@@ -1,4 +1,4 @@
-/// <reference path="../node_modules/monaco-editor/monaco.d.ts" />
+/// <reference path="../../node_modules/monaco-editor/monaco.d.ts" />
 import { Rock, SimpleRockConfig, MoveStyleUtils } from "@ruiapp/move-style";
 import { MutableRefObject, useEffect, useRef } from "react";
 
@@ -41,7 +41,7 @@ export interface CodeEditorProps extends SimpleRockConfig {
 }
 
 export default {
-  $type: "codeEditor",
+  $type: "monacoEditor",
 
   slots: {
   },

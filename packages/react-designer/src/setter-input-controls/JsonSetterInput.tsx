@@ -68,7 +68,7 @@ export default {
         children: [
           {
             $id: `${props.$id}-editor`,
-            $type: "codeEditor",
+            $type: "monacoEditor",
             cmds: cmdsEditor,
             width: "100%",
             height: "500px",

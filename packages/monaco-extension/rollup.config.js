@@ -13,11 +13,5 @@ export default {
     plugins: [
         typescript(),
     ],
-    external: [
-        "@ruiapp/move-style",
-        "@ruiapp/react-renderer",
-        "react",
-        "react/jsx-runtime",
-        "lodash"
-    ]
+    external: ["react", "react/jsx-runtime", "events"]
 };

@@ -25,6 +25,7 @@
     "@ruiapp/antd-rocks": "workspace:^0.0.1",
     "@ruiapp/echarts-extension": "workspace:^0.0.1",
     "@ruiapp/move-style": "workspace:^0.0.1",
+    "@ruiapp/monaco-extension": "workspace:^0.0.1",
     "@ruiapp/react-designer": "workspace:^0.0.1",
     "@ruiapp/react-rapid-rocks": "workspace:^0.0.1",
     "@ruiapp/react-renderer": "workspace:^0.0.1",

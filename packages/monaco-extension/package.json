@@ -1,11 +1,11 @@
 {
-  "name": "@ruiapp/react-rocks",
+  "name": "@ruiapp/monaco-extension",
   "version": "0.0.1",
   "description": "",
   "main": "dist/mod.js",
   "scripts": {
     "build": "rimraf dist && rollup --config",
-    "dev": "rollup --config",
+    "dev": "webpack",
     "test": "echo \"Error: no test specified\""
   },
   "keywords": [],
@@ -17,7 +17,6 @@
     "@types/react-dom": "^18.0.6",
     "css-loader": "^6.7.2",
     "file-loader": "^6.2.0",
-    "lodash": "^4.17.21",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "rimraf": "^3.0.2",
@@ -30,7 +29,6 @@
     "webpack-cli": "^5.0.1"
   },
   "peerDependencies": {
-    "lodash": "^4.17.21",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
