@@ -106,6 +106,9 @@ importers:
       axios:
         specifier: ^1.1.2
         version: 1.1.2
+      events:
+        specifier: ^3.3.0
+        version: 3.3.0
       qs:
         specifier: ^6.11.0
         version: 6.11.0
@@ -113,9 +116,6 @@ importers:
       '@types/lodash':
         specifier: ^4.14.186
         version: 4.14.186
-      events:
-        specifier: ^3.3.0
-        version: 3.3.0
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
@@ -6282,7 +6282,6 @@ packages:
   /events@3.3.0:
     resolution: {integrity: sha512-mQw+2fkQbALzQ7V0MY0IqdnXNOeTtP4r0lN9z7AAawCXgqea7bDii20AYrIBrFd/Hx0M2Ocz6S111CaFkUcb0Q==}
     engines: {node: '>=0.8.x'}
-    dev: true
 
   /execa@5.1.1:
     resolution: {integrity: sha512-8uSpZZocAZRBAPIEINJj3Lo9HyGitllczc27Eh5YYojjMFMn8yHMDMaUHE2Jqfq05D/wucwI4JGURyXt1vchyg==}
