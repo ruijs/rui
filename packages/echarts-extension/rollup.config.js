@@ -1,4 +1,6 @@
 import typescript from 'rollup-plugin-typescript2';
+import { nodeResolve } from '@rollup/plugin-node-resolve';
+import commonjs from '@rollup/plugin-commonjs';
 
 export default {
     input: ["src/mod.ts"],
@@ -12,13 +14,13 @@ export default {
     ],
     plugins: [
         typescript(),
+        commonjs(),
+        nodeResolve(),
     ],
     external: [
         "@ruiapp/move-style",
         "@ruiapp/react-renderer",
-        "antd",
         "react",
         "react/jsx-runtime",
-        "events"
     ]
 };
