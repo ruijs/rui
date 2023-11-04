@@ -22,7 +22,7 @@
     "@remix-run/express": "^1.7.2",
     "@remix-run/node": "^1.7.2",
     "@remix-run/react": "^1.7.2",
-    "@ruiapp/antd-rocks": "workspace:^0.0.1",
+    "@ruiapp/antd-extension": "workspace:^0.0.1",
     "@ruiapp/echarts-extension": "workspace:^0.0.1",
     "@ruiapp/move-style": "workspace:^0.0.1",
     "@ruiapp/monaco-extension": "workspace:^0.0.1",

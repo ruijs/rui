@@ -1,7 +1,7 @@
 import { Framework, PageConfig, MoveStyleUtils, Page } from "@ruiapp/move-style";
 import { Rui } from "@ruiapp/react-renderer";
 import { HtmlElement, Box, Label, Text, Show } from "@ruiapp/react-rocks";
-import { AntdRocks } from "@ruiapp/antd-rocks";
+import AntdExtension from "@ruiapp/antd-extension";
 import EChartsExtension from "@ruiapp/echarts-extension";
 import { useState } from "react";
 
@@ -23,11 +23,8 @@ framework.registerComponent(Label);
 framework.registerComponent(Text);
 framework.registerComponent(Show);
 
+framework.loadExtension(AntdExtension);
 framework.loadExtension(EChartsExtension);
-
-for(const name in AntdRocks) {
-  framework.registerComponent(AntdRocks[name]);
-}
 
 
 const initialPageConfig: PageConfig = {

@@ -1,7 +1,7 @@
 import { Framework, Page, PageConfig, Rock } from "@ruiapp/move-style";
 import { Rui } from "@ruiapp/react-renderer";
 import { Rui as RuiRock, ErrorBoundary, Show, HtmlElement, Anchor, Box, Label, List, Scope, Text } from "@ruiapp/react-rocks";
-import { AntdRocks, AntdIconRock } from "@ruiapp/antd-rocks";
+import AntdExtension from "@ruiapp/antd-extension";
 import MonacoExtension from "@ruiapp/monaco-extension";
 import { RapidRocks } from "@ruiapp/react-rapid-rocks";
 import { useMemo } from "react";
@@ -40,19 +40,13 @@ framework.registerComponent(Box);
 framework.registerComponent(Label);
 framework.registerComponent(List);
 
-console.log(MonacoExtension)
-
+framework.loadExtension(AntdExtension);
 framework.loadExtension(MonacoExtension);
 framework.loadExtension(RapidExtension);
 
 for(const name in RapidRocks) {
   framework.registerComponent(RapidRocks[name]);
 }
-
-for(const name in AntdRocks) {
-  framework.registerComponent(AntdRocks[name]);
-}
-framework.registerComponent(AntdIconRock);
 
 for (const name in DesignerRocks) {
   framework.registerComponent((DesignerRocks as Record<string, Rock>)[name]);

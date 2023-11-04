@@ -1,7 +1,7 @@
 import { Framework, PageConfig, MoveStyleUtils, Page } from "@ruiapp/move-style";
 import { Rui } from "@ruiapp/react-renderer";
 import { HtmlElement, Box, Label, Text, Show } from "@ruiapp/react-rocks";
-import { AntdRocks } from "@ruiapp/antd-rocks";
+import AntdExtension from "@ruiapp/antd-extension";
 import MonacoExtension from "@ruiapp/monaco-extension";
 import { useState } from "react";
 
@@ -23,6 +23,7 @@ framework.registerComponent(Box);
 framework.registerComponent(Label);
 framework.registerComponent(Text);
 
+framework.loadExtension(AntdExtension);
 framework.loadExtension(MonacoExtension);
 
 const initialPageConfig: PageConfig = {

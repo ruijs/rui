@@ -3,7 +3,7 @@ import { Rock } from "@ruiapp/move-style";
 import { isComponentName } from "./utils";
 import { convertAntdComponentToRock } from "./antd-component-convert";
 
-const rocks: Record<string, Rock> = {};
+const rocks: Rock[] = [];
 
 function wrapToRocks(prefixName, groupName, componentGroup) {
   for(const componentName in componentGroup) {
@@ -17,7 +17,7 @@ function wrapToRocks(prefixName, groupName, componentGroup) {
 
     const rockType = `${prefixName}${componentName}`;
     const component = componentGroup[componentName];
-    rocks[rockType] = convertAntdComponentToRock(component, rockType);
+    rocks.push(convertAntdComponentToRock(component, rockType));
 
     wrapToRocks(rockType, `${groupName}.${componentName}`, component);
   }

@@ -1,14 +1,14 @@
 import { handleComponentEvent, type EventAction, type Framework, type Page, type Scope } from "@ruiapp/move-style";
 import { Modal } from "antd";
 
-export interface RockEventHandlerModalConfirm {
-  $action: "modalConfirm";
+export interface RockEventHandlerAntdConfirm {
+  $action: "antdConfirm";
   title: string;
   onOk: any;
   onCancel: any;
 }
 
-export async function modalMessage(eventName: string, framework: Framework, page: Page, scope: Scope, sender: any, eventHandler: RockEventHandlerModalConfirm, eventArgs: any) {
+export async function antdMessage(eventName: string, framework: Framework, page: Page, scope: Scope, sender: any, eventHandler: RockEventHandlerAntdConfirm, eventArgs: any) {
   return new Promise((resolve, reject) => {
     Modal.confirm({
       title: eventHandler.title,
@@ -40,6 +40,6 @@ export async function modalMessage(eventName: string, framework: Framework, page
 }
 
 export default {
-  name: "modalConfirm",
-  handler: modalMessage,
-} as EventAction<RockEventHandlerModalConfirm>;
+  name: "antdConfirm",
+  handler: antdMessage,
+} as EventAction<RockEventHandlerAntdConfirm>;

@@ -7,8 +7,8 @@
 - [ ] error handling in HttpRequestStore.loadData
 - [ ] make event handling extensible
 
-## antd-rocks
-- [ ] move antd-component-convert out from antd-rocks package
+## antd-extension
+- [ ] move antd-component-convert out from antd-extension package
 
 ## Rocks
 - [ ] rapid table action should supports icon setting

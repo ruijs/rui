@@ -1,12 +1,12 @@
 import type { EventAction, Framework, Page, Scope } from "@ruiapp/move-style";
 import { Modal } from "antd";
 
-export interface RockEventHandlerModalMessage {
-  $action: "modalMessage";
+export interface RockEventHandlerAntdMessage {
+  $action: "antdMessage";
   title: string;
 }
 
-export async function modalMessage(eventName: string, framework: Framework, page: Page, scope: Scope, sender: any, eventHandler: RockEventHandlerModalMessage, eventArgs: any) {
+export async function antdMessage(eventName: string, framework: Framework, page: Page, scope: Scope, sender: any, eventHandler: RockEventHandlerAntdMessage, eventArgs: any) {
   return new Promise((resolve, reject) => {
     Modal.info({
       title: eventHandler.title,
@@ -22,6 +22,6 @@ export async function modalMessage(eventName: string, framework: Framework, page
 }
 
 export default {
-  name: "modalMessage",
-  handler: modalMessage,
-} as EventAction<RockEventHandlerModalMessage>;
+  name: "antdMessage",
+  handler: antdMessage,
+} as EventAction<RockEventHandlerAntdMessage>;

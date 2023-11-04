@@ -1,7 +1,7 @@
 import { Framework, PageConfig, MoveStyleUtils, Page } from "@ruiapp/move-style";
 import { Rui } from "@ruiapp/react-renderer";
 import { HtmlElement, Box, Label, Text, Show } from "@ruiapp/react-rocks";
-import { AntdRocks } from "@ruiapp/antd-rocks";
+import AntdExtension from "@ruiapp/antd-extension";
 import { useState } from "react";
 
 import antdStyles from "antd/dist/antd.css";
@@ -22,9 +22,7 @@ framework.registerComponent(Label);
 framework.registerComponent(Text);
 framework.registerComponent(Show);
 
-for(const name in AntdRocks) {
-  framework.registerComponent(AntdRocks[name]);
-}
+framework.loadExtension(AntdExtension);
 
 
 const initialPageConfig: PageConfig = {
