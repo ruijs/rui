@@ -72,6 +72,11 @@ export type RockMetaSlot = {
   adapterSlots?: string[];
 
   /**
+   * 表示需要将插槽内组件包装成 render prop
+   */
+  toRenderProp?: boolean;
+
+  /**
    * 表示是否延迟创建插槽内组件。默认为`false`。
    * 
    */

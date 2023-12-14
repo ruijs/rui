@@ -7,6 +7,7 @@ export default {
     titleRender: {
       allowMultiComponents: false,
       required: false,
+      toRenderProp: true,
       argumentsToProps: true,
       argumentNames: ["nodeData"],
     },

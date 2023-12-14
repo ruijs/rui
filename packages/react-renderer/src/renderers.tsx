@@ -1,6 +1,6 @@
 import { ConvertRockEventHandlerPropsOptions, ConvertRockSlotPropsOptions, GenerateRockSlotRendererOptions, handleComponentEvent, RenderRockChildrenOptions, RenderRockOptions, RenderRockSlotOptions, RenderRockSlotWithMetaOptions, Rock, RockInstance, RockInstanceContext, RockMeta, RockMetaSlot, RockMetaSlots, Scope } from "@ruiapp/move-style";
-import { RockEventHandler } from "@ruiapp/move-style";
-import { RockConfig, MoveStyleUtils } from "@ruiapp/move-style";
+import { MoveStyleUtils } from "@ruiapp/move-style";
+import type { RockConfig, RockEventHandler } from "@ruiapp/move-style";
 import { forEach, isArray, isFunction, isString, pick } from "lodash";
 import React from "react";
 
@@ -216,6 +216,33 @@ export function renderSlotWithAdapter(options: RenderRockSlotWithMetaOptions) {
   }
 }
 
+export function renderSlotToRenderProp(options: RenderRockSlotWithMetaOptions) {
+  const {context, slot, slotMeta} = options;
+  if (!slot) {
+    return null;
+  }
+
+  return (...args) => {
+    const slotProps = {};
+    const {argumentsToProps, argumentNames} = slotMeta;
+    if (argumentsToProps && argumentNames) {
+      for (let argIdx = 0; argIdx < argumentNames.length; argIdx++) {
+        slotProps[argumentNames[argIdx]] = args[argIdx];
+      }
+    }
+
+    return renderRockChildren({context,
+      rockChildrenConfig: slot,
+      expVars: {
+        $slot: slotProps,
+      },
+      fixedProps: {
+        $slot: slotProps,
+      }
+    });
+  }
+}
+
 export function convertToSlotProps(options: ConvertRockSlotPropsOptions) {
   const {context, rockConfig, slotsMeta, isEarly} = options;
   const slotProps = {};
@@ -232,6 +259,8 @@ export function convertToSlotProps(options: ConvertRockSlotPropsOptions) {
           if (slotMeta.earlyCreate) {
             if (slotMeta.withAdapter) {
               slotProps[slotName] = renderSlotWithAdapter({context, slotMeta, slot});
+            } else if (slotMeta.toRenderProp) {
+              slotProps[slotName] = renderSlotToRenderProp({context, slotMeta, slot});
             } else {
               slotProps[slotName] = renderRockChildren({context, rockChildrenConfig: slot});
             }
@@ -244,6 +273,8 @@ export function convertToSlotProps(options: ConvertRockSlotPropsOptions) {
           } else {
             if (slotMeta.withAdapter) {
               slotProps[slotName] = renderSlotWithAdapter({context, slotMeta, slot});
+            } else if (slotMeta.toRenderProp) {
+              slotProps[slotName] = renderSlotToRenderProp({context, slotMeta, slot});
             } else {
               slotProps[slotName] = renderRockChildren({context, rockChildrenConfig: slot});
             }

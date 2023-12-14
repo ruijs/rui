@@ -1,6 +1,6 @@
 {
   "name": "@ruiapp/react-renderer",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Rui widget renderer in React.js",
   "main": "dist/mod.js",
   "scripts": {
