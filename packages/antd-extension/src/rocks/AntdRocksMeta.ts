@@ -50,4 +50,7 @@ regMetaOfRocks(Tabs);
 import TabPane from "./rock-meta/TabPane";
 regMetaOfRocks(TabPane);
 
+import Tree from "./rock-meta/Tree";
+regMetaOfRocks(Tree);
+
 export default metaOfRocks;
