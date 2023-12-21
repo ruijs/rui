@@ -1,5 +1,5 @@
-import type { RockConfig, Rock, SimpleRockConfig } from "@ruiapp/move-style";
-import { renderRockChildren } from "@ruiapp/react-renderer";
+import type { RockConfig, Rock, SimpleRockConfig, ContainerRockConfig } from "@ruiapp/move-style";
+import { renderRock, renderRockChildren } from "@ruiapp/react-renderer";
 import { each } from "lodash";
 
 export interface ListProps extends SimpleRockConfig {
@@ -8,6 +8,8 @@ export interface ListProps extends SimpleRockConfig {
   item?: RockConfig;
   separator?: RockConfig;
   footer?: RockConfig;
+  listContainer?: ContainerRockConfig;
+  itemContainer?: ContainerRockConfig;
 }
 
 export default {
@@ -22,6 +24,16 @@ export default {
   ],
 
   slots: {
+    listContainer: {
+      required: false,
+      allowMultiComponents: false,
+    },
+
+    itemContainer: {
+      required: false,
+      allowMultiComponents: false,
+    },
+
     item: {
       required: false,
       allowMultiComponents: false,
@@ -44,7 +56,7 @@ export default {
   },
 
   Renderer(context, props) {
-    const { $id, dataSource, item, separator, header, footer} = props;
+    const { $id, dataSource, item, separator, header, footer, listContainer, itemContainer} = props;
     let children: RockConfig[] = [];
 
     if (header) {
@@ -63,11 +75,25 @@ export default {
           });
         }
 
-        children.push({
-          ...item,
-          $id: `${$id}-item-${index}`,
-          value,
-        });
+        if (itemContainer) {
+          children.push({
+            ...itemContainer,
+            $id: `${$id}-item-${index}-ctnr`,
+            children: {
+              ...item,
+              $id: `${$id}-item-${index}`,
+              value,
+            }
+          });
+        } else {
+          children.push({
+            ...item,
+            $id: `${$id}-item-${index}`,
+            value,
+          });
+        }
+
+
       })
     }
 
@@ -78,9 +104,20 @@ export default {
       });
     }
 
-    return renderRockChildren({context, 
-      rockChildrenConfig: children,
-    });
+    if (listContainer) {
+      return renderRock({
+        context,
+        rockConfig: {
+          ...listContainer,
+          $id: `${$id}-ctnr`,
+          children,
+        },
+      })
+    } else {
+      return renderRockChildren({context, 
+        rockChildrenConfig: children,
+      });
+    }
   },
 
 } as Rock<ListProps>;
