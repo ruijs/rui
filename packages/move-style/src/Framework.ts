@@ -9,6 +9,7 @@ import { Rock } from "./types/rock-types";
 import { IStore, StoreConfig } from "./types/store-types";
 import ruiExp from "./utils/rui-exp";
 import { wrapRenderer } from "./ComponentRenderer";
+import { ConfigProcessor } from "./ConfigProcessor";
 
 export class Framework {
   #storeFactory: StoreFactory;
@@ -16,6 +17,7 @@ export class Framework {
   #functions: Record<string, Function>;
   #eventActionHandlers: Map<string, Function>;
   #expVars: Record<string, any>;
+  #configProcessors: ConfigProcessor[];
   #pages: Map<string, Page>;
   constructor() {
     this.#storeFactory = new StoreFactory();
@@ -26,6 +28,7 @@ export class Framework {
     this.#eventActionHandlers = new Map();
     this.#functions = {};
     this.#expVars = {};
+    this.#configProcessors = [];
     this.#pages = new Map();
 
     this.registerExpressionVar("$rui", ruiExp);
@@ -81,6 +84,14 @@ export class Framework {
     return this.#expVars;
   }
 
+  registerConfigProcessor(processor: ConfigProcessor) {
+    this.#configProcessors.push(processor);
+  }
+
+  getConfigProcessors() {
+    return this.#configProcessors;
+  }
+
   loadExtension(extension: RuiExtension) {
     each(extension.rocks, (rock) => {
       this.registerComponent(rock);
@@ -96,6 +107,10 @@ export class Framework {
 
     each(extension.stores, (store) => {
       this.registerStore(store.type, store.store);
+    });
+
+    each(extension.configProcessors, (configProcessor) => {
+      this.registerConfigProcessor(configProcessor);
     });
   }
 

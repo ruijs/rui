@@ -42,6 +42,13 @@ export function renderRock(options: RenderRockOptions) {
     }
   }
 
+  const configProcessors = framework.getConfigProcessors();
+  for (const configProcessor of configProcessors) {
+    if (configProcessor.beforeRockRender) {
+      configProcessor.beforeRockRender(rockConfig);
+    }
+  }
+
   // TODO: remove $scope from expVars?
   if (expVars) {
     expVars.$scope = scope || page.scope;
