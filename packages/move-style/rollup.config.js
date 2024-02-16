@@ -1,4 +1,5 @@
 import typescript from 'rollup-plugin-typescript2';
+import tscAlias from 'rollup-plugin-tsc-alias';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 
@@ -14,6 +15,7 @@ export default {
     ],
     plugins: [
         typescript(),
+        tscAlias(),
         commonjs(),
         nodeResolve({
             preferBuiltins: false,

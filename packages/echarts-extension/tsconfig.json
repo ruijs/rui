@@ -10,6 +10,10 @@
     "allowJs": true,
     "sourceMap": true,
     "declaration": true,
+    "outDir": "./dist",
+    "paths": {
+      "~/*": ["./src/*"]
+    }
   },
   "references": [
     {

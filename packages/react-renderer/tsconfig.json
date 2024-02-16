@@ -11,6 +11,10 @@
     "sourceMap": true,
     "declaration": true,
     "baseUrl": ".",
+    "outDir": "./dist",
+    "paths": {
+      "~/*": ["./src/*"]
+    }
   },
   "references": [
     {

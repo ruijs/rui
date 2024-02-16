@@ -1,4 +1,4 @@
-import { RockMetaProps } from "src/types/rock-types";
+import { RockMetaProps } from "~/types/rock-types";
 
 export const LayerStyleProps: RockMetaProps = {
   backgroundColor: {

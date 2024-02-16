@@ -1,8 +1,8 @@
-import { Scope } from "src/Scope";
+import { Scope } from "~/Scope";
 import { HttpRequestOptions, HttpRequestInput } from "./request-types";
 import { IStore, StoreConfig, StoreConfigBase } from "./store-types";
-import { Framework } from "src/Framework";
-import { Page } from "src/Page";
+import { Framework } from "~/Framework";
+import { Page } from "~/Page";
 
 export type FieldSettings = {
   valueType: FieldValueType;

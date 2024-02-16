@@ -1,6 +1,6 @@
 {
   "name": "@ruiapp/monaco-extension",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "",
   "main": "dist/mod.js",
   "scripts": {
@@ -21,6 +21,7 @@
     "react-dom": "^18.2.0",
     "rimraf": "^3.0.2",
     "rollup": "^2.79.1",
+    "rollup-plugin-tsc-alias": "^1.1.2",
     "rollup-plugin-typescript2": "^0.34.1",
     "style-loader": "^3.3.1",
     "ts-loader": "^9.4.2",
@@ -29,12 +30,12 @@
     "webpack-cli": "^5.0.1"
   },
   "peerDependencies": {
+    "@ruiapp/move-style": "workspace:^",
+    "@ruiapp/react-renderer": "workspace:^",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
   "dependencies": {
-    "@ruiapp/move-style": "workspace:^",
-    "@ruiapp/react-renderer": "workspace:^",
     "monaco-editor": "0.34.1"
   }
 }

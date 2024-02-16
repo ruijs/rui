@@ -1,3 +1,4 @@
+import tscAlias from 'rollup-plugin-tsc-alias';
 import typescript from 'rollup-plugin-typescript2';
 
 export default {
@@ -12,6 +13,7 @@ export default {
     ],
     plugins: [
         typescript(),
+        tscAlias(),
     ],
     external: ["react", "react/jsx-runtime", "events"]
 };

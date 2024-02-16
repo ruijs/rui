@@ -12,6 +12,9 @@
     "sourceMap": true,
     "declaration": true,
     "outDir": "./dist",
+    "paths": {
+      "~/*": ["./src/*"]
+    }
     // "types": ["node"]
   },
 }
