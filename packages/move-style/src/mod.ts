@@ -10,6 +10,7 @@ export * from "./Framework";
 export * from "./IRenderer";
 export * from "./Page";
 export * from "./Scope";
+export * from "./ConfigProcessor";
 export * as CommonProps from "./common-props";
 
 export * as MoveStyleUtils from "./utils";
