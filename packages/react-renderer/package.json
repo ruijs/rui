@@ -3,6 +3,7 @@
   "version": "0.0.5",
   "description": "Rui widget renderer in React.js",
   "main": "dist/mod.js",
+  "types": "dist/mod.d.ts",
   "scripts": {
     "build": "rimraf dist && rollup --config",
     "dev": "rollup --config",
