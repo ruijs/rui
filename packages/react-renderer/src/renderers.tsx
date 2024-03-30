@@ -103,16 +103,16 @@ export function renderRockChildren(options: RenderRockChildrenOptions) {
 
 
 export function renderRockSlot(options: RenderRockSlotOptions) {
-  const {context, slot, rockType, slotName, args} = options;
+  const {context, slot, rockType, slotPropName, args} = options;
   if (!slot) {
     return null;
   }
 
   const {framework} = context;
   const rockMeta = framework.getComponent(rockType);
-  const slotMeta = rockMeta.slots && rockMeta.slots[slotName];
+  const slotMeta = rockMeta.slots && rockMeta.slots[slotPropName];
   if (!slotMeta) {
-    throw new Error(`Can not render slot content. Slot '${slotName}' of rock '${rockType}' was not found.`);
+    throw new Error(`Can not render slot content. Slot '${slotPropName}' of rock '${rockType}' was not found.`);
   }
 
   const slotProps = {};
@@ -135,16 +135,16 @@ export function renderRockSlot(options: RenderRockSlotOptions) {
 }
 
 export function toRenderRockSlot(options: GenerateRockSlotRendererOptions) {
-  const {context, slot, rockType, slotName} = options;
+  const {context, slot, rockType, slotPropName} = options;
   if (!slot) {
     return null;
   }
 
   const {framework} = context;
   const rockMeta = framework.getComponent(rockType);
-  const slotMeta = rockMeta.slots && rockMeta.slots[slotName];
+  const slotMeta = rockMeta.slots && rockMeta.slots[slotPropName];
   if (!slotMeta) {
-    throw new Error(`Can not render slot content. Slot '${slotName}' of rock '${rockType}' was not found.`);
+    throw new Error(`Can not render slot content. Slot '${slotPropName}' of rock '${rockType}' was not found.`);
   }
 
   return (...args) => {
@@ -195,13 +195,13 @@ export function convertToEventHandlers(options: ConvertRockEventHandlerPropsOpti
 
 export function renderSlotWithAdapter(options: RenderRockSlotWithMetaOptions) {
   const {context, slot, slotMeta, expVars, fixedProps} = options;
-  const adapterSlotNames = slotMeta.adapterSlots || ['children'];
+  const adapterSlotPropNames = slotMeta.adapterSlots || ['children'];
   if (isArray(slot)) {
     const adapters = [];
     forEach(slot, (child) => {
       const adapter = {...child};
-      forEach(adapterSlotNames, (slotName) => {
-        adapter[slotName] = renderRockChildren({context, rockChildrenConfig: adapter[slotName], expVars, fixedProps});
+      forEach(adapterSlotPropNames, (slotPropName) => {
+        adapter[slotPropName] = renderRockChildren({context, rockChildrenConfig: adapter[slotPropName], expVars, fixedProps});
       });
       const eventHandlers = convertToEventHandlers({context, rockConfig: adapter});
       adapters.push({
@@ -212,8 +212,8 @@ export function renderSlotWithAdapter(options: RenderRockSlotWithMetaOptions) {
     return adapters;
   } else {
     const adapter = {...slot};
-    forEach(adapterSlotNames, (slotName) => {
-      adapter[slotName] = renderRockChildren({context, rockChildrenConfig: adapter[slotName], expVars, fixedProps});
+    forEach(adapterSlotPropNames, (slotPropName) => {
+      adapter[slotPropName] = renderRockChildren({context, rockChildrenConfig: adapter[slotPropName], expVars, fixedProps});
     })
     const eventHandlers = convertToEventHandlers({context, rockConfig: adapter});
     return {
@@ -257,33 +257,33 @@ export function convertToSlotProps(options: ConvertRockSlotPropsOptions) {
     return slotProps;
   }
 
-  for (const slotName in slotsMeta) {
+  for (const slotPropName in slotsMeta) {
     // TODO: rename `slot` to `slotConfig`
-    const slot = rockConfig[slotName];
+    const slot = rockConfig[slotPropName];
     if (slot) {
-      const slotMeta = slotsMeta[slotName];
+      const slotMeta = slotsMeta[slotPropName];
         if (isEarly) {
           if (slotMeta.earlyCreate) {
             if (slotMeta.withAdapter) {
-              slotProps[slotName] = renderSlotWithAdapter({context, slotMeta, slot});
+              slotProps[slotPropName] = renderSlotWithAdapter({context, slotMeta, slot});
             } else if (slotMeta.toRenderProp) {
-              slotProps[slotName] = renderSlotToRenderProp({context, slotMeta, slot});
+              slotProps[slotPropName] = renderSlotToRenderProp({context, slotMeta, slot});
             } else {
-              slotProps[slotName] = renderRockChildren({context, rockChildrenConfig: slot});
+              slotProps[slotPropName] = renderRockChildren({context, rockChildrenConfig: slot});
             }
           } else {
-            slotProps[slotName] = slot;
+            slotProps[slotPropName] = slot;
           }
         } else {
           if (slotMeta.lazyCreate) {
-            slotProps[slotName] = slot;
+            slotProps[slotPropName] = slot;
           } else {
             if (slotMeta.withAdapter) {
-              slotProps[slotName] = renderSlotWithAdapter({context, slotMeta, slot});
+              slotProps[slotPropName] = renderSlotWithAdapter({context, slotMeta, slot});
             } else if (slotMeta.toRenderProp) {
-              slotProps[slotName] = renderSlotToRenderProp({context, slotMeta, slot});
+              slotProps[slotPropName] = renderSlotToRenderProp({context, slotMeta, slot});
             } else {
-              slotProps[slotName] = renderRockChildren({context, rockChildrenConfig: slot});
+              slotProps[slotPropName] = renderRockChildren({context, rockChildrenConfig: slot});
             }
           }
         }

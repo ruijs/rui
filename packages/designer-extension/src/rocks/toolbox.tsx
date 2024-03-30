@@ -27,7 +27,7 @@ export default {
         payload: {
           componentType: rockType,
           parentComponentId: store.selectedComponentId,
-          slotName: store.selectedSlotName,
+          slotPropName: store.selectedSlotPropName,
           prevSiblingComponentId: null,
           defaultProps: MoveStyleUtils.getRockDefaultProps(rockMeta),
         }

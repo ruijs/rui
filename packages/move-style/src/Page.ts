@@ -107,8 +107,8 @@ export class Page implements IPage {
     return this.#interpreter.interprete(expressionString, vars);
   }
 
-  addComponents(components: RockConfig[], parentComponentId?: string, slotName?: string, prevSiblingComponentId?: string) {
-    this.#componentTreeManager.addComponents(components, parentComponentId, slotName, prevSiblingComponentId);
+  addComponents(components: RockConfig[], parentComponentId?: string, slotPropName?: string, prevSiblingComponentId?: string) {
+    this.#componentTreeManager.addComponents(components, parentComponentId, slotPropName, prevSiblingComponentId);
   }
 
   removeComponents(componentIds: string[]) {

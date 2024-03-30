@@ -11,7 +11,7 @@ export class DesignerStore implements IStore<DesignerStoreConfig> {
   #page: Page;
   #selectedComponentTreeNodeId: string;
   #selectedComponentId: string;
-  #selectedSlotName: string;
+  #selectedSlotPropName: string;
   #snippets: RockConfig[];
 
   constructor(framework: Framework) {
@@ -69,14 +69,14 @@ export class DesignerStore implements IStore<DesignerStoreConfig> {
     return this.#selectedComponentId;
   }
   
-  get selectedSlotName(): string {
-    return this.#selectedSlotName;
+  get selectedSlotPropName(): string {
+    return this.#selectedSlotPropName;
   }
 
-  setSelectedComponentTreeNode(nodeId: string, componentId: string, slotName: string) {
+  setSelectedComponentTreeNode(nodeId: string, componentId: string, slotPropName: string) {
     this.#selectedComponentTreeNodeId = nodeId;
     this.#selectedComponentId = componentId;
-    this.#selectedSlotName = slotName;
+    this.#selectedSlotPropName = slotPropName;
     this.#emitter.emit("dataChange", null);
   }
 
@@ -99,7 +99,7 @@ export class DesignerStore implements IStore<DesignerStoreConfig> {
 
     } else if (command.name === "addComponent") {
       const { payload } = command;
-      const { componentType, parentComponentId, slotName, prevSiblingComponentId, defaultProps} = payload;
+      const { componentType, parentComponentId, slotPropName, prevSiblingComponentId, defaultProps} = payload;
       const componentConfig: RockConfig = {
         $type: componentType,
         ...defaultProps,
@@ -109,7 +109,7 @@ export class DesignerStore implements IStore<DesignerStoreConfig> {
       // if (!componentConfig.$id) {
       //   throw new Error("Component id MUST be set before added to page.");
       // }
-      this.#page.addComponents([componentConfig], parentComponentId, slotName, prevSiblingComponentId);
+      this.#page.addComponents([componentConfig], parentComponentId, slotPropName, prevSiblingComponentId);
 
     } else if (command.name === "removeComponents") {
       this.#page.removeComponents(command.payload.componentIds);
@@ -137,9 +137,9 @@ export class DesignerStore implements IStore<DesignerStoreConfig> {
       }
 
       const { payload } = command;
-      const { parentComponentId, slotName, prevSiblingComponentId } = payload;
+      const { parentComponentId, slotPropName, prevSiblingComponentId } = payload;
 
-      this.#page.addComponents(this.#snippets, parentComponentId, slotName, prevSiblingComponentId);
+      this.#page.addComponents(this.#snippets, parentComponentId, slotPropName, prevSiblingComponentId);
     }
   }
 }

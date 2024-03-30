@@ -504,7 +504,7 @@ export type PageCommandAddComponent = {
     componentType: string;
     defaultProps?: any;
     parentComponentId?: string;
-    slotName?: string;
+    slotPropName?: string;
     prevSiblingComponentId?: string;
   };
 }
@@ -567,7 +567,7 @@ export type PageCommandPasteComponents = {
   name: "pasteComponents";
   payload: {
     parentComponentId?: string;
-    slotName?: string;
+    slotPropName?: string;
     prevSiblingComponentId?: string;
   };
 }
@@ -577,7 +577,7 @@ export type PageCommandMoveComponents = {
   payload: {
     componentIds: string[];
     parentComponentId?: string;
-    slotName?: string;
+    slotPropName?: string;
     prevSiblingComponentId?: string;
   };
 }
@@ -589,7 +589,7 @@ export interface IPage {
 
   getConfig(): PageConfig;
 
-  addComponents(components: RockConfig[], parentComponentId?: string, slotName?: string, prevSiblingComponentId?: string);
+  addComponents(components: RockConfig[], parentComponentId?: string, slotPropName?: string, prevSiblingComponentId?: string);
 
   removeComponents(componentIds: string[]);
 

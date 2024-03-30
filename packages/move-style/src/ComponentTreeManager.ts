@@ -178,7 +178,7 @@ export class ComponentTreeManager {
     }
   }
 
-  addComponents(components: RockConfig[], parentComponentId?: string, slotName?: string, prevSiblingComponentId?: string) {
+  addComponents(components: RockConfig[], parentComponentId?: string, slotPropName?: string, prevSiblingComponentId?: string) {
     let parentComponent: RockConfig = null;
     if (parentComponentId) {
       parentComponent = this.#componentMapById.get(parentComponentId);
@@ -204,22 +204,22 @@ export class ComponentTreeManager {
     let allowMultiComponents = true;
     if (parentComponent) {
       // TODO: Should support slot with adapter. Eg: table.columns[].render, tabs.items[].children.
-      if (slotName) {
+      if (slotPropName) {
         const meta = this.#framework.getComponent(parentComponent.$type);
         if (meta?.slots) {
-          const slotMeta = meta?.slots?.[slotName];
+          const slotMeta = meta?.slots?.[slotPropName];
           if (!slotMeta) {
-            throw new Error(`Create component failed. Unkown slot '${parentComponent.$type}#${slotName}'.`);
+            throw new Error(`Create component failed. Unkown slot '${parentComponent.$type}#${slotPropName}'.`);
           }
           allowMultiComponents = slotMeta.allowMultiComponents;
         }
-        componentHostPropName = slotName;
+        componentHostPropName = slotPropName;
       }
 
       const componentHost = parentComponent[componentHostPropName];
       if (componentHost) {
         if (!allowMultiComponents) {
-          throw new Error(`Create component failed. Multi-components in slot '${parentComponent.$type}#${slotName}' is not allowed.`);
+          throw new Error(`Create component failed. Multi-components in slot '${parentComponent.$type}#${slotPropName}' is not allowed.`);
         } else if (!isArray(componentHost)) {
           parentComponent[componentHostPropName] = [componentHost];
         }

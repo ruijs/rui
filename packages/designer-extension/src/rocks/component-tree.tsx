@@ -22,7 +22,7 @@ export interface SlotNode {
   $nodeType: "slot";
   $id: string;
   $componentId: string;
-  $slotName: string;
+  $slotPropName: string;
   label: string;
   children?: ComponentTreeNode[];
 }
@@ -41,18 +41,18 @@ export default {
       const [selectedKeys, {node}] = event.args as [string[], { node: ComponentTreeNode }];
       const isNodeSelected = selectedKeys.length !== 0;
       let selectedComponentId: string = null;
-      let selectedSlotName: string = null;
+      let selectedSlotPropName: string = null;
       if (isNodeSelected) {
         if (node.$nodeType === "component") {
           selectedComponentId = node.$id;
-          selectedSlotName = null;
+          selectedSlotPropName = null;
         } else if (node.$nodeType === "slot") {
           selectedComponentId = node.$componentId;
-          selectedSlotName = node.$slotName;
+          selectedSlotPropName = node.$slotPropName;
         }
       }
       const designerStore = page.getStore<DesignerStore>("designerStore");
-      designerStore.setSelectedComponentTreeNode(selectedKeys[0], selectedComponentId, selectedSlotName);
+      designerStore.setSelectedComponentTreeNode(selectedKeys[0], selectedComponentId, selectedSlotPropName);
     }, [componentTree]);
 
     const onComponentTreeNodeDrop: RockEventHandlerScript["script"] = useCallback((event: RockEvent) => {
@@ -110,18 +110,18 @@ function travalRockTree(framework: Framework, rockTree: RockConfig[], componentT
         component.children = [];
       }
 
-      for(const slotName in rockMeta.slots) {
-        const slotMeta = rockMeta.slots[slotName];
+      for(const slotPropName in rockMeta.slots) {
+        const slotMeta = rockMeta.slots[slotPropName];
         const slotNode: ComponentTreeNode = {
           $nodeType: "slot",
-          $id: `${rock.$id}.${slotName}`,
+          $id: `${rock.$id}.${slotPropName}`,
           $componentId: rock.$id,
-          $slotName: slotName,
-          label: `#${slotName}:${slotMeta.name}`,
+          $slotPropName: slotPropName,
+          label: `#${slotPropName}:${slotMeta.name}`,
         };
         component.children.push(slotNode);
 
-        const slotChildren = rock[slotName];
+        const slotChildren = rock[slotPropName];
         if (slotChildren) {
           slotNode.children = [];
           if (Array.isArray(slotChildren)) {

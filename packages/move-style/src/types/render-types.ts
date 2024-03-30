@@ -18,7 +18,7 @@ export type RenderRockSlotOptions = {
   context: RockInstanceContext;
   slot: RockChildrenConfig;
   rockType: string;
-  slotName: string;
+  slotPropName: string;
   args: any[];
 }
 
@@ -35,7 +35,7 @@ export type GenerateRockSlotRendererOptions = {
   context: RockInstanceContext;
   slot: RockChildrenConfig;
   rockType: string;
-  slotName: string;
+  slotPropName: string;
 }
 
 export type ConvertRockEventHandlerPropsOptions = {
