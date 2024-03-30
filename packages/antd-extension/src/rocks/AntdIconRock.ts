@@ -4,7 +4,7 @@ import { Rock, unitOptions } from "@ruiapp/move-style";
 import React from "react";
 import { isComponentName } from "./utils";
 
-const iconNames: string[] = [];
+export const iconNames: string[] = [];
 
 for (const componentName in antdIcons) {
   if (!isComponentName(componentName)) {

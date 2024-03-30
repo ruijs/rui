@@ -95,26 +95,29 @@ export function convertPageConfigToComponentTree(framework: Framework, pageConfi
 
 function travalRockTree(framework: Framework, rockTree: RockConfig[], componentTree: ComponentTreeNode[]) {
   for (const rock of rockTree) {
+    const rockMeta = framework.getComponent(rock.$type);
+
+    const rockLabel = rock.$name || rockMeta.name || rock.$type;
     const component: ComponentTreeNode = {
       $nodeType: "component",
       $id: rock.$id,
       $type: rock.$type,
-      label: rock.$type,
+      label: rockLabel,
     };
 
-    const rockMeta = framework.getComponent(rock.$type);
     if (rockMeta.slots) {
       if (!component.children) {
         component.children = [];
       }
 
       for(const slotName in rockMeta.slots) {
+        const slotMeta = rockMeta.slots[slotName];
         const slotNode: ComponentTreeNode = {
           $nodeType: "slot",
           $id: `${rock.$id}.${slotName}`,
           $componentId: rock.$id,
           $slotName: slotName,
-          label: `#${slotName}`,
+          label: `#${slotName}:${slotMeta.name}`,
         };
         component.children.push(slotNode);
 

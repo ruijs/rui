@@ -43,7 +43,7 @@ export class Framework {
     this.#components.set(key, component);
   }
 
-  public getComponent(type: string) {
+  getComponent(type: string) {
     const component = this.#components.get(type);
     return component;
   }

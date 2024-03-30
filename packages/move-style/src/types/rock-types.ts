@@ -57,6 +57,8 @@ export type RockMetaProps<TName extends string = string> = Record<TName, FieldSe
 export type RockMetaSlots = Record<string, RockMetaSlot>;
 
 export type RockMetaSlot = {
+  name?: string;
+  description?: string;
   required?: boolean;
   allowMultiComponents: boolean;// TODO: rename to `onlyChild`
   argumentsToProps?: boolean;
@@ -266,6 +268,8 @@ export type RockConfigBase = {
   $id?: string;
   $type: string;
   $version?: string;
+  $name?: string;
+  $notes?: string;
   $exps?: RockPropExpressions;
   _hidden?: boolean;
 }

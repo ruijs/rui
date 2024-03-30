@@ -6,3 +6,6 @@ export default {
   eventActions,
   rocks,
 } as RuiExtension;
+
+
+export * from "./rocks/AntdIconRock";

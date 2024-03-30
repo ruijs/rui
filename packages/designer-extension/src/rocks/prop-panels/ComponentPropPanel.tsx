@@ -3,7 +3,8 @@ import { renderRockChildren } from "@ruiapp/react-renderer";
 import { useMemo } from "react";
 
 
-export interface TextPropPanelProps extends RockConfigBase {
+export interface ComponentPropPanelProps extends RockConfigBase {
+  title?: string;
   componentConfig: RockConfig;
   setters: RockPropSetter[];
 }
@@ -11,7 +12,7 @@ export interface TextPropPanelProps extends RockConfigBase {
 export default {
   $type: "componentPropPanel",
 
-  Renderer(context, props: TextPropPanelProps) {
+  Renderer(context, props: ComponentPropPanelProps) {
     const { componentConfig, setters } = props;
     console.debug(`[RUI][Designer] rendering componentPropPanel.`)
 
@@ -24,8 +25,14 @@ export default {
       });
     }, [setters, componentConfig]);
 
+    let panelTitle = props.title;
+    if (!panelTitle) {
+      const rockMeta: Rock = context.framework.getComponent(componentConfig.$type)
+      panelTitle = rockMeta.name || rockMeta.$type;
+    }
+
     return <div>
-      <h3>Component: {componentConfig.$type}</h3>
+      <h3>{panelTitle}</h3>
       {
         renderRockChildren({context, rockChildrenConfig})
       }
