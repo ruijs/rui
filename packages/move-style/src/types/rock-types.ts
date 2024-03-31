@@ -314,7 +314,7 @@ export type RockEventHandler =
 
 export type RockEventHandlerScript = {
   $action: "script";
-  script: (event?: RockEvent) => void;
+  script: (event: RockEvent) => void;
 }
 
 export type RockEventHandlerPrintToConsole = {
