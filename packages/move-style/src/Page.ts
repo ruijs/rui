@@ -78,6 +78,10 @@ export class Page implements IPage {
     return this.#componentTreeManager.getConfig();
   }
 
+  getSerializableConfig() {
+    return this.#componentTreeManager.getSerializableConfig();
+  }
+
   get scope() {
     return this.#pageScope;
   }

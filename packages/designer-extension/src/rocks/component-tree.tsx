@@ -112,12 +112,16 @@ function travalRockTree(framework: Framework, rockTree: RockConfig[], componentT
 
       for(const slotPropName in rockMeta.slots) {
         const slotMeta = rockMeta.slots[slotPropName];
+        let slotLabel = `#${slotPropName}`;
+        if (slotMeta.name) {
+          slotLabel += ` ${slotMeta.name}`
+        }
         const slotNode: ComponentTreeNode = {
           $nodeType: "slot",
           $id: `${rock.$id}.${slotPropName}`,
           $componentId: rock.$id,
           $slotPropName: slotPropName,
-          label: `#${slotPropName}:${slotMeta.name}`,
+          label: slotLabel,
         };
         component.children.push(slotNode);
 

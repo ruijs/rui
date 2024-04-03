@@ -20,6 +20,9 @@ export default {
 
     useEffect(() => {
       window.addEventListener("message", processWindowMessage, false);
+      window.parent?.postMessage({
+        name: "previewReady"
+      });
 
       return () => {
         window.removeEventListener("message", processWindowMessage, false);

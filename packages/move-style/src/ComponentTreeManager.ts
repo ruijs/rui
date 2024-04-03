@@ -1,6 +1,6 @@
 import { EventEmitter } from "./EventEmitter";
 import { RockConfig, RockPropValue, PageConfig, PageWithLayoutConfig, PageWithoutLayoutConfig, RockMessage, RockInstance, RockMessageToComponent, ScopeConfig } from "./types/rock-types";
-import { clone, findIndex, isArray, isString, set } from "lodash";
+import { clone, cloneDeep, findIndex, isArray, isString, set } from "lodash";
 import { ExpressionInterpreter } from "./ExpressionInterpreter";
 import { Framework } from "./Framework";
 import { Page } from "./Page";
@@ -59,6 +59,17 @@ export class ComponentTreeManager {
 
   getConfig() {
     return this.#config;
+  }
+
+  getSerializableConfig() {
+    const serializableConfig = cloneDeep(this.#config);
+    serializableConfig.view.forEach((rockConfig) => {
+      this.travelRockConfig((scope: Scope, parentConfig: RockInstance, config: RockInstance) => {
+        delete rockConfig._state;
+        delete rockConfig._initialized;
+      }, this.#page.scope, null, rockConfig)
+    })
+    return serializableConfig;
   }
 
   reload() {
@@ -165,6 +176,8 @@ export class ComponentTreeManager {
     if (meta?.slots) {
       childrenPropNames = childrenPropNames.concat(Object.keys(meta.slots));
     }
+
+    // TODO: deal with adapter slot.
 
     for (const childPropName of childrenPropNames) {
       const children = config[childPropName];
