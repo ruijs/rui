@@ -1,5 +1,6 @@
 import { Page, RockConfig, Rock, SimpleRockConfig } from "@ruiapp/move-style";
-import { renderRockChildren } from "@ruiapp/react-renderer";
+import { renderRock, renderRockChildren } from "@ruiapp/react-renderer";
+import { map } from "lodash";
 import { useMemo } from "react";
 
 export interface DesignerComponentPropertiesPanelProps extends SimpleRockConfig {
@@ -9,44 +10,33 @@ export interface DesignerComponentPropertiesPanelProps extends SimpleRockConfig 
 }
 
 export default {
-  $type: "designerComponentPropertiesPanel",
+  $type: "designerComponentEventHandlersPanel",
 
   Renderer(context, props: DesignerComponentPropertiesPanelProps) {
     const { framework } = context;
     const { $id, designingPage, selectedComponentId } = props;
     const selectedComponentConfig = designingPage && selectedComponentId && designingPage.getComponent(selectedComponentId);
 
-    const rockChildrenConfig = useMemo(() => {
+    const setters = useMemo(() => {
       if (!selectedComponentConfig) {
         return [];
       }
 
       const rockMeta = framework.getComponent(selectedComponentConfig.$type);
       if (!rockMeta) {
-        return null;
+        return [];
       }
 
-      const { propertyPanels } = rockMeta;
-      const panelRocks: RockConfig[] = [];
-      if (propertyPanels) {
-        for (const propertyPanel of propertyPanels) {
-          const panelRockType = propertyPanel.$type;
-  
-          // TODO: remove this section
-          if (!framework.getComponent(panelRockType)) {
-            continue;
-          }
-  
-          panelRocks.push({
-            $id: `${$id}-${panelRockType}`,
-            $type: panelRockType,
-            componentConfig: selectedComponentConfig,
-            setters: (propertyPanel as any).setters,
-          } as RockConfig);
+      const { events } = rockMeta;
+      const setters: any[] = map(events, (eventConfig) => {
+        return {
+          eventName: eventConfig.name,
+          label: eventConfig.label,
+          labelTip: eventConfig.description,
         }
-      }
-      return panelRocks;
-    }, [selectedComponentConfig]);
+      });
+      return setters;
+    }, [framework, selectedComponentConfig]);
 
     if (!designingPage) {
       return null;
@@ -56,9 +46,19 @@ export default {
       return null;
     }
 
+    const setterGroupRockConfig: RockConfig = {
+      $id: `${$id}-setter-group`,
+      $type: "componentEventHandlerSetterGroup",
+      setters,
+      componentConfig: selectedComponentConfig,
+    };
+
     return <div>
       {
-        renderRockChildren({context, rockChildrenConfig})
+        renderRock({
+          context,
+          rockConfig: setterGroupRockConfig,
+        })
       }
     </div>
   },

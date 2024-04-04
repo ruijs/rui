@@ -90,22 +90,24 @@ export type RockMetaSlot = {
   earlyCreate?: boolean;
 }
 
-export type RockMetaEvents = Record<string, RockMetaEvent>;
+export type RockMetaEvents = RockMetaEvent[];
 
 export type RockMetaEvent = {
   name: string;
+  label?: string;
   description?: string;
-  args: RockMetaEventArgs;
+  args?: RockMetaEventArgs;
 }
 
 export type RockMetaEventArgs = Record<string, FieldSettings>;
 
-export type RockMetaCommands = Record<string, RockMetaCommand>;
+export type RockMetaCommands = RockMetaCommand[];
 
 export type RockMetaCommand = {
   name: string;
+  label?: string;
   description?: string;
-  args: RockMetaCommandArgs;
+  args?: RockMetaCommandArgs;
 }
 
 export type RockMetaCommandArgs = Record<string, FieldSettings>;
@@ -311,22 +313,25 @@ export type RockEventHandler =
   | RockEventHandlerSetVars
   | RockEventHandlerOther;
 
-
-export type RockEventHandlerScript = {
-  $action: "script";
-  script: (event: RockEvent) => void;
+export type RockEventHandlerBase = {
+  _disabled?: boolean;
 }
 
-export type RockEventHandlerPrintToConsole = {
+export type RockEventHandlerScript = RockEventHandlerBase & {
+  $action: "script";
+  script: string | ((event: RockEvent) => void);
+}
+
+export type RockEventHandlerPrintToConsole = RockEventHandlerBase &{
   $action: "printToConsole";
 }
 
-export type RockEventHandlerWait = {
+export type RockEventHandlerWait = RockEventHandlerBase & {
   $action: "wait";
   time: number;
 }
 
-export type RockEventHandlerHandleEvent = {
+export type RockEventHandlerHandleEvent = RockEventHandlerBase &{
   $action: "handleEvent";
   eventName?: string;
   scope?: Scope;
@@ -334,18 +339,18 @@ export type RockEventHandlerHandleEvent = {
   args?: any;
 }
 
-export type RockEventHandlerNotifyEvent = {
+export type RockEventHandlerNotifyEvent = RockEventHandlerBase & {
   $action: "notifyEvent";
   eventName?: string;
   scopeId?: string;
 }
 
-export type RockEventHandlerNotifyToPage = {
+export type RockEventHandlerNotifyToPage = RockEventHandlerBase & {
   $action: "notifyToPage";
   eventName?: string;
 }
 
-export type RockEventHandlerSetComponentProperty = {
+export type RockEventHandlerSetComponentProperty = RockEventHandlerBase & {
   $action: "setComponentProperty";
   $exps?: RockPropExpressions;
   componentId: string;
@@ -353,31 +358,31 @@ export type RockEventHandlerSetComponentProperty = {
   propValue: RockPropValue
 }
 
-export type RockEventHandlerSendComponentMessage<TRockMessage extends RockMessage = RockMessage> = {
+export type RockEventHandlerSendComponentMessage<TRockMessage extends RockMessage = RockMessage> = RockEventHandlerBase &{
   $action: "sendComponentMessage";
   $exps?: RockPropExpressions;
   componentId: string;
   message: TRockMessage;
 }
 
-export type RockEventHandlerSendHttpRequest = {
+export type RockEventHandlerSendHttpRequest = RockEventHandlerBase & {
   $action: "sendHttpRequest";
   $exps?: RockPropExpressions;
 } & Partial<HttpRequestOptions>;
 
-export type RockEventHandlerLoadStoreData = {
+export type RockEventHandlerLoadStoreData = RockEventHandlerBase & {
   $action: "loadStoreData";
   scopeId?: string;
   storeName: string;
   input?: any;
 }
 
-export type RockEventHandlerLoadScopeData = {
+export type RockEventHandlerLoadScopeData = RockEventHandlerBase & {
   $action: "loadScopeData";
   scopeId?: string;
 }
 
-export type RockEventHandlerSetVars = {
+export type RockEventHandlerSetVars = RockEventHandlerBase & {
   $action: "setVars";
   $exps?: RockPropExpressions;
   scopeId?: string;
@@ -386,7 +391,7 @@ export type RockEventHandlerSetVars = {
   vars?: Record<string, any>;
 }
 
-export type RockEventHandlerOther = {
+export type RockEventHandlerOther = RockEventHandlerBase & {
   $action: string;
   [k: string]: any;
 }

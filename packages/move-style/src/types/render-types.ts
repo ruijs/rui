@@ -1,4 +1,4 @@
-import { RockChildrenConfig, RockConfig, RockInstanceContext, RockMetaSlot, RockMetaSlots } from "./rock-types";
+import { RockChildrenConfig, RockConfig, RockEventHandlerConfig, RockInstanceContext, RockMetaSlot, RockMetaSlots } from "./rock-types";
 
 export type RenderRockOptions = {
   context: RockInstanceContext;
@@ -41,6 +41,13 @@ export type GenerateRockSlotRendererOptions = {
 export type ConvertRockEventHandlerPropsOptions = {
   context: RockInstanceContext;
   rockConfig: RockConfig;
+}
+
+export type ConvertRockEventHandlerPropOptions = {
+  context: RockInstanceContext;
+  rockConfig: RockConfig;
+  eventName: string;
+  eventHandlerConfig: RockEventHandlerConfig;
 }
 
 export type ConvertRockSlotPropsOptions = {

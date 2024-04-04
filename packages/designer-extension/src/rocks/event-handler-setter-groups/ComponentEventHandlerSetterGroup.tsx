@@ -1,4 +1,4 @@
-import { RockConfig, RockConfigBase, Rock, RockPropSetter } from "@ruiapp/move-style";
+import { RockConfig, RockConfigBase, Rock } from "@ruiapp/move-style";
 import { renderRockChildren } from "@ruiapp/react-renderer";
 import { useMemo } from "react";
 
@@ -6,32 +6,32 @@ import { useMemo } from "react";
 export interface ComponentPropPanelProps extends RockConfigBase {
   title?: string;
   componentConfig: RockConfig;
-  setters: RockPropSetter[];
+  setters: RockConfig[];
 }
 
 export default {
-  $type: "componentPropPanel",
+  $type: "componentEventHandlerSetterGroup",
 
   Renderer(context, props: ComponentPropPanelProps) {
     const { componentConfig, setters } = props;
-
     const rockChildrenConfig: RockConfig[] = useMemo(() => {
       return setters.map((setter) => {
         return Object.assign({}, setter, {
-          $id: `${props.$id}-${setter.label}`,
+          $id: `${props.$id}-${setter.eventName}`,
+          $type: "scriptEventHandlerSetter",
           componentConfig: props.componentConfig,
         });
       });
     }, [setters, componentConfig]);
 
-    let panelTitle = props.title;
-    if (!panelTitle) {
+    let groupTitle = props.title;
+    if (!groupTitle) {
       const rockMeta: Rock = context.framework.getComponent(componentConfig.$type)
-      panelTitle = rockMeta.name || rockMeta.$type;
+      groupTitle = rockMeta.name || rockMeta.$type;
     }
 
     return <div>
-      <h3>{panelTitle}</h3>
+      <h3>{groupTitle}</h3>
       {
         renderRockChildren({context, rockChildrenConfig})
       }

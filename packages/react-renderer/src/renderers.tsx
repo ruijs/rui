@@ -1,6 +1,6 @@
 import { ConvertRockEventHandlerPropsOptions, ConvertRockSlotPropsOptions, GenerateRockSlotRendererOptions, handleComponentEvent, RenderRockChildrenOptions, RenderRockOptions, RenderRockSlotOptions, RenderRockSlotWithMetaOptions, Rock, RockInstance, RockInstanceContext, RockMeta, RockMetaSlot, RockMetaSlots, Scope } from "@ruiapp/move-style";
 import { MoveStyleUtils } from "@ruiapp/move-style";
-import type { RockConfig, RockEventHandler } from "@ruiapp/move-style";
+import type { ConvertRockEventHandlerPropOptions, RockConfig } from "@ruiapp/move-style";
 import { forEach, isArray, isFunction, isString, pick } from "lodash";
 import React from "react";
 
@@ -174,23 +174,32 @@ export function convertToEventHandlers(options: ConvertRockEventHandlerPropsOpti
   // TODO: should memorize eventHandlers
   for (const propName in rockConfig) {
     if (MoveStyleUtils.isEventPropName(propName)) {
-      const eventProp = rockConfig[propName];
-
-      // Some components set children's event handlers. For example, FormItem set onChange event handler.
-      // Just keep this function props so that we will not break things.
-      if (isFunction(eventProp)) {
-        eventHandlers[propName] = eventProp;
-        continue;
-      }
-
-      // TODO: check if props[propName] is valid RockEventHandler(s)
-      const handleComponentEventWithEventName = handleComponentEvent.bind(null, propName);
-      eventHandlers[propName] = (...eventArgs) => {
-        handleComponentEventWithEventName(context.framework, context.page, context.scope, rockConfig, eventProp as RockEventHandler | RockEventHandler[], eventArgs);
-      };
+      const eventHandlerConfig = rockConfig[propName];
+      eventHandlers[propName] = convertToEventHandler({
+        context,
+        rockConfig,
+        eventName: propName,
+        eventHandlerConfig,
+      });
     }
   }
   return eventHandlers;
+}
+
+export function convertToEventHandler(options: ConvertRockEventHandlerPropOptions) {
+  const { context, rockConfig, eventName, eventHandlerConfig } = options;
+
+  // Some components set children's event handlers. For example, FormItem set onChange event handler.
+  // Just keep this function props so that we will not break things.
+  if (isFunction(eventHandlerConfig)) {
+    return eventHandlerConfig;
+  }
+
+  // TODO: check if `eventHandlerConfig` is valid RockEventHandler(s)
+  const handleComponentEventWithEventName = handleComponentEvent.bind(null, eventName);
+  return (...eventArgs) => {
+    handleComponentEventWithEventName(context.framework, context.page, context.scope, rockConfig, eventHandlerConfig, eventArgs);
+  };
 }
 
 export function renderSlotWithAdapter(options: RenderRockSlotWithMetaOptions) {

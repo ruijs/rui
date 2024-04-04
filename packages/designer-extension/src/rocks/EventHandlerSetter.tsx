@@ -4,25 +4,23 @@ import React, { useState } from "react";
 import { DesignerStore } from "../stores/DesignerStore";
 import { sendDesignerCommand } from "../utilities/DesignerUtility";
 
-export interface PropSetterProps extends ContainerRockConfig {
-  $type: "propSetter",
+export interface EventHandlerSetterProps extends ContainerRockConfig {
+  $type: "eventHandlerSetter",
   label: string;
   labelTip?: string;
-  labelLayout?: "horizontal" | "vertical";
   componentConfig: RockConfig;
-  expressionPropName?: string;
-  extra?: RockConfig;
+  eventName?: string;
 }
 
 export default {
-  $type: "propSetter",
+  $type: "eventHandlerSetter",
 
-  Renderer(context, props: PropSetterProps) {
+  Renderer(context, props: EventHandlerSetterProps) {
     const { page } = context;
-    const [expIndicatorHovered, setExpIndicatorHovered] = useState(false);
+    const [actionIndicatorHovered, setActionIndicatorHovered] = useState(false);
 
-    const { label, labelTip, componentConfig, expressionPropName, extra } = props;
-    const isPropDynamic = MoveStyleUtils.isComponentPropertyDynamic(componentConfig, expressionPropName);
+    const { label, labelTip, componentConfig, eventName } = props;
+    const isActionConfigured = !!componentConfig[eventName];
 
     const rockConfig: RockConfig = {
       $id: `${props.$id}`,
@@ -31,41 +29,47 @@ export default {
       style: styleSetter,
       children: [
         {
-          $id: `${props.$id}-exp-indicator-container`,
+          $id: `${props.$id}-handler-indicator-container`,
           $type: "htmlElement",
           htmlTag: "div",
-          style: styleSetterExpIndicatorContainer,
+          style: styleSetterHandlerIndicatorContainer,
           attributes: {
-            onMouseEnter: () => setExpIndicatorHovered(true),
-            onMouseLeave: () => setExpIndicatorHovered(false),
+            onMouseEnter: () => setActionIndicatorHovered(true),
+            onMouseLeave: () => setActionIndicatorHovered(false),
             onClick: () => {
               const designerStore = page.getStore<DesignerStore>("designerStore");
-              if (isPropDynamic) {
+              if (isActionConfigured) {
                 sendDesignerCommand(page, designerStore, {
-                  name: "removeComponentPropertyExpression",
+                  name: "setComponentProperty",
                   payload: {
                     componentId: designerStore.selectedComponentId,
-                    propName: expressionPropName,
+                    propName: eventName,
+                    propValue: null,
                   }
                 });
               } else {
                 sendDesignerCommand(page, designerStore, {
-                  name: "setComponentPropertyExpression",
+                  name: "setComponentProperty",
                   payload: {
                     componentId: designerStore.selectedComponentId,
-                    propName: expressionPropName,
-                    propExpression: "",
+                    propName: eventName,
+                    propValue: [
+                      {
+                        $action: "script",
+                        script: "function (event) {\n}\n",
+                      }
+                    ]
                   }
                 });
               }
             }
           },
           children: {
-            $id: expIndicatorHovered && isPropDynamic ? `${props.$id}-exp-indicator-cancle` : `${props.$id}-exp-indicator-set`,
+            $id: actionIndicatorHovered && isActionConfigured ? `${props.$id}-handler-indicator-cancle` : `${props.$id}-handler-indicator-set`,
             $type: "antdIcon",
-            name: expIndicatorHovered && isPropDynamic ? "CloseCircleOutlined" : "FunctionOutlined",
+            name: actionIndicatorHovered && isActionConfigured ? "CloseCircleOutlined" : "ThunderboltOutlined",
             style: {
-              backgroundColor: expIndicatorHovered || isPropDynamic ? "#c038ff" : "#eeeeee",
+              backgroundColor: actionIndicatorHovered || isActionConfigured ? "#c038ff" : "#eeeeee",
               borderRadius: "100%",
             },
             color: "#ffffff",
@@ -98,20 +102,10 @@ export default {
           $type: "htmlElement",
           htmlTag: "div",
           style: styleSetterControls,
-          children: props.children,
+          children: isActionConfigured ? props.children : null,
         },
       ],
     };
-
-    if (extra) {
-      rockConfig.children.push({
-        $id: `${props.$id}-extra-wrapper`,
-        $type: "htmlElement",
-        htmlTag: "div",
-        style: styleSetterExtraWrapper,
-        children: [extra],
-      });
-    }
 
     return renderRock({context, rockConfig});
   },
@@ -126,7 +120,7 @@ const styleSetter: React.CSSProperties = {
   paddingBottom: "5px",
 };
 
-const styleSetterExpIndicatorContainer: React.CSSProperties = {
+const styleSetterHandlerIndicatorContainer: React.CSSProperties = {
   width: "20px",
   height: "30px",
   lineHeight: "30px",
@@ -150,12 +144,4 @@ const styleSetterLabel: React.CSSProperties = {
 
 const styleSetterControls: React.CSSProperties = {
   width: "160px",
-}
-
-const styleSetterExtraWrapper: React.CSSProperties = {
-  width: "240px",
-  marginLeft: "20px",
-  background: "#fef6ff",
-  borderRadius: "5px",
-  padding: "10px",
 }

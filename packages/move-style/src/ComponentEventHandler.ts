@@ -20,10 +20,14 @@ export async function handleComponentEvent(eventName: string, framework: Framewo
 
   if (Array.isArray(eventHandlerOrHandlers)) {
     for (const eventHandler of eventHandlerOrHandlers) {
-      await doHandleComponentEvent(eventName, framework, page, scope, sender, eventHandler, eventArgs);
+      if (!eventHandler._disabled) {
+        await doHandleComponentEvent(eventName, framework, page, scope, sender, eventHandler, eventArgs);
+      }
     }
   } else {
-    await doHandleComponentEvent(eventName, framework, page, scope, sender, eventHandlerOrHandlers, eventArgs);
+    if (!eventHandlerOrHandlers._disabled) {
+      await doHandleComponentEvent(eventName, framework, page, scope, sender, eventHandlerOrHandlers, eventArgs);
+    }
   }
 }
 

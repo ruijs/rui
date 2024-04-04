@@ -1,16 +1,16 @@
 import { RockConfig, RockConfigBase, RockEvent, RockEventHandler, RockEventHandlerScript, Rock, MoveStyleUtils, handleComponentEvent } from "@ruiapp/move-style";
-import { convertToEventHandlers, renderRockChildren } from "@ruiapp/react-renderer";
+import { renderRockChildren } from "@ruiapp/react-renderer";
 import { useRef, useState } from "react";
 
-export interface JsonSetterInputProps extends RockConfigBase {
+export interface ScriptSetterInputProps extends RockConfigBase {
   value?: string;
   onChange?: RockEventHandler;
 }
 
 export default {
-  $type: "jsonSetterInput",
+  $type: "scriptSetterInput",
 
-  Renderer(context, props: JsonSetterInputProps) {
+  Renderer(context, props: ScriptSetterInputProps) {
     const { framework, page, scope } = context;
     const { $id, value, onChange } = props;
 
@@ -23,18 +23,13 @@ export default {
     const onBtnEditClick: RockEventHandlerScript["script"] = async (event: RockEvent) => {
       setCodeEditorVisible(true);
       await MoveStyleUtils.waitVariable("current", cmdsEditor);
-      cmdsEditor.current.setCodeContent(value && JSON.stringify(value, null, 4) || "");
+      cmdsEditor.current.setCodeContent(value || "");
     };
 
     const onModalOk: RockEventHandlerScript["script"] = (event: RockEvent) => {
       const codeContent = cmdsEditor.current.getCodeContent();
-      try {
-        var value = JSON.parse(codeContent);
-        setCodeEditorVisible(false);
-        handleComponentEvent("onChange", framework, page, scope, props, onChange, value);
-      } catch(ex) {
-        console.error("Invalid JSON string.");
-      }
+      setCodeEditorVisible(false);
+      handleComponentEvent("onChange", framework, page, scope, props, onChange, codeContent);
     };
 
     const onModalCancel: RockEventHandlerScript["script"] = (event: RockEvent) => {
@@ -72,7 +67,7 @@ export default {
             cmds: cmdsEditor,
             width: "100%",
             height: "500px",
-            language: "json",
+            language: "javascript",
           }
         ],
         onOk: {
