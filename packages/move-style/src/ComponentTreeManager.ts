@@ -347,6 +347,31 @@ export class ComponentTreeManager {
     this.loadConfig(this.#config);
   }
 
+  setComponentProperties(componentId: string, props: Record<string, RockPropValue>) {
+    const componentConfig = this.#componentMapById.get(componentId);
+    if (!componentConfig) {
+      console.error(`Component with id '${componentId}' not found.`)
+      return;
+    }
+
+    for (const propName in props) {
+      componentConfig[propName] = props[propName];
+    }
+    // TODO: need a more efficient implementation
+    this.loadConfig(this.#config);
+  }
+
+  removeComponentProperty(componentId: string, propName: string) {
+    const componentConfig = this.#componentMapById.get(componentId);
+    if (!componentConfig) {
+      console.error(`Component with id '${componentId}' not found.`)
+      return;
+    }
+
+    delete componentConfig[propName];
+    // TODO: need a more efficient implementation
+    this.loadConfig(this.#config);
+  }
 
   setComponentPropertyExpression(componentId: string, propName: string, propExpression: string) {
     const componentConfig = this.#componentMapById.get(componentId);

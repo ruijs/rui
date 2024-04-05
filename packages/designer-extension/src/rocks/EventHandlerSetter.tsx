@@ -40,11 +40,10 @@ export default {
               const designerStore = page.getStore<DesignerStore>("designerStore");
               if (isActionConfigured) {
                 sendDesignerCommand(page, designerStore, {
-                  name: "setComponentProperty",
+                  name: "removeComponentProperty",
                   payload: {
                     componentId: designerStore.selectedComponentId,
                     propName: eventName,
-                    propValue: null,
                   }
                 });
               } else {

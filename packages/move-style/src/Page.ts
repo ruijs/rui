@@ -120,13 +120,15 @@ export class Page implements IPage {
   }
 
   setComponentProperty(componentId: string, propName: string, propValue: RockPropValue) {
-    console.debug("Page.setComponentProperty", {
-      pageId: this.getConfig().$id,
-      componentId,
-      propName,
-      propValue,
-    });
     this.#componentTreeManager.setComponentProperty(componentId, propName, propValue);
+  }
+
+  setComponentProperties(componentId: string, props: Record<string, RockPropValue>) {
+    this.#componentTreeManager.setComponentProperties(componentId, props);
+  }
+
+  removeComponentProperty(componentId: string, propName: string) {
+    this.#componentTreeManager.removeComponentProperty(componentId, propName);
   }
 
   getComponentProperty(componentId: string, propName: string) {

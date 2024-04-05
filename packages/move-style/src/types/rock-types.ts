@@ -307,6 +307,8 @@ export type RockEventHandler =
   | RockEventHandlerNotifyEvent
   | RockEventHandlerNotifyToPage
   | RockEventHandlerSetComponentProperty
+  | RockEventHandlerSetComponentProperties
+  | RockEventHandlerRemoveComponentProperty
   | RockEventHandlerSendHttpRequest
   | RockEventHandlerLoadStoreData
   | RockEventHandlerLoadScopeData
@@ -356,6 +358,20 @@ export type RockEventHandlerSetComponentProperty = RockEventHandlerBase & {
   componentId: string;
   propName: string;
   propValue: RockPropValue
+}
+
+export type RockEventHandlerSetComponentProperties = RockEventHandlerBase & {
+  $action: "setComponentProperties";
+  $exps?: RockPropExpressions;
+  componentId: string;
+  props: Record<string, RockPropValue>;
+}
+
+export type RockEventHandlerRemoveComponentProperty = RockEventHandlerBase & {
+  $action: "removeComponentProperty";
+  $exps?: RockPropExpressions;
+  componentId: string;
+  propName: string;
 }
 
 export type RockEventHandlerSendComponentMessage<TRockMessage extends RockMessage = RockMessage> = RockEventHandlerBase &{
@@ -487,6 +503,8 @@ export type PageCommand =
   | PageCommandAddComponent
   | PageCommandRemoveComponents
   | PageCommandSetComponentProperty
+  | PageCommandSetComponentProperties
+  | PageCommandRemoveComponentProperty
   | PageCommandSetComponentPropertyExpression
   | PageCommandRemoveComponentPropertyExpression
   | PageCommandSetSelectedComponents
@@ -527,6 +545,22 @@ export type PageCommandSetComponentProperty = {
     componentId: string;
     propName: string;
     propValue: any;
+  };
+}
+
+export type PageCommandSetComponentProperties = {
+  name: "setComponentProperties";
+  payload: {
+    componentId: string;
+    props: Record<string, any>;
+  };
+}
+
+export type PageCommandRemoveComponentProperty = {
+  name: "removeComponentProperty";
+  payload: {
+    componentId: string;
+    propName: string;
   };
 }
 
@@ -599,6 +633,10 @@ export interface IPage {
   removeComponents(componentIds: string[]);
 
   setComponentProperty(componentId: string, propName: string, propValue: RockPropValue);
+
+  setComponentProperties(componentId: string, props: Record<string, RockPropValue>);
+
+  removeComponentProperty(componentId: string, propName: string);
 
   getComponentProperty(componentId: string, propName: string);
 

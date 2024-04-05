@@ -3,7 +3,7 @@ import { Framework } from "./Framework";
 import { Page } from "./Page";
 import { Scope } from "./Scope";
 import { HttpRequestOptions } from "./types/request-types";
-import { RockEvent, RockEventHandler, RockEventHandlerHandleEvent, RockEventHandlerLoadScopeData, RockEventHandlerLoadStoreData, RockEventHandlerNotifyEvent, RockEventHandlerNotifyToPage, RockEventHandlerScript, RockEventHandlerSendComponentMessage, RockEventHandlerSendHttpRequest, RockEventHandlerSetComponentProperty, RockEventHandlerSetVars, RockEventHandlerWait, RockPropExpressions } from "./types/rock-types";
+import { RockEvent, RockEventHandler, RockEventHandlerHandleEvent, RockEventHandlerLoadScopeData, RockEventHandlerLoadStoreData, RockEventHandlerNotifyEvent, RockEventHandlerNotifyToPage, RockEventHandlerRemoveComponentProperty, RockEventHandlerScript, RockEventHandlerSendComponentMessage, RockEventHandlerSendHttpRequest, RockEventHandlerSetComponentProperties, RockEventHandlerSetComponentProperty, RockEventHandlerSetVars, RockEventHandlerWait, RockPropExpressions } from "./types/rock-types";
 import { request } from "./utils/HttpRequest";
 
 // TODO: make event handling extensible.
@@ -73,6 +73,10 @@ async function doHandleComponentEvent(eventName: string, framework: Framework, p
     handleNotifyToPage.apply(null, arguments);
   } else if (action === "setComponentProperty") {
     handleSetComponentProperty.apply(null, arguments);
+  } else if (action === "setComponentProperties") {
+    handleSetComponentProperties.apply(null, arguments);
+  } else if (action === "removeComponentProperty") {
+    handleRemoveComponentProperty.apply(null, arguments);
   } else if (action === "sendComponentMessage") {
     handleSendComponentMessage.apply(null, arguments);
   } else if (action === "sendHttpRequest") {
@@ -169,6 +173,25 @@ function handleSetComponentProperty(eventName: string, framework: Framework, pag
   }
 
   page.setComponentProperty(eventHandler.componentId, eventHandler.propName, propValue);
+}
+
+function handleSetComponentProperties(eventName: string, framework: Framework, page: Page, scope: Scope, sender: any, eventHandler: RockEventHandlerSetComponentProperties, eventArgs: any) {
+  let { props } = eventHandler;
+  const propsToSet = {};
+  for (const propName in props) {
+    const propValue = props[propName];
+    if (typeof propValue === "function") {
+      propsToSet[propName] = propValue(eventArgs);
+    } else {
+      propsToSet[propName] = propValue;
+    }
+  }
+
+  page.setComponentProperties(eventHandler.componentId, propsToSet);
+}
+
+function handleRemoveComponentProperty(eventName: string, framework: Framework, page: Page, scope: Scope, sender: any, eventHandler: RockEventHandlerRemoveComponentProperty, eventArgs: any) {
+  page.removeComponentProperty(eventHandler.componentId, eventHandler.propName);
 }
 
 function handleSendComponentMessage(eventName: string, framework: Framework, page: Page, scope: Scope, sender: any, eventHandler: RockEventHandlerSendComponentMessage, eventArgs: any) {
