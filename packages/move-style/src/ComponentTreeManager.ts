@@ -198,6 +198,11 @@ export class ComponentTreeManager {
       if (!parentComponent) {
         throw new Error(`Create component failed. Parent component with id '${parentComponentId}' was not found.`)
       }
+
+      const parentComponentMeta = this.#framework.getComponent(parentComponent.$type);
+      if (parentComponentMeta.voidComponent) {
+        throw new Error(`Can not add component to a void-component.`)
+      }
     }
 
     // TODO: Implement this: get the right scope.
