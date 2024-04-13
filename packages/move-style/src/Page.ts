@@ -6,24 +6,27 @@ import { StoreConfig, IStore, StoreConfigBase } from "./types/store-types";
 import { HttpRequestInput } from "./types/request-types";
 import { Framework } from "./Framework";
 import { Scope } from "./Scope";
-import { EventEmitter } from "./EventEmitter";
-import { handleComponentEvent } from "./ComponentEventHandler";
+import { RuiModuleLogger } from "./Logger";
 
 export class Page implements IPage {
   #framework: Framework;
+  #logger: RuiModuleLogger;
   #readyToRender: boolean;
   #interpreter: ExpressionInterpreter;
   #componentTreeManager: ComponentTreeManager;
   #pageScope: Scope;
 
   constructor(framework: Framework, pageConfig?: PageConfig) {
+    this.#logger = framework.getLogger("page");
+
     if (!pageConfig) {
       pageConfig = {
         $id: "default",
         view: [],
       }
     }
-    console.debug(`[RUI][Page][${pageConfig.$id}] Page.constructor()`);
+
+    this.#logger.debug(`Consturcting Page object, page.$id='${pageConfig.$id}'`);
     this.#framework = framework;
     this.#interpreter = new ExpressionInterpreter();
     this.#componentTreeManager = new ComponentTreeManager(framework, this, this.#interpreter);
@@ -35,7 +38,6 @@ export class Page implements IPage {
     globalThis.$page = this;
   }
 
-  
   get readyToRender() : boolean {
     return this.#readyToRender;
   }
@@ -45,11 +47,11 @@ export class Page implements IPage {
   }
 
   setConfig(pageConfig: PageConfig) {
+    this.#logger.debug(`Setting page config...`);
     if (!pageConfig.$id) {
       // TODO: should generate an unique id.
       pageConfig.$id = "default";
     }
-    console.debug(`[RUI][Page][${pageConfig.$id}] Page.setConfig()`, pageConfig)
 
     this.#framework.setPage(pageConfig.$id, this);
 
@@ -64,9 +66,6 @@ export class Page implements IPage {
 
     this.#interpreter.setStores(this.#pageScope.stores);
     this.#componentTreeManager.loadConfig(pageConfig);
-    console.debug(`[RUI][Page][${pageConfig.$id}] pageConfig loaded.`);
-
-    console.debug(`[RUI][Page][${pageConfig.$id}] Page.initComponents().`);
     this.#componentTreeManager.initComponents();
 
     // this.loadData();
@@ -91,7 +90,7 @@ export class Page implements IPage {
   }
 
   loadData() {
-    console.debug(`[RUI][Page][${this.getConfig().$id}] Page.loadData()`)
+    this.#logger.debug(`Loading page data...`);
     return this.#pageScope.loadData();
   }
 
@@ -136,12 +135,6 @@ export class Page implements IPage {
   }
 
   setComponentPropertyExpression(componentId: string, propName: string, propExpression: string) {
-    console.debug("Page.setComponentPropertyExpression", {
-      pageId: this.getConfig().$id,
-      componentId,
-      propName,
-      propExpression,
-    });
     this.#componentTreeManager.setComponentPropertyExpression(componentId, propName, propExpression);
   }
 

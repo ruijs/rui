@@ -10,8 +10,10 @@ import { IStore, StoreConfig } from "./types/store-types";
 import ruiExp from "./utils/rui-exp";
 import { wrapRenderer } from "./ComponentRenderer";
 import { ConfigProcessor } from "./ConfigProcessor";
+import { RuiLogger, LoggerFactory, LoggerProvider, RuiModulesNames } from "./Logger";
 
 export class Framework {
+  #loggerFactory: LoggerFactory;
   #storeFactory: StoreFactory;
   #components: Map<string, Rock>;
   #functions: Record<string, Function>;
@@ -20,6 +22,9 @@ export class Framework {
   #configProcessors: ConfigProcessor[];
   #pages: Map<string, Page>;
   constructor() {
+
+    this.#loggerFactory = new LoggerFactory();
+
     this.#storeFactory = new StoreFactory();
     this.#storeFactory.registerStoreConstructor("constant", ConstantStore);
     this.#storeFactory.registerStoreConstructor("httpRequest", HttpRequestStore);
@@ -36,10 +41,22 @@ export class Framework {
     globalThis.$framework = this;
   }
 
+  setLoggerProvider(provider: LoggerProvider) {
+    this.#loggerFactory.setLoggerProvider(provider);
+  }
+
+  getLogger(moduleName: RuiModulesNames = "other") {
+    return this.#loggerFactory.getLogger(moduleName);
+  }
+
+  getRockLogger() {
+    return this.#loggerFactory.getRockLogger();
+  }
+
   registerComponent(component: Rock) {
     // TODO: should respect component.version
     const key = `${component.$type}`;
-    wrapRenderer(component);
+    wrapRenderer(this, component);
     this.#components.set(key, component);
   }
 

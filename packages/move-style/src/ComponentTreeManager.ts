@@ -5,11 +5,13 @@ import { ExpressionInterpreter } from "./ExpressionInterpreter";
 import { Framework } from "./Framework";
 import { Page } from "./Page";
 import { Scope } from "./Scope";
+import { RuiModuleLogger } from "./Logger";
 
 type TravelProcessor = (scope: Scope, parentConfig: RockConfig, config: RockConfig) => void;
 
 export class ComponentTreeManager {
   #framework: Framework;
+  #logger: RuiModuleLogger;
   #page: Page;
   #interpreter: ExpressionInterpreter;
   #emitter: EventEmitter;
@@ -20,6 +22,8 @@ export class ComponentTreeManager {
   #scopeMapById: Map<string, Scope>;
 
   constructor(framework: Framework, page: Page, interpreter: ExpressionInterpreter) {
+    this.#logger = framework.getLogger("componentTreeManager");
+
     this.#framework = framework;
     this.#page = page;
     this.#interpreter = interpreter;
@@ -40,7 +44,7 @@ export class ComponentTreeManager {
   }
 
   loadConfig(config: PageConfig) {
-    console.debug(`[RUI][ComponentTreeManager][${config.$id}] ComponentTreeManager.loadConfig().`)
+    this.#logger.debug(`Loading config...`);
     // this.#componentMapById = new Map();
     // this.#parentIdMapById = new Map();
     // this.#scopeMapById = new Map();
@@ -79,7 +83,7 @@ export class ComponentTreeManager {
   #processComponentOnLoadConfig(scope: Scope, parentConfig: RockConfig, config: RockConfig) {
     // Set default id.
     if (!config.$id) {
-      console.debug(`[RUI][ComponentTreeManager] Id of component '${config.$type}' was not set.`)
+      this.#logger.verbose(`Id of component '${config.$type}' was not set.`);
       config.$id = this.generateComponentId(config.$type);
     }
 
@@ -92,7 +96,7 @@ export class ComponentTreeManager {
   }
 
   initComponents() {
-    console.debug(`[RUI][ComponentTreeManager][${this.#config.$id}] ComponentTreeManager.initComponents().`)
+    this.#logger.debug(`Initializing components...`);
     const configWithoutLayout = this.#config as PageWithoutLayoutConfig;
     configWithoutLayout.view.forEach(this.attachComponent.bind(this, this.#page.scope, null));
   }
@@ -110,10 +114,10 @@ export class ComponentTreeManager {
       }
 
       if (!config.$id) {
-        console.debug(`[RUI][ComponentTreeManager] Id of component '${rockType}' was not set.`)
+        this.#logger.verbose(`Id of component '${config.$type}' was not set.`);
         config.$id = this.generateComponentId(rockType);
       }
-      console.debug(`[RUI][ComponentTreeManager] Attaching component '${config.$id}'`);
+      this.#logger.debug(`Attaching component '${config.$id}'...`);
 
       if (config.$type === "scope" && !this.#scopeMapById.get(config.$id)) {
         this.#scopeMapById.set(config.$id, new Scope(this.#framework, this.#page, config as ScopeConfig));
@@ -123,10 +127,10 @@ export class ComponentTreeManager {
         const meta = this.#framework.getComponent(config.$type);
 
         if (!meta) {
-          console.error((`Unknown component '${config.$type}'`));
+          this.#logger.error(`Unknown component '${config.$type}'`);
         } else {
           if (meta.onInit) {
-            console.debug(`[RUI][ComponentTreeManager][${this.#config.$id}] Initializing component '${config.$id}'`);
+            this.#logger.debug(`Initializing component '${config.$id}'...`);
             meta.onInit({
               page: this.#page,
               scope: scope || this.#page.scope,
@@ -343,7 +347,7 @@ export class ComponentTreeManager {
   setComponentProperty(componentId: string, propName: string, propValue: RockPropValue) {
     const componentConfig = this.#componentMapById.get(componentId);
     if (!componentConfig) {
-      console.error(`Component with id '${componentId}' not found.`)
+      this.#logger.error(`Component with id '${componentId}' not found.`)
       return;
     }
 
@@ -355,7 +359,7 @@ export class ComponentTreeManager {
   setComponentProperties(componentId: string, props: Record<string, RockPropValue>) {
     const componentConfig = this.#componentMapById.get(componentId);
     if (!componentConfig) {
-      console.error(`Component with id '${componentId}' not found.`)
+      this.#logger.error(`Component with id '${componentId}' not found.`)
       return;
     }
 
@@ -369,7 +373,7 @@ export class ComponentTreeManager {
   removeComponentProperty(componentId: string, propName: string) {
     const componentConfig = this.#componentMapById.get(componentId);
     if (!componentConfig) {
-      console.error(`Component with id '${componentId}' not found.`)
+      this.#logger.error(`Component with id '${componentId}' not found.`)
       return;
     }
 
@@ -381,7 +385,7 @@ export class ComponentTreeManager {
   setComponentPropertyExpression(componentId: string, propName: string, propExpression: string) {
     const componentConfig = this.#componentMapById.get(componentId);
     if (!componentConfig) {
-      console.error(`Component with id '${componentId}' not found.`)
+      this.#logger.error(`Component with id '${componentId}' not found.`)
       return;
     }
 
@@ -396,7 +400,7 @@ export class ComponentTreeManager {
   removeComponentPropertyExpression(componentId: string, propName: string) {
     const componentConfig = this.#componentMapById.get(componentId);
     if (!componentConfig) {
-      console.error(`Component with id '${componentId}' not found.`)
+      this.#logger.error(`Component with id '${componentId}' not found.`)
       return;
     }
 
@@ -412,7 +416,7 @@ export class ComponentTreeManager {
   getComponentProperty(componentId: string, propName: string) {
     const componentConfig = this.#componentMapById.get(componentId);
     if (!componentConfig) {
-      console.error(`Component with id '${componentId}' not found.`)
+      this.#logger.error(`Component with id '${componentId}' not found.`)
       return;
     }
 
@@ -426,14 +430,15 @@ export class ComponentTreeManager {
   sendComponentMessage<TRockMessage extends RockMessage<any> = RockMessage<any>>(componentId: string, message: TRockMessage) {
     const componentConfig = this.#componentMapById.get(componentId) as RockInstance;
     if (!componentConfig) {
-      console.error(`Component with id '${componentId}' not found.`)
+      this.#logger.error(`Component with id '${componentId}' not found.`)
       return;
     }
 
     const meta = this.#framework.getComponent(componentConfig.$type);
     const { onReceiveMessage } = meta;
     if (!onReceiveMessage) {
-      console.warn(`${componentConfig.$type} component can not receive message.`, message);
+      this.#logger.error(`${componentConfig.$type} component can not receive message.`);
+      return;
     }
 
     const messageToComponent: RockMessageToComponent<any> = {

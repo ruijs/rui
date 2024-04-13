@@ -9,18 +9,19 @@ export interface RuiProps {
 
 function Rui(props: RuiProps) {
   const { framework, page } = props;
+  const logger = framework.getLogger("componentRenderer");
 
   if (!page) {
-    console.debug(`[RUI][ReactRenderer][Rui] Rendering skip, page is null.`)
+    logger.debug(`[Rui] Rendering skipped, page is null.`)
     return null;
   }
 
   useEffect(() => {
-    console.log(`[RUI][ReactRenderer][Rui] Page instance changed.`);
+    logger.debug(`[Rui] Page instance changed.`);
   }, [page]);
 
   const pageId = page.getConfig().$id;
-  console.debug(`[RUI][ReactRenderer][Rui] Rendering page '${pageId}'`)
+  logger.debug(`[Rui] Rendering page '${pageId}'`)
 
   return <RuiPage key={pageId} framework={framework} page={page} />
 }

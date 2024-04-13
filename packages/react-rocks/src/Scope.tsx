@@ -15,21 +15,21 @@ export default {
 
   Renderer: (context, props: ScopeProps) => {
     const { $id, stores, initialVars} = props;
-    const { framework, page } = context;
-    console.log(`[RUI][ReactRenderer][Scope] rendering Scope '${$id}'`);
+    const { framework, page, logger } = context;
+    logger.debug(props, `[Scope Rock] rendering Scope '${$id}'`);
 
     const scope = page.getScope($id);
     const [scopeState, setScopeState] = useState<ScopeState>();
   
     useEffect(() => {
-      console.log(`[RUI][ReactRenderer][Scope] Mounting scope '${$id}'.`);
+      logger.debug(props, `[Scope Rock] Mounting scope '${$id}'.`);
       scope.observe((state: ScopeState) => {
-        console.log(`[RUI][ReactRenderer][Scope] Scope ${props.$id} changed, current version: ${state.version}`)
+        logger.debug(props, `[Scope Rock] Scope ${props.$id} changed, current version: ${state.version}`)
         setScopeState(state);
       });
       scope.loadData();
     }, [page, scope]);
-    const childrenContext = {framework, page, scope};
+    const childrenContext = {framework, page, scope, logger};
     return <>{renderRockChildren({context: childrenContext, rockChildrenConfig: props.children})}</>
   }
 } as Rock;

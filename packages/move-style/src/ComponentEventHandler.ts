@@ -5,6 +5,7 @@ import { Scope } from "./Scope";
 import { HttpRequestOptions } from "./types/request-types";
 import { RockEvent, RockEventHandler, RockEventHandlerHandleEvent, RockEventHandlerLoadScopeData, RockEventHandlerLoadStoreData, RockEventHandlerNotifyEvent, RockEventHandlerNotifyToPage, RockEventHandlerRemoveComponentProperty, RockEventHandlerScript, RockEventHandlerSendComponentMessage, RockEventHandlerSendHttpRequest, RockEventHandlerSetComponentProperties, RockEventHandlerSetComponentProperty, RockEventHandlerSetVars, RockEventHandlerWait, RockPropExpressions } from "./types/rock-types";
 import { request } from "./utils/HttpRequest";
+import { log } from "winston";
 
 // TODO: make event handling extensible.
 
@@ -47,7 +48,8 @@ async function doHandleComponentEvent(eventName: string, framework: Framework, p
   if (expressions) {
     for(const propName in expressions) {
       if (propName.startsWith("$")) {
-        console.error(`System field can not bind to an expression. ${propName}=${expressions[propName]}`);
+        const logger = framework.getLogger("componentEventHandler")
+        logger.error(`System field can not bind to an expression. ${propName}=${expressions[propName]}`);
         continue;
       }
       set(eventHandler, propName, page.interpreteExpression(expressions[propName], {
@@ -58,9 +60,7 @@ async function doHandleComponentEvent(eventName: string, framework: Framework, p
     }
   }
   if (action === "printToConsole") {
-    console.info("[RUI][ComponentEvent] HandleComponentEvent...", event);
-    console.info("[RUI][ComponentEvent] Event handler:", eventHandler);
-    console.info("[RUI][ComponentEvent] Event:", event);
+    console.info("[RUI][ComponentEvent] ", event);
   } else if (action === "script") {
     await handleScript.apply(null, arguments);
   } else if (action === "wait") {
@@ -90,7 +90,8 @@ async function doHandleComponentEvent(eventName: string, framework: Framework, p
   } else {
     const actionHandler = framework.getEventActionHandler(action);
     if (!actionHandler) {
-      console.warn("Unknown event action:", eventHandler);
+      const logger = framework.getLogger("componentEventHandler");
+      logger.error(`Unknown event action: ${JSON.stringify(eventHandler)}`);
       return;
     }
     await actionHandler.apply(null, arguments);

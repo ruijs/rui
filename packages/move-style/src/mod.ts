@@ -7,6 +7,7 @@ export * from "./ComponentEventHandler";
 export * from "./ComponentTreeManager";
 export * from "./EventEmitter";
 export * from "./ExpressionInterpreter";
+export * from "./Logger";
 export * from "./Framework";
 export * from "./IRenderer";
 export * from "./Page";

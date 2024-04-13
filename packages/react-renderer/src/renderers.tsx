@@ -18,10 +18,11 @@ export function renderRock(options: RenderRockOptions) {
   }
 
   const {framework, page, scope} = context;
+  const logger = framework.getLogger("componentRenderer");
   const componentType = rockConfig.$type;
   const rock: Rock = framework.getComponent(componentType);
   if (!rock) {
-    console.debug(rockConfig);
+    logger.debug(`Unknown component '${componentType}'`, { rockConfig });
     throw new Error(`Unknown component '${componentType}'`);
   }
 
@@ -71,8 +72,8 @@ export function renderRock(options: RenderRockOptions) {
     props.$slot = $slot;
   }
 
-  console.debug(`[RUI][ReactRenderer] createElement ${JSON.stringify({$id: rockConfig.$id, $type: rockConfig.$type})}`);
   const slotProps = convertToSlotProps({context, rockConfig: props, slotsMeta: rock.slots, isEarly: true});
+  logger.verbose(`Creating react element of '${rockConfig.$type}', $id=${rockConfig.$id}`);
   return React.createElement(
     Renderer,
     {

@@ -9,29 +9,30 @@ export interface RuiPageProps {
 
 const RuiPage = (props: RuiPageProps) => {
   const { framework, page } = props;
+  const logger = framework.getLogger("componentRenderer");
   const [pageConfig, setPageConfig] = useState(() => page.getConfig());
 
   useEffect(() => {
-    console.log(`[RUI][ReactRenderer][RuiPage] Mounting page.`);
+    logger.info("[RuiPage] Mounting page");
     page.observe((pageConfig) => {
       setPageConfig(page.getConfig());
-      console.log(`[RUI][ReactRenderer][RuiPage] Page config changed.`);
+      logger.debug("[RuiPage] Page config changed.");
     });
     page.loadData();
   }, [page]);
 
   if (!pageConfig) {
-    console.debug(`[RUI][ReactRenderer][RuiPage][<pageConfig===null>] rendering RuiPage`)
+    logger.debug("[RuiPage] rendering null pageConfig.");
     return null;
   }
 
-  console.debug(`[RUI][ReactRenderer][RuiPage][${pageConfig.$id}] rendering RuiPage, pageConfig:`, pageConfig);
+  logger.debug(`[RuiPage] rendering rui page with id: ${pageConfig.$id}`);
   if (!page.readyToRender) {
-    console.warn(`[RUI][ReactRenderer][RuiPage][${pageConfig.$id}] NOT READY TO RENDER`)
+    logger.debug(`[RuiPage] Page '${pageConfig.$id}' NOT READY TO RENDER`);
     return null;
   }
 
-  const context = {framework, page, scope: page.scope};
+  const context = {framework, page, scope: page.scope, logger: framework.getRockLogger() };
   if ((pageConfig as PageWithLayoutConfig).layout) {
     const configWithLayout = pageConfig as PageWithLayoutConfig;
     return renderPageWithLayout(context, configWithLayout);

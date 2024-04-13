@@ -1,13 +1,14 @@
 import { omit } from "lodash";
 import { Rock, RockConfigSystemFields, RockInstance, RockInstanceFields } from "./types/rock-types"
+import { Framework } from "./Framework";
 
-export function wrapRenderer(rock: Rock) {
+export function wrapRenderer(framework: Framework, rock: Rock) {
   if ((rock as any)._rendererWrapped) {
     return;
   }
 
   // TODO: remove `as any`
-  rock.Renderer = createComponentRenderer(rock) as any;
+  rock.Renderer = createComponentRenderer(framework, rock) as any;
   (rock as any)._rendererWrapped = true;
 }
 
@@ -18,20 +19,18 @@ export function wrapRenderer(rock: Rock) {
  * @param rock 
  * @returns 
  */
-function createComponentRenderer(rock: Rock) {
+function createComponentRenderer(framework: Framework, rock: Rock) {
   const rockRenderer = rock.Renderer;
   const Renderer = function (rockInstance: RockInstance) {
-    console.debug(`[RUI][ComponentRenderer] renderRock ${JSON.stringify({$id: rockInstance.$id, $type: rockInstance.$type})}`);
-
     if (rock.onResolveState) {
       if (!rockInstance._state) {
-        console.warn(`rockInstance._state is not set. ${JSON.stringify({$id: rockInstance.$id, $type: rockInstance.$type})}`);
-      } else {
-        Object.assign(
-          rockInstance._state,
-          rock.onResolveState(rockInstance, rockInstance._state)
-        )
+        rockInstance._state = {};
       }
+
+      Object.assign(
+        rockInstance._state,
+        rock.onResolveState(rockInstance, rockInstance._state)
+      );
     }
 
     // DO NOT remove "$id" and "$exps" fields.

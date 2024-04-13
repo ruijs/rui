@@ -3,6 +3,7 @@ import { HttpRequestOptions, HttpRequestInput } from "./request-types";
 import { IStore, StoreConfig, StoreConfigBase } from "./store-types";
 import { Framework } from "~/Framework";
 import { Page } from "~/Page";
+import { RuiRockLogger } from "~/Logger";
 
 export type FieldSettings = {
   valueType: FieldValueType;
@@ -465,6 +466,7 @@ export type RockInstanceContext = {
   framework: Framework;
   page: Page;
   scope: Scope;
+  logger: RuiRockLogger;
 }
 
 export type RockInstanceOriginal<TState=any> = {

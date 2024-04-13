@@ -6,10 +6,12 @@ import { HttpRequestInput } from "./types/request-types";
 import { IStore, StoreConfig, StoreConfigBase } from "./types/store-types";
 import { IScope, RockPageEventSubscriptionConfig, RuiEvent, ScopeConfig, ScopeState } from "./types/rock-types";
 import { handleComponentEvent } from "./ComponentEventHandler";
+import { RuiModuleLogger } from "./Logger";
 
 
 export class Scope implements IScope {
   #framework: Framework;
+  #logger: RuiModuleLogger;
   #page: Page;
   #emitter: EventEmitter;
   #config: ScopeConfig;
@@ -20,6 +22,7 @@ export class Scope implements IScope {
 
   constructor(framework: Framework, page: Page, config: ScopeConfig) {
     this.#framework = framework;
+    this.#logger = framework.getLogger("scope");
     this.#page = page;
     this.#emitter = new EventEmitter();
     this.#version = 0;
@@ -27,7 +30,7 @@ export class Scope implements IScope {
   }
 
   setConfig(config: ScopeConfig) {
-    console.debug(`[RUI][Scope][${config.$id}] Scope.setConfig()`, config)
+    this.#logger.debug(`Setting scope config...`, { config });
     if (!config.$id) {
       config.$id = this.#page.generateComponentId("scope");
     }
@@ -53,7 +56,7 @@ export class Scope implements IScope {
   }
 
   addStore(storeConfig: StoreConfig) {
-    console.debug(`[RUI][Scope][${this.#config.$id}] Scope.addStore()`, storeConfig);
+    this.#logger.debug(`Adding store...`, { storeConfig });
     let store = this.#stores[storeConfig.name];
     if (!store) {
       store = this.#framework.createStore(this.#page, this, storeConfig);
@@ -73,7 +76,7 @@ export class Scope implements IScope {
   }
 
   async loadData() {
-    console.debug(`[RUI][Scope][${this.#config.$id}] Scope.loadData()`)
+    this.#logger.debug(`Loading scope data...`)
     for (const storeName in this.#stores) {
       const store = this.#stores[storeName];
       await store.loadData();
@@ -94,7 +97,7 @@ export class Scope implements IScope {
   }
 
   setVars(vars: Record<string, any>, silent: boolean = false) {
-    console.debug(`[RUI][Scope][${this.#config.$id}] Scope.setVars()`, vars);
+    this.#logger.debug(`Setting vars of scope '${this.#config.$id}'`, { vars });
     const newVars = Object.assign({}, this.#vars, vars);
     this.#vars = newVars;
     this.#version = this.#version + 1;

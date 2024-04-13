@@ -11,7 +11,7 @@ export default {
   $type: "jsonSetterInput",
 
   Renderer(context, props: JsonSetterInputProps) {
-    const { framework, page, scope } = context;
+    const { logger, framework, page, scope } = context;
     const { $id, value, onChange } = props;
 
     const cmdsEditor = useRef<{
@@ -33,7 +33,7 @@ export default {
         setCodeEditorVisible(false);
         handleComponentEvent("onChange", framework, page, scope, props, onChange, value);
       } catch(ex) {
-        console.error("Invalid JSON string.");
+        logger.error(props, "Invalid JSON string.", { error: ex});
       }
     };
 

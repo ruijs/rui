@@ -1,4 +1,4 @@
-import { EventEmitter, Framework, IStore, Page, PageCommand, PageConfig, RockConfig, StoreConfigBase, StoreMeta } from "@ruiapp/move-style";
+import { EventEmitter, Framework, IStore, Page, PageCommand, PageConfig, RockConfig, RuiModuleLogger, StoreConfigBase, StoreMeta } from "@ruiapp/move-style";
 import _ from "lodash";
 
 export interface DesignerStoreConfig extends StoreConfigBase {
@@ -8,6 +8,7 @@ export interface DesignerStoreConfig extends StoreConfigBase {
 export class DesignerStore implements IStore<DesignerStoreConfig> {
   #emitter: EventEmitter;
   #name: string;
+  #logger: RuiModuleLogger;
   #page: Page;
   #selectedComponentTreeNodeId: string;
   #selectedComponentId: string;
@@ -16,6 +17,7 @@ export class DesignerStore implements IStore<DesignerStoreConfig> {
 
   constructor(framework: Framework) {
     this.#emitter = new EventEmitter();
+    this.#logger = framework.getLogger("store");
     this.#page = new Page(framework);
     this.#page.observe(() => {
       this.#emitter.emit("dataChange", null);
@@ -26,7 +28,7 @@ export class DesignerStore implements IStore<DesignerStoreConfig> {
   }
 
   setConfig(storeConfig: DesignerStoreConfig) {
-    console.debug(`[RUI][DesignerStore][${storeConfig.name}] DesignerStore.setConfig()`)
+    this.#logger.debug("Setting config of designer store.", { storeConfig });
     this.#name = storeConfig.name;
     if (storeConfig.pageConfig) {
       this.setPageConfig(storeConfig.pageConfig);

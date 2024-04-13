@@ -6,9 +6,11 @@ import { Framework } from "../Framework";
 import { Page } from "../Page";
 import { Scope } from "../Scope";
 import { cloneDeep, set } from "lodash";
+import { RuiModuleLogger } from "~/Logger";
 
 export class HttpRequestStore implements IStore<HttpRequestStoreConfig> {
   #framework: Framework;
+  #logger: RuiModuleLogger;
   #page: Page;
   #scope: Scope;
   #name: string;
@@ -21,6 +23,7 @@ export class HttpRequestStore implements IStore<HttpRequestStoreConfig> {
   constructor(framework: Framework, page: Page, scope: Scope) {
     this.#emitter = new EventEmitter();
     this.#framework = framework;
+    this.#logger = framework.getLogger("store");
     this.#page = page;
     this.#scope = scope;
   }
@@ -48,7 +51,7 @@ export class HttpRequestStore implements IStore<HttpRequestStoreConfig> {
   }
 
   async loadData(input: HttpRequestInput) {
-    console.debug(`[RUI][HttpRequestStore][${this.name}] HttpRequestStore.loadData()`)
+    this.#logger.debug(`Loading http request store data, name='${this.name}'`);
     if (this.#isLoading) {
       // return;
     }
@@ -62,7 +65,7 @@ export class HttpRequestStore implements IStore<HttpRequestStoreConfig> {
     if (expressions) {
       for(const propName in expressions) {
         if (propName.startsWith("$")) {
-          console.error(`System field can not bind to an expression. ${propName}=${expressions[propName]}`);
+          this.#logger.error(`System field can not bind to an expression. ${propName}=${expressions[propName]}`);
           continue;
         }
         const interpretedValue = this.#page.interpreteExpression(expressions[propName], {

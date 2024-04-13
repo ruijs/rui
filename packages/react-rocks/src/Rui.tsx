@@ -22,14 +22,14 @@ export default {
   },
 
   Renderer: (context, props: RuiProps) => {
-    const {framework, page} = props;
+    const { logger } = context;
+    const { framework, page } = props;
     // TODO: check if we need this guard really.
     if (!page || !page.readyToRender) {
-      console.debug(`[RUI][RuiRock][<page===null>] rendering Rui Rock`)
+      logger.debug(props, `[Rui] Rendering skipped, page is null or not ready to render.`)
       return null;
     }
 
-    console.debug(`[RUI][RuiRock][${page.getConfig().$id}] rendering Rui Rock`)
     return <Rui framework={framework} page={page} />
   }
 } as Rock;
