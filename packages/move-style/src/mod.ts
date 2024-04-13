@@ -6,6 +6,7 @@ export * from "./types/extension-types";
 export * from "./ComponentEventHandler";
 export * from "./ComponentTreeManager";
 export * from "./EventEmitter";
+export * from "./ExpressionInterpreter";
 export * from "./Framework";
 export * from "./IRenderer";
 export * from "./Page";

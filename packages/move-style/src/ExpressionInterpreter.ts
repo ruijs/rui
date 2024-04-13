@@ -1,3 +1,4 @@
+import { memoize } from "lodash";
 import { IStore } from "./types/store-types";
 
 export class ExpressionInterpreter {
@@ -13,11 +14,6 @@ export class ExpressionInterpreter {
 
   interprete(expressionString: string, rootVars: Record<string, any>) {
     rootVars.$stores = this.#stores;
-    if (globalThis.window) {
-      console.debug(`[RUI][ExpressionInterpreter] interprete(${expressionString})`, rootVars);
-    } else {
-      console.debug(`[RUI][ExpressionInterpreter] interprete(${expressionString})`);
-    }
 
     const varNames = [];
     const varValues = [];
@@ -30,7 +26,6 @@ export class ExpressionInterpreter {
     try {
       const expression = genExpression(varNames, expressionString);
       result = expression(...varValues);
-      console.debug(`[RUI][ExpressionInterpreter] result:`, result);
     } catch (err) {
       console.error(`Expression interprete error. expression: '${expressionString}', error:`, err.message);
     }
@@ -38,6 +33,8 @@ export class ExpressionInterpreter {
   }
 }
 
-function genExpression(varNames: string[], expressionString: string) {
+const genExpression = memoize((varNames: string[], expressionString: string) => {
   return new Function(...varNames, `return (${expressionString})`);
-}
+}, (varNames, expressionString) => {
+  return varNames.join(',') + ":" + expressionString;
+})
