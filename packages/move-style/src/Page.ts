@@ -1,12 +1,12 @@
-import _, { each } from "lodash";
-import { ComponentTreeManager } from "./ComponentTreeManager";
-import { ExpressionInterpreter } from "./ExpressionInterpreter";
-import { RockConfig, RockPropValue, RuiEvent, PageCommand, PageConfig, IPage, RockPageEventSubscriptionConfig, RockMessage } from "./types/rock-types";
-import { StoreConfig, IStore, StoreConfigBase } from "./types/store-types";
-import { HttpRequestInput } from "./types/request-types";
-import { Framework } from "./Framework";
-import { Scope } from "./Scope";
-import { RuiModuleLogger } from "./Logger";
+import _, { each } from 'lodash';
+import { ComponentTreeManager } from './ComponentTreeManager';
+import { ExpressionInterpreter } from './ExpressionInterpreter';
+import { RockConfig, RockPropValue, RuiEvent, PageCommand, PageConfig, IPage, RockPageEventSubscriptionConfig, RockMessage } from './types/rock-types';
+import { StoreConfig, IStore, StoreConfigBase } from './types/store-types';
+import { HttpRequestInput } from './types/request-types';
+import { Framework } from './Framework';
+import { Scope } from './Scope';
+import { RuiModuleLogger } from './Logger';
 
 export class Page implements IPage {
   #framework: Framework;
@@ -17,13 +17,13 @@ export class Page implements IPage {
   #pageScope: Scope;
 
   constructor(framework: Framework, pageConfig?: PageConfig) {
-    this.#logger = framework.getLogger("page");
+    this.#logger = framework.getLogger('page');
 
     if (!pageConfig) {
       pageConfig = {
-        $id: "default",
+        $id: 'default',
         view: [],
-      }
+      };
     }
 
     this.#logger.debug(`Consturcting Page object, page.$id='${pageConfig.$id}'`);
@@ -38,7 +38,7 @@ export class Page implements IPage {
     globalThis.$page = this;
   }
 
-  get readyToRender() : boolean {
+  get readyToRender(): boolean {
     return this.#readyToRender;
   }
 
@@ -50,7 +50,7 @@ export class Page implements IPage {
     this.#logger.debug(`Setting page config...`);
     if (!pageConfig.$id) {
       // TODO: should generate an unique id.
-      pageConfig.$id = "default";
+      pageConfig.$id = 'default';
     }
 
     this.#framework.setPage(pageConfig.$id, this);

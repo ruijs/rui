@@ -2,8 +2,15 @@
   "name": "@ruiapp/echarts-extension",
   "version": "0.0.24",
   "description": "",
-  "main": "dist/mod.js",
-  "types": "dist/mod.d.ts",
+  "types": "./dist/mod.d.ts",
+  "main": "./dist/mod.js",
+  "exports": {
+    ".": {
+      "types": "./dist/mod.d.ts",
+      "default": "./dist/mod.js"
+    },
+    "./source": "./src/mod.ts"
+  },
   "scripts": {
     "build": "rimraf dist && rollup --config",
     "dev": "rollup --config",

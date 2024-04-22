@@ -1,5 +1,5 @@
-import { Page, RockConfig, RockEventHandler, Rock } from "@ruiapp/move-style";
-import { renderRock } from "@ruiapp/react-renderer";
+import { Page, RockConfig, RockEventHandler, Rock } from '@ruiapp/move-style';
+import { renderRock } from '@ruiapp/react-renderer';
 
 export interface ColorPropSetterProps {
   designingPage: Page;
@@ -11,22 +11,20 @@ export interface ColorPropSetterProps {
 }
 
 export default {
-  $type: "colorPropSetter",
+  $type: 'colorPropSetter',
 
   Renderer(context, props: ColorPropSetterProps) {
     const rockConfig: RockConfig = {
-      $type: "antdInput",
+      $type: 'colorPicker',
       value: props.value,
       onChange: props.onChange,
-    }
+    };
 
-    return <div>
-      <div>{ props.label }</div>
+    return (
       <div>
-        {
-          renderRock({context, rockConfig})
-        }
+        <div>{props.label}</div>
+        <div>{renderRock({ context, rockConfig })}</div>
       </div>
-    </div>
+    );
   },
 } as Rock;
