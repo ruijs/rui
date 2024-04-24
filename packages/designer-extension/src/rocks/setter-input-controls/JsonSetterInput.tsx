@@ -1,5 +1,6 @@
 import { RockConfig, RockConfigBase, RockEvent, RockEventHandler, RockEventHandlerScript, Rock, MoveStyleUtils, handleComponentEvent } from "@ruiapp/move-style";
 import { convertToEventHandlers, renderRockChildren } from "@ruiapp/react-renderer";
+import { isFunction } from "lodash";
 import { useRef, useState } from "react";
 
 export interface JsonSetterInputProps extends RockConfigBase {
@@ -31,7 +32,11 @@ export default {
       try {
         var value = JSON.parse(codeContent);
         setCodeEditorVisible(false);
-        handleComponentEvent("onChange", framework, page, scope, props, onChange, value);
+        if (isFunction(onChange)) {
+          onChange(value);
+        } else {
+          handleComponentEvent("onChange", framework, page, scope, props, onChange, value);
+        }
       } catch(ex) {
         logger.error(props, "Invalid JSON string.", { error: ex});
       }

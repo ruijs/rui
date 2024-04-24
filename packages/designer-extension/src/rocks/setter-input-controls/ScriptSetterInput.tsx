@@ -1,5 +1,6 @@
 import { RockConfig, RockConfigBase, RockEvent, RockEventHandler, RockEventHandlerScript, Rock, MoveStyleUtils, handleComponentEvent } from "@ruiapp/move-style";
 import { renderRockChildren } from "@ruiapp/react-renderer";
+import { isFunction } from "lodash";
 import { useRef, useState } from "react";
 
 export interface ScriptSetterInputProps extends RockConfigBase {
@@ -29,7 +30,11 @@ export default {
     const onModalOk: RockEventHandlerScript["script"] = (event: RockEvent) => {
       const codeContent = cmdsEditor.current.getCodeContent();
       setCodeEditorVisible(false);
-      handleComponentEvent("onChange", framework, page, scope, props, onChange, codeContent);
+      if (isFunction(onChange)) {
+        onChange(codeContent);
+      } else {
+        handleComponentEvent("onChange", framework, page, scope, props, onChange, codeContent);
+      }
     };
 
     const onModalCancel: RockEventHandlerScript["script"] = (event: RockEvent) => {
