@@ -32,11 +32,7 @@ export default {
       try {
         var value = JSON.parse(codeContent);
         setCodeEditorVisible(false);
-        if (isFunction(onChange)) {
-          onChange(value);
-        } else {
-          handleComponentEvent("onChange", framework, page, scope, props, onChange, value);
-        }
+        handleComponentEvent("onChange", framework, page, scope, props, onChange, [value]);
       } catch(ex) {
         logger.error(props, "Invalid JSON string.", { error: ex});
       }

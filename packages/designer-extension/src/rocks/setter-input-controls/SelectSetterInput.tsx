@@ -21,7 +21,7 @@ export default {
 
     const onSelectChange: RockEventHandlerScript["script"] = useCallback((event: RockEvent) => {
       const value = event.args[0];
-      handleComponentEvent("onChange", framework, page, scope, props, onChange, value);
+      handleComponentEvent("onChange", framework, page, scope, props, onChange, [value]);
     }, [page, $id, onChange]);
 
     const rockConfig: RockConfig = {

@@ -290,7 +290,7 @@ export type RockEvent = {
   name: string;
   senderCategory: "component";
   sender: any;
-  args?: any;
+  args?: any[];
 }
 
 export type RockPageEventSubscriptionConfig = {

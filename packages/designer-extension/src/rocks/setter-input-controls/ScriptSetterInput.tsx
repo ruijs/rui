@@ -30,11 +30,7 @@ export default {
     const onModalOk: RockEventHandlerScript["script"] = (event: RockEvent) => {
       const codeContent = cmdsEditor.current.getCodeContent();
       setCodeEditorVisible(false);
-      if (isFunction(onChange)) {
-        onChange(codeContent);
-      } else {
-        handleComponentEvent("onChange", framework, page, scope, props, onChange, codeContent);
-      }
+      handleComponentEvent("onChange", framework, page, scope, props, onChange, [codeContent]);
     };
 
     const onModalCancel: RockEventHandlerScript["script"] = (event: RockEvent) => {

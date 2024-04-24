@@ -44,7 +44,7 @@ export default {
     const unitValue = propValue ? propValue.replace(numberValue.toString(), "") : defaultUnit;
 
     const onNumberControlChange: RockEventHandlerScript["script"] = (event: RockEvent) => {
-      const numberValue = event.args;
+      const numberValue: number = event.args[0];
       const store = page.getStore<DesignerStore>("designerStore");
       let propValue: string;
       if (numberValue === null || numberValue === undefined || Number.isNaN(numberValue) ) {
@@ -63,7 +63,7 @@ export default {
     };
 
     const onSelectControlChange: RockEventHandlerScript["script"] = (event: RockEvent) => {
-      const unitValue = event.args;
+      const unitValue: string = event.args[0];
       const store = page.getStore<DesignerStore>("designerStore");
       let propValue: string;
       if (numberValue === null || numberValue === undefined || Number.isNaN(numberValue) ) {

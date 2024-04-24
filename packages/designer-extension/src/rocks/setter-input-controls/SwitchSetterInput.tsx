@@ -21,7 +21,7 @@ export default {
     const onInputChange: RockEventHandlerScript["script"] = useCallback((event: RockEvent) => {
       const checked = event.args[0];
       const value = checked ? checkedValue : uncheckedValue;
-      handleComponentEvent("onChange", framework, page, scope, props, onChange, value);
+      handleComponentEvent("onChange", framework, page, scope, props, onChange, [value]);
     }, [page, $id, onChange]);
 
     const rockConfig: RockConfig = {

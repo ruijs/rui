@@ -48,7 +48,7 @@ export default {
       };
 
       const onInputControlChange: RockEventHandlerScript["script"] = (event: RockEvent) => {
-        const handlerScriptCode = event.args;
+        const handlerScriptCode: string = event.args[0];
         const store = page.getStore<DesignerStore>("designerStore");
         sendDesignerCommand(page, store, {
           name: "setComponentProperty",

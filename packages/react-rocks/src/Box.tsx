@@ -34,7 +34,7 @@ export default {
   Renderer: (context, props: BoxProps) => {
     const { framework, page, scope } = context;
     const style: React.CSSProperties = assign(pick(props, boxStylePropNames), props.style) as any;
-    return <div data-component-id={props.id} className={props.className} style={style} onClick={(e) => handleComponentEvent("onClick", framework, page, scope, props, props.onClick, e)}>
+    return <div data-component-id={props.id} className={props.className} style={style} onClick={(e) => handleComponentEvent("onClick", framework, page, scope, props, props.onClick, [e])}>
       {
         renderRockChildren({context,
           rockChildrenConfig: props.children,

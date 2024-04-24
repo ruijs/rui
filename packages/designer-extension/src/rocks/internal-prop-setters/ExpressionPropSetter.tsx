@@ -25,7 +25,7 @@ export default {
       inputControlRockConfig.value = componentConfig.$exps?.[propName];
 
       const onInputControlChange: RockEventHandlerScript["script"] = (event: RockEvent) => {
-        const propExpression = event.args;
+        const propExpression: string = event.args[0];
         const designerStore = page.getStore<DesignerStore>("designerStore");
         sendDesignerCommand(page, designerStore, {
           name: "setComponentPropertyExpression",
