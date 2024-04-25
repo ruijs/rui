@@ -52,12 +52,12 @@ export default {
                   payload: {
                     componentId: designerStore.selectedComponentId,
                     propName: eventName,
-                    propValue: [
-                      {
-                        $action: "script",
-                        script: "function (event) {\n}\n",
-                      }
-                    ]
+                    propValue: {
+                      $action: "script",
+                      script: "",
+                      generator: "blockly",
+                      blockly: {},
+                    }
                   }
                 });
               }

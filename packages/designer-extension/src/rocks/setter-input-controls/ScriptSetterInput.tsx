@@ -2,10 +2,11 @@ import { RockConfig, RockConfigBase, RockEvent, RockEventHandler, RockEventHandl
 import { renderRockChildren } from "@ruiapp/react-renderer";
 import { isFunction } from "lodash";
 import { useRef, useState } from "react";
+import {DesignerStore} from "~/stores/DesignerStore";
 
 export interface ScriptSetterInputProps extends RockConfigBase {
-  value?: string;
   onChange?: RockEventHandler;
+  eventName: string;
 }
 
 export default {
@@ -13,29 +14,42 @@ export default {
 
   Renderer(context, props: ScriptSetterInputProps) {
     const { framework, page, scope } = context;
-    const { $id, value, onChange } = props;
+    const { $id, eventName, onChange } = props;
 
-    const cmdsEditor = useRef<{
-      getCodeContent(): string;
-      setCodeContent(codeContent: string);
+    const commands = useRef<{
+      getConfigs(): string
+      getCodeContents(): string
+      setConfigs(data: string): void
+      clear(): void
     }>();
-    const [codeEditorVisible, setCodeEditorVisible] = useState(false);
+
+    const [blocklyEditorVisible, setBlocklyEditorVisible] = useState(false);
 
     const onBtnEditClick: RockEventHandlerScript["script"] = async (event: RockEvent) => {
-      setCodeEditorVisible(true);
-      await MoveStyleUtils.waitVariable("current", cmdsEditor);
-      cmdsEditor.current.setCodeContent(value || "");
+      setBlocklyEditorVisible(true);
+      await MoveStyleUtils.waitVariable("current", commands);
+
+      const store = page.getStore<DesignerStore>("designerStore");
+
+      let scriptHandler = store.page.getComponentProperty(store.selectedComponentId, eventName);
+      commands.current.setConfigs(scriptHandler?.blockly?.configs || "{}");
     };
 
-    const onModalOk: RockEventHandlerScript["script"] = (event: RockEvent) => {
-      const codeContent = cmdsEditor.current.getCodeContent();
-      setCodeEditorVisible(false);
-      handleComponentEvent("onChange", framework, page, scope, props, onChange, [codeContent]);
+    const onClose: RockEventHandlerScript["script"] = (event: RockEvent) => {
+      commands.current.clear();
+      setBlocklyEditorVisible(false);
     };
 
-    const onModalCancel: RockEventHandlerScript["script"] = (event: RockEvent) => {
-      setCodeEditorVisible(false);
+    const onSave: RockEventHandlerScript["script"] = (event: RockEvent) => {
+      let data = {
+        configs: commands.current.getConfigs(),
+        codeContents: commands.current.getCodeContents(),
+      };
+      commands.current.clear();
+      handleComponentEvent("onChange", framework, page, scope, props, onChange, data);
+      setBlocklyEditorVisible(false);
     };
+
 
     const rockChildrenConfig: RockConfig[] = [
       {
@@ -55,29 +69,64 @@ export default {
         },
       },
       {
-        $id: `${props.$id}-editor-modal`,
-        $type: "antdModal",
-        title: "Edit code",
-        open: codeEditorVisible,
-        width: "800px",
-        height: "500px",
+        $id: `${props.$id}-editor-drawer`,
+        $type: "antdDrawer",
+        title: "Edit event",
+        open: blocklyEditorVisible,
+        keyboard: false,
+        width: "100%",
         children: [
           {
             $id: `${props.$id}-editor`,
-            $type: "monacoEditor",
-            cmds: cmdsEditor,
-            width: "100%",
-            height: "500px",
-            language: "javascript",
+            $type: "blocklyEditor",
+            commands: commands,
           }
         ],
-        onOk: {
-          $action: "script",
-          script: onModalOk,
+        extra: {
+          $type: "antdSpace",
+          children: [
+            {
+              $id: `${props.$id}-close`,
+              $type: "antdButton",
+              onClick: [
+                {
+                  $action: "script",
+                  script: onClose,
+                }
+              ],
+              children: {
+                $type: "htmlElement",
+                htmlTag: "span",
+                children: {
+                  $type: "text",
+                  text: "取消",
+                },
+              },
+            },
+            {
+              $id: `${props.$id}-save`,
+              $type: "antdButton",
+              type: 'primary',
+              onClick: [
+                {
+                  $action: "script",
+                  script: onSave,
+                }
+              ],
+              children: {
+                $type: "htmlElement",
+                htmlTag: "span",
+                children: {
+                  $type: "text",
+                  text: "保存",
+                },
+              },
+            },
+          ]
         },
-        onCancel: {
+        onClose: {
           $action: "script",
-          script: onModalCancel,
+          script: onClose,
         },
       }
     ];
