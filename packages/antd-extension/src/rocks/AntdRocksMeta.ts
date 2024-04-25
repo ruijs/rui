@@ -38,6 +38,9 @@ regMetaOfRocks(ListItemMeta);
 import Modal from "./rock-meta/Modal";
 regMetaOfRocks(Modal);
 
+import Drawer from "./rock-meta/Drawer";
+regMetaOfRocks(Drawer);
+
 import Rate from "./rock-meta/Rate";
 regMetaOfRocks(Rate);
 
