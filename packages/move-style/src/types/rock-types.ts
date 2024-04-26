@@ -323,6 +323,8 @@ export type RockEventHandlerBase = {
 export type RockEventHandlerScript = RockEventHandlerBase & {
   $action: "script";
   script: string | ((event: RockEvent) => void);
+  generator: "editor" | "blockly",
+  blockly?: any,
 }
 
 export type RockEventHandlerPrintToConsole = RockEventHandlerBase &{

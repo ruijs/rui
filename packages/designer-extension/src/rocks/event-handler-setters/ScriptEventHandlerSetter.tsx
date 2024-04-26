@@ -23,44 +23,46 @@ export default {
     const { page } = context;
     const { $id, label, labelTip, componentConfig, eventName } = props;
 
-    const controlRock: RockConfig = useMemo(() => {
-      const eventHandlers: RockEventHandlerConfig = getComponentPropValue(componentConfig, eventName, null);
-      let scriptHandler: RockEventHandlerScript | null = null;
-      if (isArray(eventHandlers)) {
-        scriptHandler = find(eventHandlers, { $action: "script" }) as any;
-      } else if (eventHandlers?.$action === "script") {
-        scriptHandler = eventHandlers as any;
-      }
 
-      let handlerCode: string;
-      if (scriptHandler) {
-        if (isFunction(scriptHandler.script)) {
-          handlerCode = scriptHandler.script.toString();
-        } else {
-          handlerCode = scriptHandler.script;
-        }
-      }
+    const controlRock: RockConfig = useMemo(() => {
 
       const inputControlRockConfig: RockConfig = {
         $type: "scriptSetterInput",
         $id: `${$id}-setterControl-${eventName}`,
-        value: handlerCode,
+        eventName: eventName,
       };
 
       const onInputControlChange: RockEventHandlerScript["script"] = (event: RockEvent) => {
-        const handlerScriptCode: string = event.args[0];
+
         const store = page.getStore<DesignerStore>("designerStore");
+
+        if(!event.args) {
+          // 删除事件清空属性
+          sendDesignerCommand(page, store, {
+            name: "removeComponentProperty",
+            payload: {
+              componentId: store.selectedComponentId,
+              propName: eventName,
+            }
+          });
+          return;
+        }
+
+        // 保存事件更新属性
+        let latestEventHandler = {
+          $action: "script",
+          script: event.args.codeContents,
+          generator: "blockly",
+          blockly: {
+            configs: event.args.configs,
+          },
+        };
         sendDesignerCommand(page, store, {
           name: "setComponentProperty",
           payload: {
             componentId: store.selectedComponentId,
             propName: eventName,
-            propValue: [
-              {
-                $action: "script",
-                script: handlerScriptCode,
-              }
-            ],
+            propValue: latestEventHandler,
           }
         });
       };

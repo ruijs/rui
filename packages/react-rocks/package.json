@@ -1,6 +1,6 @@
 {
   "name": "@ruiapp/react-rocks",
-  "version": "0.0.21",
+  "version": "0.0.22",
   "description": "",
   "main": "dist/mod.js",
   "types": "dist/mod.d.ts",

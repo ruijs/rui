@@ -1,0 +1,24 @@
+{
+  "include": [],
+  "compilerOptions": {
+    "target": "ESNext",
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "esModuleInterop": true,
+    "jsx": "react-jsx",
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "allowJs": true,
+    "sourceMap": true,
+    "declaration": true,
+    "baseUrl": ".",
+    "outDir": "./dist",
+    "paths": {
+      "~/*": ["./src/*"]
+    }
+  },
+  "references": [
+    {
+      "path": "./tsconfig.lib.json"
+    },
+  ]
+}
