@@ -494,9 +494,13 @@ export type PageCommand =
   | PageCommandCopyComponents
   | PageCommandPasteComponents
   | PageCommandMoveComponents
+  | PageCommandAddStores
   | PageCommandAddStore
   | PageCommandModifyStore
-  | PageCommandRemoveStore;
+  | PageCommandRemoveStore
+  | PageCommandAddStep
+  | PageCommandModifyStep
+  | PageCommandRemoveStep;
 
 export type PageCommandSetPageConfig = {
   name: 'setPageConfig';
@@ -605,6 +609,13 @@ export type PageCommandMoveComponents = {
   };
 };
 
+export type PageCommandAddStores = {
+  name: 'addStores';
+  payload: {
+    stores: StoreConfig[];
+  };
+};
+
 export type PageCommandAddStore = {
   name: 'addStore';
   payload: {
@@ -623,6 +634,27 @@ export type PageCommandRemoveStore = {
   name: 'removeStore';
   payload: {
     store: StoreConfig;
+  };
+};
+
+export type PageCommandAddStep = {
+  name: 'addStep';
+  payload: {
+    step: Record<string, any>;
+  };
+};
+
+export type PageCommandModifyStep = {
+  name: 'modifyStep';
+  payload: {
+    step: Record<string, any>;
+  };
+};
+
+export type PageCommandRemoveStep = {
+  name: 'removeStep';
+  payload: {
+    step: Record<string, any>;
   };
 };
 

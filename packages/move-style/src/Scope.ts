@@ -1,4 +1,4 @@
-import { find } from 'lodash';
+import { find, omit, uniqBy } from 'lodash';
 import { EventEmitter } from './EventEmitter';
 import { Framework } from './Framework';
 import { Page } from './Page';
@@ -39,11 +39,7 @@ export class Scope implements IScope {
     this.#eventSubscriptions = config.eventSubscriptions;
     this.#stores = {};
 
-    if (config.stores) {
-      config.stores.forEach((storeConfig: StoreConfig) => {
-        this.addStore(storeConfig);
-      });
-    }
+    this.addStores(config.stores);
   }
 
   getConfig() {
@@ -54,13 +50,21 @@ export class Scope implements IScope {
     return this.#config;
   }
 
+  addStores(storeConfigs: StoreConfig[]) {
+    if (storeConfigs) {
+      storeConfigs.forEach((storeConfig: StoreConfig) => {
+        this.addStore(storeConfig);
+      });
+    }
+  }
+
   addStore(storeConfig: StoreConfig) {
     this.#logger.debug(`Adding store...`, { storeConfig });
     let store = this.#stores[storeConfig.name];
     if (!store) {
       store = this.#framework.createStore(this.#page, this, storeConfig);
 
-      this.#config.stores = [...(this.#config.stores || []), storeConfig];
+      this.#config.stores = uniqBy([...(this.#config.stores || []), storeConfig], 'name');
       this.#stores[storeConfig.name] = store;
 
       store.observe(() => {
@@ -69,6 +73,40 @@ export class Scope implements IScope {
           vars: this.#vars,
           version: this.#version,
         });
+      });
+    }
+  }
+
+  updateStore(storeConfig: StoreConfig) {
+    this.#logger.debug(`Updating store...`, { storeConfig });
+    let store = this.#stores[storeConfig.name];
+    if (store) {
+      this.#config.stores = (this.#config.stores || []).map((s) => (s.name === storeConfig.name ? storeConfig : s));
+
+      this.#stores[storeConfig.name].setConfig(storeConfig);
+
+      store.observe(() => {
+        this.#emitter.emit('change', {
+          stores: this.#stores,
+          vars: this.#vars,
+          version: this.#version,
+        });
+      });
+    }
+  }
+
+  removeStore(storeConfig: StoreConfig) {
+    this.#logger.debug(`Removing store...`, { storeConfig });
+    let store = this.#stores[storeConfig.name];
+    if (store) {
+      this.#config.stores = (this.#config.stores || []).filter((s) => s.name !== storeConfig.name);
+
+      this.#stores = omit(this.#stores, [storeConfig.name]);
+
+      this.#emitter.emit('change', {
+        stores: this.#stores,
+        vars: this.#vars,
+        version: this.#version,
       });
     }
   }
