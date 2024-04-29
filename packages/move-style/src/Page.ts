@@ -97,10 +97,6 @@ export class Page implements IPage {
     this.#pageScope.removeStore(storeConfig);
   }
 
-  get storeConfigs() {
-    return this.#pageScope.config?.stores || [];
-  }
-
   loadData() {
     this.#logger.debug(`Loading page data...`);
     return this.#pageScope.loadData();

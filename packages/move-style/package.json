@@ -13,7 +13,7 @@
   },
   "scripts": {
     "build": "rimraf dist && rollup --config",
-    "dev": "rollup --config --watch",
+    "dev": "rollup --config",
     "test": "echo \"Error: no test specified\""
   },
   "keywords": [],
