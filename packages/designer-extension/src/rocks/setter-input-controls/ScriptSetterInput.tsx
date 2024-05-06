@@ -41,12 +41,12 @@ export default {
     };
 
     const onSave: RockEventHandlerScript["script"] = (event: RockEvent) => {
-      let data = {
-        configs: commands.current.getConfigs(),
-        codeContents: commands.current.getCodeContents(),
-      };
+      let eventArgs = [
+        commands.current.getConfigs(),
+        commands.current.getCodeContents(),
+      ];
       commands.current.clear();
-      handleComponentEvent("onChange", framework, page, scope, props, onChange, data);
+      handleComponentEvent("onChange", framework, page, scope, props, onChange, eventArgs);
       setBlocklyEditorVisible(false);
     };
 

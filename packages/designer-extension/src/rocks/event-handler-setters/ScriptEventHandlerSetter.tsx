@@ -51,10 +51,10 @@ export default {
         // 保存事件更新属性
         let latestEventHandler = {
           $action: "script",
-          script: event.args.codeContents,
+          script: event.args[1],
           generator: "blockly",
           blockly: {
-            configs: event.args.configs,
+            configs: event.args[0],
           },
         };
         sendDesignerCommand(page, store, {
