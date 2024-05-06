@@ -3,6 +3,7 @@ on:
 
 jobs:
   cache-and-install:
+    name: CI
     runs-on: ubuntu-latest
 
     steps:
