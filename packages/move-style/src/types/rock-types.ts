@@ -1,35 +1,35 @@
-import { Scope } from "~/Scope";
-import { HttpRequestOptions, HttpRequestInput } from "./request-types";
-import { IStore, StoreConfig, StoreConfigBase } from "./store-types";
-import { Framework } from "~/Framework";
-import { Page } from "~/Page";
-import { RuiRockLogger } from "~/Logger";
+import { Scope } from '~/Scope';
+import { HttpRequestOptions, HttpRequestInput } from './request-types';
+import { IStore, StoreConfig, StoreConfigBase } from './store-types';
+import { Framework } from '~/Framework';
+import { Page } from '~/Page';
+import { RuiRockLogger } from '~/Logger';
 
 export type FieldSettings = {
   valueType: FieldValueType;
   valueNotNull?: boolean;
   description?: string;
   defaultValue?: any;
-}
+};
 
-export type FieldValueType = "string" | "number" | "boolean" | "object";
+export type FieldValueType = 'string' | 'number' | 'boolean' | 'object';
 
-export type Rock<TRockConfig=any, TRockState=any, TRockMessage extends RockMessage = RockMessage> = {
-  Renderer: (context: RockInstanceContext, props: TRockConfig, state?: TRockState & {scope: Scope}) => any;
+export type Rock<TRockConfig = any, TRockState = any, TRockMessage extends RockMessage = RockMessage> = {
+  Renderer: (context: RockInstanceContext, props: TRockConfig, state?: TRockState & { scope: Scope }) => any;
   onInit?: (context: RockInitContext, props: TRockConfig) => void;
-  onResolveState?: (props: TRockConfig, state: TRockState & {scope: Scope}) => any;
-  onReceiveMessage?: (message: RockMessageToComponent<TRockMessage>, state: TRockState & {scope: Scope}, props: TRockConfig) => any;
+  onResolveState?: (props: TRockConfig, state: TRockState & { scope: Scope }) => any;
+  onReceiveMessage?: (message: RockMessageToComponent<TRockMessage>, state: TRockState & { scope: Scope }, props: TRockConfig) => any;
 } & RockMeta;
 
-export type RockMessage<TName=string, TPayload=any> = {
+export type RockMessage<TName = string, TPayload = any> = {
   name: TName;
   payload?: TPayload;
-}
+};
 
 export type RockMessageToComponent<TRockMessage extends RockMessage> = TRockMessage & {
   framework: Framework;
   page: IPage;
-}
+};
 
 export type RockMeta = {
   $type: string;
@@ -61,7 +61,7 @@ export type RockMetaSlot = {
   name?: string;
   description?: string;
   required?: boolean;
-  allowMultiComponents: boolean;// TODO: rename to `onlyChild`
+  allowMultiComponents: boolean; // TODO: rename to `onlyChild`
   argumentsToProps?: boolean;
   argumentNames?: string[];
   /**
@@ -81,7 +81,7 @@ export type RockMetaSlot = {
 
   /**
    * 表示是否延迟创建插槽内组件。默认为`false`。
-   * 
+   *
    */
   lazyCreate?: boolean;
 
@@ -89,7 +89,7 @@ export type RockMetaSlot = {
    * 表示是否在调用Rock.Renderer之前提前创建插槽内组件。默认为`false`。
    */
   earlyCreate?: boolean;
-}
+};
 
 export type RockMetaEvents = RockMetaEvent[];
 
@@ -98,7 +98,7 @@ export type RockMetaEvent = {
   label?: string;
   description?: string;
   args?: RockMetaEventArgs;
-}
+};
 
 export type RockMetaEventArgs = Record<string, FieldSettings>;
 
@@ -109,7 +109,7 @@ export type RockMetaCommand = {
   label?: string;
   description?: string;
   args?: RockMetaCommandArgs;
-}
+};
 
 export type RockMetaCommandArgs = Record<string, FieldSettings>;
 
@@ -119,19 +119,14 @@ export type RockPropPanels = RockPropPanel[];
 
 export type RockPropPanel = PredefinedRockPropPanel | ComponentSpecifiedRockPropPanel;
 
-export const PredefinedRockPanelTypes = [
-  "positionPropPanel",
-  "sizePropPanel",
-  "appearancePropPanel",
-  "textPropPanel",
-] as const;
+export const PredefinedRockPanelTypes = ['positionPropPanel', 'sizePropPanel', 'appearancePropPanel', 'textPropPanel'] as const;
 
 export type PredefinedRockPropPanel = {
-  $type: typeof PredefinedRockPanelTypes[number];
+  $type: (typeof PredefinedRockPanelTypes)[number];
 };
 
 export type ComponentSpecifiedRockPropPanel = {
-  $type: "componentPropPanel";
+  $type: 'componentPropPanel';
   setters: RockPropSetter[];
 };
 
@@ -146,16 +141,15 @@ export type RockPropSetter =
   | SingleControlRockPropSetter
   | MultiControlsRockPropSetter;
 
-
 export type ExpressionRockPropSetter = {
-    $type: "expressionPropSetter";
-    label: string;
-    labelTip?: string;
-    propName: string;
-  } & RockConfigBase;
+  $type: 'expressionPropSetter';
+  label: string;
+  labelTip?: string;
+  propName: string;
+} & RockConfigBase;
 
 export type TextRockPropSetter = {
-  $type: "textPropSetter";
+  $type: 'textPropSetter';
   label: string;
   labelTip?: string;
   propName: string;
@@ -163,7 +157,7 @@ export type TextRockPropSetter = {
 } & RockConfigBase;
 
 export type NumberRockPropSetter = {
-  $type: "numberPropSetter";
+  $type: 'numberPropSetter';
   label: string;
   labelTip?: string;
   propName: string;
@@ -174,7 +168,7 @@ export type NumberRockPropSetter = {
 } & RockConfigBase;
 
 export type NumberWithSliderRockPropSetter = {
-  $type: "numberWithSliderPropSetter";
+  $type: 'numberWithSliderPropSetter';
   label: string;
   labelTip?: string;
   propName: string;
@@ -185,7 +179,7 @@ export type NumberWithSliderRockPropSetter = {
 } & RockConfigBase;
 
 export type NumberWithUnitsRockPropSetter = {
-  $type: "numberWithUnitsPropSetter";
+  $type: 'numberWithUnitsPropSetter';
   label: string;
   labelTip?: string;
   propName: string;
@@ -195,26 +189,26 @@ export type NumberWithUnitsRockPropSetter = {
   max?: number;
   step?: number;
   unitOptions: {
-    label: string,
-    value: string,
+    label: string;
+    value: string;
   }[];
 } & RockConfigBase;
 
 export type SelectRockPropSetter = {
-  $type: "selectPropSetter";
+  $type: 'selectPropSetter';
   label: string;
   labelTip?: string;
   propName: string;
   defaultValue?: string;
   options: {
-    label: string,
-    value: string,
+    label: string;
+    value: string;
   }[];
   showSearch?: boolean;
 } & RockConfigBase;
 
 export type SwitchRockPropSetter = {
-  $type: "switchPropSetter";
+  $type: 'switchPropSetter';
   label: string;
   labelTip?: string;
   propName: string;
@@ -224,7 +218,7 @@ export type SwitchRockPropSetter = {
 } & RockConfigBase;
 
 export type SingleControlRockPropSetter = {
-  $type: "singleControlPropSetter";
+  $type: 'singleControlPropSetter';
   label: string;
   labelTip?: string;
   propName: string;
@@ -234,7 +228,7 @@ export type SingleControlRockPropSetter = {
 } & RockConfigBase;
 
 export type MultiControlsRockPropSetter = {
-  $type: "multiControlsPropSetter";
+  $type: 'multiControlsPropSetter';
   label: string;
   labelTip?: string;
   expressionPropName?: string;
@@ -250,22 +244,13 @@ export type RockPropSetterControl = {
    * max=2, default=2
    */
   span?: number;
-}
+};
 
 export type RockChildrenConfig = RockConfig | RockConfig[] | null;
 
-export type RockConfig =
- | SimpleRockConfig
- | RockWithSlotsConfig
- | ContainerRockConfig
- | RouterRockConfig;
+export type RockConfig = SimpleRockConfig | RockWithSlotsConfig | ContainerRockConfig | RouterRockConfig;
 
-export type RockCategory =
-  | "simple"
-  | "withSlots"
-  | "container"
-  | "composite"
-  | "router";
+export type RockCategory = 'simple' | 'withSlots' | 'container' | 'composite' | 'router';
 
 export type RockConfigBase = {
   $id?: string;
@@ -275,23 +260,21 @@ export type RockConfigBase = {
   $notes?: string;
   $exps?: RockPropExpressions;
   _hidden?: boolean;
-}
+};
 
 export type RockConfigSystemFields = keyof RockConfigBase;
 
-
-export type RuiEvent =
-  | RockEvent;
+export type RuiEvent = RockEvent;
 
 export type RockEvent = {
   framework: Framework;
   page: IPage;
   scope: Scope;
   name: string;
-  senderCategory: "component";
+  senderCategory: 'component';
   sender: any;
   args?: any[];
-}
+};
 
 export type RockPageEventSubscriptionConfig = {
   eventName: string;
@@ -318,107 +301,107 @@ export type RockEventHandler =
 
 export type RockEventHandlerBase = {
   _disabled?: boolean;
-}
+};
 
 export type RockEventHandlerScript = RockEventHandlerBase & {
-  $action: "script";
+  $action: 'script';
   script: string | ((event: RockEvent) => void);
-  generator: "editor" | "blockly",
-  blockly?: any,
-}
+  generator: 'editor' | 'blockly';
+  blockly?: any;
+};
 
-export type RockEventHandlerPrintToConsole = RockEventHandlerBase &{
-  $action: "printToConsole";
-}
+export type RockEventHandlerPrintToConsole = RockEventHandlerBase & {
+  $action: 'printToConsole';
+};
 
 export type RockEventHandlerWait = RockEventHandlerBase & {
-  $action: "wait";
+  $action: 'wait';
   time: number;
-}
+};
 
-export type RockEventHandlerHandleEvent = RockEventHandlerBase &{
-  $action: "handleEvent";
+export type RockEventHandlerHandleEvent = RockEventHandlerBase & {
+  $action: 'handleEvent';
   eventName?: string;
   scope?: Scope;
   handlers?: RockEventHandlerConfig;
   args?: any;
-}
+};
 
 export type RockEventHandlerNotifyEvent = RockEventHandlerBase & {
-  $action: "notifyEvent";
+  $action: 'notifyEvent';
   eventName?: string;
   scopeId?: string;
-}
+};
 
 export type RockEventHandlerNotifyToPage = RockEventHandlerBase & {
-  $action: "notifyToPage";
+  $action: 'notifyToPage';
   eventName?: string;
-}
+};
 
 export type RockEventHandlerSetComponentProperty = RockEventHandlerBase & {
-  $action: "setComponentProperty";
+  $action: 'setComponentProperty';
   $exps?: RockPropExpressions;
   componentId: string;
   propName: string;
-  propValue: RockPropValue
-}
+  propValue: RockPropValue;
+};
 
 export type RockEventHandlerSetComponentProperties = RockEventHandlerBase & {
-  $action: "setComponentProperties";
+  $action: 'setComponentProperties';
   $exps?: RockPropExpressions;
   componentId: string;
   props: Record<string, RockPropValue>;
-}
+};
 
 export type RockEventHandlerRemoveComponentProperty = RockEventHandlerBase & {
-  $action: "removeComponentProperty";
+  $action: 'removeComponentProperty';
   $exps?: RockPropExpressions;
   componentId: string;
   propName: string;
-}
+};
 
-export type RockEventHandlerSendComponentMessage<TRockMessage extends RockMessage = RockMessage> = RockEventHandlerBase &{
-  $action: "sendComponentMessage";
+export type RockEventHandlerSendComponentMessage<TRockMessage extends RockMessage = RockMessage> = RockEventHandlerBase & {
+  $action: 'sendComponentMessage';
   $exps?: RockPropExpressions;
   componentId: string;
   message: TRockMessage;
-}
+};
 
 export type RockEventHandlerSendHttpRequest = RockEventHandlerBase & {
-  $action: "sendHttpRequest";
+  $action: 'sendHttpRequest';
   $exps?: RockPropExpressions;
 } & Partial<HttpRequestOptions>;
 
 export type RockEventHandlerLoadStoreData = RockEventHandlerBase & {
-  $action: "loadStoreData";
+  $action: 'loadStoreData';
   scopeId?: string;
   storeName: string;
   input?: any;
-}
+};
 
 export type RockEventHandlerLoadScopeData = RockEventHandlerBase & {
-  $action: "loadScopeData";
+  $action: 'loadScopeData';
   scopeId?: string;
-}
+};
 
 export type RockEventHandlerSetVars = RockEventHandlerBase & {
-  $action: "setVars";
+  $action: 'setVars';
   $exps?: RockPropExpressions;
   scopeId?: string;
   name?: string;
   value?: any;
   vars?: Record<string, any>;
-}
+};
 
 export type RockEventHandlerOther = RockEventHandlerBase & {
   $action: string;
   [k: string]: any;
-}
+};
 
 export type RockPropExpressions = Record<string, string>;
 
 export type SimpleRockConfig = RockConfigBase & {
-  [k: string]:  RockPropValue;
+  [k: string]: RockPropValue;
 };
 
 export type RockPropValueProducer = () => RockPropValue;
@@ -437,47 +420,42 @@ export type RockPropValue =
 
 export type RockWithSlotsConfig = RockConfigBase & {
   slots: Record<string, RockConfig | RockConfig[]>;
-}
-& {
-  [k: string]: RockPropValue;
-}
-
-export type ContainerRockConfig = RockConfigBase
-& {
-  children?: RockChildrenConfig;
-}
-& {
+} & {
   [k: string]: RockPropValue;
 };
 
-export type RouterRockConfig = RockConfigBase
-& {
-  routes: RouteConfig[];
-}
-& {
+export type ContainerRockConfig = RockConfigBase & {
+  children?: RockChildrenConfig;
+} & {
   [k: string]: RockPropValue;
-}
+};
+
+export type RouterRockConfig = RockConfigBase & {
+  routes: RouteConfig[];
+} & {
+  [k: string]: RockPropValue;
+};
 
 export type RouteConfig = {
   path: string;
   element: RockConfig;
   errorElement?: RockConfig;
-}
+};
 
 export type RockInstanceContext = {
   framework: Framework;
   page: Page;
   scope: Scope;
   logger: RuiRockLogger;
-}
+};
 
-export type RockInstanceOriginal<TState=any> = {
+export type RockInstanceOriginal<TState = any> = {
   _initialized: boolean;
   _state: TState;
-}
+};
 export type RockInstanceFields = keyof RockInstanceOriginal;
 
-export type RockInstance<TState=any> = RockConfig & RockInstanceOriginal;
+export type RockInstance<TState = any> = RockConfig & RockInstanceOriginal;
 
 //////////////
 // Page config
@@ -491,7 +469,7 @@ export type PageWithoutLayoutConfig = {
   stores?: StoreConfig[];
   view: RockConfig[];
   eventSubscriptions?: RockPageEventSubscriptionConfig[];
-}
+};
 
 export type PageWithLayoutConfig = {
   $id?: string;
@@ -500,7 +478,7 @@ export type PageWithLayoutConfig = {
   layout: string;
   view: RockConfig[];
   eventSubscriptions?: RockPageEventSubscriptionConfig[];
-}
+};
 
 export type PageCommand =
   | PageCommandSetPageConfig
@@ -515,18 +493,24 @@ export type PageCommand =
   | PageCommandCutComponents
   | PageCommandCopyComponents
   | PageCommandPasteComponents
-  | PageCommandMoveComponents;
-
+  | PageCommandMoveComponents
+  | PageCommandAddStores
+  | PageCommandAddStore
+  | PageCommandModifyStore
+  | PageCommandRemoveStore
+  | PageCommandAddStep
+  | PageCommandModifyStep
+  | PageCommandRemoveStep;
 
 export type PageCommandSetPageConfig = {
-  name: "setPageConfig";
+  name: 'setPageConfig';
   payload: {
     pageConfig: PageConfig;
   };
-}
+};
 
 export type PageCommandAddComponent = {
-  name: "addComponent";
+  name: 'addComponent';
   payload: {
     componentType: string;
     defaultProps?: any;
@@ -534,96 +518,145 @@ export type PageCommandAddComponent = {
     slotPropName?: string;
     prevSiblingComponentId?: string;
   };
-}
+};
 
 export type PageCommandRemoveComponents = {
-  name: "removeComponents";
+  name: 'removeComponents';
   payload: {
     componentIds: string[];
   };
-}
+};
 
 export type PageCommandSetComponentProperty = {
-  name: "setComponentProperty";
+  name: 'setComponentProperty';
   payload: {
     componentId: string;
     propName: string;
     propValue: any;
   };
-}
+};
 
 export type PageCommandSetComponentProperties = {
-  name: "setComponentProperties";
+  name: 'setComponentProperties';
   payload: {
     componentId: string;
     props: Record<string, any>;
   };
-}
+};
 
 export type PageCommandRemoveComponentProperty = {
-  name: "removeComponentProperty";
+  name: 'removeComponentProperty';
   payload: {
     componentId: string;
     propName: string;
   };
-}
+};
 
 export type PageCommandSetComponentPropertyExpression = {
-  name: "setComponentPropertyExpression";
+  name: 'setComponentPropertyExpression';
   payload: {
     componentId: string;
     propName: string;
     propExpression: string;
   };
-}
+};
 
 export type PageCommandRemoveComponentPropertyExpression = {
-  name: "removeComponentPropertyExpression";
+  name: 'removeComponentPropertyExpression';
   payload: {
     componentId: string;
     propName: string;
   };
-}
+};
 
 export type PageCommandSetSelectedComponents = {
-  name: "setSelectedComponents";
+  name: 'setSelectedComponents';
   payload: {
     componentIds: string[];
   };
-}
+};
 
 export type PageCommandCutComponents = {
-  name: "cutComponents";
+  name: 'cutComponents';
   payload: {
     componentIds: string[];
   };
-}
+};
 
 export type PageCommandCopyComponents = {
-  name: "copyComponents";
+  name: 'copyComponents';
   payload: {
     componentIds: string[];
   };
-}
+};
 
 export type PageCommandPasteComponents = {
-  name: "pasteComponents";
+  name: 'pasteComponents';
   payload: {
     parentComponentId?: string;
     slotPropName?: string;
     prevSiblingComponentId?: string;
   };
-}
+};
 
 export type PageCommandMoveComponents = {
-  name: "moveComponents";
+  name: 'moveComponents';
   payload: {
     componentIds: string[];
     parentComponentId?: string;
     slotPropName?: string;
     prevSiblingComponentId?: string;
   };
-}
+};
+
+export type PageCommandAddStores = {
+  name: 'addStores';
+  payload: {
+    stores: StoreConfig[];
+  };
+};
+
+export type PageCommandAddStore = {
+  name: 'addStore';
+  payload: {
+    store: StoreConfig;
+  };
+};
+
+export type PageCommandModifyStore = {
+  name: 'modifyStore';
+  payload: {
+    store: StoreConfig;
+  };
+};
+
+export type PageCommandRemoveStore = {
+  name: 'removeStore';
+  payload: {
+    store: StoreConfig;
+  };
+};
+
+export type PageCommandAddStep = {
+  name: 'addStep';
+  payload: {
+    step: Record<string, any>;
+  };
+};
+
+export type PageCommandModifyStep = {
+  name: 'modifyStep';
+  payload: {
+    step: Record<string, any>;
+  };
+};
+
+export type PageCommandRemoveStep = {
+  name: 'removeStep';
+  payload: {
+    step: Record<string, any>;
+  };
+};
 
 export interface IPage {
   generateComponentId(type: string);
@@ -694,21 +727,28 @@ export interface IScope {
   addStore(storeConfig: StoreConfig);
 }
 
-
 export type RockInitContext = {
   page: IPage;
 
   scope: IScope;
-}
+};
 
 export type FunctionMeta = {
   name: string;
   func: Function;
-}
+};
 
-export type EventActionHandler<TEventActionConfig> = (eventName: string, framework: Framework, page: IPage, scope: IScope, sender: any, eventHandler: TEventActionConfig, eventArgs: any) => any;
+export type EventActionHandler<TEventActionConfig> = (
+  eventName: string,
+  framework: Framework,
+  page: IPage,
+  scope: IScope,
+  sender: any,
+  eventHandler: TEventActionConfig,
+  eventArgs: any,
+) => any;
 
 export type EventAction<TEventActionConfig extends { $action: string }> = {
-  name: TEventActionConfig["$action"];
+  name: TEventActionConfig['$action'];
   handler: EventActionHandler<TEventActionConfig>;
-}
+};

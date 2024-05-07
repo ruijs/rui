@@ -1,4 +1,4 @@
-import Emitter from "events";
+import Emitter from 'events';
 
 export class EventEmitter {
   #emitter: Emitter;
@@ -13,4 +13,4 @@ export class EventEmitter {
   emit(eventName: string, ...args: any) {
     this.#emitter.emit(eventName, ...args);
   }
-};
+}

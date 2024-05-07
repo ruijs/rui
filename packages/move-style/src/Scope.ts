@@ -1,13 +1,12 @@
-import { find } from "lodash";
-import { EventEmitter } from "./EventEmitter";
-import { Framework } from "./Framework";
-import { Page } from "./Page";
-import { HttpRequestInput } from "./types/request-types";
-import { IStore, StoreConfig, StoreConfigBase } from "./types/store-types";
-import { IScope, RockPageEventSubscriptionConfig, RuiEvent, ScopeConfig, ScopeState } from "./types/rock-types";
-import { handleComponentEvent } from "./ComponentEventHandler";
-import { RuiModuleLogger } from "./Logger";
-
+import { find, omit, uniqBy } from 'lodash';
+import { EventEmitter } from './EventEmitter';
+import { Framework } from './Framework';
+import { Page } from './Page';
+import { HttpRequestInput } from './types/request-types';
+import { IStore, StoreConfig, StoreConfigBase } from './types/store-types';
+import { IScope, RockPageEventSubscriptionConfig, RuiEvent, ScopeConfig, ScopeState } from './types/rock-types';
+import { handleComponentEvent } from './ComponentEventHandler';
+import { RuiModuleLogger } from './Logger';
 
 export class Scope implements IScope {
   #framework: Framework;
@@ -22,7 +21,7 @@ export class Scope implements IScope {
 
   constructor(framework: Framework, page: Page, config: ScopeConfig) {
     this.#framework = framework;
-    this.#logger = framework.getLogger("scope");
+    this.#logger = framework.getLogger('scope');
     this.#page = page;
     this.#emitter = new EventEmitter();
     this.#version = 0;
@@ -32,7 +31,7 @@ export class Scope implements IScope {
   setConfig(config: ScopeConfig) {
     this.#logger.debug(`Setting scope config...`, { config });
     if (!config.$id) {
-      config.$id = this.#page.generateComponentId("scope");
+      config.$id = this.#page.generateComponentId('scope');
     }
 
     this.#vars = config.initialVars || {};
@@ -40,11 +39,7 @@ export class Scope implements IScope {
     this.#eventSubscriptions = config.eventSubscriptions;
     this.#stores = {};
 
-    if (config.stores) {
-      config.stores.forEach((storeConfig: StoreConfig) => {
-        this.addStore(storeConfig);
-      });
-    }
+    this.addStores(config.stores);
   }
 
   getConfig() {
@@ -55,19 +50,64 @@ export class Scope implements IScope {
     return this.#config;
   }
 
+  addStores(storeConfigs: StoreConfig[]) {
+    if (storeConfigs) {
+      storeConfigs.forEach((storeConfig: StoreConfig) => {
+        this.addStore(storeConfig);
+      });
+    }
+  }
+
   addStore(storeConfig: StoreConfig) {
     this.#logger.debug(`Adding store...`, { storeConfig });
     let store = this.#stores[storeConfig.name];
     if (!store) {
       store = this.#framework.createStore(this.#page, this, storeConfig);
+
+      this.#config.stores = uniqBy([...(this.#config.stores || []), storeConfig], 'name');
+      this.#stores[storeConfig.name] = store;
+
       store.observe(() => {
-        this.#emitter.emit("change", {
+        this.#emitter.emit('change', {
           stores: this.#stores,
           vars: this.#vars,
           version: this.#version,
         });
       });
-      this.#stores[storeConfig.name] = store;
+    }
+  }
+
+  updateStore(storeConfig: StoreConfig) {
+    this.#logger.debug(`Updating store...`, { storeConfig });
+    let store = this.#stores[storeConfig.name];
+    if (store) {
+      this.#config.stores = (this.#config.stores || []).map((s) => (s.name === storeConfig.name ? storeConfig : s));
+
+      this.#stores[storeConfig.name].setConfig(storeConfig);
+
+      store.observe(() => {
+        this.#emitter.emit('change', {
+          stores: this.#stores,
+          vars: this.#vars,
+          version: this.#version,
+        });
+      });
+    }
+  }
+
+  removeStore(storeConfig: StoreConfig) {
+    this.#logger.debug(`Removing store...`, { storeConfig });
+    let store = this.#stores[storeConfig.name];
+    if (store) {
+      this.#config.stores = (this.#config.stores || []).filter((s) => s.name !== storeConfig.name);
+
+      this.#stores = omit(this.#stores, [storeConfig.name]);
+
+      this.#emitter.emit('change', {
+        stores: this.#stores,
+        vars: this.#vars,
+        version: this.#version,
+      });
     }
   }
 
@@ -76,7 +116,7 @@ export class Scope implements IScope {
   }
 
   async loadData() {
-    this.#logger.debug(`Loading scope data...`)
+    this.#logger.debug(`Loading scope data...`);
     for (const storeName in this.#stores) {
       const store = this.#stores[storeName];
       await store.loadData();
@@ -93,7 +133,7 @@ export class Scope implements IScope {
   }
 
   observe(callback: (state: ScopeState) => void) {
-    this.#emitter.on("change", callback);
+    this.#emitter.on('change', callback);
   }
 
   setVars(vars: Record<string, any>, silent: boolean = false) {
@@ -102,7 +142,7 @@ export class Scope implements IScope {
     this.#vars = newVars;
     this.#version = this.#version + 1;
     if (!silent) {
-      this.#emitter.emit("change", {
+      this.#emitter.emit('change', {
         stores: this.#stores,
         vars: this.#vars,
         version: this.#version,
@@ -118,7 +158,6 @@ export class Scope implements IScope {
     return this.#stores;
   }
 
-
   async notifyEvent(event: RuiEvent) {
     if (!this.#eventSubscriptions) {
       return;
@@ -129,7 +168,15 @@ export class Scope implements IScope {
         continue;
       }
 
-      await handleComponentEvent(eventSubscription.eventName, event.framework, event.page as any, event.scope, event.sender, eventSubscription.handlers, event.args);
+      await handleComponentEvent(
+        eventSubscription.eventName,
+        event.framework,
+        event.page as any,
+        event.scope,
+        event.sender,
+        eventSubscription.handlers,
+        event.args,
+      );
     }
   }
-};
+}

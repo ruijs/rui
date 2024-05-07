@@ -1,6 +1,6 @@
-import { Page, RockConfig, Rock, SimpleRockConfig } from "@ruiapp/move-style";
-import { renderRockChildren } from "@ruiapp/react-renderer";
-import { useMemo } from "react";
+import { Page, RockConfig, Rock, SimpleRockConfig } from '@ruiapp/move-style';
+import { renderRockChildren } from '@ruiapp/react-renderer';
+import { useMemo } from 'react';
 
 export interface DesignerComponentPropertiesPanelProps extends SimpleRockConfig {
   selectedComponentId: string;
@@ -9,7 +9,7 @@ export interface DesignerComponentPropertiesPanelProps extends SimpleRockConfig 
 }
 
 export default {
-  $type: "designerComponentPropertiesPanel",
+  $type: 'designerComponentPropertiesPanel',
 
   Renderer(context, props: DesignerComponentPropertiesPanelProps) {
     const { framework } = context;
@@ -31,12 +31,12 @@ export default {
       if (propertyPanels) {
         for (const propertyPanel of propertyPanels) {
           const panelRockType = propertyPanel.$type;
-  
+
           // TODO: remove this section
           if (!framework.getComponent(panelRockType)) {
             continue;
           }
-  
+
           panelRocks.push({
             $id: `${$id}-${panelRockType}`,
             $type: panelRockType,
@@ -56,10 +56,6 @@ export default {
       return null;
     }
 
-    return <div>
-      {
-        renderRockChildren({context, rockChildrenConfig})
-      }
-    </div>
+    return <div>{renderRockChildren({ context, rockChildrenConfig })}</div>;
   },
 } as Rock;

@@ -1,7 +1,6 @@
-import { RockConfig, RockConfigBase, Rock, RockPropSetter } from "@ruiapp/move-style";
-import { renderRockChildren } from "@ruiapp/react-renderer";
-import { useMemo } from "react";
-
+import { RockConfig, RockConfigBase, Rock, RockPropSetter } from '@ruiapp/move-style';
+import { renderRockChildren } from '@ruiapp/react-renderer';
+import { useMemo } from 'react';
 
 export interface ComponentPropPanelProps extends RockConfigBase {
   title?: string;
@@ -10,7 +9,7 @@ export interface ComponentPropPanelProps extends RockConfigBase {
 }
 
 export default {
-  $type: "componentPropPanel",
+  $type: 'componentPropPanel',
 
   Renderer(context, props: ComponentPropPanelProps) {
     const { componentConfig, setters } = props;
@@ -26,16 +25,15 @@ export default {
 
     let panelTitle = props.title;
     if (!panelTitle) {
-      const rockMeta: Rock = context.framework.getComponent(componentConfig.$type)
+      const rockMeta: Rock = context.framework.getComponent(componentConfig.$type);
       panelTitle = rockMeta.name || rockMeta.$type;
     }
 
-    return <div>
-      <h3>{panelTitle}</h3>
-      {
-        renderRockChildren({context, rockChildrenConfig})
-      }
-    </div>
-
+    return (
+      <div>
+        <h3>{panelTitle}</h3>
+        {renderRockChildren({ context, rockChildrenConfig })}
+      </div>
+    );
   },
 } as Rock;
