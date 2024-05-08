@@ -12,7 +12,7 @@ your toolbox from scratch, or carefully choosing whether you need each block
 listed here.
 */
 
-import {ToolboxDefinition} from "blockly/core/utils/toolbox";
+import { ToolboxDefinition } from "blockly/core/utils/toolbox";
 
 let toolboxDef: ToolboxDefinition;
 
@@ -143,6 +143,18 @@ toolboxDef = {
     {
       "kind": "label",
       "text": "数据操作"
+    },
+    {
+      "kind": "label",
+      "text": "系统交互"
+    },
+    {
+      "kind": "block",
+      "type": "goto_step",
+    },
+    {
+      "kind": "block",
+      "type": "goto_step_name",
     },
   ]
 };
