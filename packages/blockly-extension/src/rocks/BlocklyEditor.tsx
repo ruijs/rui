@@ -1,16 +1,28 @@
-import {MoveStyleUtils, Rock, SimpleRockConfig} from "@ruiapp/move-style";
-import {MutableRefObject, useEffect, useRef} from "react";
+import { MoveStyleUtils, Rock, RockInstanceContext, SimpleRockConfig } from "@ruiapp/move-style";
+import { MutableRefObject, useEffect, useRef } from "react";
 import * as Blockly from 'blockly';
-import * as Blocks from '~/blocks/blocks';
-import {forBlock} from '~/generators/javascript';
-import {javascriptGenerator} from 'blockly/javascript';
-import {toolbox} from '~/toolbox';
+import { javascriptGenerator } from 'blockly/javascript';
+import { toolbox } from '~/toolbox';
+import { definitions } from "~/blocks/_blocks";
 
-// Register the blocks and generator with Blockly
-Blockly.common.defineBlocks(Blocks.blocks);
-Object.assign(javascriptGenerator.forBlock, forBlock);
 
-function loadBlocklyEditor(container: HTMLElement): Blockly.WorkspaceSvg {
+function loadBlocklyEditor(context: RockInstanceContext, container: HTMLElement): Blockly.WorkspaceSvg {
+
+  // Register the blocks and generator with Blockly
+  const store = context.scope.getStore("designerStore") as any;
+  const steps = store?.appConfig?.steps || [];
+
+  const blocks = Object.create(null);
+  const generators = Object.create(null);
+
+  for (let name in definitions) {
+    let definition = definitions[name]({steps: steps});
+    blocks[name] = definition.block;
+    generators[name] = definition.generator;
+  }
+
+  Object.assign(Blockly.Blocks, blocks);
+  Object.assign(javascriptGenerator.forBlock, generators);
 
   // Blockly.setLocale(Zh);
   const ws = Blockly.inject(container, {
@@ -51,8 +63,11 @@ function loadBlocklyEditor(container: HTMLElement): Blockly.WorkspaceSvg {
 
 export interface BlocklyEditorCommands {
   getConfigs(): string
+
   getCodeContents(): string
+
   setConfigs(data: string): void
+
   clear(): void
 }
 
@@ -63,8 +78,7 @@ export interface BlocklyEditorProps extends SimpleRockConfig {
 export default {
   $type: "blocklyEditor",
 
-  slots: {
-  },
+  slots: {},
 
   props: {
     configs: {
@@ -81,7 +95,7 @@ export default {
 
     async function initEditor() {
 
-      const workspace = loadBlocklyEditor(refContainer.current as HTMLElement);
+      const workspace = loadBlocklyEditor(context, refContainer.current as HTMLElement);
 
       commands.current = {
         getConfigs(): string {
@@ -129,14 +143,14 @@ export default {
     }, []);
 
     return <div
-        style={
-          {
-            display: 'flex',
-            width: "100%",
-            height: "100%",
-          }
+      style={
+        {
+          display: 'flex',
+          width: "100%",
+          height: "100%",
         }
-      >
+      }
+    >
       <div style={
         {
           display: 'flex',
