@@ -1,5 +1,11 @@
 # @ruiapp/blockly-extension
 
+## 0.0.26
+
+### Patch Changes
+
+- 1096671: impl goto_step goto_step_name block
+
 ## 0.0.25
 
 ### Patch Changes
