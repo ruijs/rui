@@ -381,7 +381,10 @@ importers:
       '@ruiapp/react-renderer':
         specifier: workspace:^
         version: link:../react-renderer
-      '@uiw/react-color':
+      '@uiw/color-convert':
+        specifier: ^2.1.1
+        version: 2.1.1(@babel/runtime@7.24.4)
+      '@uiw/react-color-sketch':
         specifier: ^2.1.1
         version: 2.1.1(@babel/runtime@7.24.4)(react-dom@18.2.0)(react@18.2.0)
     devDependencies:
@@ -3039,101 +3042,6 @@ packages:
       react-dom: 18.2.0(react@18.2.0)
     dev: false
 
-  /@uiw/react-color-block@2.1.1(@babel/runtime@7.24.4)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-c4xA42z7aLou8jBjxwLgUYZ+SiaZbVMADPLE/CcBi8EY/NcvvvtrL2wJGqE0g2Aqfey5RjB7nFxUeqSG1N00aA==, tarball: https://registry.npmmirror.com/@uiw/react-color-block/-/react-color-block-2.1.1.tgz}
-    peerDependencies:
-      '@babel/runtime': '>=7.19.0'
-      react: '>=16.9.0'
-      react-dom: '>=16.9.0'
-    dependencies:
-      '@babel/runtime': 7.24.4
-      '@uiw/color-convert': 2.1.1(@babel/runtime@7.24.4)
-      '@uiw/react-color-editable-input': 2.1.1(@babel/runtime@7.24.4)(react-dom@18.2.0)(react@18.2.0)
-      '@uiw/react-color-swatch': 2.1.1(@babel/runtime@7.24.4)(react-dom@18.2.0)(react@18.2.0)
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
-    dev: false
-
-  /@uiw/react-color-chrome@2.1.1(@babel/runtime@7.24.4)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-tv51lG6Wol8skiclLXXc8yf5nAVig5OjYtuNxsnFr165GP1YJ/mdnS7OIprYF/wP5mz66W7K0iz/8hAIof5/ug==, tarball: https://registry.npmmirror.com/@uiw/react-color-chrome/-/react-color-chrome-2.1.1.tgz}
-    peerDependencies:
-      '@babel/runtime': '>=7.19.0'
-      react: '>=16.9.0'
-      react-dom: '>=16.9.0'
-    dependencies:
-      '@babel/runtime': 7.24.4
-      '@uiw/color-convert': 2.1.1(@babel/runtime@7.24.4)
-      '@uiw/react-color-alpha': 2.1.1(@babel/runtime@7.24.4)(react-dom@18.2.0)(react@18.2.0)
-      '@uiw/react-color-editable-input': 2.1.1(@babel/runtime@7.24.4)(react-dom@18.2.0)(react@18.2.0)
-      '@uiw/react-color-editable-input-hsla': 2.1.1(@babel/runtime@7.24.4)(react-dom@18.2.0)(react@18.2.0)
-      '@uiw/react-color-editable-input-rgba': 2.1.1(@babel/runtime@7.24.4)(react-dom@18.2.0)(react@18.2.0)
-      '@uiw/react-color-github': 2.1.1(@babel/runtime@7.24.4)(react-dom@18.2.0)(react@18.2.0)
-      '@uiw/react-color-hue': 2.1.1(@babel/runtime@7.24.4)(react-dom@18.2.0)(react@18.2.0)
-      '@uiw/react-color-saturation': 2.1.1(@babel/runtime@7.24.4)(react-dom@18.2.0)(react@18.2.0)
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
-    dev: false
-
-  /@uiw/react-color-circle@2.1.1(@babel/runtime@7.24.4)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-t/Wr6eT9GLOzywaTmJclOZ3NuirJlMk8eVxoLKM7eRePbN5WowIEMwug/towSU3YrBrEbSSWjZRhfVUqdh7kMw==, tarball: https://registry.npmmirror.com/@uiw/react-color-circle/-/react-color-circle-2.1.1.tgz}
-    peerDependencies:
-      '@babel/runtime': '>=7.19.0'
-      react: '>=16.9.0'
-      react-dom: '>=16.9.0'
-    dependencies:
-      '@babel/runtime': 7.24.4
-      '@uiw/color-convert': 2.1.1(@babel/runtime@7.24.4)
-      '@uiw/react-color-swatch': 2.1.1(@babel/runtime@7.24.4)(react-dom@18.2.0)(react@18.2.0)
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
-    dev: false
-
-  /@uiw/react-color-colorful@2.1.1(@babel/runtime@7.24.4)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-7cGRtYv+llXO7Tmpfska9HxjQAbkqBP5P63wned6JD/0lOM4KXELxhWI3044nO/Osi5r3FDsGh0HRqiLgUK75Q==, tarball: https://registry.npmmirror.com/@uiw/react-color-colorful/-/react-color-colorful-2.1.1.tgz}
-    peerDependencies:
-      '@babel/runtime': '>=7.19.0'
-      react: '>=16.9.0'
-      react-dom: '>=16.9.0'
-    dependencies:
-      '@babel/runtime': 7.24.4
-      '@uiw/color-convert': 2.1.1(@babel/runtime@7.24.4)
-      '@uiw/react-color-alpha': 2.1.1(@babel/runtime@7.24.4)(react-dom@18.2.0)(react@18.2.0)
-      '@uiw/react-color-hue': 2.1.1(@babel/runtime@7.24.4)(react-dom@18.2.0)(react@18.2.0)
-      '@uiw/react-color-saturation': 2.1.1(@babel/runtime@7.24.4)(react-dom@18.2.0)(react@18.2.0)
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
-    dev: false
-
-  /@uiw/react-color-compact@2.1.1(@babel/runtime@7.24.4)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-Af9skc0Bx3lot2zg58SlpMoQEKqyMbKvr7y2O541Hodc89ykgEDJZXqLrKiKnacBWMZxSAcAHoSFf70RLeoTlw==, tarball: https://registry.npmmirror.com/@uiw/react-color-compact/-/react-color-compact-2.1.1.tgz}
-    peerDependencies:
-      '@babel/runtime': '>=7.19.0'
-      react: '>=16.9.0'
-      react-dom: '>=16.9.0'
-    dependencies:
-      '@babel/runtime': 7.24.4
-      '@uiw/color-convert': 2.1.1(@babel/runtime@7.24.4)
-      '@uiw/react-color-editable-input': 2.1.1(@babel/runtime@7.24.4)(react-dom@18.2.0)(react@18.2.0)
-      '@uiw/react-color-editable-input-rgba': 2.1.1(@babel/runtime@7.24.4)(react-dom@18.2.0)(react@18.2.0)
-      '@uiw/react-color-swatch': 2.1.1(@babel/runtime@7.24.4)(react-dom@18.2.0)(react@18.2.0)
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
-    dev: false
-
-  /@uiw/react-color-editable-input-hsla@2.1.1(@babel/runtime@7.24.4)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-2Eqcd0hUa5qLVxT062Vf9vsxS2/6X+AJ6f6Wfs6/UAM6iUWqWPkJxajRmEtFfB6Zv5bcaYjhSZNGgeEf7azAvQ==, tarball: https://registry.npmmirror.com/@uiw/react-color-editable-input-hsla/-/react-color-editable-input-hsla-2.1.1.tgz}
-    peerDependencies:
-      '@babel/runtime': '>=7.19.0'
-      react: '>=16.9.0'
-      react-dom: '>=16.9.0'
-    dependencies:
-      '@babel/runtime': 7.24.4
-      '@uiw/color-convert': 2.1.1(@babel/runtime@7.24.4)
-      '@uiw/react-color-editable-input-rgba': 2.1.1(@babel/runtime@7.24.4)(react-dom@18.2.0)(react@18.2.0)
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
-    dev: false
-
   /@uiw/react-color-editable-input-rgba@2.1.1(@babel/runtime@7.24.4)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-6YtDaBWTXu27MK6s3HZty0qg3mYb4GN/8dI8T39R/qEiMX/SButMfC09pnygN74InyuG8MzobUg2GowfTRUG5A==, tarball: https://registry.npmmirror.com/@uiw/react-color-editable-input-rgba/-/react-color-editable-input-rgba-2.1.1.tgz}
     peerDependencies:
@@ -3160,20 +3068,6 @@ packages:
       react-dom: 18.2.0(react@18.2.0)
     dev: false
 
-  /@uiw/react-color-github@2.1.1(@babel/runtime@7.24.4)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-5balACHzjVqrkdEsGXI2Ir4iXQrTAHQ7uRzqY+op41uuciIb8yGI1PecJd2qIjUJhk/kZ4nmp6KAjQEAK2iVIQ==, tarball: https://registry.npmmirror.com/@uiw/react-color-github/-/react-color-github-2.1.1.tgz}
-    peerDependencies:
-      '@babel/runtime': '>=7.19.0'
-      react: '>=16.9.0'
-      react-dom: '>=16.9.0'
-    dependencies:
-      '@babel/runtime': 7.24.4
-      '@uiw/color-convert': 2.1.1(@babel/runtime@7.24.4)
-      '@uiw/react-color-swatch': 2.1.1(@babel/runtime@7.24.4)(react-dom@18.2.0)(react@18.2.0)
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
-    dev: false
-
   /@uiw/react-color-hue@2.1.1(@babel/runtime@7.24.4)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-IvN2acCV35yRfmbscUQbNfwjKF+g51kMONv9j0zxDlTct2R0x4gatsVjA1tTpLv5UCIkFvhw80xg04QATrJ4Nw==, tarball: https://registry.npmmirror.com/@uiw/react-color-hue/-/react-color-hue-2.1.1.tgz}
     peerDependencies:
@@ -3188,31 +3082,6 @@ packages:
       react-dom: 18.2.0(react@18.2.0)
     dev: false
 
-  /@uiw/react-color-material@2.1.1(@babel/runtime@7.24.4)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-Pcp/kpBnTGYXqP0up3rqTdJWKtnD2XdiA5Zdh5bdwqssI+qHo0cVELXOnpwU3LiSCZykTDauvGoOqTWprvox4g==, tarball: https://registry.npmmirror.com/@uiw/react-color-material/-/react-color-material-2.1.1.tgz}
-    peerDependencies:
-      '@babel/runtime': '>=7.19.0'
-      react: '>=16.9.0'
-      react-dom: '>=16.9.0'
-    dependencies:
-      '@babel/runtime': 7.24.4
-      '@uiw/color-convert': 2.1.1(@babel/runtime@7.24.4)
-      '@uiw/react-color-editable-input': 2.1.1(@babel/runtime@7.24.4)(react-dom@18.2.0)(react@18.2.0)
-      '@uiw/react-color-editable-input-rgba': 2.1.1(@babel/runtime@7.24.4)(react-dom@18.2.0)(react@18.2.0)
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
-    dev: false
-
-  /@uiw/react-color-name@2.1.1(@babel/runtime@7.24.4):
-    resolution: {integrity: sha512-k+19NgPHPZ88oqzCfAcVd7fT4F6XywkeZkX3DDyRG3Skc8zuGdIS2xT7Ne7ZSQb31UT0+UfuOiwOST+r+kGnFA==, tarball: https://registry.npmmirror.com/@uiw/react-color-name/-/react-color-name-2.1.1.tgz}
-    peerDependencies:
-      '@babel/runtime': '>=7.19.0'
-    dependencies:
-      '@babel/runtime': 7.24.4
-      colors-named: 1.0.2
-      colors-named-hex: 1.0.2
-    dev: false
-
   /@uiw/react-color-saturation@2.1.1(@babel/runtime@7.24.4)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-lg3ElCNuiHt7wsfR9FQpgFcg9zht+GAuVhemvgLq6twR62ZUgFd58in42T1F8l2ZpimXu8SgLGEtvc7XB2i8CQ==, tarball: https://registry.npmmirror.com/@uiw/react-color-saturation/-/react-color-saturation-2.1.1.tgz}
     peerDependencies:
@@ -3223,20 +3092,6 @@ packages:
       '@babel/runtime': 7.24.4
       '@uiw/color-convert': 2.1.1(@babel/runtime@7.24.4)
       '@uiw/react-drag-event-interactive': 2.1.1(@babel/runtime@7.24.4)(react-dom@18.2.0)(react@18.2.0)
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
-    dev: false
-
-  /@uiw/react-color-shade-slider@2.1.1(@babel/runtime@7.24.4)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-7DO2d53GGFR6fXPS7g3hUNTlQCwNjKSQum90h4HeJa5jxIQiuSpeMVPo6IoG8EAuP88Au5C55SYV+qjNgLvG8Q==, tarball: https://registry.npmmirror.com/@uiw/react-color-shade-slider/-/react-color-shade-slider-2.1.1.tgz}
-    peerDependencies:
-      '@babel/runtime': '>=7.19.0'
-      react: '>=16.9.0'
-      react-dom: '>=16.9.0'
-    dependencies:
-      '@babel/runtime': 7.24.4
-      '@uiw/color-convert': 2.1.1(@babel/runtime@7.24.4)
-      '@uiw/react-color-alpha': 2.1.1(@babel/runtime@7.24.4)(react-dom@18.2.0)(react@18.2.0)
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
     dev: false
@@ -3260,20 +3115,6 @@ packages:
       react-dom: 18.2.0(react@18.2.0)
     dev: false
 
-  /@uiw/react-color-slider@2.1.1(@babel/runtime@7.24.4)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-J0nqSpiJS4lZCUudAFo8sFMTZgiPgQ0iR4ADx1Hc5vGJr5KfpGwOVq68cUvqiAqXplUQZPVcjwoBhxl4M4fCzg==, tarball: https://registry.npmmirror.com/@uiw/react-color-slider/-/react-color-slider-2.1.1.tgz}
-    peerDependencies:
-      '@babel/runtime': '>=7.19.0'
-      react: '>=16.9.0'
-      react-dom: '>=16.9.0'
-    dependencies:
-      '@babel/runtime': 7.24.4
-      '@uiw/color-convert': 2.1.1(@babel/runtime@7.24.4)
-      '@uiw/react-color-alpha': 2.1.1(@babel/runtime@7.24.4)(react-dom@18.2.0)(react@18.2.0)
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
-    dev: false
-
   /@uiw/react-color-swatch@2.1.1(@babel/runtime@7.24.4)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-soKsfVgflcKSBx47PaBocKZ0beIXfk9ruE4r9778mGnDDpxc2RC5zPNfvzQkSLKW+siXIS0cscuvb/8s1zK5jw==, tarball: https://registry.npmmirror.com/@uiw/react-color-swatch/-/react-color-swatch-2.1.1.tgz}
     peerDependencies:
@@ -3283,52 +3124,6 @@ packages:
     dependencies:
       '@babel/runtime': 7.24.4
       '@uiw/color-convert': 2.1.1(@babel/runtime@7.24.4)
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
-    dev: false
-
-  /@uiw/react-color-wheel@2.1.1(@babel/runtime@7.24.4)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-88TYL9GCStBNULEkZ6qlQt8z/jnAf1ZSJwpbVK1JGUwogPJaMAJt8FRSUfzTNpIwYA8ymgK9Y1seng6Z8YkS9Q==, tarball: https://registry.npmmirror.com/@uiw/react-color-wheel/-/react-color-wheel-2.1.1.tgz}
-    peerDependencies:
-      '@babel/runtime': '>=7.19.0'
-      react: '>=16.9.0'
-      react-dom: '>=16.9.0'
-    dependencies:
-      '@babel/runtime': 7.24.4
-      '@uiw/color-convert': 2.1.1(@babel/runtime@7.24.4)
-      '@uiw/react-drag-event-interactive': 2.1.1(@babel/runtime@7.24.4)(react-dom@18.2.0)(react@18.2.0)
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
-    dev: false
-
-  /@uiw/react-color@2.1.1(@babel/runtime@7.24.4)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-RE95rGzlOej848nK0onqxk2N+asrHpp3LEH2h7VJkcdJLOK54jccnGKdCc2seNue3zpCIcwPcR38hOeHhfJLJg==, tarball: https://registry.npmmirror.com/@uiw/react-color/-/react-color-2.1.1.tgz}
-    peerDependencies:
-      '@babel/runtime': '>=7.19.0'
-      react: '>=16.9.0'
-      react-dom: '>=16.9.0'
-    dependencies:
-      '@babel/runtime': 7.24.4
-      '@uiw/color-convert': 2.1.1(@babel/runtime@7.24.4)
-      '@uiw/react-color-alpha': 2.1.1(@babel/runtime@7.24.4)(react-dom@18.2.0)(react@18.2.0)
-      '@uiw/react-color-block': 2.1.1(@babel/runtime@7.24.4)(react-dom@18.2.0)(react@18.2.0)
-      '@uiw/react-color-chrome': 2.1.1(@babel/runtime@7.24.4)(react-dom@18.2.0)(react@18.2.0)
-      '@uiw/react-color-circle': 2.1.1(@babel/runtime@7.24.4)(react-dom@18.2.0)(react@18.2.0)
-      '@uiw/react-color-colorful': 2.1.1(@babel/runtime@7.24.4)(react-dom@18.2.0)(react@18.2.0)
-      '@uiw/react-color-compact': 2.1.1(@babel/runtime@7.24.4)(react-dom@18.2.0)(react@18.2.0)
-      '@uiw/react-color-editable-input': 2.1.1(@babel/runtime@7.24.4)(react-dom@18.2.0)(react@18.2.0)
-      '@uiw/react-color-editable-input-hsla': 2.1.1(@babel/runtime@7.24.4)(react-dom@18.2.0)(react@18.2.0)
-      '@uiw/react-color-editable-input-rgba': 2.1.1(@babel/runtime@7.24.4)(react-dom@18.2.0)(react@18.2.0)
-      '@uiw/react-color-github': 2.1.1(@babel/runtime@7.24.4)(react-dom@18.2.0)(react@18.2.0)
-      '@uiw/react-color-hue': 2.1.1(@babel/runtime@7.24.4)(react-dom@18.2.0)(react@18.2.0)
-      '@uiw/react-color-material': 2.1.1(@babel/runtime@7.24.4)(react-dom@18.2.0)(react@18.2.0)
-      '@uiw/react-color-name': 2.1.1(@babel/runtime@7.24.4)
-      '@uiw/react-color-saturation': 2.1.1(@babel/runtime@7.24.4)(react-dom@18.2.0)(react@18.2.0)
-      '@uiw/react-color-shade-slider': 2.1.1(@babel/runtime@7.24.4)(react-dom@18.2.0)(react@18.2.0)
-      '@uiw/react-color-sketch': 2.1.1(@babel/runtime@7.24.4)(react-dom@18.2.0)(react@18.2.0)
-      '@uiw/react-color-slider': 2.1.1(@babel/runtime@7.24.4)(react-dom@18.2.0)(react@18.2.0)
-      '@uiw/react-color-swatch': 2.1.1(@babel/runtime@7.24.4)(react-dom@18.2.0)(react@18.2.0)
-      '@uiw/react-color-wheel': 2.1.1(@babel/runtime@7.24.4)(react-dom@18.2.0)(react@18.2.0)
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
     dev: false
@@ -4264,16 +4059,6 @@ packages:
   /colorette@2.0.19:
     resolution: {integrity: sha512-3tlv/dIP7FWvj3BsbHrGLJ6l/oKh1O3TcgBqMn+yyCagOxc23fyzDS6HypQbgxWbkpDnf52p1LuR4eWDQ/K9WQ==}
     dev: true
-
-  /colors-named-hex@1.0.2:
-    resolution: {integrity: sha512-k6kq1e1pUCQvSVwIaGFq2l0LrkAPQZWyeuZn1Z8nOiYSEZiKoFj4qx690h2Kd34DFl9Me0gKS6MUwAMBJj8nuA==, tarball: https://registry.npmmirror.com/colors-named-hex/-/colors-named-hex-1.0.2.tgz}
-    engines: {node: '>=14.16'}
-    dev: false
-
-  /colors-named@1.0.2:
-    resolution: {integrity: sha512-2ANq2r393PV9njYUD66UdfBcxR1slMqRA3QRTWgCx49JoCJ+kOhyfbQYxKJbPZQIhZUcNjVOs5AlyY1WwXec3w==, tarball: https://registry.npmmirror.com/colors-named/-/colors-named-1.0.2.tgz}
-    engines: {node: '>=14.16'}
-    dev: false
 
   /colorspace@1.1.4:
     resolution: {integrity: sha512-BgvKJiuVu1igBUF2kEjRCZXol6wiiGbY5ipL/oVPwm0BL9sIpMIzM8IK7vwuxIIzOXMV3Ey5w+vxhm0rR/TN8w==}

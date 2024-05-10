@@ -49,6 +49,7 @@
     "react-dom": "^18.2.0"
   },
   "dependencies": {
-    "@uiw/react-color": "^2.1.1"
+    "@uiw/color-convert": "^2.1.1",
+    "@uiw/react-color-sketch": "^2.1.1"
   }
 }
