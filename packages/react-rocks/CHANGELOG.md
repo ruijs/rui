@@ -1,5 +1,11 @@
 # @ruiapp/react-rocks
 
+## 0.1.26
+
+### Patch Changes
+
+- fix color component
+
 ## 0.0.25
 
 ### Patch Changes
