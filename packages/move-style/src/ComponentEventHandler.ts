@@ -22,7 +22,7 @@ import {
   RockPropExpressions,
 } from './types/rock-types';
 import { request } from './utils/HttpRequest';
-import { log } from 'winston';
+import { AxiosResponse } from 'axios';
 
 // TODO: make event handling extensible.
 
@@ -323,7 +323,24 @@ async function handleSendHttpRequest(
   eventHandler: RockEventHandlerSendHttpRequest,
   eventArgs: any[],
 ) {
-  await request(eventHandler as HttpRequestOptions);
+  const { onError, onSuccess } = eventHandler;
+  let res: AxiosResponse<any, any>;
+  try {
+    res = await request(eventHandler as HttpRequestOptions);
+  } catch (ex: any) {
+    const message = ex?.response?.data?.error?.message || ex.message;
+    const err = {
+      message,
+    };
+    if (onError) {
+      await handleComponentEvent(eventName, framework, page, scope, sender, eventHandler.onError, [err])
+      return;
+    }
+  }
+
+  if (onSuccess) {
+    await handleComponentEvent(eventName, framework, page, scope, sender, eventHandler.onSuccess, [res.data])
+  }
 }
 
 async function handleSetVars(
