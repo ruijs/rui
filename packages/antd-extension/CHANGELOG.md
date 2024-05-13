@@ -1,5 +1,11 @@
 # @ruiapp/antd-extension
 
+## 0.1.26
+
+### Patch Changes
+
+- e6fcd34: event action improvement
+
 ## 0.0.25
 
 ### Patch Changes
