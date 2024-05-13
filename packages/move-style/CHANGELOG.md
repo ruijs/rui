@@ -1,5 +1,11 @@
 # @ruiapp/move-style
 
+## 0.1.26
+
+### Patch Changes
+
+- 46b2d99: Added onSuccess and onError events on sendHttpRequest action.
+
 ## 0.0.25
 
 ### Patch Changes

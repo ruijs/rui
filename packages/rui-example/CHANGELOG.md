@@ -1,5 +1,19 @@
 # rui-example
 
+## 0.1.3
+
+### Patch Changes
+
+- 46b2d99: Added onSuccess and onError events on sendHttpRequest action.
+- Updated dependencies [46b2d99]
+  - @ruiapp/antd-extension@0.1.27
+  - @ruiapp/designer-extension@0.1.26
+  - @ruiapp/echarts-extension@0.1.26
+  - @ruiapp/monaco-extension@0.1.26
+  - @ruiapp/move-style@0.1.26
+  - @ruiapp/react-renderer@0.1.26
+  - @ruiapp/react-rocks@0.1.27
+
 ## 0.1.2
 
 ### Patch Changes
