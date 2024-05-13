@@ -3,6 +3,8 @@ export type HttpRequestOptions<TBodyData=Record<string, any>, TQuery=Record<stri
   url: string;
   urlParams?: Record<string, string>;
   headers?: Record<string, string>;
+  onError?: any;
+  onSuccess?: any;
 };
 
 export interface HttpRequestInput<TBodyData=Record<string, any>, TQuery=Record<string, any>> {
