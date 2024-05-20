@@ -1,5 +1,12 @@
 # rui-example
 
+## 0.1.4
+
+### Patch Changes
+
+- Updated dependencies [c790dbf]
+  - @ruiapp/antd-extension@0.1.28
+
 ## 0.1.3
 
 ### Patch Changes

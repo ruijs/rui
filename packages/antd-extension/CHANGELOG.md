@@ -1,5 +1,11 @@
 # @ruiapp/antd-extension
 
+## 0.1.28
+
+### Patch Changes
+
+- c790dbf: antd modal message and toast message
+
 ## 0.1.27
 
 ### Patch Changes
