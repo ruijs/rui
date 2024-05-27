@@ -18,6 +18,7 @@ import {
   RockEventHandlerSetComponentProperties,
   RockEventHandlerSetComponentProperty,
   RockEventHandlerSetVars,
+  RockEventHandlerThrowError,
   RockEventHandlerWait,
   RockPropExpressions,
 } from './types/rock-types';
@@ -104,6 +105,8 @@ async function doHandleComponentEvent(
     console.info('[RUI][ComponentEvent] ', event);
   } else if (action === 'script') {
     await handleScript.apply(null, arguments);
+  } else if (action === 'throwError') {
+    await handleThrowError.apply(null, arguments);
   } else if (action === 'wait') {
     await handleWait.apply(null, arguments);
   } else if (action === 'handleEvent') {
@@ -169,6 +172,22 @@ async function handleScript(
     script = compileFunc(script);
   }
   await script(event);
+}
+
+async function handleThrowError(
+  eventName: string,
+  framework: Framework,
+  page: Page,
+  scope: Scope,
+  sender: any,
+  eventHandler: RockEventHandlerThrowError,
+  eventArgs: any[],
+) {
+  const err = new Error(eventHandler.message, { cause: eventHandler.cause });
+  if (eventHandler.name) {
+    err.name = eventHandler.name;
+  }
+  throw err;
 }
 
 async function handleWait(
