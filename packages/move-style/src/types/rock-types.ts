@@ -286,6 +286,7 @@ export type RockEventHandlerConfig = RockEventHandler | RockEventHandler[] | nul
 export type RockEventHandler =
   | RockEventHandlerScript
   | RockEventHandlerPrintToConsole
+  | RockEventHandlerThrowError
   | RockEventHandlerWait
   | RockEventHandlerHandleEvent
   | RockEventHandlerNotifyEvent
@@ -312,6 +313,13 @@ export type RockEventHandlerScript = RockEventHandlerBase & {
 
 export type RockEventHandlerPrintToConsole = RockEventHandlerBase & {
   $action: 'printToConsole';
+};
+
+export type RockEventHandlerThrowError = RockEventHandlerBase & {
+  $action: 'throwError';
+  name?: string;
+  message: string;
+  cause?: any;
 };
 
 export type RockEventHandlerWait = RockEventHandlerBase & {
