@@ -1,6 +1,6 @@
 {
   "name": "@ruiapp/echarts-extension",
-  "version": "0.1.27",
+  "version": "0.1.28",
   "description": "",
   "types": "./dist/mod.d.ts",
   "main": "./dist/mod.js",
