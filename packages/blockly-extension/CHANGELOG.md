@@ -1,5 +1,13 @@
 # @ruiapp/blockly-extension
 
+## 0.1.29
+
+### Patch Changes
+
+- Updated dependencies [87475bf]
+  - @ruiapp/move-style@0.1.28
+  - @ruiapp/react-renderer@0.1.28
+
 ## 0.1.28
 
 ### Patch Changes

@@ -1,5 +1,12 @@
 # @ruiapp/react-renderer
 
+## 0.1.28
+
+### Patch Changes
+
+- Updated dependencies [87475bf]
+  - @ruiapp/move-style@0.1.28
+
 ## 0.1.27
 
 ### Patch Changes

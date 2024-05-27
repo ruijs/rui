@@ -1,5 +1,11 @@
 # @ruiapp/move-style
 
+## 0.1.28
+
+### Patch Changes
+
+- 87475bf: Added silentOnError option for sendHttpRequest event action.
+
 ## 0.1.27
 
 ### Patch Changes
