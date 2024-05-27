@@ -378,6 +378,11 @@ export type RockEventHandlerSendComponentMessage<TRockMessage extends RockMessag
 export type RockEventHandlerSendHttpRequest = RockEventHandlerBase & {
   $action: 'sendHttpRequest';
   $exps?: RockPropExpressions;
+
+  /**
+   * 如果设置为true，则请求出错时不抛出异常
+   */
+  silentOnError?: boolean;
 } & Partial<HttpRequestOptions>;
 
 export type RockEventHandlerLoadStoreData = RockEventHandlerBase & {

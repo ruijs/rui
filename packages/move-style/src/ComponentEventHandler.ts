@@ -342,23 +342,28 @@ async function handleSendHttpRequest(
   eventHandler: RockEventHandlerSendHttpRequest,
   eventArgs: any[],
 ) {
-  const { onError, onSuccess } = eventHandler;
+  const { onError, onSuccess, silentOnError } = eventHandler;
   let res: AxiosResponse<any, any>;
   try {
     res = await request(eventHandler as HttpRequestOptions);
+
+    if (onSuccess) {
+      await handleComponentEvent(eventName, framework, page, scope, sender, onSuccess, [res.data])
+    }
   } catch (ex: any) {
     const message = ex?.response?.data?.error?.message || ex.message;
-    const err = {
-      message,
-    };
-    if (onError) {
-      await handleComponentEvent(eventName, framework, page, scope, sender, eventHandler.onError, [err])
-      return;
-    }
-  }
+    const err = new Error(message, {
+      cause: ex,
+    });
+    err.name = "RuiHttpRequestError";
 
-  if (onSuccess) {
-    await handleComponentEvent(eventName, framework, page, scope, sender, eventHandler.onSuccess, [res.data])
+    if (onError) {
+      await handleComponentEvent(eventName, framework, page, scope, sender, onError, [err])
+    }
+
+    if (!silentOnError) {
+      throw err;
+    }
   }
 }
 
