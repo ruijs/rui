@@ -1,5 +1,18 @@
 # rui-example
 
+## 0.1.5
+
+### Patch Changes
+
+- Updated dependencies [1c1e347]
+  - @ruiapp/move-style@0.1.27
+  - @ruiapp/antd-extension@0.1.29
+  - @ruiapp/designer-extension@0.1.27
+  - @ruiapp/echarts-extension@0.1.27
+  - @ruiapp/monaco-extension@0.1.27
+  - @ruiapp/react-renderer@0.1.27
+  - @ruiapp/react-rocks@0.1.28
+
 ## 0.1.4
 
 ### Patch Changes

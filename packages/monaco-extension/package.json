@@ -1,6 +1,6 @@
 {
   "name": "@ruiapp/monaco-extension",
-  "version": "0.1.26",
+  "version": "0.1.27",
   "description": "",
   "types": "./dist/mod.d.ts",
   "main": "./dist/mod.js",

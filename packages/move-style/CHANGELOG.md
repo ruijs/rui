@@ -1,5 +1,11 @@
 # @ruiapp/move-style
 
+## 0.1.27
+
+### Patch Changes
+
+- 1c1e347: Added throwError event action.
+
 ## 0.1.26
 
 ### Patch Changes

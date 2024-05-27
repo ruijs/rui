@@ -1,5 +1,13 @@
 # @ruiapp/echarts-extension
 
+## 0.1.27
+
+### Patch Changes
+
+- Updated dependencies [1c1e347]
+  - @ruiapp/move-style@0.1.27
+  - @ruiapp/react-renderer@0.1.27
+
 ## 0.1.26
 
 ### Patch Changes
