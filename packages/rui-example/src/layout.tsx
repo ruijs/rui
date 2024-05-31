@@ -1,22 +1,23 @@
-import { memo, useMemo, useState } from 'react';
-import { Outlet, useNavigate, useParams } from 'react-router-dom';
-import { css, cx } from '@emotion/css';
-import routes from './routes';
-import { Select } from 'antd';
+import { memo, useMemo, useState } from "react";
+import { Outlet, useNavigate, useParams } from "react-router-dom";
+import { css, cx } from "@emotion/css";
+import routes from "./routes";
+import { Menu, Select } from "antd";
 
-import { Framework } from '@ruiapp/move-style/source';
-import { Rui as RuiRock, ErrorBoundary, Show, HtmlElement, Anchor, Box, Label, List, Scope, Text, ColorPicker } from '@ruiapp/react-rocks/source';
-import { Rui } from '@ruiapp/react-renderer/source';
-import { Page } from '@ruiapp/move-style/source';
-import _, { forEach } from 'lodash';
-import qs from 'qs';
+import { Framework } from "@ruiapp/move-style/source";
+import { Rui as RuiRock, ErrorBoundary, Show, HtmlElement, Anchor, Box, Label, List, Scope, Text, ColorPicker } from "@ruiapp/react-rocks/source";
+import { Rui } from "@ruiapp/react-renderer/source";
+import { Page } from "@ruiapp/move-style/source";
+import _, { forEach } from "lodash";
+import qs from "qs";
 
-import AntdExtension from '@ruiapp/antd-extension/source';
+import AntdExtension from "@ruiapp/antd-extension/source";
+import ProExtension from "@ruiapp/pro-extension";
 
 export const framework = new Framework();
 
-framework.registerExpressionVar('_', _);
-framework.registerExpressionVar('qs', qs);
+framework.registerExpressionVar("_", _);
+framework.registerExpressionVar("qs", qs);
 
 framework.registerComponent(RuiRock);
 framework.registerComponent(ErrorBoundary);
@@ -32,6 +33,7 @@ framework.registerComponent(List);
 framework.registerComponent(ColorPicker);
 
 framework.loadExtension(AntdExtension);
+framework.loadExtension(ProExtension);
 
 forEach(routes, (route) => {
   const examples = route.examples;
@@ -46,12 +48,12 @@ const Layout = memo(() => {
   const params = useParams<{ pkgName: string; funcName: string }>();
   const navigate = useNavigate();
 
+  const currentRoute = routes.find((r) => r.name === params.pkgName);
   const page = useMemo(() => {
-    const currentRoute = routes.find((r) => r.name === params.pkgName);
     const currentExample = currentRoute?.examples.find((e) => e.name === params.funcName);
 
     return new Page(framework, {
-      $id: 'examplePage' + params.pkgName + params.funcName,
+      $id: "examplePage" + params.pkgName + params.funcName,
       stores: [],
       view: currentExample ? [currentExample.componentRock] : [],
       eventSubscriptions: [],
@@ -77,7 +79,15 @@ const Layout = memo(() => {
         </Select>
       </div>
       <div className={cx(CssNames.flex, CssNames.row)}>
-        <div className={CssNames.sidebar}></div>
+        <div className={CssNames.sidebar}>
+          <Menu
+            selectedKeys={params.funcName ? [params.funcName] : []}
+            items={(currentRoute?.examples || []).map((item) => ({ label: item.title, key: item.name }))}
+            onClick={(e: any) => {
+              navigate(`/${params.pkgName}/${e.key}`);
+            }}
+          />
+        </div>
         <div className={cx(CssNames.body, CssNames.flex)}>
           <div className={CssNames.content}>
             <Rui framework={framework as any} page={page as any} />
