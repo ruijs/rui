@@ -11,8 +11,9 @@
     "dev:antd-extension": "pnpm --filter=antd-extension run dev",
     "dev:monaco-extension": "pnpm --filter=monaco-extension run dev",
     "dev:echarts-extension": "pnpm --filter=echarts-extension run dev",
+    "dev:pro-extension": "pnpm --filter=pro-extension run dev",
     "build": "pnpm libs",
-    "libs": "pnpm dev:move-style && pnpm dev:react-renderer && pnpm dev:react-rocks && pnpm dev:monaco-extension && pnpm dev:antd-extension && pnpm dev:designer-extension && pnpm dev:blockly-extension && pnpm dev:echarts-extension",
+    "libs": "pnpm dev:move-style && pnpm dev:react-renderer && pnpm dev:react-rocks && pnpm dev:monaco-extension && pnpm dev:antd-extension && pnpm dev:designer-extension && pnpm dev:blockly-extension && pnpm dev:echarts-extension && pnpm dev:pro-extension",
     "test": "lerna run test"
   },
   "devDependencies": {
