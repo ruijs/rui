@@ -1,17 +1,17 @@
-import { memo, useMemo, useState } from "react";
-import { Outlet, useNavigate, useParams } from "react-router-dom";
+import { memo, useMemo } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { css, cx } from "@emotion/css";
 import routes from "./routes";
 import { Menu, Select } from "antd";
 
-import { Framework } from "@ruiapp/move-style/source";
-import { Rui as RuiRock, ErrorBoundary, Show, HtmlElement, Anchor, Box, Label, List, Scope, Text, ColorPicker } from "@ruiapp/react-rocks/source";
-import { Rui } from "@ruiapp/react-renderer/source";
-import { Page } from "@ruiapp/move-style/source";
+import { Framework } from "@ruiapp/move-style";
+import { Rui as RuiRock, ErrorBoundary, Show, HtmlElement, Anchor, Box, Label, List, Scope, Text, ColorPicker } from "@ruiapp/react-rocks";
+import { Rui } from "@ruiapp/react-renderer";
+import { Page } from "@ruiapp/move-style";
 import _, { forEach } from "lodash";
 import qs from "qs";
 
-import AntdExtension from "@ruiapp/antd-extension/source";
+import AntdExtension from "@ruiapp/antd-extension";
 import ProExtension from "@ruiapp/pro-extension";
 
 export const framework = new Framework();

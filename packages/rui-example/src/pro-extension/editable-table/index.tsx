@@ -39,7 +39,7 @@ const Example = {
             width: 150,
           },
         ],
-        value: fields,
+        // value: fields,
         onChange: (v: any[]) => {
           setFields(v);
         },

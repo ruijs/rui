@@ -1,6 +1,8 @@
 {
   "include": [],
   "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
     "target": "ESNext",
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "esModuleInterop": true,
