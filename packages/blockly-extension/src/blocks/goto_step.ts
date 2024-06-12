@@ -8,9 +8,12 @@ enum Step {
 }
 
 export default function (context: BlockContext): BlockDef {
-
   const generateOptions = function (this: FieldDropdown): MenuOption[] {
-    let options: MenuOption[] = [["选择步骤...", ""], ["上一步", Step.Previous], ["下一步", Step.Next]];
+    let options: MenuOption[] = [
+      ["选择步骤...", ""],
+      ["上一步", Step.Previous],
+      ["下一步", Step.Next],
+    ];
 
     for (let step of context.steps) {
       options.push([step.$name, step.$id]);
@@ -36,7 +39,7 @@ export default function (context: BlockContext): BlockDef {
         return "";
       }
 
-      let payload = '';
+      let payload = "";
       switch (step) {
         case Step.Previous:
           payload = `{name: "gotoPreviousStep"}`;
@@ -51,6 +54,6 @@ export default function (context: BlockContext): BlockDef {
       return `
   event.page.sendComponentMessage("linkshopApp", ${payload});
 `;
-    }
-  } as BlockDef
+    },
+  } as BlockDef;
 }

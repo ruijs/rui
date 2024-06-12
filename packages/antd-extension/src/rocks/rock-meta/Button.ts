@@ -43,7 +43,7 @@ export default {
               label: "text",
               value: "text",
             },
-          ]
+          ],
         },
 
         {
@@ -63,7 +63,7 @@ export default {
           label: "disabled",
           propName: "disabled",
         },
-        
+
         {
           $type: "switchPropSetter",
           label: "ghost",
@@ -105,7 +105,7 @@ export default {
               label: "round",
               value: "round",
             },
-          ]
+          ],
         },
 
         {
@@ -125,9 +125,9 @@ export default {
               label: "small",
               value: "small",
             },
-          ]
+          ],
         },
-      ]
-    }
-  ]
+      ],
+    },
+  ],
 } as RockMeta;

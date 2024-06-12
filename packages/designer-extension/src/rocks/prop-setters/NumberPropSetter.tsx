@@ -34,6 +34,6 @@ export default {
       };
     }
 
-    return renderRock({context, rockConfig});
+    return renderRock({ context, rockConfig });
   },
 } as Rock;

@@ -22,7 +22,6 @@ export class Framework {
   #configProcessors: ConfigProcessor[];
   #pages: Map<string, Page>;
   constructor() {
-
     this.#loggerFactory = new LoggerFactory();
 
     this.#storeFactory = new StoreFactory();
@@ -65,7 +64,7 @@ export class Framework {
     return component;
   }
 
-  getComponents() : Map<string, Rock> {
+  getComponents(): Map<string, Rock> {
     return this.#components;
   }
 
@@ -89,7 +88,7 @@ export class Framework {
     this.#functions[name] = func;
   }
 
-  getFunctions() : Record<string, Function> {
+  getFunctions(): Record<string, Function> {
     return this.#functions;
   }
 
@@ -97,7 +96,7 @@ export class Framework {
     this.#expVars[name] = value;
   }
 
-  getExpressionVars() : Record<string, any> {
+  getExpressionVars(): Record<string, any> {
     return this.#expVars;
   }
 

@@ -17,10 +17,10 @@ export async function antdMessage(eventName: string, framework: Framework, page:
       onOk: () => {
         if (eventHandler.onClose) {
           handleComponentEvent(eventName, framework, page, scope, sender, eventHandler.onClose, eventArgs)
-          .then(() => {
-            resolve(null);
-          })
-          .catch(reject);
+            .then(() => {
+              resolve(null);
+            })
+            .catch(reject);
         } else {
           resolve(null);
         }
@@ -29,14 +29,14 @@ export async function antdMessage(eventName: string, framework: Framework, page:
       onCancel: () => {
         if (eventHandler.onClose) {
           handleComponentEvent(eventName, framework, page, scope, sender, eventHandler.onClose, eventArgs)
-          .then(() => {
-            resolve(null);
-          })
-          .catch(reject);
+            .then(() => {
+              resolve(null);
+            })
+            .catch(reject);
         } else {
           resolve(null);
         }
-      }
+      },
     };
 
     const messageType = eventHandler.type;

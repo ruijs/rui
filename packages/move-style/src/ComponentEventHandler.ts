@@ -1,8 +1,8 @@
-import { isFunction, isString, memoize, set } from 'lodash';
-import { Framework } from './Framework';
-import { Page } from './Page';
-import { Scope } from './Scope';
-import { HttpRequestOptions } from './types/request-types';
+import { isFunction, isString, memoize, set } from "lodash";
+import { Framework } from "./Framework";
+import { Page } from "./Page";
+import { Scope } from "./Scope";
+import { HttpRequestOptions } from "./types/request-types";
 import {
   RockEvent,
   RockEventHandler,
@@ -21,21 +21,13 @@ import {
   RockEventHandlerThrowError,
   RockEventHandlerWait,
   RockPropExpressions,
-} from './types/rock-types';
-import { request } from './utils/HttpRequest';
-import { AxiosResponse } from 'axios';
+} from "./types/rock-types";
+import { request } from "./utils/HttpRequest";
+import { AxiosResponse } from "axios";
 
 // TODO: make event handling extensible.
 
-export async function handleComponentEvent(
-  eventName: string,
-  framework: Framework,
-  page: Page,
-  scope: Scope,
-  sender: any,
-  eventHandlerOrHandlers: RockEventHandler | RockEventHandler[],
-  eventArgs: any[],
-) {
+export async function handleComponentEvent(eventName: string, framework: Framework, page: Page, scope: Scope, sender: any, eventHandlerOrHandlers: RockEventHandler | RockEventHandler[], eventArgs: any[]) {
   if (!eventHandlerOrHandlers) {
     return;
   }
@@ -62,15 +54,7 @@ export async function handleComponentEvent(
   }
 }
 
-async function doHandleComponentEvent(
-  eventName: string,
-  framework: Framework,
-  page: Page,
-  scope: Scope,
-  sender: any,
-  eventHandler: RockEventHandler,
-  eventArgs: any[],
-) {
+async function doHandleComponentEvent(eventName: string, framework: Framework, page: Page, scope: Scope, sender: any, eventHandler: RockEventHandler, eventArgs: any[]) {
   const action = eventHandler.$action;
   const event: RockEvent = {
     framework,
@@ -78,15 +62,15 @@ async function doHandleComponentEvent(
     scope,
     sender,
     name: eventName,
-    senderCategory: 'component',
+    senderCategory: "component",
     args: eventArgs,
   };
 
   const expressions: RockPropExpressions = (eventHandler as any).$exps;
   if (expressions) {
     for (const propName in expressions) {
-      if (propName.startsWith('$')) {
-        const logger = framework.getLogger('componentEventHandler');
+      if (propName.startsWith("$")) {
+        const logger = framework.getLogger("componentEventHandler");
         logger.error(`System field can not bind to an expression. ${propName}=${expressions[propName]}`);
         continue;
       }
@@ -101,40 +85,40 @@ async function doHandleComponentEvent(
       );
     }
   }
-  if (action === 'printToConsole') {
-    console.info('[RUI][ComponentEvent] ', event);
-  } else if (action === 'script') {
+  if (action === "printToConsole") {
+    console.info("[RUI][ComponentEvent] ", event);
+  } else if (action === "script") {
     await handleScript.apply(null, arguments);
-  } else if (action === 'throwError') {
+  } else if (action === "throwError") {
     await handleThrowError.apply(null, arguments);
-  } else if (action === 'wait') {
+  } else if (action === "wait") {
     await handleWait.apply(null, arguments);
-  } else if (action === 'handleEvent') {
+  } else if (action === "handleEvent") {
     await handleHandleEvent.apply(null, arguments);
-  } else if (action === 'notifyEvent') {
+  } else if (action === "notifyEvent") {
     handleNotifyEvent.apply(null, arguments);
-  } else if (action === 'notifyToPage') {
+  } else if (action === "notifyToPage") {
     handleNotifyToPage.apply(null, arguments);
-  } else if (action === 'setComponentProperty') {
+  } else if (action === "setComponentProperty") {
     handleSetComponentProperty.apply(null, arguments);
-  } else if (action === 'setComponentProperties') {
+  } else if (action === "setComponentProperties") {
     handleSetComponentProperties.apply(null, arguments);
-  } else if (action === 'removeComponentProperty') {
+  } else if (action === "removeComponentProperty") {
     handleRemoveComponentProperty.apply(null, arguments);
-  } else if (action === 'sendComponentMessage') {
+  } else if (action === "sendComponentMessage") {
     handleSendComponentMessage.apply(null, arguments);
-  } else if (action === 'sendHttpRequest') {
+  } else if (action === "sendHttpRequest") {
     await handleSendHttpRequest.apply(null, arguments);
-  } else if (action === 'setVars') {
+  } else if (action === "setVars") {
     handleSetVars.apply(null, arguments);
-  } else if (action === 'loadStoreData') {
+  } else if (action === "loadStoreData") {
     await handleLoadStoreData.apply(null, arguments);
-  } else if (action === 'loadScopeData') {
+  } else if (action === "loadScopeData") {
     await handleLoadScopeData.apply(null, arguments);
   } else {
     const actionHandler = framework.getEventActionHandler(action);
     if (!actionHandler) {
-      const logger = framework.getLogger('componentEventHandler');
+      const logger = framework.getLogger("componentEventHandler");
       logger.error(`Unknown event action: ${JSON.stringify(eventHandler)}`);
       return;
     }
@@ -148,22 +132,14 @@ const compileFunc = memoize(function (script) {
   return new Function(`return function(event) { ${script} }`)();
 });
 
-async function handleScript(
-  eventName: string,
-  framework: Framework,
-  page: Page,
-  scope: Scope,
-  sender: any,
-  eventHandler: RockEventHandlerScript,
-  eventArgs: any[],
-) {
+async function handleScript(eventName: string, framework: Framework, page: Page, scope: Scope, sender: any, eventHandler: RockEventHandlerScript, eventArgs: any[]) {
   const event: RockEvent = {
     framework,
     page,
     scope,
     sender,
     name: eventName,
-    senderCategory: 'component',
+    senderCategory: "component",
     args: eventArgs,
   };
 
@@ -174,15 +150,7 @@ async function handleScript(
   await script(event);
 }
 
-async function handleThrowError(
-  eventName: string,
-  framework: Framework,
-  page: Page,
-  scope: Scope,
-  sender: any,
-  eventHandler: RockEventHandlerThrowError,
-  eventArgs: any[],
-) {
+async function handleThrowError(eventName: string, framework: Framework, page: Page, scope: Scope, sender: any, eventHandler: RockEventHandlerThrowError, eventArgs: any[]) {
   const err = new Error(eventHandler.message, { cause: eventHandler.cause });
   if (eventHandler.name) {
     err.name = eventHandler.name;
@@ -190,15 +158,7 @@ async function handleThrowError(
   throw err;
 }
 
-async function handleWait(
-  eventName: string,
-  framework: Framework,
-  page: Page,
-  scope: Scope,
-  sender: any,
-  eventHandler: RockEventHandlerWait,
-  eventArgs: any[],
-) {
+async function handleWait(eventName: string, framework: Framework, page: Page, scope: Scope, sender: any, eventHandler: RockEventHandlerWait, eventArgs: any[]) {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve(null);
@@ -206,27 +166,11 @@ async function handleWait(
   });
 }
 
-async function handleHandleEvent(
-  eventName: string,
-  framework: Framework,
-  page: Page,
-  scope: Scope,
-  sender: any,
-  eventHandler: RockEventHandlerHandleEvent,
-  eventArgs: any[],
-) {
+async function handleHandleEvent(eventName: string, framework: Framework, page: Page, scope: Scope, sender: any, eventHandler: RockEventHandlerHandleEvent, eventArgs: any[]) {
   await handleComponentEvent(eventHandler.eventName, framework, page as any, eventHandler.scope || scope, sender, eventHandler.handlers, eventHandler.args);
 }
 
-async function handleNotifyEvent(
-  eventName: string,
-  framework: Framework,
-  page: Page,
-  scope: Scope,
-  sender: any,
-  eventHandler: RockEventHandlerNotifyEvent,
-  eventArgs: any[],
-) {
+async function handleNotifyEvent(eventName: string, framework: Framework, page: Page, scope: Scope, sender: any, eventHandler: RockEventHandlerNotifyEvent, eventArgs: any[]) {
   const { scopeId } = eventHandler;
   let targetScope = scope;
   if (scopeId) {
@@ -242,64 +186,40 @@ async function handleNotifyEvent(
     scope: targetScope,
     sender,
     name: eventHandler.eventName,
-    senderCategory: 'component',
+    senderCategory: "component",
     args: eventArgs,
   };
   await targetScope.notifyEvent(eventToNotify);
 }
 
-async function handleNotifyToPage(
-  eventName: string,
-  framework: Framework,
-  page: Page,
-  scope: Scope,
-  sender: any,
-  eventHandler: RockEventHandlerNotifyToPage,
-  eventArgs: any[],
-) {
+async function handleNotifyToPage(eventName: string, framework: Framework, page: Page, scope: Scope, sender: any, eventHandler: RockEventHandlerNotifyToPage, eventArgs: any[]) {
   const eventToNotify: RockEvent = {
     framework,
     page,
     scope,
     sender,
     name: eventHandler.eventName,
-    senderCategory: 'component',
+    senderCategory: "component",
     args: eventArgs,
   };
   await page.notifyEvent(eventToNotify);
 }
 
-function handleSetComponentProperty(
-  eventName: string,
-  framework: Framework,
-  page: Page,
-  scope: Scope,
-  sender: any,
-  eventHandler: RockEventHandlerSetComponentProperty,
-  eventArgs: any[],
-) {
+function handleSetComponentProperty(eventName: string, framework: Framework, page: Page, scope: Scope, sender: any, eventHandler: RockEventHandlerSetComponentProperty, eventArgs: any[]) {
   let { propValue } = eventHandler;
-  if (typeof propValue === 'function') {
+  if (typeof propValue === "function") {
     propValue = propValue(eventArgs);
   }
 
   page.setComponentProperty(eventHandler.componentId, eventHandler.propName, propValue);
 }
 
-function handleSetComponentProperties(
-  eventName: string,
-  framework: Framework,
-  page: Page,
-  scope: Scope,
-  sender: any,
-  eventHandler: RockEventHandlerSetComponentProperties,
-  eventArgs: any[],
-) {
+function handleSetComponentProperties(eventName: string, framework: Framework, page: Page, scope: Scope, sender: any, eventHandler: RockEventHandlerSetComponentProperties, eventArgs: any[]) {
   let { props } = eventHandler;
   const propsToSet = {};
   for (const propName in props) {
     const propValue = props[propName];
-    if (typeof propValue === 'function') {
+    if (typeof propValue === "function") {
       propsToSet[propName] = propValue(eventArgs);
     } else {
       propsToSet[propName] = propValue;
@@ -309,46 +229,22 @@ function handleSetComponentProperties(
   page.setComponentProperties(eventHandler.componentId, propsToSet);
 }
 
-function handleRemoveComponentProperty(
-  eventName: string,
-  framework: Framework,
-  page: Page,
-  scope: Scope,
-  sender: any,
-  eventHandler: RockEventHandlerRemoveComponentProperty,
-  eventArgs: any[],
-) {
+function handleRemoveComponentProperty(eventName: string, framework: Framework, page: Page, scope: Scope, sender: any, eventHandler: RockEventHandlerRemoveComponentProperty, eventArgs: any[]) {
   page.removeComponentProperty(eventHandler.componentId, eventHandler.propName);
 }
 
-function handleSendComponentMessage(
-  eventName: string,
-  framework: Framework,
-  page: Page,
-  scope: Scope,
-  sender: any,
-  eventHandler: RockEventHandlerSendComponentMessage,
-  eventArgs: any[],
-) {
+function handleSendComponentMessage(eventName: string, framework: Framework, page: Page, scope: Scope, sender: any, eventHandler: RockEventHandlerSendComponentMessage, eventArgs: any[]) {
   page.sendComponentMessage(eventHandler.componentId, eventHandler.message);
 }
 
-async function handleSendHttpRequest(
-  eventName: string,
-  framework: Framework,
-  page: Page,
-  scope: Scope,
-  sender: any,
-  eventHandler: RockEventHandlerSendHttpRequest,
-  eventArgs: any[],
-) {
+async function handleSendHttpRequest(eventName: string, framework: Framework, page: Page, scope: Scope, sender: any, eventHandler: RockEventHandlerSendHttpRequest, eventArgs: any[]) {
   const { onError, onSuccess, silentOnError } = eventHandler;
   let res: AxiosResponse<any, any>;
   try {
     res = await request(eventHandler as HttpRequestOptions);
 
     if (onSuccess) {
-      await handleComponentEvent(eventName, framework, page, scope, sender, onSuccess, [res.data])
+      await handleComponentEvent(eventName, framework, page, scope, sender, onSuccess, [res.data]);
     }
   } catch (ex: any) {
     const message = ex?.response?.data?.error?.message || ex.message;
@@ -358,7 +254,7 @@ async function handleSendHttpRequest(
     err.name = "RuiHttpRequestError";
 
     if (onError) {
-      await handleComponentEvent(eventName, framework, page, scope, sender, onError, [err])
+      await handleComponentEvent(eventName, framework, page, scope, sender, onError, [err]);
     }
 
     if (!silentOnError) {
@@ -367,15 +263,7 @@ async function handleSendHttpRequest(
   }
 }
 
-async function handleSetVars(
-  eventName: string,
-  framework: Framework,
-  page: Page,
-  scope: Scope,
-  sender: any,
-  eventHandler: RockEventHandlerSetVars,
-  eventArgs: any[],
-) {
+async function handleSetVars(eventName: string, framework: Framework, page: Page, scope: Scope, sender: any, eventHandler: RockEventHandlerSetVars, eventArgs: any[]) {
   const { name, value, vars, scopeId } = eventHandler;
   let targetScope = scope;
   if (scopeId) {
@@ -397,15 +285,7 @@ async function handleSetVars(
   }
 }
 
-async function handleLoadStoreData(
-  eventName: string,
-  framework: Framework,
-  page: Page,
-  scope: Scope,
-  sender: any,
-  eventHandler: RockEventHandlerLoadStoreData,
-  eventArgs: any[],
-) {
+async function handleLoadStoreData(eventName: string, framework: Framework, page: Page, scope: Scope, sender: any, eventHandler: RockEventHandlerLoadStoreData, eventArgs: any[]) {
   const { storeName, input, scopeId } = eventHandler;
   let targetScope = scope;
   if (scopeId) {
@@ -420,15 +300,7 @@ async function handleLoadStoreData(
   }
 }
 
-async function handleLoadScopeData(
-  eventName: string,
-  framework: Framework,
-  page: Page,
-  scope: Scope,
-  sender: any,
-  eventHandler: RockEventHandlerLoadScopeData,
-  eventArgs: any[],
-) {
+async function handleLoadScopeData(eventName: string, framework: Framework, page: Page, scope: Scope, sender: any, eventHandler: RockEventHandlerLoadScopeData, eventArgs: any[]) {
   const { scopeId } = eventHandler;
   let targetScope = scope;
   if (scopeId) {

@@ -1,6 +1,6 @@
-import { omit } from 'lodash';
-import { Rock, RockConfigSystemFields, RockInstance, RockInstanceFields } from './types/rock-types';
-import { Framework } from './Framework';
+import { omit } from "lodash";
+import { Rock, RockConfigSystemFields, RockInstance, RockInstanceFields } from "./types/rock-types";
+import { Framework } from "./Framework";
 
 export function wrapRenderer(framework: Framework, rock: Rock) {
   if ((rock as any)._rendererWrapped) {
@@ -31,7 +31,7 @@ function createComponentRenderer(framework: Framework, rock: Rock) {
     }
 
     // DO NOT remove "$id" and "$exps" fields.
-    const instanceFields: (RockInstanceFields | RockConfigSystemFields)[] = ['_initialized', '_state', '_hidden', '$type', '$version'];
+    const instanceFields: (RockInstanceFields | RockConfigSystemFields)[] = ["_initialized", "_state", "_hidden", "$type", "$version"];
     const rockProps = omit(rockInstance, instanceFields);
 
     const renderResult = rockRenderer(rockInstance._context, rockProps, rockInstance._state);

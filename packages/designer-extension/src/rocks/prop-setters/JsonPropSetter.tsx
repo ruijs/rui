@@ -32,14 +32,14 @@ export default {
         $type: "jsonSetterInput",
       };
 
-      const value = getComponentPropValue(componentConfig, propName, defaultValue)
+      const value = getComponentPropValue(componentConfig, propName, defaultValue);
       if (!isUndefined(value)) {
         (rockConfig as SingleControlPropSetterProps).extra = {
           $type: "jsonValueDisplay",
-        }
+        };
       }
     }
 
-    return renderRock({context, rockConfig});
+    return renderRock({ context, rockConfig });
   },
 } as Rock;

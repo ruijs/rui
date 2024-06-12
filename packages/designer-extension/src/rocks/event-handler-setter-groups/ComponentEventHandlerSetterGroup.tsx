@@ -2,7 +2,6 @@ import { RockConfig, RockConfigBase, Rock } from "@ruiapp/move-style";
 import { renderRockChildren } from "@ruiapp/react-renderer";
 import { useMemo } from "react";
 
-
 export interface ComponentPropPanelProps extends RockConfigBase {
   title?: string;
   componentConfig: RockConfig;
@@ -26,16 +25,15 @@ export default {
 
     let groupTitle = props.title;
     if (!groupTitle) {
-      const rockMeta: Rock = context.framework.getComponent(componentConfig.$type)
+      const rockMeta: Rock = context.framework.getComponent(componentConfig.$type);
       groupTitle = rockMeta.name || rockMeta.$type;
     }
 
-    return <div>
-      <h3>{groupTitle}</h3>
-      {
-        renderRockChildren({context, rockChildrenConfig})
-      }
-    </div>
-
+    return (
+      <div>
+        <h3>{groupTitle}</h3>
+        {renderRockChildren({ context, rockChildrenConfig })}
+      </div>
+    );
   },
 } as Rock;

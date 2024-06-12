@@ -1,27 +1,12 @@
 export { default as listToTree } from "./list-to-tree";
-export {
-  isComponentPropertyDynamic,
-  isEventPropName,
-} from "./component-config-utility";
+export { isComponentPropertyDynamic, isEventPropName } from "./component-config-utility";
 
-export {
-  getRockDefaultProps,
-} from "./rock-meta-utility";
+export { getRockDefaultProps } from "./rock-meta-utility";
 
-export {
-  omitSystemRockConfigFields,
-} from "./rock-config-utility";
+export { omitSystemRockConfigFields } from "./rock-config-utility";
 
-export {
-  canUseDOM,
-  waitVariable,
-} from "./dom-utility";
+export { canUseDOM, waitVariable } from "./dom-utility";
 
-export {
-  fulfillVariables,
-  fulfillVariablesInString,
-} from "./variable-fulfiller";
+export { fulfillVariables, fulfillVariablesInString } from "./variable-fulfiller";
 
-export {
-  request,
-} from "./HttpRequest";
+export { request } from "./HttpRequest";

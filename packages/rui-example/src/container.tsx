@@ -1,6 +1,6 @@
-import { memo } from 'react';
-import { Navigate, Outlet, useParams } from 'react-router-dom';
-import routes from './routes';
+import { memo } from "react";
+import { Navigate, Outlet, useParams } from "react-router-dom";
+import routes from "./routes";
 
 const Container = memo(() => {
   const params = useParams<{ pkgName: string; funcName: string }>();

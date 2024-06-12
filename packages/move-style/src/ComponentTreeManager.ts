@@ -68,11 +68,16 @@ export class ComponentTreeManager {
   getSerializableConfig() {
     const serializableConfig = cloneDeep(this.#config);
     serializableConfig.view.forEach((rockConfig) => {
-      this.travelRockConfig((scope: Scope, parentConfig: RockInstance, config: RockInstance) => {
-        delete rockConfig._state;
-        delete rockConfig._initialized;
-      }, this.#page.scope, null, rockConfig)
-    })
+      this.travelRockConfig(
+        (scope: Scope, parentConfig: RockInstance, config: RockInstance) => {
+          delete rockConfig._state;
+          delete rockConfig._initialized;
+        },
+        this.#page.scope,
+        null,
+        rockConfig,
+      );
+    });
     return serializableConfig;
   }
 
@@ -102,67 +107,80 @@ export class ComponentTreeManager {
   }
 
   attachComponent(scope: Scope, parentConfig: RockConfig, config: RockConfig) {
-    this.travelRockConfig((scope: Scope, parentConfig: RockInstance, config: RockInstance) => {
-      if (isString(config)) {
-        return;
-      }
-
-      let rockType = config.$type;
-      if (!rockType) {
-        // Adapter slot
-        rockType = "$slotAdapter";
-      }
-
-      if (!config.$id) {
-        this.#logger.verbose(`Id of component '${config.$type}' was not set.`);
-        config.$id = this.generateComponentId(rockType);
-      }
-      this.#logger.debug(`Attaching component '${config.$id}'...`);
-
-      if (config.$type === "scope" && !this.#scopeMapById.get(config.$id)) {
-        this.#scopeMapById.set(config.$id, new Scope(this.#framework, this.#page, config as ScopeConfig));
-      }
-
-      if (config.$type) {
-        const meta = this.#framework.getComponent(config.$type);
-
-        if (!meta) {
-          this.#logger.error(`Unknown component '${config.$type}'`);
-        } else {
-          if (meta.onInit) {
-            this.#logger.debug(`Initializing component '${config.$id}'...`);
-            meta.onInit({
-              page: this.#page,
-              scope: scope || this.#page.scope,
-            }, config);
-          }
-
-          config._state = {
-            scope,
-          };
+    this.travelRockConfig(
+      (scope: Scope, parentConfig: RockInstance, config: RockInstance) => {
+        if (isString(config)) {
+          return;
         }
-      }
 
-      // TODO: should set as _initialized after all children initialized.
-      config._initialized = true;
+        let rockType = config.$type;
+        if (!rockType) {
+          // Adapter slot
+          rockType = "$slotAdapter";
+        }
 
-      this.#componentMapById.set(config.$id, config);
-      this.#parentIdMapById.set(config.$id, parentConfig?.$id);
-    }, scope, parentConfig, config);
+        if (!config.$id) {
+          this.#logger.verbose(`Id of component '${config.$type}' was not set.`);
+          config.$id = this.generateComponentId(rockType);
+        }
+        this.#logger.debug(`Attaching component '${config.$id}'...`);
+
+        if (config.$type === "scope" && !this.#scopeMapById.get(config.$id)) {
+          this.#scopeMapById.set(config.$id, new Scope(this.#framework, this.#page, config as ScopeConfig));
+        }
+
+        if (config.$type) {
+          const meta = this.#framework.getComponent(config.$type);
+
+          if (!meta) {
+            this.#logger.error(`Unknown component '${config.$type}'`);
+          } else {
+            if (meta.onInit) {
+              this.#logger.debug(`Initializing component '${config.$id}'...`);
+              meta.onInit(
+                {
+                  page: this.#page,
+                  scope: scope || this.#page.scope,
+                },
+                config,
+              );
+            }
+
+            config._state = {
+              scope,
+            };
+          }
+        }
+
+        // TODO: should set as _initialized after all children initialized.
+        config._initialized = true;
+
+        this.#componentMapById.set(config.$id, config);
+        this.#parentIdMapById.set(config.$id, parentConfig?.$id);
+      },
+      scope,
+      parentConfig,
+      config,
+    );
   }
 
   interpreteConfigExpressions(parentConfig: RockConfig, config: RockConfig, vars: Record<string, any>) {
     const propExpressions = config.$exps;
     if (propExpressions) {
-      const expVars = Object.assign({}, this.#framework.getExpressionVars(), {
-        $framework: this.#framework,
-        $page: this.#page,
-        $functions: this.#framework.getFunctions(),
-        $self: config,
-        $parent: parentConfig,
-      }, vars);
+      const expVars = Object.assign(
+        {},
+        this.#framework.getExpressionVars(),
+        {
+          $framework: this.#framework,
+          $page: this.#page,
+          $functions: this.#framework.getFunctions(),
+          $self: config,
+          $parent: parentConfig,
+        },
+        vars,
+      );
 
-      for(const propName in propExpressions) {
+      for (const propName in propExpressions) {
         const propValue = this.#interpreter.interprete(propExpressions[propName], expVars);
         set(config, propName, propValue);
       }
@@ -200,24 +218,28 @@ export class ComponentTreeManager {
     if (parentComponentId) {
       parentComponent = this.#componentMapById.get(parentComponentId);
       if (!parentComponent) {
-        throw new Error(`Create component failed. Parent component with id '${parentComponentId}' was not found.`)
+        throw new Error(`Create component failed. Parent component with id '${parentComponentId}' was not found.`);
       }
 
       const parentComponentMeta = this.#framework.getComponent(parentComponent.$type);
       if (parentComponentMeta.voidComponent) {
-        throw new Error(`Can not add component to a void-component.`)
+        throw new Error(`Can not add component to a void-component.`);
       }
     }
 
     // TODO: Implement this: get the right scope.
     const scope = this.#page.scope;
     for (const component of components) {
-      this.travelRockConfig((scope, parentComponent, component) => {
-        if (!component.$id ||
-          this.#componentMapById.has(component.$id)) {
-          component.$id = this.generateComponentId(component.$type);
-        }
-      }, scope, parentComponent, component);
+      this.travelRockConfig(
+        (scope, parentComponent, component) => {
+          if (!component.$id || this.#componentMapById.has(component.$id)) {
+            component.$id = this.generateComponentId(component.$type);
+          }
+        },
+        scope,
+        parentComponent,
+        component,
+      );
     }
 
     let componentHostPropName = "children";
@@ -260,8 +282,7 @@ export class ComponentTreeManager {
     }
 
     const prevSiblingComponentIndex = findIndex(childComponents, (item) => item.$id === prevSiblingComponentId);
-    if (prevSiblingComponentIndex === -1 ||
-        prevSiblingComponentIndex === childComponents.length - 1) {
+    if (prevSiblingComponentIndex === -1 || prevSiblingComponentIndex === childComponents.length - 1) {
       // append to end.
       childComponents = childComponents.concat(components);
     } else {
@@ -326,7 +347,7 @@ export class ComponentTreeManager {
           if (!isArray(childComponents)) {
             childComponents = [childComponents];
           }
-    
+
           const componentIndex = findIndex(childComponents, (item) => item.$id === componentId);
           if (componentIndex !== -1) {
             childComponents.splice(componentIndex, 1);
@@ -340,14 +361,14 @@ export class ComponentTreeManager {
         }
       }
     }
- 
+
     this.loadConfig(this.#config);
   }
 
   setComponentProperty(componentId: string, propName: string, propValue: RockPropValue) {
     const componentConfig = this.#componentMapById.get(componentId);
     if (!componentConfig) {
-      this.#logger.error(`Component with id '${componentId}' not found.`)
+      this.#logger.error(`Component with id '${componentId}' not found.`);
       return;
     }
 
@@ -359,7 +380,7 @@ export class ComponentTreeManager {
   setComponentProperties(componentId: string, props: Record<string, RockPropValue>) {
     const componentConfig = this.#componentMapById.get(componentId);
     if (!componentConfig) {
-      this.#logger.error(`Component with id '${componentId}' not found.`)
+      this.#logger.error(`Component with id '${componentId}' not found.`);
       return;
     }
 
@@ -373,7 +394,7 @@ export class ComponentTreeManager {
   removeComponentProperty(componentId: string, propName: string) {
     const componentConfig = this.#componentMapById.get(componentId);
     if (!componentConfig) {
-      this.#logger.error(`Component with id '${componentId}' not found.`)
+      this.#logger.error(`Component with id '${componentId}' not found.`);
       return;
     }
 
@@ -385,7 +406,7 @@ export class ComponentTreeManager {
   setComponentPropertyExpression(componentId: string, propName: string, propExpression: string) {
     const componentConfig = this.#componentMapById.get(componentId);
     if (!componentConfig) {
-      this.#logger.error(`Component with id '${componentId}' not found.`)
+      this.#logger.error(`Component with id '${componentId}' not found.`);
       return;
     }
 
@@ -400,7 +421,7 @@ export class ComponentTreeManager {
   removeComponentPropertyExpression(componentId: string, propName: string) {
     const componentConfig = this.#componentMapById.get(componentId);
     if (!componentConfig) {
-      this.#logger.error(`Component with id '${componentId}' not found.`)
+      this.#logger.error(`Component with id '${componentId}' not found.`);
       return;
     }
 
@@ -410,13 +431,13 @@ export class ComponentTreeManager {
 
     delete componentConfig.$exps[propName];
     // TODO: need a more efficient implementation
-    this.loadConfig(this.#config); 
+    this.loadConfig(this.#config);
   }
 
   getComponentProperty(componentId: string, propName: string) {
     const componentConfig = this.#componentMapById.get(componentId);
     if (!componentConfig) {
-      this.#logger.error(`Component with id '${componentId}' not found.`)
+      this.#logger.error(`Component with id '${componentId}' not found.`);
       return;
     }
 
@@ -430,7 +451,7 @@ export class ComponentTreeManager {
   sendComponentMessage<TRockMessage extends RockMessage<any> = RockMessage<any>>(componentId: string, message: TRockMessage) {
     const componentConfig = this.#componentMapById.get(componentId) as RockInstance;
     if (!componentConfig) {
-      this.#logger.error(`Component with id '${componentId}' not found.`)
+      this.#logger.error(`Component with id '${componentId}' not found.`);
       return;
     }
 
@@ -446,7 +467,7 @@ export class ComponentTreeManager {
       page: this.#page,
       name: message.name,
       payload: message.payload,
-    }
+    };
     onReceiveMessage(messageToComponent, componentConfig._state, componentConfig);
   }
 

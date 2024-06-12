@@ -4,9 +4,8 @@ export class ConstantStore implements IStore<ConstantStoreConfig> {
   #name: string;
   #data?: any;
 
-  constructor() {
-  }
-  
+  constructor() {}
+
   get data(): string {
     return this.#data;
   }
@@ -14,18 +13,15 @@ export class ConstantStore implements IStore<ConstantStoreConfig> {
   get name(): string {
     return this.#name;
   }
-  
-  async loadData(input: any) {
-  }
 
-  observe() {
-  }
+  async loadData(input: any) {}
+
+  observe() {}
 
   setConfig(storeConfig: ConstantStoreConfig) {
     this.#name = storeConfig.name;
     this.#data = storeConfig.data;
   }
 
-  setPropertyExpression(propName: string, propExpression: string) {
-  }
+  setPropertyExpression(propName: string, propExpression: string) {}
 }

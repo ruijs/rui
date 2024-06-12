@@ -17,16 +17,16 @@ export default {
           $type: "switchPropSetter",
           label: "when",
           propName: "when",
-        }
-      ]
-    }
+        },
+      ],
+    },
   ],
 
   slots: {
     fallback: {
       required: false,
       allowMultiComponents: true,
-    }
+    },
   },
 
   Renderer(context, props: ShowProps) {
@@ -37,15 +37,15 @@ export default {
       children = props.fallback;
     }
 
-    return renderRockChildren({context, 
+    return renderRockChildren({
+      context,
       rockChildrenConfig: children,
       expVars: {
         $slot: props.$slot,
       },
       fixedProps: {
         $slot: props.$slot,
-      }
+      },
     });
   },
-
 } as Rock;

@@ -56,7 +56,7 @@ export default {
           ],
           defaultValue: "middle",
         },
-      ]
-    }
-  ]
+      ],
+    },
+  ],
 } as RockMeta;

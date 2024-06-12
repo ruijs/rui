@@ -5,7 +5,7 @@ import { DesignerStore } from "../stores/DesignerStore";
 import { sendDesignerCommand } from "../utilities/DesignerUtility";
 
 export interface EventHandlerSetterProps extends ContainerRockConfig {
-  $type: "eventHandlerSetter",
+  $type: "eventHandlerSetter";
   label: string;
   labelTip?: string;
   componentConfig: RockConfig;
@@ -44,7 +44,7 @@ export default {
                   payload: {
                     componentId: designerStore.selectedComponentId,
                     propName: eventName,
-                  }
+                  },
                 });
               } else {
                 sendDesignerCommand(page, designerStore, {
@@ -57,11 +57,11 @@ export default {
                       script: "",
                       generator: "blockly",
                       blockly: {},
-                    }
-                  }
+                    },
+                  },
                 });
               }
-            }
+            },
           },
           children: {
             $id: actionIndicatorHovered && isActionConfigured ? `${props.$id}-handler-indicator-cancle` : `${props.$id}-handler-indicator-set`,
@@ -92,9 +92,9 @@ export default {
                 $id: `${props.$id}-label-text`,
                 $type: "text",
                 text: label,
-              }
-            }
-          ]
+              },
+            },
+          ],
         },
         {
           $id: `${props.$id}-controls-wrapper`,
@@ -106,9 +106,8 @@ export default {
       ],
     };
 
-    return renderRock({context, rockConfig});
+    return renderRock({ context, rockConfig });
   },
-
 } as Rock;
 
 const styleSetter: React.CSSProperties = {
@@ -124,7 +123,7 @@ const styleSetterHandlerIndicatorContainer: React.CSSProperties = {
   height: "30px",
   lineHeight: "30px",
   cursor: "pointer",
-}
+};
 
 const styleSetterLabelSection: React.CSSProperties = {
   width: "80px",
@@ -132,15 +131,15 @@ const styleSetterLabelSection: React.CSSProperties = {
   height: "30px",
   paddingRight: "5px",
   lineHeight: "30px",
-}
+};
 
 const styleSetterLabel: React.CSSProperties = {
   display: "inline-block",
   width: "75px",
   textOverflow: "ellipsis",
   overflow: "hidden",
-}
+};
 
 const styleSetterControls: React.CSSProperties = {
   width: "160px",
-}
+};

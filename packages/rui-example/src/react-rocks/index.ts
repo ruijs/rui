@@ -1,10 +1,10 @@
-import { Rock } from '@ruiapp/move-style/source';
+import { Rock } from "@ruiapp/move-style/source";
 
-import colorPicker from './color-picker';
+import colorPicker from "./color-picker";
 
 const config = {
-  name: 'react-rocks',
-  title: 'react-rocks',
+  name: "react-rocks",
+  title: "react-rocks",
   examples: [colorPicker],
 } as PKGConfig<Rock>;
 

@@ -4,7 +4,7 @@ import { RockPropExpressions } from "./rock-types";
 export type StoreMeta<TStoreConfig> = {
   type: string;
   store: new (...args: any) => IStore<TStoreConfig>;
-}
+};
 
 export type StoreConfig = ConstantStoreConfig | HttpRequestStoreConfig | UnknownStoreConfig;
 
@@ -12,7 +12,7 @@ export type StoreConfigBase = {
   name: string;
   description?: string;
   $exps?: RockPropExpressions;
-}
+};
 
 export type UnknownStoreConfig = {
   type: string;
@@ -37,7 +37,7 @@ export type HttpRequestStoreCommand = {
 };
 
 export interface IStore<TConfig = StoreConfigBase> {
-  get name() : string;
+  get name(): string;
   get data(): any;
   loadData: (input?: any) => Promise<any>;
   observe: (callback: (data: any) => void) => void;

@@ -1,5 +1,5 @@
 import { Rock, RockEventHandler, ContainerRockConfig, CommonProps, handleComponentEvent } from "@ruiapp/move-style";
-import { renderRockChildren } from "@ruiapp/react-renderer"
+import { renderRockChildren } from "@ruiapp/react-renderer";
 import { assign, pick } from "lodash";
 
 export interface BoxProps extends ContainerRockConfig {
@@ -7,12 +7,7 @@ export interface BoxProps extends ContainerRockConfig {
   onClick: RockEventHandler;
 }
 
-const boxStylePropNames = [
-  ...CommonProps.PositionStylePropNames,
-  ...CommonProps.SizeStylePropNames,
-  ...CommonProps.LayerStylePropNames,
-  ...CommonProps.TextStylePropNames,
-];
+const boxStylePropNames = [...CommonProps.PositionStylePropNames, ...CommonProps.SizeStylePropNames, ...CommonProps.LayerStylePropNames, ...CommonProps.TextStylePropNames];
 
 export default {
   $type: "box",
@@ -24,28 +19,24 @@ export default {
     ...CommonProps.TextStyleProps,
   },
 
-  propertyPanels: [
-    { $type: "positionPropPanel" },
-    { $type: "sizePropPanel" },
-    { $type: "appearancePropPanel" },
-    { $type: "textPropPanel" }
-  ],
+  propertyPanels: [{ $type: "positionPropPanel" }, { $type: "sizePropPanel" }, { $type: "appearancePropPanel" }, { $type: "textPropPanel" }],
 
   Renderer: (context, props: BoxProps) => {
     const { framework, page, scope } = context;
     const style: React.CSSProperties = assign(pick(props, boxStylePropNames), props.style) as any;
-    return <div data-component-id={props.id} className={props.className} style={style} onClick={(e) => handleComponentEvent("onClick", framework, page, scope, props, props.onClick, [e])}>
-      {
-        renderRockChildren({context,
+    return (
+      <div data-component-id={props.id} className={props.className} style={style} onClick={(e) => handleComponentEvent("onClick", framework, page, scope, props, props.onClick, [e])}>
+        {renderRockChildren({
+          context,
           rockChildrenConfig: props.children,
           expVars: {
             $slot: props.$slot,
           },
           fixedProps: {
             $slot: props.$slot,
-          }
-        }) 
-      }
-    </div>
-  }
+          },
+        })}
+      </div>
+    );
+  },
 } as Rock;

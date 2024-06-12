@@ -16,11 +16,14 @@ export default {
   Renderer(context, props: NumberSetterInputProps) {
     const { framework, page, scope } = context;
     const { $id, onChange, min, max, step } = props;
-    
-    const onInputChange: RockEventHandlerScript["script"] = useCallback((event: RockEvent) => {
-      const value = event.args[0];
-      handleComponentEvent("onChange", framework, page, scope, props, onChange, [value]);
-    }, [page, $id, onChange]);
+
+    const onInputChange: RockEventHandlerScript["script"] = useCallback(
+      (event: RockEvent) => {
+        const value = event.args[0];
+        handleComponentEvent("onChange", framework, page, scope, props, onChange, [value]);
+      },
+      [page, $id, onChange],
+    );
 
     const rockConfig: RockConfig = {
       $id: `${props.$id}-internal`,
@@ -35,9 +38,9 @@ export default {
       onChange: {
         $action: "script",
         script: onInputChange,
-      }
+      },
     };
 
-    return renderRock({context, rockConfig});
+    return renderRock({ context, rockConfig });
   },
 } as Rock;

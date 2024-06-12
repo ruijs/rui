@@ -12,7 +12,7 @@ export default {
     closeIcon: {
       allowMultiComponents: false,
       required: false,
-    }
+    },
   },
 
   propertyPanels: [
@@ -40,7 +40,7 @@ export default {
               label: "error",
               value: "error",
             },
-          ]
+          ],
         },
 
         {
@@ -72,7 +72,7 @@ export default {
           label: "closable",
           propName: "closable",
         },
-      ]
-    }
-  ]
+      ],
+    },
+  ],
 } as RockMeta;

@@ -24,7 +24,7 @@ export default {
     const onBtnEditClick: RockEventHandlerScript["script"] = async (event: RockEvent) => {
       setCodeEditorVisible(true);
       await MoveStyleUtils.waitVariable("current", cmdsEditor);
-      cmdsEditor.current.setCodeContent(value && JSON.stringify(value, null, 4) || "");
+      cmdsEditor.current.setCodeContent((value && JSON.stringify(value, null, 4)) || "");
     };
 
     const onModalOk: RockEventHandlerScript["script"] = (event: RockEvent) => {
@@ -33,8 +33,8 @@ export default {
         var value = JSON.parse(codeContent);
         setCodeEditorVisible(false);
         handleComponentEvent("onChange", framework, page, scope, props, onChange, [value]);
-      } catch(ex) {
-        logger.error(props, "Invalid JSON string.", { error: ex});
+      } catch (ex) {
+        logger.error(props, "Invalid JSON string.", { error: ex });
       }
     };
 
@@ -74,7 +74,7 @@ export default {
             width: "100%",
             height: "500px",
             language: "json",
-          }
+          },
         ],
         onOk: {
           $action: "script",
@@ -84,9 +84,9 @@ export default {
           $action: "script",
           script: onModalCancel,
         },
-      }
+      },
     ];
 
-    return renderRockChildren({context, rockChildrenConfig});
+    return renderRockChildren({ context, rockChildrenConfig });
   },
 } as Rock;

@@ -1,10 +1,10 @@
-import { RockConfig, RockEvent, RockEventHandlerScript, Rock, RockConfigBase } from '@ruiapp/move-style';
-import { renderRock } from '@ruiapp/react-renderer';
-import { useMemo } from 'react';
-import { DesignerStore } from '../../stores/DesignerStore';
-import { sendDesignerCommand } from '../../utilities/DesignerUtility';
-import { PropSetterProps } from '../PropSetter';
-import { getComponentPropsValue } from '../../utilities/SetterUtility';
+import { RockConfig, RockEvent, RockEventHandlerScript, Rock, RockConfigBase } from "@ruiapp/move-style";
+import { renderRock } from "@ruiapp/react-renderer";
+import { useMemo } from "react";
+import { DesignerStore } from "../../stores/DesignerStore";
+import { sendDesignerCommand } from "../../utilities/DesignerUtility";
+import { PropSetterProps } from "../PropSetter";
+import { getComponentPropsValue } from "../../utilities/SetterUtility";
 
 export interface SingleControlPropsSetterProps extends RockConfigBase {
   $id: string;
@@ -18,24 +18,24 @@ export interface SingleControlPropsSetterProps extends RockConfigBase {
 }
 
 export default {
-  $type: 'singleControlPropsSetter',
+  $type: "singleControlPropsSetter",
 
   Renderer(context, props: SingleControlPropsSetterProps) {
     const { page } = context;
     const { propNames = [], defaultValue, control, extra, componentConfig } = props;
 
-    const propNamesStr = propNames?.join(',');
+    const propNamesStr = propNames?.join(",");
 
     const controlRock: RockConfig = useMemo(() => {
       const inputControlRockConfig = control;
       inputControlRockConfig.$id = `${props.$id}-setterControl-${propNamesStr}`;
       inputControlRockConfig.value = getComponentPropsValue(componentConfig, propNames, defaultValue);
 
-      const onInputControlChange: RockEventHandlerScript['script'] = (event: RockEvent) => {
+      const onInputControlChange: RockEventHandlerScript["script"] = (event: RockEvent) => {
         const propValue = event.args[0];
-        const store = page.getStore<DesignerStore>('designerStore');
+        const store = page.getStore<DesignerStore>("designerStore");
         sendDesignerCommand(page, store, {
-          name: 'setComponentProperties',
+          name: "setComponentProperties",
           payload: {
             componentId: store.selectedComponentId,
             props: propValue,
@@ -44,13 +44,13 @@ export default {
       };
 
       inputControlRockConfig.onChange = {
-        $action: 'script',
+        $action: "script",
         script: onInputControlChange,
       };
       return {
         $id: `${inputControlRockConfig.$id}-wrap`,
-        $type: 'htmlElement',
-        htmlTag: 'div',
+        $type: "htmlElement",
+        htmlTag: "div",
         children: inputControlRockConfig,
       } as RockConfig;
     }, [control, componentConfig]);
@@ -61,7 +61,7 @@ export default {
     }
 
     const rockConfig: PropSetterProps = {
-      $type: 'propSetter',
+      $type: "propSetter",
       $id: props.$id,
       label: props.label,
       labelTip: props.labelTip,

@@ -52,7 +52,7 @@ const setters: RockPropSetter[] = [
       { label: "line-through", value: "line-through" },
     ],
   },
-  
+
   {
     $type: "selectPropSetter",
     label: "textDecorationStyle",
@@ -80,12 +80,11 @@ export default {
       });
     }, [setters, componentConfig]);
 
-    return <div>
-      <h3>Text</h3>
-      {
-        renderRockChildren({context, rockChildrenConfig})
-      }
-    </div>
-
+    return (
+      <div>
+        <h3>Text</h3>
+        {renderRockChildren({ context, rockChildrenConfig })}
+      </div>
+    );
   },
 } as Rock;

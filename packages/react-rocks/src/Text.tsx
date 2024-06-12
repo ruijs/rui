@@ -23,12 +23,12 @@ export default {
           $type: "textPropSetter",
           label: "text",
           propName: "text",
-        }
-      ]
-    }
+        },
+      ],
+    },
   ],
 
   Renderer: (context, props: TextProps) => {
     return props.text;
-  }
+  },
 } as Rock;

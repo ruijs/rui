@@ -32,7 +32,7 @@ export default {
             componentId: store.selectedComponentId,
             propName,
             propValue,
-          }
+          },
         });
       };
 
@@ -64,6 +64,6 @@ export default {
       extra,
     };
 
-    return renderRock({context, rockConfig});
+    return renderRock({ context, rockConfig });
   },
 } as Rock;

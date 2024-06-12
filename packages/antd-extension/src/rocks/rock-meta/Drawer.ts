@@ -54,7 +54,7 @@ export default {
               value: "left",
             },
           ],
-          defaultValue: 'right',
+          defaultValue: "right",
         },
 
         {
@@ -91,6 +91,6 @@ export default {
           defaultValue: false,
         },
       ],
-    }
-  ]
+    },
+  ],
 } as RockMeta;

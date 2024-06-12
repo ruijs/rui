@@ -45,7 +45,7 @@ export default {
                 componentId: store.selectedComponentId,
                 propName,
                 propValue,
-              }
+              },
             });
           };
 
@@ -72,7 +72,7 @@ export default {
           span: span * 12,
           children: inputControlRockConfig,
         } as RockConfig);
-        colNum ++;
+        colNum++;
       }
 
       return rowRocks;
@@ -88,7 +88,7 @@ export default {
       children: controlRocks,
     };
 
-    return renderRock({context, rockConfig});
+    return renderRock({ context, rockConfig });
   },
 } as Rock;
 
@@ -104,7 +104,7 @@ function getFreeSpace(rowRock: ContainerRockConfig) {
       usedSpace += child.span / 12;
     });
   } else {
-      usedSpace += children.span / 12;
+    usedSpace += children.span / 12;
   }
 
   return 2 - usedSpace;

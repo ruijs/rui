@@ -33,7 +33,7 @@ export default {
           eventName: eventConfig.name,
           label: eventConfig.label,
           labelTip: eventConfig.description,
-        }
+        };
       });
       return setters;
     }, [framework, selectedComponentConfig]);
@@ -53,13 +53,13 @@ export default {
       componentConfig: selectedComponentConfig,
     };
 
-    return <div>
-      {
-        renderRock({
+    return (
+      <div>
+        {renderRock({
           context,
           rockConfig: setterGroupRockConfig,
-        })
-      }
-    </div>
+        })}
+      </div>
+    );
   },
 } as Rock;

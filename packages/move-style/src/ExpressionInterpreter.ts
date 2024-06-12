@@ -4,8 +4,7 @@ import { IStore } from "./types/store-types";
 export class ExpressionInterpreter {
   #stores: Record<string, IStore>;
 
-  constructor() {
-  }
+  constructor() {}
 
   // TODO: It's better to inject root variables using a common method.
   setStores(stores: Record<string, IStore>) {
@@ -33,8 +32,11 @@ export class ExpressionInterpreter {
   }
 }
 
-const genExpression = memoize((varNames: string[], expressionString: string) => {
-  return new Function(...varNames, `return (${expressionString})`);
-}, (varNames, expressionString) => {
-  return varNames.join(',') + ":" + expressionString;
-})
+const genExpression = memoize(
+  (varNames: string[], expressionString: string) => {
+    return new Function(...varNames, `return (${expressionString})`);
+  },
+  (varNames, expressionString) => {
+    return varNames.join(",") + ":" + expressionString;
+  },
+);

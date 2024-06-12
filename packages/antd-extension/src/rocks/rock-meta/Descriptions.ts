@@ -3,8 +3,7 @@ import { RockMeta } from "@ruiapp/move-style";
 export default {
   $type: "antdDescriptions",
 
-  slots: {
-  },
+  slots: {},
 
   propertyPanels: [
     {
@@ -56,5 +55,5 @@ export default {
       label: "column",
       propName: "column",
     },
-  ]
+  ],
 } as RockMeta;

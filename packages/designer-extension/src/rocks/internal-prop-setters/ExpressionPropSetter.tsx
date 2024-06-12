@@ -33,7 +33,7 @@ export default {
             componentId: designerStore.selectedComponentId,
             propName,
             propExpression,
-          }
+          },
         });
       };
 
@@ -59,6 +59,6 @@ export default {
       children: controlRock,
     };
 
-    return renderRock({context, rockConfig});
+    return renderRock({ context, rockConfig });
   },
 } as Rock;

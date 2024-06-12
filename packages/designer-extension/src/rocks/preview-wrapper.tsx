@@ -21,14 +21,14 @@ export default {
     useEffect(() => {
       window.addEventListener("message", processWindowMessage, false);
       window.parent?.postMessage({
-        name: "previewReady"
+        name: "previewReady",
       });
 
       return () => {
         window.removeEventListener("message", processWindowMessage, false);
-      }
+      };
     }, []);
 
-    return renderRockChildren({context, rockChildrenConfig: props.children});
+    return renderRockChildren({ context, rockChildrenConfig: props.children });
   },
 } as Rock;

@@ -50,7 +50,7 @@ export default {
           label: "disabled",
           propName: "disabled",
         },
-        
+
         {
           $type: "jsonPropSetter",
           label: "style",
@@ -62,7 +62,7 @@ export default {
           label: "value",
           propName: "value",
         },
-      ]
-    }
-  ]
+      ],
+    },
+  ],
 } as RockMeta;

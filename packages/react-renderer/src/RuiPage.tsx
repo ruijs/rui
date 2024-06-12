@@ -32,7 +32,7 @@ const RuiPage = (props: RuiPageProps) => {
     return null;
   }
 
-  const context = {framework, page, scope: page.scope, logger: framework.getRockLogger() };
+  const context = { framework, page, scope: page.scope, logger: framework.getRockLogger() };
   if ((pageConfig as PageWithLayoutConfig).layout) {
     const configWithLayout = pageConfig as PageWithLayoutConfig;
     return renderPageWithLayout(context, configWithLayout);
@@ -40,14 +40,14 @@ const RuiPage = (props: RuiPageProps) => {
     const configWithoutLayout = pageConfig as PageWithoutLayoutConfig;
     return renderPageWithoutLayout(context, configWithoutLayout);
   }
-}
+};
 
 export default RuiPage;
 
 function renderPageWithoutLayout(context: RockInstanceContext, pageConfig: PageWithoutLayoutConfig) {
-  return <>{renderRockChildren({context, rockChildrenConfig: pageConfig.view})}</>;
+  return <>{renderRockChildren({ context, rockChildrenConfig: pageConfig.view })}</>;
 }
 
 function renderPageWithLayout(context: RockInstanceContext, pageConfig: PageWithLayoutConfig) {
-  return <>Page Layout: { pageConfig.layout }</>;
+  return <>Page Layout: {pageConfig.layout}</>;
 }

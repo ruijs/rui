@@ -28,7 +28,7 @@ export default {
         componentConfig,
       };
 
-      return renderRock({context, rockConfig});
+      return renderRock({ context, rockConfig });
     }
 
     let propValue = componentConfig[propName];
@@ -47,7 +47,7 @@ export default {
       const numberValue: number = event.args[0];
       const store = page.getStore<DesignerStore>("designerStore");
       let propValue: string;
-      if (numberValue === null || numberValue === undefined || Number.isNaN(numberValue) ) {
+      if (numberValue === null || numberValue === undefined || Number.isNaN(numberValue)) {
         propValue = unitValue;
       } else {
         propValue = `${numberValue}${unitValue}`;
@@ -58,7 +58,7 @@ export default {
           componentId: store.selectedComponentId,
           propName,
           propValue,
-        }
+        },
       });
     };
 
@@ -66,7 +66,7 @@ export default {
       const unitValue: string = event.args[0];
       const store = page.getStore<DesignerStore>("designerStore");
       let propValue: string;
-      if (numberValue === null || numberValue === undefined || Number.isNaN(numberValue) ) {
+      if (numberValue === null || numberValue === undefined || Number.isNaN(numberValue)) {
         propValue = unitValue;
       } else {
         propValue = `${numberValue}${unitValue}`;
@@ -77,7 +77,7 @@ export default {
           componentId: store.selectedComponentId,
           propName,
           propValue,
-        }
+        },
       });
     };
 
@@ -124,6 +124,6 @@ export default {
       componentConfig,
     };
 
-    return renderRock({context, rockConfig});
+    return renderRock({ context, rockConfig });
   },
 } as Rock;

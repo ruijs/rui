@@ -20,7 +20,7 @@ export default function listToTree<TListItem = any, TTreeNode = TListItem>(list:
     const itemId = get(item, listIdField);
     let node = mapOfTreeNode.get(itemId);
     if (node) {
-      console.warn(`Duplicated list item with id '${itemId}'.`)
+      console.warn(`Duplicated list item with id '${itemId}'.`);
       continue;
     }
 
@@ -35,7 +35,7 @@ export default function listToTree<TListItem = any, TTreeNode = TListItem>(list:
 
     const parentNode = mapOfTreeNode.get(itemParentId);
     if (!parentNode) {
-      console.warn(`Parent node with id '${itemParentId}' was not found.`)
+      console.warn(`Parent node with id '${itemParentId}' was not found.`);
       continue;
     }
     let children = parentNode[treeChildrenField];

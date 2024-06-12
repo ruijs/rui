@@ -33,12 +33,12 @@ export default {
           label: "attributes",
           propName: "attributes",
         },
-      ]
-    }
+      ],
+    },
   ],
 
   Renderer: (context, props: HtmlElementProps) => {
-    const eventHandlers = convertToEventHandlers({context, rockConfig: props});
+    const eventHandlers = convertToEventHandlers({ context, rockConfig: props });
 
     const style: React.CSSProperties = props.style;
     return React.createElement(
@@ -49,15 +49,18 @@ export default {
         ...eventHandlers,
         ...props.attributes,
       },
-      props.children ? renderRockChildren({context,
-        rockChildrenConfig: props.children,
-        expVars: {
-          $slot: props.$slot,
-        },
-        fixedProps: {
-          $slot: props.$slot,
-        }
-      }) : null
+      props.children
+        ? renderRockChildren({
+            context,
+            rockChildrenConfig: props.children,
+            expVars: {
+              $slot: props.$slot,
+            },
+            fixedProps: {
+              $slot: props.$slot,
+            },
+          })
+        : null,
     );
-  }
+  },
 } as Rock;

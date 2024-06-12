@@ -7,5 +7,4 @@ export default {
   rocks,
 } as RuiExtension;
 
-
 export * from "./rocks/AntdIconRock";

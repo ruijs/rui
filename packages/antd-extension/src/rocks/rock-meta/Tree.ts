@@ -13,6 +13,5 @@ export default {
     },
   },
 
-  propertyPanels: [
-  ]
+  propertyPanels: [],
 } as RockMeta;

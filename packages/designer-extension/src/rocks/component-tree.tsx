@@ -37,32 +37,38 @@ export default {
 
     const componentTree = useMemo(() => convertPageConfigToComponentTree(framework, designingPageConfig), [designingPageConfig]);
 
-    const onComponentTreeNodeSelect: RockEventHandlerScript["script"] = useCallback((event: RockEvent) => {
-      const [selectedKeys, {node}] = event.args as [string[], { node: ComponentTreeNode }];
-      const isNodeSelected = selectedKeys.length !== 0;
-      let selectedComponentId: string = null;
-      let selectedSlotPropName: string = null;
-      if (isNodeSelected) {
-        if (node.$nodeType === "component") {
-          selectedComponentId = node.$id;
-          selectedSlotPropName = null;
-        } else if (node.$nodeType === "slot") {
-          selectedComponentId = node.$componentId;
-          selectedSlotPropName = node.$slotPropName;
+    const onComponentTreeNodeSelect: RockEventHandlerScript["script"] = useCallback(
+      (event: RockEvent) => {
+        const [selectedKeys, { node }] = event.args as [string[], { node: ComponentTreeNode }];
+        const isNodeSelected = selectedKeys.length !== 0;
+        let selectedComponentId: string = null;
+        let selectedSlotPropName: string = null;
+        if (isNodeSelected) {
+          if (node.$nodeType === "component") {
+            selectedComponentId = node.$id;
+            selectedSlotPropName = null;
+          } else if (node.$nodeType === "slot") {
+            selectedComponentId = node.$componentId;
+            selectedSlotPropName = node.$slotPropName;
+          }
         }
-      }
-      const designerStore = page.getStore<DesignerStore>("designerStore");
-      designerStore.setSelectedComponentTreeNode(selectedKeys[0], selectedComponentId, selectedSlotPropName);
-    }, [componentTree]);
+        const designerStore = page.getStore<DesignerStore>("designerStore");
+        designerStore.setSelectedComponentTreeNode(selectedKeys[0], selectedComponentId, selectedSlotPropName);
+      },
+      [componentTree],
+    );
 
-    const onComponentTreeNodeDrop: RockEventHandlerScript["script"] = useCallback((event: RockEvent) => {
-      const { event: dragEvent, node, dragNode } = event.args[0];
-      console.log({
-        dragEvent,
-        node,
-        dragNode,
-      })
-    }, [componentTree]);
+    const onComponentTreeNodeDrop: RockEventHandlerScript["script"] = useCallback(
+      (event: RockEvent) => {
+        const { event: dragEvent, node, dragNode } = event.args[0];
+        console.log({
+          dragEvent,
+          node,
+          dragNode,
+        });
+      },
+      [componentTree],
+    );
 
     const rockConfig: RockConfig = {
       $id: `${props.$id}-internal`,
@@ -82,7 +88,7 @@ export default {
       } as RockEventHandlerScript,
     };
 
-    return renderRock({context, rockConfig});
+    return renderRock({ context, rockConfig });
   },
 } as Rock;
 
@@ -110,11 +116,11 @@ function travalRockTree(framework: Framework, rockTree: RockConfig[], componentT
         component.children = [];
       }
 
-      for(const slotPropName in rockMeta.slots) {
+      for (const slotPropName in rockMeta.slots) {
         const slotMeta = rockMeta.slots[slotPropName];
         let slotLabel = `#${slotPropName}`;
         if (slotMeta.name) {
-          slotLabel += ` ${slotMeta.name}`
+          slotLabel += ` ${slotMeta.name}`;
         }
         const slotNode: ComponentTreeNode = {
           $nodeType: "slot",
@@ -135,7 +141,6 @@ function travalRockTree(framework: Framework, rockTree: RockConfig[], componentT
           }
         }
       }
-
     }
 
     if (rock.children) {

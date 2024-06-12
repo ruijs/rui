@@ -8,4 +8,4 @@ export type RuiExtension = {
   functions?: FunctionMeta[];
   stores?: StoreMeta<any>[];
   configProcessors?: ConfigProcessor[];
-}
+};

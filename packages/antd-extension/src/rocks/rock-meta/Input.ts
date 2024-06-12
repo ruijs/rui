@@ -3,8 +3,7 @@ import { RockMeta } from "@ruiapp/move-style";
 export default {
   $type: "antdInput",
 
-  slots: {
-  },
+  slots: {},
 
   propertyPanels: [
     {
@@ -81,7 +80,7 @@ export default {
           propName: "bordered",
           defaultValue: true,
         },
-      ]
-    }
-  ]
+      ],
+    },
+  ],
 } as RockMeta;

@@ -72,6 +72,6 @@ export default {
           defaultValue: false,
         },
       ],
-    }
-  ]
+    },
+  ],
 } as RockMeta;
