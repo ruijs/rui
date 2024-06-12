@@ -56,4 +56,7 @@ regMetaOfRocks(TabPane);
 import Tree from "./rock-meta/Tree";
 regMetaOfRocks(Tree);
 
+import RadioGroup from "./rock-meta/RadioGroup";
+regMetaOfRocks(RadioGroup);
+
 export default metaOfRocks;
