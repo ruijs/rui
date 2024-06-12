@@ -52,7 +52,7 @@ export default {
           label: "unCheckedChildren",
           propName: "unCheckedChildren",
         },
-      ]
-    }
-  ]
+      ],
+    },
+  ],
 } as RockMeta;

@@ -23,6 +23,6 @@ export default {
           propName: "label",
         },
       ],
-    }
-  ]
+    },
+  ],
 } as RockMeta;

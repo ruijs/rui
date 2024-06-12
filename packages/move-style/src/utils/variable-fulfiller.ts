@@ -9,8 +9,8 @@ export function genVariableStore(obj: Record<string, any>) {
   return {
     getVariable: (name: string) => {
       return get(obj, name);
-    }
-  }
+    },
+  };
 }
 
 export function fulfillVariables(input: Record<string, any> | Array<any> | string, variables: Record<string, any>) {

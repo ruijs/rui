@@ -1,7 +1,7 @@
-import * as Antd from 'antd';
-import { Rock } from '@ruiapp/move-style';
-import { isComponentName } from './utils';
-import { convertAntdComponentToRock } from './antd-component-convert';
+import * as Antd from "antd";
+import { Rock } from "@ruiapp/move-style";
+import { isComponentName } from "./utils";
+import { convertAntdComponentToRock } from "./antd-component-convert";
 
 const rocks: Rock[] = [];
 
@@ -11,7 +11,7 @@ function wrapToRocks(prefixName, groupName, componentGroup) {
       continue;
     }
 
-    if (componentName.startsWith('Icon')) {
+    if (componentName.startsWith("Icon")) {
       continue;
     }
 
@@ -23,7 +23,7 @@ function wrapToRocks(prefixName, groupName, componentGroup) {
   }
 }
 
-console.info('Converting Antd components to rocks.');
-wrapToRocks('antd', 'Antd', Antd);
+console.info("Converting Antd components to rocks.");
+wrapToRocks("antd", "Antd", Antd);
 
 export default rocks;

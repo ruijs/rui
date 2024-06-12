@@ -27,7 +27,7 @@ export class HttpRequestStore implements IStore<HttpRequestStoreConfig> {
     this.#page = page;
     this.#scope = scope;
   }
-  
+
   get data() {
     return this.#data;
   }
@@ -63,7 +63,7 @@ export class HttpRequestStore implements IStore<HttpRequestStoreConfig> {
       request: cloneDeep(this.#config.request),
     };
     if (expressions) {
-      for(const propName in expressions) {
+      for (const propName in expressions) {
         if (propName.startsWith("$")) {
           this.#logger.error(`System field can not bind to an expression. ${propName}=${expressions[propName]}`);
           continue;

@@ -1,4 +1,3 @@
-
 export function isUpperLetter(charCode: number) {
   return charCode >= 65 && charCode <= 90;
 }

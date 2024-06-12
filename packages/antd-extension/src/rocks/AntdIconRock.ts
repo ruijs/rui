@@ -18,7 +18,7 @@ for (const componentName in antdIcons) {
   iconNames.push(componentName);
 }
 
-const iconNameOptions = iconNames.map(name => {
+const iconNameOptions = iconNames.map((name) => {
   return {
     label: name,
     value: name,
@@ -35,7 +35,6 @@ export interface AntdIconProps {
   twoToneColor?: string;
 }
 
-
 const antdIconRock = {
   $type: "antdIcon",
 
@@ -43,7 +42,7 @@ const antdIconRock = {
     name: {
       valueType: "string",
       defaultValue: "AntDesignOutlined",
-    }
+    },
   } as RockMetaProps,
 
   propertyPanels: [
@@ -91,8 +90,8 @@ const antdIconRock = {
           label: "twoToneColor",
           propName: "twoToneColor",
         },
-      ]
-    }
+      ],
+    },
   ],
 
   Renderer(context, props: AntdIconProps) {
@@ -102,17 +101,15 @@ const antdIconRock = {
       return null;
     }
 
-    return React.createElement(
-      iconComponent,
-      {
-        rotate,
-        spin,
-        style: Object.assign({}, style, {
-          fontSize: size,
-          color,
-        }),
-        twoToneColor,
-      });
+    return React.createElement(iconComponent, {
+      rotate,
+      spin,
+      style: Object.assign({}, style, {
+        fontSize: size,
+        color,
+      }),
+      twoToneColor,
+    });
   },
 } as Rock;
 

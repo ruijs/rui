@@ -14,10 +14,13 @@ export default {
     const { framework, page, scope } = context;
     const { $id, onChange } = props;
 
-    const onInputChange: RockEventHandlerScript["script"] = useCallback((event: RockEvent) => {
-      const value = event.args[0].target.value;
-      handleComponentEvent("onChange", framework, page, scope, props, onChange, [value]);
-    }, [page, $id, onChange]);
+    const onInputChange: RockEventHandlerScript["script"] = useCallback(
+      (event: RockEvent) => {
+        const value = event.args[0].target.value;
+        handleComponentEvent("onChange", framework, page, scope, props, onChange, [value]);
+      },
+      [page, $id, onChange],
+    );
 
     const rockConfig: RockConfig = {
       $id: `${props.$id}-internal`,
@@ -26,9 +29,9 @@ export default {
       onChange: {
         $action: "script",
         script: onInputChange,
-      }
+      },
     };
 
-    return renderRock({context, rockConfig});
+    return renderRock({ context, rockConfig });
   },
 } as Rock;

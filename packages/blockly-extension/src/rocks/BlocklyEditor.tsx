@@ -1,13 +1,11 @@
 import { MoveStyleUtils, Rock, RockInstanceContext, SimpleRockConfig } from "@ruiapp/move-style";
 import { MutableRefObject, useEffect, useRef } from "react";
-import * as Blockly from 'blockly';
-import { javascriptGenerator } from 'blockly/javascript';
-import { toolbox } from '~/toolbox';
+import * as Blockly from "blockly";
+import { javascriptGenerator } from "blockly/javascript";
+import { toolbox } from "~/toolbox";
 import { definitions } from "~/blocks/_blocks";
 
-
 function loadBlocklyEditor(context: RockInstanceContext, container: HTMLElement): Blockly.WorkspaceSvg {
-
   // Register the blocks and generator with Blockly
   const store = context.scope.getStore("designerStore") as any;
   const steps = store?.appConfig?.steps || [];
@@ -16,7 +14,7 @@ function loadBlocklyEditor(context: RockInstanceContext, container: HTMLElement)
   const generators = Object.create(null);
 
   for (let name in definitions) {
-    let definition = definitions[name]({steps: steps});
+    let definition = definitions[name]({ steps: steps });
     blocks[name] = definition.block;
     generators[name] = definition.generator;
   }
@@ -30,16 +28,16 @@ function loadBlocklyEditor(context: RockInstanceContext, container: HTMLElement)
     grid: {
       spacing: 20,
       length: 3,
-      colour: '#ccc',
-      snap: true
+      colour: "#ccc",
+      snap: true,
     },
     move: {
       scrollbars: {
         horizontal: true,
-        vertical: true
+        vertical: true,
       },
       drag: true,
-      wheel: true
+      wheel: true,
     },
     zoom: {
       controls: true,
@@ -48,7 +46,7 @@ function loadBlocklyEditor(context: RockInstanceContext, container: HTMLElement)
       maxScale: 3,
       minScale: 0.3,
       scaleSpeed: 1.2,
-      pinch: true
+      pinch: true,
     },
     trashcan: true,
     // maxInstances: {
@@ -62,13 +60,13 @@ function loadBlocklyEditor(context: RockInstanceContext, container: HTMLElement)
 }
 
 export interface BlocklyEditorCommands {
-  getConfigs(): string
+  getConfigs(): string;
 
-  getCodeContents(): string
+  getCodeContents(): string;
 
-  setConfigs(data: string): void
+  setConfigs(data: string): void;
 
-  clear(): void
+  clear(): void;
 }
 
 export interface BlocklyEditorProps extends SimpleRockConfig {
@@ -84,17 +82,16 @@ export default {
     configs: {
       valueType: "string",
       defaultValue: "",
-    }
+    },
   },
 
   Renderer(context, props: BlocklyEditorProps) {
     const refContainer = useRef();
     const codeContainer = useRef();
 
-    const {commands} = props;
+    const { commands } = props;
 
     async function initEditor() {
-
       const workspace = loadBlocklyEditor(context, refContainer.current as HTMLElement);
 
       commands.current = {
@@ -103,11 +100,11 @@ export default {
           return JSON.stringify(data);
         },
         getCodeContents(): string {
-          let blocks = workspace.getBlocksByType('event_start', true);
+          let blocks = workspace.getBlocksByType("event_start", true);
           let contents = "";
           for (let block of blocks) {
             const code = javascriptGenerator.blockToCode(block) as string;
-            contents += code + '\n';
+            contents += code + "\n";
           }
           return contents;
         },
@@ -133,7 +130,6 @@ export default {
         }
         (codeContainer.current as HTMLElement).textContent = commands.current.getCodeContents();
       });
-
     }
 
     useEffect(() => {
@@ -142,41 +138,42 @@ export default {
       }
     }, []);
 
-    return <div
-      style={
-        {
-          display: 'flex',
+    return (
+      <div
+        style={{
+          display: "flex",
           width: "100%",
           height: "100%",
-        }
-      }
-    >
-      <div style={
-        {
-          display: 'flex',
-          width: '300px',
-          flex: '0 0 300px',
-          flexDirection: 'column',
-          overflow: 'auto',
-          margin: '1rem',
-        }
-      }>
-        <pre style={
-          {
-            height: '100%',
-            flexBasis: '100%',
-          }
-        } ref={codeContainer}><code></code></pre>
-      </div>
-      <div
-        style={
-          {
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            width: "300px",
+            flex: "0 0 300px",
+            flexDirection: "column",
+            overflow: "auto",
+            margin: "1rem",
+          }}
+        >
+          <pre
+            style={{
+              height: "100%",
+              flexBasis: "100%",
+            }}
+            ref={codeContainer}
+          >
+            <code></code>
+          </pre>
+        </div>
+        <div
+          style={{
             flexBasis: "100%",
             height: "100%",
-          }
-        }
-        ref={refContainer}
-      ></div>
-    </div>
+          }}
+          ref={refContainer}
+        ></div>
+      </div>
+    );
   },
 } as Rock;

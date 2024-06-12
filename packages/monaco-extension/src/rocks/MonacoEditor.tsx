@@ -15,10 +15,7 @@ function loadMonacoEditor() {
   elScriptRequirePath.text = "var require = { paths: { vs: '/vs' } };";
   document.body.appendChild(elScriptRequirePath);
 
-  const filesToLoad = [
-    "/vs/loader.js",
-    "/vs/editor/editor.main.js",
-  ];
+  const filesToLoad = ["/vs/loader.js", "/vs/editor/editor.main.js"];
   for (const fileToLoad of filesToLoad) {
     const elScript = document.createElement("script");
     elScript.src = fileToLoad;
@@ -43,14 +40,13 @@ export interface CodeEditorProps extends SimpleRockConfig {
 export default {
   $type: "monacoEditor",
 
-  slots: {
-  },
+  slots: {},
 
   props: {
     language: {
       valueType: "string",
       defaultValue: "json",
-    }
+    },
   },
 
   propertyPanels: [
@@ -70,10 +66,10 @@ export default {
               label: "json",
               value: "json",
             },
-          ]
+          ],
         },
-      ]
-    }
+      ],
+    },
   ],
 
   Renderer(context, props: CodeEditorProps) {
@@ -98,8 +94,8 @@ export default {
 
           setCodeContent(codeContent: string) {
             return editor.getModel().setValue(codeContent);
-          }
-        }
+          },
+        };
       }
     }
 
@@ -109,14 +105,14 @@ export default {
       }
     }, []);
 
-    return <div
-      style={
-        {
+    return (
+      <div
+        style={{
           width: props.width || "100%",
           height: props.height || "100%",
-        }
-      }
-      ref={refContainer}
-    ></div>
+        }}
+        ref={refContainer}
+      ></div>
+    );
   },
 } as Rock;

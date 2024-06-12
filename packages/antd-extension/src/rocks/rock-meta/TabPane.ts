@@ -38,6 +38,6 @@ export default {
           propName: "forceRender",
         },
       ],
-    }
-  ]
+    },
+  ],
 } as RockMeta;

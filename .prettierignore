@@ -1,0 +1,33 @@
+node_modules
+
+/.cache
+/dist
+/build
+/public
+.env
+.idea
+
+### OSX ###
+# General
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Thumbnails
+._*
+
+**/.git
+**/.svn
+**/.hg
+**/node_modules
+**/.vscode
+**/.github
+**/.changeset
+
+.eslintrc.cjs
+.dockerignore
+.editorconfig
+.eslintrc
+.gitignore
+pnpm-lock.yaml
+

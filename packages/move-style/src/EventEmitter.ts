@@ -1,4 +1,4 @@
-import Emitter from 'events';
+import Emitter from "events";
 
 export class EventEmitter {
   #emitter: Emitter;

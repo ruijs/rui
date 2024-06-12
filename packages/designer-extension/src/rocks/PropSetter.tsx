@@ -5,7 +5,7 @@ import { DesignerStore } from "../stores/DesignerStore";
 import { sendDesignerCommand } from "../utilities/DesignerUtility";
 
 export interface PropSetterProps extends ContainerRockConfig {
-  $type: "propSetter",
+  $type: "propSetter";
   label: string;
   labelTip?: string;
   labelLayout?: "horizontal" | "vertical";
@@ -46,7 +46,7 @@ export default {
                   payload: {
                     componentId: designerStore.selectedComponentId,
                     propName: expressionPropName,
-                  }
+                  },
                 });
               } else {
                 sendDesignerCommand(page, designerStore, {
@@ -55,10 +55,10 @@ export default {
                     componentId: designerStore.selectedComponentId,
                     propName: expressionPropName,
                     propExpression: "",
-                  }
+                  },
                 });
               }
-            }
+            },
           },
           children: {
             $id: expIndicatorHovered && isPropDynamic ? `${props.$id}-exp-indicator-cancle` : `${props.$id}-exp-indicator-set`,
@@ -89,9 +89,9 @@ export default {
                 $id: `${props.$id}-label-text`,
                 $type: "text",
                 text: label,
-              }
-            }
-          ]
+              },
+            },
+          ],
         },
         {
           $id: `${props.$id}-controls-wrapper`,
@@ -113,9 +113,8 @@ export default {
       });
     }
 
-    return renderRock({context, rockConfig});
+    return renderRock({ context, rockConfig });
   },
-
 } as Rock;
 
 const styleSetter: React.CSSProperties = {
@@ -131,7 +130,7 @@ const styleSetterExpIndicatorContainer: React.CSSProperties = {
   height: "30px",
   lineHeight: "30px",
   cursor: "pointer",
-}
+};
 
 const styleSetterLabelSection: React.CSSProperties = {
   width: "80px",
@@ -139,18 +138,18 @@ const styleSetterLabelSection: React.CSSProperties = {
   height: "30px",
   paddingRight: "5px",
   lineHeight: "30px",
-}
+};
 
 const styleSetterLabel: React.CSSProperties = {
   display: "inline-block",
   width: "75px",
   textOverflow: "ellipsis",
   overflow: "hidden",
-}
+};
 
 const styleSetterControls: React.CSSProperties = {
   width: "160px",
-}
+};
 
 const styleSetterExtraWrapper: React.CSSProperties = {
   width: "240px",
@@ -158,4 +157,4 @@ const styleSetterExtraWrapper: React.CSSProperties = {
   background: "#fef6ff",
   borderRadius: "5px",
   padding: "10px",
-}
+};

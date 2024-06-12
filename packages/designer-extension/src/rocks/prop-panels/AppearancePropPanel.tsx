@@ -85,12 +85,11 @@ export default {
       });
     }, [setters, componentConfig]);
 
-    return <div>
-      <h3>Appearance</h3>
-      {
-        renderRockChildren({context, rockChildrenConfig})
-      }
-    </div>
-
+    return (
+      <div>
+        <h3>Appearance</h3>
+        {renderRockChildren({ context, rockChildrenConfig })}
+      </div>
+    );
   },
 } as Rock;

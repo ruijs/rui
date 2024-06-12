@@ -18,9 +18,8 @@ export default {
   propertyPanels: [
     {
       $type: "componentPropPanel",
-      setters: [
-      ]
-    }
+      setters: [],
+    },
   ],
 
   slots: {
@@ -56,7 +55,7 @@ export default {
   },
 
   Renderer(context, props) {
-    const { $id, dataSource, item, separator, header, footer, listContainer, itemContainer} = props;
+    const { $id, dataSource, item, separator, header, footer, listContainer, itemContainer } = props;
     let children: RockConfig[] = [];
 
     if (header) {
@@ -65,7 +64,7 @@ export default {
         $id: `${$id}-header`,
       });
     }
-    
+
     if (dataSource) {
       each(dataSource, (value, index) => {
         if (index !== 0 && separator) {
@@ -83,7 +82,7 @@ export default {
               ...item,
               $id: `${$id}-item-${index}`,
               value,
-            }
+            },
           });
         } else {
           children.push({
@@ -92,9 +91,7 @@ export default {
             value,
           });
         }
-
-
-      })
+      });
     }
 
     if (footer) {
@@ -112,12 +109,9 @@ export default {
           $id: `${$id}-ctnr`,
           children,
         },
-      })
-    } else {
-      return renderRockChildren({context, 
-        rockChildrenConfig: children,
       });
+    } else {
+      return renderRockChildren({ context, rockChildrenConfig: children });
     }
   },
-
 } as Rock<ListProps>;

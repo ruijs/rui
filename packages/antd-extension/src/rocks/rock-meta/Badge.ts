@@ -30,7 +30,7 @@ export default {
           label: "text",
           propName: "text",
         },
-      ]
-    }
-  ]
+      ],
+    },
+  ],
 } as RockMeta;

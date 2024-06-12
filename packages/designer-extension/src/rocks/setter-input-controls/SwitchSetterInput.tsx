@@ -14,15 +14,18 @@ export default {
 
   Renderer(context, props: SwitchSetterInputProps) {
     const { framework, page, scope } = context;
-    const { $id, onChange  } = props;
+    const { $id, onChange } = props;
     const checkedValue = props.checkedValue || true;
     const uncheckedValue = props.uncheckedValue || false;
 
-    const onInputChange: RockEventHandlerScript["script"] = useCallback((event: RockEvent) => {
-      const checked = event.args[0];
-      const value = checked ? checkedValue : uncheckedValue;
-      handleComponentEvent("onChange", framework, page, scope, props, onChange, [value]);
-    }, [page, $id, onChange]);
+    const onInputChange: RockEventHandlerScript["script"] = useCallback(
+      (event: RockEvent) => {
+        const checked = event.args[0];
+        const value = checked ? checkedValue : uncheckedValue;
+        handleComponentEvent("onChange", framework, page, scope, props, onChange, [value]);
+      },
+      [page, $id, onChange],
+    );
 
     const rockConfig: RockConfig = {
       $id: `${props.$id}-internal`,
@@ -31,9 +34,9 @@ export default {
       onChange: {
         $action: "script",
         script: onInputChange,
-      }
+      },
     };
 
-    return renderRock({context, rockConfig});
+    return renderRock({ context, rockConfig });
   },
 } as Rock;

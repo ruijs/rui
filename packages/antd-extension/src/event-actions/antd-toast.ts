@@ -17,14 +17,14 @@ export async function antdToast(eventName: string, framework: Framework, page: P
       onClose: () => {
         if (eventHandler.onClose) {
           handleComponentEvent(eventName, framework, page, scope, sender, eventHandler.onClose, eventArgs)
-          .then(() => {
-            resolve(null);
-          })
-          .catch(reject);
+            .then(() => {
+              resolve(null);
+            })
+            .catch(reject);
         } else {
           resolve(null);
         }
-      }
+      },
     };
 
     const toastType = eventHandler.type;

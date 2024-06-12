@@ -5,14 +5,14 @@ export type RenderRockOptions = {
   rockConfig: RockConfig;
   expVars?: Record<string, any>;
   fixedProps?: any;
-}
+};
 
 export type RenderRockChildrenOptions = {
   context: RockInstanceContext;
   rockChildrenConfig: RockChildrenConfig;
   expVars?: Record<string, any>;
   fixedProps?: any;
-}
+};
 
 export type RenderRockSlotOptions = {
   context: RockInstanceContext;
@@ -20,8 +20,7 @@ export type RenderRockSlotOptions = {
   rockType: string;
   slotPropName: string;
   args: any[];
-}
-
+};
 
 export type RenderRockSlotWithMetaOptions = {
   context: RockInstanceContext;
@@ -29,30 +28,30 @@ export type RenderRockSlotWithMetaOptions = {
   slotMeta: RockMetaSlot;
   expVars?: Record<string, any>;
   fixedProps?: any;
-}
+};
 
 export type GenerateRockSlotRendererOptions = {
   context: RockInstanceContext;
   slot: RockChildrenConfig;
   rockType: string;
   slotPropName: string;
-}
+};
 
 export type ConvertRockEventHandlerPropsOptions = {
   context: RockInstanceContext;
   rockConfig: RockConfig;
-}
+};
 
 export type ConvertRockEventHandlerPropOptions = {
   context: RockInstanceContext;
   rockConfig: RockConfig;
   eventName: string;
   eventHandlerConfig: RockEventHandlerConfig;
-}
+};
 
 export type ConvertRockSlotPropsOptions = {
   context: RockInstanceContext;
   rockConfig: RockConfig;
   slotsMeta: RockMetaSlots;
   isEarly?: boolean;
-}
+};

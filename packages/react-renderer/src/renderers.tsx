@@ -14,11 +14,11 @@ import {
   RockMetaSlot,
   RockMetaSlots,
   Scope,
-} from '@ruiapp/move-style';
-import { MoveStyleUtils } from '@ruiapp/move-style';
-import type { ConvertRockEventHandlerPropOptions, RockConfig } from '@ruiapp/move-style';
-import { forEach, isArray, isFunction, isString, pick } from 'lodash';
-import React from 'react';
+} from "@ruiapp/move-style";
+import { MoveStyleUtils } from "@ruiapp/move-style";
+import type { ConvertRockEventHandlerPropOptions, RockConfig } from "@ruiapp/move-style";
+import { forEach, isArray, isFunction, isString, pick } from "lodash";
+import React from "react";
 
 // TODO: support `$parent`?
 export function renderRock(options: RenderRockOptions) {
@@ -34,7 +34,7 @@ export function renderRock(options: RenderRockOptions) {
   }
 
   const { framework, page, scope } = context;
-  const logger = framework.getLogger('componentRenderer');
+  const logger = framework.getLogger("componentRenderer");
   const componentType = rockConfig.$type;
   const rock: Rock = framework.getComponent(componentType);
   if (!rock) {
@@ -50,7 +50,7 @@ export function renderRock(options: RenderRockOptions) {
   const configInstance = rockConfig as RockInstance;
   if (!configInstance._initialized) {
     // TODO: Temporary implement. Should refactor when re-implement the state management of ComponentTreeManager.
-    Object.assign(configInstance, pick(page.getComponent(configInstance.$id), ['_initialized', '_state']));
+    Object.assign(configInstance, pick(page.getComponent(configInstance.$id), ["_initialized", "_state"]));
 
     if (!configInstance._initialized) {
       // TODO: should resolve parent component.
@@ -219,7 +219,7 @@ export function convertToEventHandler(options: ConvertRockEventHandlerPropOption
 
 export function renderSlotWithAdapter(options: RenderRockSlotWithMetaOptions) {
   const { context, slot, slotMeta, expVars, fixedProps } = options;
-  const adapterSlotPropNames = slotMeta.adapterSlots || ['children'];
+  const adapterSlotPropNames = slotMeta.adapterSlots || ["children"];
   if (isArray(slot)) {
     const adapters = [];
     forEach(slot, (child) => {

@@ -6,8 +6,8 @@ export interface SelectSetterInputProps extends RockConfigBase {
   value?: string;
   onChange?: RockEventHandler;
   options: {
-    label: string,
-    value: string,
+    label: string;
+    value: string;
   }[];
   showSearch?: boolean;
 }
@@ -19,10 +19,13 @@ export default {
     const { framework, page, scope } = context;
     const { $id, onChange, options, showSearch } = props;
 
-    const onSelectChange: RockEventHandlerScript["script"] = useCallback((event: RockEvent) => {
-      const value = event.args[0];
-      handleComponentEvent("onChange", framework, page, scope, props, onChange, [value]);
-    }, [page, $id, onChange]);
+    const onSelectChange: RockEventHandlerScript["script"] = useCallback(
+      (event: RockEvent) => {
+        const value = event.args[0];
+        handleComponentEvent("onChange", framework, page, scope, props, onChange, [value]);
+      },
+      [page, $id, onChange],
+    );
 
     const rockConfig: RockConfig = {
       $id: `${props.$id}-internal`,
@@ -39,6 +42,6 @@ export default {
       },
     };
 
-    return renderRock({context, rockConfig});
+    return renderRock({ context, rockConfig });
   },
 } as Rock;

@@ -1,6 +1,6 @@
-import { RockConfig, RockConfigBase, Rock, RockPropSetter } from '@ruiapp/move-style';
-import { renderRockChildren } from '@ruiapp/react-renderer';
-import { useMemo } from 'react';
+import { RockConfig, RockConfigBase, Rock, RockPropSetter } from "@ruiapp/move-style";
+import { renderRockChildren } from "@ruiapp/react-renderer";
+import { useMemo } from "react";
 
 export interface ComponentPropPanelProps extends RockConfigBase {
   title?: string;
@@ -9,7 +9,7 @@ export interface ComponentPropPanelProps extends RockConfigBase {
 }
 
 export default {
-  $type: 'componentPropPanel',
+  $type: "componentPropPanel",
 
   Renderer(context, props: ComponentPropPanelProps) {
     const { componentConfig, setters } = props;

@@ -41,26 +41,25 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
 
   render() {
     if (this.state.hasError) {
-      return <div>
-        <pre style={{
-          padding: "10px",
-          color: "red",
-          background: "#FFF0F0",
-        }}><code>
-          {
-            this.state.error?.toString()
-          }
-        </code>
-        </pre>
-        <div><button onClick={() => this.clearError()}>Retry</button></div>
-        <pre>
-          <code>
-            {
-              JSON.stringify(this.props.childrenConfig, null, 4)
-            }
-          </code>
-        </pre>
-      </div>;
+      return (
+        <div>
+          <pre
+            style={{
+              padding: "10px",
+              color: "red",
+              background: "#FFF0F0",
+            }}
+          >
+            <code>{this.state.error?.toString()}</code>
+          </pre>
+          <div>
+            <button onClick={() => this.clearError()}>Retry</button>
+          </div>
+          <pre>
+            <code>{JSON.stringify(this.props.childrenConfig, null, 4)}</code>
+          </pre>
+        </div>
+      );
     }
 
     return this.props.children;
@@ -74,18 +73,14 @@ export default {
     fallback: {
       allowMultiComponents: true,
       required: false,
-    }
+    },
   },
 
   Renderer(context, props: ErrorBoundaryRockProps) {
-    return <ErrorBoundary
-      fallback={renderRockChildren({context, rockChildrenConfig: props.fallback})}
-      childrenConfig={props.children}
-    >
-      {
-        renderRockChildren({context, rockChildrenConfig: props.children})
-      }
-    </ErrorBoundary>
+    return (
+      <ErrorBoundary fallback={renderRockChildren({ context, rockChildrenConfig: props.fallback })} childrenConfig={props.children}>
+        {renderRockChildren({ context, rockChildrenConfig: props.children })}
+      </ErrorBoundary>
+    );
   },
-
 } as Rock;

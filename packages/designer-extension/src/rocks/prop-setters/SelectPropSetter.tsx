@@ -7,8 +7,8 @@ export interface SelectPropSetterProps extends SelectRockPropSetter {
   $id: string;
   componentConfig: RockConfig;
   options: {
-    label: string,
-    value: string,
+    label: string;
+    value: string;
   }[];
   showSearch?: boolean;
 }
@@ -38,6 +38,6 @@ export default {
       };
     }
 
-    return renderRock({context, rockConfig});
+    return renderRock({ context, rockConfig });
   },
 } as Rock;

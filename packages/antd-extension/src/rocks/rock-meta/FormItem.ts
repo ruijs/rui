@@ -3,8 +3,7 @@ import { RockMeta } from "@ruiapp/move-style";
 export default {
   $type: "antdFormItem",
 
-  slots: {
-  },
+  slots: {},
 
   propertyPanels: [
     {
@@ -27,8 +26,7 @@ export default {
           label: "required",
           propName: "required",
         },
-
       ],
-    }
-  ]
+    },
+  ],
 } as RockMeta;

@@ -9,14 +9,17 @@ export default {
   $type: "designerToolbox",
 
   Renderer(context, props) {
-    const { framework, page} = context;
+    const { framework, page } = context;
     const [searchText, setSearchText] = useState("");
     const { $id } = props;
 
-    const onInputChange: RockEventHandlerScript["script"] = useCallback((event: RockEvent) => {
-      const value = event.args[0].target.value;
-      setSearchText(value);
-    }, [page, $id]);
+    const onInputChange: RockEventHandlerScript["script"] = useCallback(
+      (event: RockEvent) => {
+        const value = event.args[0].target.value;
+        setSearchText(value);
+      },
+      [page, $id],
+    );
 
     function onRockClick(rockType: string) {
       const store = page.getStore<DesignerStore>("designerStore");
@@ -30,15 +33,15 @@ export default {
           slotPropName: store.selectedSlotPropName,
           prevSiblingComponentId: null,
           defaultProps: MoveStyleUtils.getRockDefaultProps(rockMeta),
-        }
+        },
       } as PageCommandAddComponent);
     }
 
     const registeredRocks = framework.getComponents();
     const rockListItems = useMemo(() => {
       const rocks: RockConfig[] = [];
-      const lowerCasedSearchText = searchText && searchText.toLowerCase()
-      for(const rockType of registeredRocks.keys()) {
+      const lowerCasedSearchText = searchText && searchText.toLowerCase();
+      for (const rockType of registeredRocks.keys()) {
         if (searchText && !rockType.toLowerCase().includes(lowerCasedSearchText)) {
           continue;
         }
@@ -58,10 +61,10 @@ export default {
             onClick: {
               $action: "script",
               script() {
-                onRockClick(rockType)
-              }
-            }
-          }
+                onRockClick(rockType);
+              },
+            },
+          },
         });
       }
       return rocks;
@@ -88,10 +91,10 @@ export default {
           $id: `${$id}-rocks`,
           htmlTag: "ul",
           children: rockListItems,
-        }
-      ]
-    }
+        },
+      ],
+    };
 
-    return renderRock({context, rockConfig});
+    return renderRock({ context, rockConfig });
   },
 } as Rock;

@@ -25,6 +25,10 @@ export default {
 
   Renderer: (context, props: TextProps) => {
     const style: React.CSSProperties = _.pick(props, CommonProps.TextStylePropNames) as any;
-    return <span data-component-id={props.id} style={style}>{props.text}</span>
-  }
+    return (
+      <span data-component-id={props.id} style={style}>
+        {props.text}
+      </span>
+    );
+  },
 } as Rock;

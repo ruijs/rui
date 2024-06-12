@@ -1,5 +1,3 @@
 import DesignerStore from "./DesignerStore";
 
-export default [
-  DesignerStore,
-]
+export default [DesignerStore];

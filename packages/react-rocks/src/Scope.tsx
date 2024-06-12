@@ -10,26 +10,25 @@ export interface ScopeProps extends ContainerRockConfig {
 export default {
   $type: "scope",
 
-  props: {
-  },
+  props: {},
 
   Renderer: (context, props: ScopeProps) => {
-    const { $id, stores, initialVars} = props;
+    const { $id, stores, initialVars } = props;
     const { framework, page, logger } = context;
     logger.debug(props, `[Scope Rock] rendering Scope '${$id}'`);
 
     const scope = page.getScope($id);
     const [scopeState, setScopeState] = useState<ScopeState>();
-  
+
     useEffect(() => {
       logger.debug(props, `[Scope Rock] Mounting scope '${$id}'.`);
       scope.observe((state: ScopeState) => {
-        logger.debug(props, `[Scope Rock] Scope ${props.$id} changed, current version: ${state.version}`)
+        logger.debug(props, `[Scope Rock] Scope ${props.$id} changed, current version: ${state.version}`);
         setScopeState(state);
       });
       scope.loadData();
     }, [page, scope]);
-    const childrenContext = {framework, page, scope, logger};
-    return <>{renderRockChildren({context: childrenContext, rockChildrenConfig: props.children})}</>
-  }
+    const childrenContext = { framework, page, scope, logger };
+    return <>{renderRockChildren({ context: childrenContext, rockChildrenConfig: props.children })}</>;
+  },
 } as Rock;

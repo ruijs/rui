@@ -62,15 +62,7 @@ export interface LoggerProvider {
   createLogger(): RuiLogger;
 }
 
-export type RuiModulesNames =
-  "framework" |
-  "page" |
-  "scope" |
-  "store" |
-  "componentTreeManager" |
-  "componentRenderer" |
-  "componentEventHandler" |
-  "other";
+export type RuiModulesNames = "framework" | "page" | "scope" | "store" | "componentTreeManager" | "componentRenderer" | "componentEventHandler" | "other";
 
 export class LoggerFactory {
   #provider: LoggerProvider;
@@ -103,7 +95,6 @@ export class LoggerFactory {
     return logger;
   }
 }
-
 
 export class RuiModuleLogger {
   #logger: RuiLogger;
@@ -204,7 +195,7 @@ export class RuiModuleLogger {
     this.#logger.emerg(message, {
       ...meta,
       ruiModule: this.#moduleName,
-    })
+    });
   }
   /**
    * Fatal for a particular service, but the app continues servicing other requests. An operator should look at this immediately.
@@ -216,7 +207,7 @@ export class RuiModuleLogger {
     this.#logger.crit(message, {
       ...meta,
       ruiModule: this.#moduleName,
-    })
+    });
   }
   /**
    * Fatal for a particular request, but the service/app continues servicing other requests. An operator should look at this soon(ish).
@@ -228,7 +219,7 @@ export class RuiModuleLogger {
     this.#logger.error(message, {
       ...meta,
       ruiModule: this.#moduleName,
-    })
+    });
   }
   /**
    * A note on something that should probably be looked at by an operator eventually.
@@ -240,7 +231,7 @@ export class RuiModuleLogger {
     this.#logger.warn(message, {
       ...meta,
       ruiModule: this.#moduleName,
-    })
+    });
   }
   /**
    * Detail on regular operation.
@@ -252,7 +243,7 @@ export class RuiModuleLogger {
     this.#logger.info(message, {
       ...meta,
       ruiModule: this.#moduleName,
-    })
+    });
   }
   /**
    * Anything else, i.e. too verbose to be included in "info" level.
@@ -264,7 +255,7 @@ export class RuiModuleLogger {
     this.#logger.debug(message, {
       ...meta,
       ruiModule: this.#moduleName,
-    })
+    });
   }
   /**
    * Logging from external libraries used by your app or very detailed application logging.
@@ -276,7 +267,7 @@ export class RuiModuleLogger {
     this.#logger.verbose(message, {
       ...meta,
       ruiModule: this.#moduleName,
-    })
+    });
   }
 }
 
@@ -376,7 +367,7 @@ export class RuiRockLogger {
     this.#logger.emerg(message, {
       ...meta,
       rockProps,
-    })
+    });
   }
   /**
    * Fatal for a particular service, but the app continues servicing other requests. An operator should look at this immediately.
@@ -388,7 +379,7 @@ export class RuiRockLogger {
     this.#logger.crit(message, {
       ...meta,
       rockProps,
-    })
+    });
   }
   /**
    * Fatal for a particular request, but the service/app continues servicing other requests. An operator should look at this soon(ish).
@@ -400,7 +391,7 @@ export class RuiRockLogger {
     this.#logger.error(message, {
       ...meta,
       rockProps,
-    })
+    });
   }
   /**
    * A note on something that should probably be looked at by an operator eventually.
@@ -412,7 +403,7 @@ export class RuiRockLogger {
     this.#logger.warn(message, {
       ...meta,
       rockProps,
-    })
+    });
   }
   /**
    * Detail on regular operation.
@@ -424,7 +415,7 @@ export class RuiRockLogger {
     this.#logger.info(message, {
       ...meta,
       rockProps,
-    })
+    });
   }
   /**
    * Anything else, i.e. too verbose to be included in "info" level.
@@ -436,7 +427,7 @@ export class RuiRockLogger {
     this.#logger.debug(message, {
       ...meta,
       rockProps,
-    })
+    });
   }
   /**
    * Logging from external libraries used by your app or very detailed application logging.
@@ -448,6 +439,6 @@ export class RuiRockLogger {
     this.#logger.verbose(message, {
       ...meta,
       rockProps,
-    })
+    });
   }
 }

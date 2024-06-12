@@ -1,5 +1,3 @@
 import MonacoEditor from "./MonacoEditor";
 
-export default [
-  MonacoEditor,
-]
+export default [MonacoEditor];

@@ -1,10 +1,6 @@
 import _ from "lodash";
 
-const _canUseDOM = !!(
-  typeof window !== "undefined" &&
-  window.document &&
-  window.document.createElement
-);
+const _canUseDOM = !!(typeof window !== "undefined" && window.document && window.document.createElement);
 
 export function canUseDOM() {
   return _canUseDOM;

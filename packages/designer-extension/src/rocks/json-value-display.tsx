@@ -1,28 +1,28 @@
-import { Rock, RockConfig } from '@ruiapp/move-style';
-import { renderRock } from '@ruiapp/react-renderer';
+import { Rock, RockConfig } from "@ruiapp/move-style";
+import { renderRock } from "@ruiapp/react-renderer";
 
 export default {
-  $type: 'jsonValueDisplay',
+  $type: "jsonValueDisplay",
 
   Renderer(context, props) {
     const { $id, value } = props;
 
     const rockConfig: RockConfig = {
-      $type: 'htmlElement',
+      $type: "htmlElement",
       $id: $id,
-      htmlTag: 'pre',
+      htmlTag: "pre",
       attributes: {
         style: {
-          margin: '0',
-          maxHeight: '200px',
-          overflow: 'auto',
+          margin: "0",
+          maxHeight: "200px",
+          overflow: "auto",
         },
       },
       children: [
         {
           $id: `${$id}-text`,
-          $type: 'text',
-          text: (value && JSON.stringify(value, null, 2)) || '',
+          $type: "text",
+          text: (value && JSON.stringify(value, null, 2)) || "",
         },
       ],
     };

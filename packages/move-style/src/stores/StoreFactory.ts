@@ -1,4 +1,4 @@
-import { IStore, StoreConfig } from '../types/store-types';
+import { IStore, StoreConfig } from "../types/store-types";
 
 export default class StoreFactory {
   #storeConstructors: Map<string, any>;

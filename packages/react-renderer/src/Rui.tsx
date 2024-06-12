@@ -12,7 +12,7 @@ function Rui(props: RuiProps) {
   const logger = framework.getLogger("componentRenderer");
 
   if (!page) {
-    logger.debug(`[Rui] Rendering skipped, page is null.`)
+    logger.debug(`[Rui] Rendering skipped, page is null.`);
     return null;
   }
 
@@ -21,9 +21,9 @@ function Rui(props: RuiProps) {
   }, [page]);
 
   const pageId = page.getConfig().$id;
-  logger.debug(`[Rui] Rendering page '${pageId}'`)
+  logger.debug(`[Rui] Rendering page '${pageId}'`);
 
-  return <RuiPage key={pageId} framework={framework} page={page} />
+  return <RuiPage key={pageId} framework={framework} page={page} />;
 }
 
 export default Rui;

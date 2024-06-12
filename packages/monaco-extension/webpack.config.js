@@ -1,42 +1,42 @@
-const path = require('path');
+const path = require("path");
 
 module.exports = {
   mode: "development",
-  entry: './src/mod.ts',
+  entry: "./src/mod.ts",
   experiments: {
     outputModule: false,
   },
   output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: 'mod.js',
+    path: path.resolve(__dirname, "dist"),
+    filename: "mod.js",
     clean: true,
     library: {
       type: "commonjs2",
-    }
+    },
   },
   resolve: {
-    extensions: ['.tsx', '.ts', '.js'],
+    extensions: [".tsx", ".ts", ".js"],
   },
   module: {
     rules: [
       {
         test: /.([cm]?ts|tsx)$/,
-        loader: 'ts-loader',
+        loader: "ts-loader",
       },
       {
-				test: /\.css$/,
-				use: ['style-loader', 'css-loader']
-			},
-			// {
-			// 	test: /\.ttf$/,
-			// 	use: ['file-loader']
-			// }
+        test: /\.css$/,
+        use: ["style-loader", "css-loader"],
+      },
+      // {
+      // 	test: /\.ttf$/,
+      // 	use: ['file-loader']
+      // }
     ],
   },
   externalsType: "commonjs",
   externals: {
     "@ruiapp/move-style": "@ruiapp/move-style",
-    react: 'react',
-    'react-dom': 'react-dom',
+    react: "react",
+    "react-dom": "react-dom",
   },
 };
