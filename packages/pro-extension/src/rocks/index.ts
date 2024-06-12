@@ -1,4 +1,4 @@
-import EditableTable from "./editable-table-rock";
-import RichTextEditor from "./rich-text-rock";
+import EditableTable from "./editable-table";
+import RichTextEditor from "./rich-text";
 
 export default [EditableTable, RichTextEditor];
