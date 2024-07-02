@@ -4,6 +4,7 @@ import { hsvaToHslString, hsvaToHslaString, hsvaToRgbString, hsvaToRgbaString } 
 import Sketch from "@uiw/react-color-sketch";
 import { Popover } from "antd";
 import { CSSProperties, useState } from "react";
+import { convertToEventHandlers } from "@ruiapp/react-renderer";
 
 import "./style.css";
 
@@ -23,6 +24,8 @@ export default {
   Renderer: (context, props: ColorPickerProps) => {
     const { format = "hex", disableAlpha = true, disabled, className, style } = props;
     const [open, setOpen] = useState<boolean>(false);
+
+    const eventHandlers = convertToEventHandlers({ context, rockConfig: props }) as any;
 
     if (disabled) {
       return (
@@ -58,7 +61,7 @@ export default {
                   break;
               }
 
-              props.onChange?.(fmtValue);
+              eventHandlers.onChange?.(fmtValue);
             }}
           />
         }

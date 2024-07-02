@@ -5,35 +5,23 @@ import routes from "./routes";
 import { Menu, Select } from "antd";
 
 import { Framework } from "@ruiapp/move-style";
-import { Rui as RuiRock, ErrorBoundary, Show, HtmlElement, Anchor, Box, Label, List, Scope, Text, ColorPicker } from "@ruiapp/react-rocks";
 import { Rui } from "@ruiapp/react-renderer";
 import { Page } from "@ruiapp/move-style";
 import _, { forEach } from "lodash";
 import qs from "qs";
 
+import ReactRocks from "@ruiapp/react-rocks";
 import AntdExtension from "@ruiapp/antd-extension";
-import ProExtension from "@ruiapp/pro-extension";
+import DesignerExtension from "@ruiapp/designer-extension";
 
 export const framework = new Framework();
 
 framework.registerExpressionVar("_", _);
 framework.registerExpressionVar("qs", qs);
 
-framework.registerComponent(RuiRock);
-framework.registerComponent(ErrorBoundary);
-framework.registerComponent(Show);
-framework.registerComponent(HtmlElement);
-framework.registerComponent(Scope);
-framework.registerComponent(Text);
-
-framework.registerComponent(Anchor);
-framework.registerComponent(Box);
-framework.registerComponent(Label);
-framework.registerComponent(List);
-framework.registerComponent(ColorPicker);
-
 framework.loadExtension(AntdExtension);
-framework.loadExtension(ProExtension);
+framework.loadExtension(DesignerExtension);
+framework.loadExtension(ReactRocks);
 
 forEach(routes, (route) => {
   const examples = route.examples;

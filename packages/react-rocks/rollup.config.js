@@ -14,7 +14,7 @@ export default {
   ],
   plugins: [
     css({
-      output: "main.css",
+      output: "mod.css",
       minify: true,
     }),
     typescript(),

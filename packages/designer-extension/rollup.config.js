@@ -1,5 +1,6 @@
 import tscAlias from "rollup-plugin-tsc-alias";
 import typescript from "rollup-plugin-typescript2";
+import postcss from "rollup-plugin-postcss";
 
 export default {
   input: ["src/mod.ts"],
@@ -11,6 +12,6 @@ export default {
       exports: "named",
     },
   ],
-  plugins: [typescript(), tscAlias()],
-  external: ["@ruiapp/move-style", "@ruiapp/react-renderer", "events", "lodash", "react", "react/jsx-runtime"],
+  plugins: [typescript(), tscAlias(), postcss({ extract: true })],
+  external: ["@ruiapp/move-style", "@ruiapp/react-renderer", "events", "antd", "lodash", "react", "react/jsx-runtime"],
 };

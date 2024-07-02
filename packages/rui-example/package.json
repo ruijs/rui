@@ -17,7 +17,6 @@
     "@ruiapp/echarts-extension": "workspace:^",
     "@ruiapp/monaco-extension": "workspace:^",
     "@ruiapp/move-style": "workspace:^",
-    "@ruiapp/pro-extension": "workspace:^",
     "@ruiapp/react-renderer": "workspace:^",
     "@ruiapp/react-rocks": "workspace:^",
     "antd": "4.24.15",
