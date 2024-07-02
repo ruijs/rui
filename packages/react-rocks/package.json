@@ -47,9 +47,5 @@
     "lodash": "^4.17.21",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
-  },
-  "dependencies": {
-    "@uiw/color-convert": "^2.1.1",
-    "@uiw/react-color-sketch": "^2.1.1"
   }
 }

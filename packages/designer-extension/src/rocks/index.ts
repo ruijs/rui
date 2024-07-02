@@ -28,6 +28,7 @@ import NumberWithUnitsPropSetter from "./prop-setters/NumberWithUnitsPropSetter"
 import SelectPropSetter from "./prop-setters/SelectPropSetter";
 import SwitchPropSetter from "./prop-setters/SwitchPropSetter";
 import TextPropSetter from "./prop-setters/TextPropSetter";
+import ColorPropSetter from "./prop-setters/ColorPropSetter";
 
 // event setters
 import ScriptEventHandlerSetter from "./event-handler-setters/ScriptEventHandlerSetter";
@@ -44,6 +45,9 @@ import SelectSetterInput from "./setter-input-controls/SelectSetterInput";
 import SliderSetterInput from "./setter-input-controls/SliderSetterInput";
 import SwitchSetterInput from "./setter-input-controls/SwitchSetterInput";
 import TextSetterInput from "./setter-input-controls/TextSetterInput";
+
+// controls
+import ColorPicker from "./controls/color-picker";
 
 export default [
   ComponentEventHandlersPanel,
@@ -76,6 +80,7 @@ export default [
   SelectPropSetter,
   SwitchPropSetter,
   TextPropSetter,
+  ColorPropSetter,
 
   // event setters
   ScriptEventHandlerSetter,
@@ -92,4 +97,7 @@ export default [
   SliderSetterInput,
   SwitchSetterInput,
   TextSetterInput,
+
+  // controls
+  ColorPicker,
 ];

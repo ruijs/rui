@@ -1,11 +1,17 @@
-export { default as Rui } from "./Rui";
-export { default as ErrorBoundary } from "./ErrorBoundary";
-export { default as Show } from "./Show";
-export { default as HtmlElement } from "./HtmlElement";
-export { default as Anchor } from "./Anchor";
-export { default as Box } from "./Box";
-export { default as Scope } from "./Scope";
-export { default as Text } from "./Text";
-export { default as Label } from "./Label";
-export { default as List } from "./List";
-export { default as ColorPicker } from "./color-picker";
+import { RuiExtension } from "@ruiapp/move-style";
+import Rui from "./Rui";
+import ErrorBoundary from "./ErrorBoundary";
+import Show from "./Show";
+import HtmlElement from "./HtmlElement";
+import Anchor from "./Anchor";
+import Box from "./Box";
+import Scope from "./Scope";
+import Text from "./Text";
+import Label from "./Label";
+import List from "./List";
+
+export { Rui, ErrorBoundary, Show, HtmlElement, Anchor, Box, Scope, Text, Label, List };
+
+export default {
+  rocks: [Rui, ErrorBoundary, Show, HtmlElement, Anchor, Box, Scope, Text, Label, List],
+} as RuiExtension;
