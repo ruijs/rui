@@ -42,6 +42,10 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
+      - name: Check git status
+        shell: bash
+        run: git status      
+        
       - name: Build
         run: pnpm build
 
