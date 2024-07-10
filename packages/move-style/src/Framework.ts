@@ -10,7 +10,8 @@ import { IStore, StoreConfig } from "./types/store-types";
 import ruiExp from "./utils/rui-exp";
 import { wrapRenderer } from "./ComponentRenderer";
 import { ConfigProcessor } from "./ConfigProcessor";
-import { RuiLogger, LoggerFactory, LoggerProvider, RuiModulesNames } from "./Logger";
+import { LoggerFactory, LoggerProvider, RuiModulesNames } from "./Logger";
+import * as MoveStyleUtils from "./utils";
 
 export class Framework {
   #loggerFactory: LoggerFactory;
@@ -90,6 +91,10 @@ export class Framework {
 
   getFunctions(): Record<string, Function> {
     return this.#functions;
+  }
+
+  get utils() {
+    return MoveStyleUtils;
   }
 
   registerExpressionVar(name: string, value: any) {
