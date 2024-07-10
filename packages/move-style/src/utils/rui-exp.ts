@@ -1,4 +1,3 @@
-import { get } from "lodash";
 import qs from "qs";
 import { fulfillVariablesInString } from "./variable-fulfiller";
 import listToTree from "./list-to-tree";
@@ -18,5 +17,5 @@ export default {
     return query;
   },
 
-  listToTree: listToTree,
+  listToTree,
 };
