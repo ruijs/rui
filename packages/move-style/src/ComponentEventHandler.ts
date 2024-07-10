@@ -129,7 +129,7 @@ async function doHandleComponentEvent(eventName: string, framework: Framework, p
 const compileFunc = memoize(function (script) {
   // TODO
   // 需要实现沙箱
-  return new Function(`return function(event) { ${script} }`)();
+  return new Function(`return async function(event) { ${script} }`)();
 });
 
 async function handleScript(eventName: string, framework: Framework, page: Page, scope: Scope, sender: any, eventHandler: RockEventHandlerScript, eventArgs: any[]) {
