@@ -4,6 +4,7 @@ export * from "./types/render-types";
 export * from "./types/request-types";
 export * from "./types/extension-types";
 export * from "./ComponentEventHandler";
+export * from "./ComponentRenderer";
 export * from "./ComponentTreeManager";
 export * from "./EventEmitter";
 export * from "./ExpressionInterpreter";

@@ -43,7 +43,28 @@ const Layout = memo(() => {
     return new Page(framework, {
       $id: "examplePage" + params.pkgName + params.funcName,
       stores: [],
-      view: currentExample ? [currentExample.componentRock] : [],
+      layout: {
+        view: [
+          {
+            $type: "htmlElement",
+            htmlTag: "h2",
+            children: {
+              $type: "text",
+              text: `${params.pkgName}: ${params.funcName}`,
+            },
+          },
+          {
+            $type: "box",
+            style: {
+              padding: "20px",
+            },
+            children: {
+              $type: "slot",
+            },
+          },
+        ],
+      },
+      view: currentExample ? [{ $type: currentExample.componentRock.$type }] : [],
       eventSubscriptions: [],
     });
   }, [params.pkgName, params.funcName]);

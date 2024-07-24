@@ -1,5 +1,5 @@
 import { omit } from "lodash";
-import { Rock, RockConfigSystemFields, RockInstance, RockInstanceFields } from "./types/rock-types";
+import { DeclarativeRock, ProCodeRock, Rock, RockConfigSystemFields, RockInstance, RockInstanceFields } from "./types/rock-types";
 import { Framework } from "./Framework";
 
 export function wrapRenderer(framework: Framework, rock: Rock) {
@@ -7,8 +7,10 @@ export function wrapRenderer(framework: Framework, rock: Rock) {
     return;
   }
 
+  if (rock.declarativeComponent !== true) {
+    rock.componentRenderer = createComponentRenderer(framework, rock) as any;
+  }
   // TODO: remove `as any`
-  rock.Renderer = createComponentRenderer(framework, rock) as any;
   (rock as any)._rendererWrapped = true;
 }
 
@@ -17,12 +19,12 @@ export function wrapRenderer(framework: Framework, rock: Rock) {
  * Rock renderer accepts props, state, and context parameters,
  * While component renderer accepts just props parameter.
  * @param rock
+ * @param rockRenderer
  * @returns
  */
-function createComponentRenderer(framework: Framework, rock: Rock) {
-  const rockRenderer = rock.Renderer;
-  const Renderer = function (rockInstance: RockInstance) {
-    if (rock.onResolveState) {
+function genComponentRenderer(rock: Rock, rockRenderer: any) {
+  return function (rockInstance: RockInstance) {
+    if (rock.declarativeComponent !== true && rock.onResolveState) {
       if (!rockInstance._state) {
         rockInstance._state = {};
       }
@@ -37,6 +39,12 @@ function createComponentRenderer(framework: Framework, rock: Rock) {
     const renderResult = rockRenderer(rockInstance._context, rockProps, rockInstance._state);
     return renderResult;
   };
+}
 
-  return Renderer;
+export function createComponentRenderer(framework: Framework, rock: ProCodeRock) {
+  return genComponentRenderer(rock, rock.Renderer);
+}
+
+export function createDeclarativeComponentRenderer(framework: Framework, rock: DeclarativeRock, rockRenderer: any) {
+  return genComponentRenderer(rock, rockRenderer);
 }

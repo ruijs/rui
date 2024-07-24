@@ -1,5 +1,4 @@
 import { Rock, SimpleRockConfig } from "@ruiapp/move-style";
-import _ from "lodash";
 
 export interface TextProps extends SimpleRockConfig {
   text: string;

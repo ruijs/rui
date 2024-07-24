@@ -5,13 +5,15 @@ import Show from "./Show";
 import HtmlElement from "./HtmlElement";
 import Anchor from "./Anchor";
 import Box from "./Box";
+import Component from "./Component";
 import Scope from "./Scope";
+import Slot from "./Slot";
 import Text from "./Text";
 import Label from "./Label";
 import List from "./List";
 
-export { Rui, ErrorBoundary, Show, HtmlElement, Anchor, Box, Scope, Text, Label, List };
+export { Rui, ErrorBoundary, Show, HtmlElement, Anchor, Box, Component, Scope, Slot, Text, Label, List };
 
 export default {
-  rocks: [Rui, ErrorBoundary, Show, HtmlElement, Anchor, Box, Scope, Text, Label, List],
+  rocks: [Rui, ErrorBoundary, Show, HtmlElement, Anchor, Box, Component, Scope, Slot, Text, Label, List],
 } as RuiExtension;
