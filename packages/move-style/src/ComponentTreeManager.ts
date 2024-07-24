@@ -1,5 +1,5 @@
 import { EventEmitter } from "./EventEmitter";
-import { RockConfig, RockPropValue, PageConfig, PageWithLayoutConfig, PageWithoutLayoutConfig, RockMessage, RockInstance, RockMessageToComponent, ScopeConfig } from "./types/rock-types";
+import { RockConfig, RockPropValue, PageConfig, RockMessage, RockInstance, RockMessageToComponent, ScopeConfig } from "./types/rock-types";
 import { clone, cloneDeep, findIndex, isArray, isString, set } from "lodash";
 import { ExpressionInterpreter } from "./ExpressionInterpreter";
 import { Framework } from "./Framework";
@@ -50,12 +50,10 @@ export class ComponentTreeManager {
     // this.#scopeMapById = new Map();
 
     var processedConfig = clone(config);
-    if ((processedConfig as PageWithLayoutConfig).layout) {
+    if (processedConfig.layout) {
       // TODO: finish process config of page with layout.
-    } else {
-      const configWithoutLayout = processedConfig as PageWithoutLayoutConfig;
-      configWithoutLayout.view.forEach(this.travelRockConfig.bind(this, this.#processComponentOnLoadConfig.bind(this), this.#page.scope, null));
     }
+    processedConfig.view.forEach(this.travelRockConfig.bind(this, this.#processComponentOnLoadConfig.bind(this), this.#page.scope, null));
 
     this.#config = processedConfig;
     this.#emitter.emit("change", processedConfig);
@@ -102,8 +100,7 @@ export class ComponentTreeManager {
 
   initComponents() {
     this.#logger.debug(`Initializing components...`);
-    const configWithoutLayout = this.#config as PageWithoutLayoutConfig;
-    configWithoutLayout.view.forEach(this.attachComponent.bind(this, this.#page.scope, null));
+    this.#config.view.forEach(this.attachComponent.bind(this, this.#page.scope, null));
   }
 
   attachComponent(scope: Scope, parentConfig: RockConfig, config: RockConfig) {
@@ -130,14 +127,14 @@ export class ComponentTreeManager {
         }
 
         if (config.$type) {
-          const meta = this.#framework.getComponent(config.$type);
+          const rock = this.#framework.getComponent(config.$type);
 
-          if (!meta) {
+          if (!rock) {
             this.#logger.error(`Unknown component '${config.$type}'`);
-          } else {
-            if (meta.onInit) {
+          } else if (rock.declarativeComponent !== true) {
+            if (rock.onInit) {
               this.#logger.debug(`Initializing component '${config.$id}'...`);
-              meta.onInit(
+              rock.onInit(
                 {
                   page: this.#page,
                   scope: scope || this.#page.scope,
@@ -317,7 +314,7 @@ export class ComponentTreeManager {
       let parentComponent: RockConfig;
       if (!parentComponentId) {
         // this means the parent component is page view.
-        childComponents = (this.#config as PageWithoutLayoutConfig).view;
+        childComponents = this.#config.view;
         if (!isArray(childComponents)) {
           childComponents = [childComponents];
         }
@@ -325,7 +322,7 @@ export class ComponentTreeManager {
         if (componentIndex !== -1) {
           childComponents.splice(componentIndex, 1);
 
-          (this.#config as PageWithoutLayoutConfig).view = childComponents;
+          this.#config.view = childComponents;
         }
       } else {
         parentComponent = this.#componentMapById.get(parentComponentId);
@@ -455,8 +452,12 @@ export class ComponentTreeManager {
       return;
     }
 
-    const meta = this.#framework.getComponent(componentConfig.$type);
-    const { onReceiveMessage } = meta;
+    const rock = this.#framework.getComponent(componentConfig.$type);
+    if (rock.declarativeComponent === true) {
+      return;
+    }
+
+    const { onReceiveMessage } = rock;
     if (!onReceiveMessage) {
       this.#logger.error(`${componentConfig.$type} component can not receive message.`);
       return;

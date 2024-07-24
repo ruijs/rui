@@ -3,6 +3,6 @@
   "singleQuote": false,
   "jsxSingleQuote": false,
   "bracketSpacing": true,
-  "printWidth": 300,
+  "printWidth": 160,
   "trailingComma": "all"
 }

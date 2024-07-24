@@ -14,12 +14,26 @@ export type FieldSettings = {
 
 export type FieldValueType = "string" | "number" | "boolean" | "object";
 
-export type Rock<TRockConfig = any, TRockState = any, TRockMessage extends RockMessage = RockMessage> = {
-  Renderer: (context: RockInstanceContext, props: TRockConfig, state?: TRockState & { scope: Scope }) => any;
+export type RockRenderer<TRockConfig = any, TRockState = any> = (
+  context: RockInstanceContext,
+  props: TRockConfig,
+  state?: TRockState & { scope: Scope },
+) => any;
+
+export type ProCodeRock<TRockConfig = any, TRockState = any, TRockMessage extends RockMessage = RockMessage> = {
+  Renderer: RockRenderer<TRockConfig, TRockState & { scope: Scope }>;
   onInit?: (context: RockInitContext, props: TRockConfig) => void;
   onResolveState?: (props: TRockConfig, state: TRockState & { scope: Scope }) => any;
   onReceiveMessage?: (message: RockMessageToComponent<TRockMessage>, state: TRockState & { scope: Scope }, props: TRockConfig) => any;
-} & RockMeta;
+} & ProCodeRockMeta;
+
+export type DeclarativeRock<TRockConfig = any, TRockState = any, TRockMessage extends RockMessage = RockMessage> = {
+  view: RockChildrenConfig;
+} & DeclarativeRockMeta;
+
+export type Rock<TRockConfig = any, TRockState = any, TRockMessage extends RockMessage = RockMessage> =
+  | ProCodeRock<TRockConfig, TRockState, TRockMessage>
+  | DeclarativeRock<TRockConfig, TRockState, TRockMessage>;
 
 export type RockMessage<TName = string, TPayload = any> = {
   name: TName;
@@ -31,7 +45,7 @@ export type RockMessageToComponent<TRockMessage extends RockMessage> = TRockMess
   page: IPage;
 };
 
-export type RockMeta = {
+export type RockMetaBase = {
   $type: string;
   $version?: string;
   name?: string;
@@ -40,6 +54,7 @@ export type RockMeta = {
   thumbnail?: string;
   document?: string;
   Presenter?: (props: any) => any; // TODO: rock type is perhaps better.
+  componentRenderer?: any;
 
   /**
    * Void component has no children
@@ -52,6 +67,15 @@ export type RockMeta = {
   dataLoader?: RockDataLoader;
   propertyPanels?: RockPropPanels;
 };
+
+export type ProCodeRockMeta = { declarativeComponent?: false } & RockMetaBase;
+
+export type DeclarativeRockMeta = {
+  declarativeComponent: true;
+  view: RockChildrenConfig;
+} & RockMetaBase;
+
+export type RockMeta = ProCodeRockMeta | DeclarativeRockMeta;
 
 export type RockMetaProps<TName extends string = string> = Record<TName, FieldSettings>;
 
@@ -130,7 +154,16 @@ export type ComponentSpecifiedRockPropPanel = {
   setters: RockPropSetter[];
 };
 
-export type RockPropSetter = ExpressionRockPropSetter | TextRockPropSetter | NumberRockPropSetter | NumberWithSliderRockPropSetter | NumberWithUnitsRockPropSetter | SelectRockPropSetter | SwitchRockPropSetter | SingleControlRockPropSetter | MultiControlsRockPropSetter;
+export type RockPropSetter =
+  | ExpressionRockPropSetter
+  | TextRockPropSetter
+  | NumberRockPropSetter
+  | NumberWithSliderRockPropSetter
+  | NumberWithUnitsRockPropSetter
+  | SelectRockPropSetter
+  | SwitchRockPropSetter
+  | SingleControlRockPropSetter
+  | MultiControlsRockPropSetter;
 
 export type ExpressionRockPropSetter = {
   $type: "expressionPropSetter";
@@ -410,7 +443,17 @@ export type SimpleRockConfig = RockConfigBase & {
 
 export type RockPropValueProducer = () => RockPropValue;
 
-export type RockPropValue = string | number | boolean | RockConfig | RockConfig[] | RockEventHandlerConfig | RockPropExpressions | Record<string, string | number | boolean | RockConfig | RockConfig[]> | RockPropValueProducer | any;
+export type RockPropValue =
+  | string
+  | number
+  | boolean
+  | RockConfig
+  | RockConfig[]
+  | RockEventHandlerConfig
+  | RockPropExpressions
+  | Record<string, string | number | boolean | RockConfig | RockConfig[]>
+  | RockPropValueProducer
+  | any;
 
 export type RockWithSlotsConfig = RockConfigBase & {
   slots: Record<string, RockConfig | RockConfig[]>;
@@ -439,6 +482,10 @@ export type RouteConfig = {
 export type RockInstanceContext = {
   framework: Framework;
   page: Page;
+  /**
+   * Host component of the rock instance.
+   */
+  component?: RockInstance;
   scope: Scope;
   logger: RuiRockLogger;
 };
@@ -455,21 +502,11 @@ export type RockInstance<TState = any> = RockConfig & RockInstanceOriginal;
 // Page config
 //////////////
 
-export type PageConfig = PageWithoutLayoutConfig | PageWithLayoutConfig;
-
-export type PageWithoutLayoutConfig = {
+export type PageConfig = {
   $id?: string;
   initialVars?: Record<string, any>;
   stores?: StoreConfig[];
-  view: RockConfig[];
-  eventSubscriptions?: RockPageEventSubscriptionConfig[];
-};
-
-export type PageWithLayoutConfig = {
-  $id?: string;
-  initialVars?: Record<string, any>;
-  stores?: StoreConfig[];
-  layout: string;
+  layout?: PageConfig;
   view: RockConfig[];
   eventSubscriptions?: RockPageEventSubscriptionConfig[];
 };
@@ -732,7 +769,15 @@ export type FunctionMeta = {
   func: Function;
 };
 
-export type EventActionHandler<TEventActionConfig> = (eventName: string, framework: Framework, page: IPage, scope: IScope, sender: any, eventHandler: TEventActionConfig, eventArgs: any) => any;
+export type EventActionHandler<TEventActionConfig> = (
+  eventName: string,
+  framework: Framework,
+  page: IPage,
+  scope: IScope,
+  sender: any,
+  eventHandler: TEventActionConfig,
+  eventArgs: any,
+) => any;
 
 export type EventAction<TEventActionConfig extends { $action: string }> = {
   name: TEventActionConfig["$action"];

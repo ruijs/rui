@@ -1,6 +1,6 @@
-import { Framework, Page, PageWithLayoutConfig, PageWithoutLayoutConfig, RockInstanceContext } from "@ruiapp/move-style";
+import { Framework, Page, PageConfig, RockConfig, RockInstanceContext } from "@ruiapp/move-style";
 import { useEffect, useState } from "react";
-import { renderRockChildren } from "./renderers";
+import { renderRock, renderRockChildren } from "./renderers";
 
 export interface RuiPageProps {
   framework: Framework;
@@ -32,22 +32,28 @@ const RuiPage = (props: RuiPageProps) => {
     return null;
   }
 
-  const context = { framework, page, scope: page.scope, logger: framework.getRockLogger() };
-  if ((pageConfig as PageWithLayoutConfig).layout) {
-    const configWithLayout = pageConfig as PageWithLayoutConfig;
-    return renderPageWithLayout(context, configWithLayout);
+  const context: RockInstanceContext = { framework, page, scope: page.scope, logger: framework.getRockLogger() };
+  if (pageConfig.layout) {
+    return renderPageWithLayout(context, pageConfig);
   } else {
-    const configWithoutLayout = pageConfig as PageWithoutLayoutConfig;
-    return renderPageWithoutLayout(context, configWithoutLayout);
+    return configWithoutLayout(context, pageConfig);
   }
 };
 
 export default RuiPage;
 
-function renderPageWithoutLayout(context: RockInstanceContext, pageConfig: PageWithoutLayoutConfig) {
+function configWithoutLayout(context: RockInstanceContext, pageConfig: PageConfig) {
   return <>{renderRockChildren({ context, rockChildrenConfig: pageConfig.view })}</>;
 }
 
-function renderPageWithLayout(context: RockInstanceContext, pageConfig: PageWithLayoutConfig) {
-  return <>Page Layout: {pageConfig.layout}</>;
+function renderPageWithLayout(context: RockInstanceContext, pageConfig: PageConfig) {
+  const rockConfig: RockConfig = {
+    $id: "_root",
+    $type: "component",
+    component: {
+      view: pageConfig.layout.view,
+    },
+    children: pageConfig.view,
+  };
+  return renderRock({ context, rockConfig });
 }

@@ -1,6 +1,7 @@
 import {
   ConvertRockEventHandlerPropsOptions,
   ConvertRockSlotPropsOptions,
+  createDeclarativeComponentRenderer,
   GenerateRockSlotRendererOptions,
   handleComponentEvent,
   RenderRockChildrenOptions,
@@ -16,7 +17,7 @@ import {
   Scope,
 } from "@ruiapp/move-style";
 import { MoveStyleUtils } from "@ruiapp/move-style";
-import type { ConvertRockEventHandlerPropOptions, RockConfig } from "@ruiapp/move-style";
+import type { ContainerRockConfig, ConvertRockEventHandlerPropOptions, DeclarativeRock, ProCodeRock, RockConfig, RockRenderer } from "@ruiapp/move-style";
 import { forEach, isArray, isFunction, isString, pick } from "lodash";
 import React from "react";
 
@@ -42,9 +43,14 @@ export function renderRock(options: RenderRockOptions) {
     throw new Error(`Unknown component '${componentType}'`);
   }
 
-  const Renderer: any = rock.Renderer;
-  if (!Renderer.displayName) {
-    Renderer.displayName = rock.$type;
+  let ComponentRenderer: any;
+  if (rock.declarativeComponent === true) {
+    ComponentRenderer = createDeclarativeComponentRenderer(framework, rock, getDeclarativeRockRenderer(rock));
+  } else {
+    ComponentRenderer = rock.componentRenderer;
+  }
+  if (!ComponentRenderer.displayName) {
+    ComponentRenderer.displayName = rock.$type;
   }
 
   const configInstance = rockConfig as RockInstance;
@@ -90,7 +96,7 @@ export function renderRock(options: RenderRockOptions) {
 
   const slotProps = convertToSlotProps({ context, rockConfig: props, slotsMeta: rock.slots, isEarly: true });
   logger.verbose(`Creating react element of '${rockConfig.$type}', $id=${rockConfig.$id}`);
-  return React.createElement(Renderer, {
+  return React.createElement(ComponentRenderer, {
     key: rockConfig.$id,
     ...props,
     ...slotProps,
@@ -123,9 +129,14 @@ export function renderRockSlot(options: RenderRockSlotOptions) {
 
   const { framework } = context;
   const rockMeta = framework.getComponent(rockType);
-  const slotMeta = rockMeta.slots && rockMeta.slots[slotPropName];
+  let slotMeta = rockMeta.slots && rockMeta.slots[slotPropName];
   if (!slotMeta) {
-    throw new Error(`Can not render slot content. Slot '${slotPropName}' of rock '${rockType}' was not found.`);
+    console.warn(`Slot '${slotPropName}' of rock '${rockType}' was not found.`);
+
+    slotMeta = {
+      allowMultiComponents: true,
+      required: false,
+    };
   }
 
   const slotProps = {};
@@ -316,3 +327,23 @@ export function convertToSlotProps(options: ConvertRockSlotPropsOptions) {
   }
   return slotProps;
 }
+
+export type DeclarativeComponentRockConfig = {
+  component: DeclarativeRock;
+} & ContainerRockConfig;
+
+const declarativeRockRenderer = (rockMeta: DeclarativeRock, context: RockInstanceContext, props: ContainerRockConfig, state) => {
+  context.component = props as RockInstance;
+  return renderRockChildren({
+    context,
+    rockChildrenConfig: rockMeta.view,
+  });
+};
+
+export const getDeclarativeRockRenderer = (rockMeta: DeclarativeRock) => {
+  const renderer: ProCodeRock<DeclarativeComponentRockConfig>["Renderer"] = (context, props, state) => {
+    return declarativeRockRenderer(rockMeta, context, props, state);
+  };
+
+  return renderer;
+};
