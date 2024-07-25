@@ -117,6 +117,10 @@ export default {
         },
         clear() {
           workspace.clear();
+          workspace.dispose();
+          document.querySelector(".blocklyWidgetDiv")?.remove();
+          document.querySelector(".blocklyDropDownDiv")?.remove();
+          document.querySelector(".blocklyTooltipDiv")?.remove();
         },
       };
 
