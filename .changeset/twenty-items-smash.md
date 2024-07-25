@@ -1,6 +1,6 @@
 ---
-"@ruiapp/blockly-extension": minor
-"@ruiapp/designer-extension": minor
+"@ruiapp/blockly-extension": patch
+"@ruiapp/designer-extension": patch
 ---
 
 upgrade
