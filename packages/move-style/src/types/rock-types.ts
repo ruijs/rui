@@ -143,7 +143,7 @@ export type RockPropPanels = RockPropPanel[];
 
 export type RockPropPanel = PredefinedRockPropPanel | ComponentSpecifiedRockPropPanel;
 
-export const PredefinedRockPanelTypes = ["positionPropPanel", "sizePropPanel", "appearancePropPanel", "textPropPanel"] as const;
+export const PredefinedRockPanelTypes = ["positionPropPanel", "sizePropPanel", "appearancePropPanel", "textPropPanel", "borderPropPanel"] as const;
 
 export type PredefinedRockPropPanel = {
   $type: (typeof PredefinedRockPanelTypes)[number];
