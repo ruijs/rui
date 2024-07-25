@@ -1,6 +1,14 @@
-import { RockConfig, RockConfigBase, RockEvent, RockEventHandler, RockEventHandlerScript, Rock, MoveStyleUtils, handleComponentEvent } from "@ruiapp/move-style";
+import {
+  RockConfig,
+  RockConfigBase,
+  RockEvent,
+  RockEventHandler,
+  RockEventHandlerScript,
+  Rock,
+  MoveStyleUtils,
+  handleComponentEvent
+} from "@ruiapp/move-style";
 import { renderRockChildren } from "@ruiapp/react-renderer";
-import { isFunction } from "lodash";
 import { useRef, useState } from "react";
 import { DesignerStore } from "~/stores/DesignerStore";
 
@@ -71,6 +79,7 @@ export default {
         open: blocklyEditorVisible,
         keyboard: false,
         width: "100%",
+        destroyOnClose: true,
         children: [
           {
             $id: `${props.$id}-editor`,
