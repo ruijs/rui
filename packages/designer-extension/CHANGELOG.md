@@ -1,5 +1,11 @@
 # @ruiapp/designer-extension
 
+## 0.1.31
+
+### Patch Changes
+
+- 740ec92: upgrade
+
 ## 0.1.28
 
 ### Patch Changes

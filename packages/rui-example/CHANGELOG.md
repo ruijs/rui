@@ -1,5 +1,12 @@
 # rui-example
 
+## 0.1.7
+
+### Patch Changes
+
+- Updated dependencies [740ec92]
+  - @ruiapp/designer-extension@0.1.31
+
 ## 0.1.6
 
 ### Patch Changes

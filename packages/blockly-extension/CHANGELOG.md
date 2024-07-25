@@ -1,5 +1,11 @@
 # @ruiapp/blockly-extension
 
+## 0.1.30
+
+### Patch Changes
+
+- 740ec92: upgrade
+
 ## 0.1.29
 
 ### Patch Changes
