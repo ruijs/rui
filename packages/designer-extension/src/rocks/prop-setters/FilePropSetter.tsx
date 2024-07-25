@@ -2,9 +2,8 @@ import { Page, RockConfig, RockEventHandler, Rock, RockConfigBase, MoveStyleUtil
 import { renderRock } from "@ruiapp/react-renderer";
 import { SingleControlPropSetterProps } from "../internal-prop-setters/SingleControlPropSetter";
 import { ExpressionPropSetterProps } from "../internal-prop-setters/ExpressionPropSetter";
-import { ColorPickerProps } from "../controls/color-picker";
 
-export type ColorPropSetterProps = {
+export type FilePropSetterProps = {
   $id: string;
   designingPage: Page;
   label: string;
@@ -12,16 +11,18 @@ export type ColorPropSetterProps = {
   propName: string;
   defaultValue?: string;
   value?: string;
+  accept?: string;
+  multiple?: boolean;
+  title?: string;
   onChange: RockEventHandler;
   componentConfig: RockConfig;
-} & RockConfigBase &
-  Pick<ColorPickerProps, "enableAlpha" | "format">;
+} & RockConfigBase;
 
 export default {
-  $type: "colorPropSetter",
+  $type: "filePropSetter",
 
-  Renderer(context, props: ColorPropSetterProps) {
-    const { $id, label, labelTip, componentConfig, propName, defaultValue, enableAlpha, format } = props;
+  Renderer(context, props: FilePropSetterProps) {
+    const { $id, label, labelTip, componentConfig, propName, defaultValue, accept, multiple, title } = props;
     const isPropDynamic = MoveStyleUtils.isComponentPropertyDynamic(componentConfig, propName);
 
     let rockConfig: SingleControlPropSetterProps | ExpressionPropSetterProps = {
@@ -36,9 +37,10 @@ export default {
     if (!isPropDynamic) {
       (rockConfig as SingleControlPropSetterProps).defaultValue = defaultValue;
       (rockConfig as SingleControlPropSetterProps).control = {
-        $type: "colorPicker",
-        enableAlpha,
-        format,
+        $type: "fileUploader",
+        accept,
+        multiple,
+        title,
       };
     }
 

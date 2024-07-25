@@ -13,6 +13,7 @@ import ComponentPropPanel from "./prop-panels/ComponentPropPanel";
 import PositionPropPanel from "./prop-panels/PositionPropPanel";
 import SizePropPanel from "./prop-panels/SizePropPanel";
 import TextPropPanel from "./prop-panels/TextPropPanel";
+import BorderPropPanel from "./prop-panels/BorderPropPanel";
 
 // internal prop setters
 import ExpressionPropSetter from "./internal-prop-setters/ExpressionPropSetter";
@@ -29,6 +30,7 @@ import SelectPropSetter from "./prop-setters/SelectPropSetter";
 import SwitchPropSetter from "./prop-setters/SwitchPropSetter";
 import TextPropSetter from "./prop-setters/TextPropSetter";
 import ColorPropSetter from "./prop-setters/ColorPropSetter";
+import FilePropSetter from "./prop-setters/FilePropSetter";
 
 // event setters
 import ScriptEventHandlerSetter from "./event-handler-setters/ScriptEventHandlerSetter";
@@ -48,6 +50,7 @@ import TextSetterInput from "./setter-input-controls/TextSetterInput";
 
 // controls
 import ColorPicker from "./controls/color-picker";
+import FileUploader from "./controls/file-uploader";
 
 export default [
   ComponentEventHandlersPanel,
@@ -65,6 +68,7 @@ export default [
   PositionPropPanel,
   SizePropPanel,
   TextPropPanel,
+  BorderPropPanel,
 
   // internal prop setters
   ExpressionPropSetter,
@@ -81,6 +85,7 @@ export default [
   SwitchPropSetter,
   TextPropSetter,
   ColorPropSetter,
+  FilePropSetter,
 
   // event setters
   ScriptEventHandlerSetter,
@@ -100,4 +105,5 @@ export default [
 
   // controls
   ColorPicker,
+  FileUploader,
 ];

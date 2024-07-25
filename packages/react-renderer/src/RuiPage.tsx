@@ -7,7 +7,7 @@ export interface RuiPageProps {
   page: Page;
 }
 
-const RuiPage = (props: RuiPageProps) => {
+const RuiPage = (props: RuiPageProps): any => {
   const { framework, page } = props;
   const logger = framework.getLogger("componentRenderer");
   const [pageConfig, setPageConfig] = useState(() => page.getConfig());
