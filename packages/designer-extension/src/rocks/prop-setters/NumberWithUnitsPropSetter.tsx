@@ -86,6 +86,7 @@ export default {
       $type: "multiControlsPropSetter",
       label,
       labelTip,
+      propName,
       expressionPropName: propName,
       controls: [
         {

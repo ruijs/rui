@@ -165,49 +165,31 @@ export type RockPropSetter =
   | SingleControlRockPropSetter
   | MultiControlsRockPropSetter;
 
-export type ExpressionRockPropSetter = {
-  $type: "expressionPropSetter";
+export interface RockPropSetterBase<TType extends string, TValue = any> extends RockConfigBase {
+  $type: TType;
   label: string;
   labelTip?: string;
   propName: string;
-} & RockConfigBase;
+  defaultValue?: TValue;
+}
 
-export type TextRockPropSetter = {
-  $type: "textPropSetter";
-  label: string;
-  labelTip?: string;
-  propName: string;
-  defaultValue?: string;
-} & RockConfigBase;
+export interface ExpressionRockPropSetter extends RockPropSetterBase<"expressionPropSetter", any> {}
 
-export type NumberRockPropSetter = {
-  $type: "numberPropSetter";
-  label: string;
-  labelTip?: string;
-  propName: string;
-  defaultValue?: number;
+export interface TextRockPropSetter extends RockPropSetterBase<"textPropSetter", string> {}
+
+export interface NumberRockPropSetter extends RockPropSetterBase<"numberPropSetter", number> {
   min?: number;
   max?: number;
   step?: number;
-} & RockConfigBase;
+}
 
-export type NumberWithSliderRockPropSetter = {
-  $type: "numberWithSliderPropSetter";
-  label: string;
-  labelTip?: string;
-  propName: string;
-  defaultValue?: number;
+export interface NumberWithSliderRockPropSetter extends RockPropSetterBase<"numberWithSliderPropSetter", number> {
   min?: number;
   max?: number;
   step?: number;
-} & RockConfigBase;
+}
 
-export type NumberWithUnitsRockPropSetter = {
-  $type: "numberWithUnitsPropSetter";
-  label: string;
-  labelTip?: string;
-  propName: string;
-  defaultValue?: number;
+export interface NumberWithUnitsRockPropSetter extends RockPropSetterBase<"numberWithUnitsPropSetter", number> {
   defaultUnit?: string;
   min?: number;
   max?: number;
@@ -216,53 +198,35 @@ export type NumberWithUnitsRockPropSetter = {
     label: string;
     value: string;
   }[];
-} & RockConfigBase;
+}
 
-export type SelectRockPropSetter = {
-  $type: "selectPropSetter";
-  label: string;
-  labelTip?: string;
-  propName: string;
-  defaultValue?: string;
+export interface SelectRockPropSetter extends RockPropSetterBase<"selectPropSetter", string> {
   options: {
     label: string;
     value: string;
   }[];
   showSearch?: boolean;
-} & RockConfigBase;
+}
 
-export type SwitchRockPropSetter = {
-  $type: "switchPropSetter";
-  label: string;
-  labelTip?: string;
-  propName: string;
-  defaultValue?: boolean;
+export interface SwitchRockPropSetter extends RockPropSetterBase<"switchPropSetter", boolean> {
   checkedValue?: any;
   uncheckedValue?: any;
-} & RockConfigBase;
+}
 
-export type SingleControlRockPropSetter = {
-  $type: "singleControlPropSetter";
-  label: string;
-  labelTip?: string;
-  propName: string;
-  defaultValue?: any;
+export interface SingleControlRockPropSetter<TValue = any> extends RockPropSetterBase<"singleControlPropSetter", TValue> {
   control: RockConfig;
   extra?: RockConfig;
-} & RockConfigBase;
+}
 
-export type MultiControlsRockPropSetter = {
-  $type: "multiControlsPropSetter";
-  label: string;
-  labelTip?: string;
+export interface MultiControlsRockPropSetter<TValue = any> extends RockPropSetterBase<"multiControlsPropSetter", TValue> {
   expressionPropName?: string;
   controls?: RockPropSetterControl[];
   extra?: RockConfig;
-} & RockConfigBase;
+}
 
-export type RockPropSetterControl = {
+export type RockPropSetterControl<TValue = any> = {
   propName?: string;
-  defaultValue?: any;
+  defaultValue?: TValue;
   control: RockConfig;
   /**
    * max=2, default=2
