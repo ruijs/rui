@@ -33,7 +33,9 @@ export default {
           <span className="rr-color-picker--block">
             <span className="rr-color-picker--inner" style={{ backgroundColor: props.value }}></span>
           </span>
-          <span style={{ flex: "1 0 0" }}>{props.value}</span>
+          <span className="rr-color-picker--value" style={{ flex: "1 0 0" }}>
+            {props.value}
+          </span>
         </div>
       );
     }
@@ -51,13 +53,13 @@ export default {
               let fmtValue: string = null;
               switch (format) {
                 case "hex":
-                  fmtValue = !enableAlpha ? v.hex : v.hexa;
+                  fmtValue = enableAlpha ? v.hexa : v.hex;
                   break;
                 case "rgb":
-                  fmtValue = !enableAlpha ? hsvaToRgbaString(v.hsva) : hsvaToRgbString(v.hsva);
+                  fmtValue = enableAlpha ? hsvaToRgbaString(v.hsva) : hsvaToRgbString(v.hsva);
                   break;
                 case "hsl":
-                  fmtValue = !enableAlpha ? hsvaToHslaString(v.hsva) : hsvaToHslString(v.hsva);
+                  fmtValue = enableAlpha ? hsvaToHslaString(v.hsva) : hsvaToHslString(v.hsva);
                   break;
               }
 
@@ -80,7 +82,9 @@ export default {
           <span className="rr-color-picker--block">
             <span className="rr-color-picker--inner" style={{ backgroundColor: props.value }}></span>
           </span>
-          <span style={{ flex: "1 0 0" }}>{props.value}</span>
+          <span className="rr-color-picker--value" style={{ flex: "1 0 0" }}>
+            {props.value}
+          </span>
           {props.value && (
             <span
               className="rr-color-picker--clear"
