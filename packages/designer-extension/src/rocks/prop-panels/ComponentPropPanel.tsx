@@ -1,27 +1,40 @@
-import { RockConfig, RockConfigBase, Rock, RockPropSetter } from "@ruiapp/move-style";
-import { renderRockChildren } from "@ruiapp/react-renderer";
+import { RockConfig, RockConfigBase, Rock, RockPropSetter, MoveStyleUtils, RockEvent, RockInstanceContext, RockEventHandlerConfig } from "@ruiapp/move-style";
+import { renderRock, renderRockChildren } from "@ruiapp/react-renderer";
 import { useMemo } from "react";
+import { PropSetterRockConfig } from "../PropSetter";
+import { getComponentPropValue } from "~/utilities/SetterUtility";
+import { DesignerStore } from "~/stores/DesignerStore";
+import { sendDesignerCommand } from "~/utilities/DesignerUtility";
 
-export interface ComponentPropPanelProps extends RockConfigBase {
+export interface ComponentPropPanelRockConfig extends RockConfigBase {
   title?: string;
   componentConfig: RockConfig;
   setters: RockPropSetter[];
+  onPropValueChange?: RockEventHandlerConfig;
+  onPropExpressionChange?: RockEventHandlerConfig;
+  onPropExpressionRemove?: RockEventHandlerConfig;
 }
 
 export default {
   $type: "componentPropPanel",
 
-  Renderer(context, props: ComponentPropPanelProps) {
-    const { componentConfig, setters } = props;
+  Renderer(context, props: ComponentPropPanelRockConfig) {
+    const { $id, componentConfig, setters, onPropValueChange, onPropExpressionChange, onPropExpressionRemove } = props;
 
     const rockChildrenConfig: RockConfig[] = useMemo(() => {
-      return setters.map((setter) => {
-        return Object.assign({}, setter, {
-          $id: `${props.$id}-${setter.label}`,
-          componentConfig: props.componentConfig,
-        });
+      return setters.map((setter, index) => {
+        return {
+          ...setter,
+          ...{
+            $id: `${$id}-${index}`,
+            componentConfig: props.componentConfig,
+          },
+          onPropValueChange: onPropValueChange,
+          onPropExpressionChange: onPropExpressionChange,
+          onPropExpressionRemove: onPropExpressionRemove,
+        };
       });
-    }, [setters, componentConfig]);
+    }, [$id, setters, componentConfig]);
 
     let panelTitle = props.title;
     if (!panelTitle) {
@@ -37,3 +50,12 @@ export default {
     );
   },
 } as Rock;
+
+export function renderComponentPropPanel(context: RockInstanceContext, props: Omit<ComponentPropPanelRockConfig, "$type">) {
+  let rockConfig: ComponentPropPanelRockConfig = {
+    ...props,
+    $type: "componentPropPanel",
+  } as any;
+
+  return renderRock({ context, rockConfig });
+}

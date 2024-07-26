@@ -1,42 +1,45 @@
-import { NumberWithUnitsRockPropSetter, RockConfig, RockEvent, RockEventHandlerScript, Rock, MoveStyleUtils } from "@ruiapp/move-style";
-import { renderRock } from "@ruiapp/react-renderer";
+import {
+  NumberWithUnitsRockPropSetter,
+  RockConfig,
+  RockEvent,
+  RockEventHandlerScript,
+  Rock,
+  PropSetterRockConfigBase,
+  handleComponentEvent,
+} from "@ruiapp/move-style";
 import { isNull, isString, isUndefined } from "lodash";
-import { DesignerStore } from "../../stores/DesignerStore";
-import { sendDesignerCommand } from "../../utilities/DesignerUtility";
-import { ExpressionPropSetterProps } from "../internal-prop-setters/ExpressionPropSetter";
-import { MultiControlsPropSetterProps } from "../internal-prop-setters/MultiControlsPropSetter";
+import { getComponentPropValue } from "~/utilities/SetterUtility";
+import { renderMultiControlsPropSetter } from "../internal-prop-setters/MultiControlsPropSetter";
 
-export interface NumberWithUnitsPropSetterProps extends NumberWithUnitsRockPropSetter {
-  $id: string;
+export interface NumberWithUnitsPropSetterProps extends NumberWithUnitsRockPropSetter, PropSetterRockConfigBase {
   componentConfig: RockConfig;
+}
+
+type NumberWithUnit = string | number | null;
+
+function getNumberWithUnit(numberValue: any, unitValue: any, defaultValue: any): NumberWithUnit {
+  if (numberValue === null || numberValue === undefined || Number.isNaN(numberValue)) {
+    return defaultValue;
+  } else if (unitValue) {
+    return `${numberValue}${unitValue}`;
+  } else {
+    return numberValue;
+  }
 }
 
 export default {
   $type: "numberWithUnitsPropSetter",
 
   Renderer(context, props: NumberWithUnitsPropSetterProps) {
-    const { page } = context;
-    const { $id, label, labelTip, componentConfig, propName, min, max, step, unitOptions } = props;
-    const isPropDynamic = MoveStyleUtils.isComponentPropertyDynamic(componentConfig, propName);
-    if (isPropDynamic) {
-      const rockConfig: ExpressionPropSetterProps = {
-        $id: `${$id}-dynamic`,
-        $type: "expressionPropSetter",
-        label,
-        labelTip,
-        propName,
-        componentConfig,
-      };
+    const { framework, page, scope } = context;
+    const { componentConfig, propName, min, max, step, unitOptions, onPropValueChange } = props;
 
-      return renderRock({ context, rockConfig });
-    }
-
-    let propValue = componentConfig[propName];
+    let { defaultValue, defaultUnit } = props;
+    let propValue = getComponentPropValue(componentConfig, propName, defaultValue);
     if (!isUndefined(propValue) && !isNull(propValue) && !isString(propValue)) {
       propValue = propValue.toString();
     }
 
-    let { defaultValue, defaultUnit } = props;
     defaultUnit = defaultUnit || unitOptions[0].value;
 
     // TODO: Should process `propValue` using regex or a parser to get number and unit.
@@ -45,49 +48,24 @@ export default {
 
     const onNumberControlChange: RockEventHandlerScript["script"] = (event: RockEvent) => {
       const numberValue: number = event.args[0];
-      const store = page.getStore<DesignerStore>("designerStore");
-      let propValue: string;
-      if (numberValue === null || numberValue === undefined || Number.isNaN(numberValue)) {
-        propValue = unitValue;
-      } else {
-        propValue = `${numberValue}${unitValue}`;
-      }
-      sendDesignerCommand(page, store, {
-        name: "setComponentProperty",
-        payload: {
-          componentId: store.selectedComponentId,
-          propName,
-          propValue,
-        },
-      });
+      let propValue = getNumberWithUnit(numberValue, unitValue, defaultValue);
+      const propChanges = {
+        [propName]: propValue,
+      };
+      handleComponentEvent("onPropValueChange", framework, page, scope, props, onPropValueChange, [propChanges]);
     };
 
     const onSelectControlChange: RockEventHandlerScript["script"] = (event: RockEvent) => {
       const unitValue: string = event.args[0];
-      const store = page.getStore<DesignerStore>("designerStore");
-      let propValue: string;
-      if (numberValue === null || numberValue === undefined || Number.isNaN(numberValue)) {
-        propValue = unitValue;
-      } else {
-        propValue = `${numberValue}${unitValue}`;
-      }
-      sendDesignerCommand(page, store, {
-        name: "setComponentProperty",
-        payload: {
-          componentId: store.selectedComponentId,
-          propName,
-          propValue,
-        },
-      });
+      let propValue = getNumberWithUnit(numberValue, unitValue, defaultValue);
+      const propChanges = {
+        [propName]: propValue,
+      };
+      handleComponentEvent("onPropValueChange", framework, page, scope, props, onPropValueChange, [propChanges]);
     };
 
-    const rockConfig: MultiControlsPropSetterProps = {
-      $id: `${$id}-static`,
-      $type: "multiControlsPropSetter",
-      label,
-      labelTip,
-      propName,
-      expressionPropName: propName,
+    return renderMultiControlsPropSetter(context, {
+      ...props,
       controls: [
         {
           span: 1,
@@ -122,9 +100,6 @@ export default {
           },
         },
       ],
-      componentConfig,
-    };
-
-    return renderRock({ context, rockConfig });
+    });
   },
 } as Rock;

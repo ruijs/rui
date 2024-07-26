@@ -1,6 +1,7 @@
 import { RockConfig, RockConfigBase, Rock, RockPropSetter, unitOptions, lineStyleOptions } from "@ruiapp/move-style";
 import { renderRockChildren } from "@ruiapp/react-renderer";
 import { useMemo } from "react";
+import { renderComponentPropPanel } from "./ComponentPropPanel";
 
 const setters: RockPropSetter[] = [
   {
@@ -28,30 +29,18 @@ const setters: RockPropSetter[] = [
   },
 ];
 
-export interface BorderPropPanelProps extends RockConfigBase {
+export interface BorderPropPanelRockConfig extends RockConfigBase {
   componentConfig: RockConfig;
 }
 
 export default {
   $type: "borderPropPanel",
 
-  Renderer(context, props: BorderPropPanelProps) {
-    const { componentConfig } = props;
-
-    const rockChildrenConfig: RockConfig[] = useMemo(() => {
-      return setters.map((setter) => {
-        return Object.assign({}, setter, {
-          $id: `${props.$id}-${setter.label}`,
-          componentConfig: props.componentConfig,
-        });
-      });
-    }, [setters, componentConfig]);
-
-    return (
-      <div>
-        <h3>Border</h3>
-        {renderRockChildren({ context, rockChildrenConfig })}
-      </div>
-    );
+  Renderer(context, props: BorderPropPanelRockConfig) {
+    return renderComponentPropPanel(context, {
+      ...props,
+      title: "边框",
+      setters,
+    });
   },
 } as Rock;

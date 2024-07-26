@@ -147,10 +147,12 @@ export const PredefinedRockPanelTypes = ["positionPropPanel", "sizePropPanel", "
 
 export type PredefinedRockPropPanel = {
   $type: (typeof PredefinedRockPanelTypes)[number];
+  title?: string;
 };
 
 export type ComponentSpecifiedRockPropPanel = {
   $type: "componentPropPanel";
+  title?: string;
   setters: RockPropSetter[];
 };
 
@@ -163,33 +165,53 @@ export type RockPropSetter =
   | SelectRockPropSetter
   | SwitchRockPropSetter
   | SingleControlRockPropSetter
-  | MultiControlsRockPropSetter;
+  | SingleControlMultiPropsSetter
+  | MultiControlsRockPropSetter
+  | MultiControlsMultiPropsSetter;
 
-export interface RockPropSetterBase<TType extends string, TValue = any> extends RockConfigBase {
-  $type: TType;
+export type RockPropSetterBase<TSetterType extends string, TPropValue = any> = {
+  $type: TSetterType;
   label: string;
   labelTip?: string;
+  defaultValue?: TPropValue;
+  dynamicForbidden?: boolean;
+  readOnly?: boolean;
+};
+
+export interface RockSinglePropSetterBase<TSetterType extends string, TPropValue = any> extends RockPropSetterBase<TSetterType, TPropValue> {
+  multiProps?: false;
   propName: string;
-  defaultValue?: TValue;
 }
 
-export interface ExpressionRockPropSetter extends RockPropSetterBase<"expressionPropSetter", any> {}
+export interface RockMultiPropsSetterBase<TSetterType extends string, TPropValue = any> extends RockPropSetterBase<TSetterType, TPropValue> {
+  multiProps: true;
+  propNames: string[];
+}
 
-export interface TextRockPropSetter extends RockPropSetterBase<"textPropSetter", string> {}
+export interface PropSetterRockConfigBase extends Omit<RockConfigBase, "$type"> {
+  componentConfig: RockConfig;
+  onPropValueChange?: RockEventHandlerConfig;
+  onPropExpressionChange?: RockEventHandlerConfig;
+  onPropExpressionRemove?: RockEventHandlerConfig;
+}
 
-export interface NumberRockPropSetter extends RockPropSetterBase<"numberPropSetter", number> {
+export interface ExpressionRockPropSetter extends RockSinglePropSetterBase<"expressionPropSetter", any> {}
+
+export interface TextRockPropSetter extends RockSinglePropSetterBase<"textPropSetter", string> {}
+
+export interface NumberRockPropSetter extends RockSinglePropSetterBase<"numberPropSetter", number> {
   min?: number;
   max?: number;
   step?: number;
 }
 
-export interface NumberWithSliderRockPropSetter extends RockPropSetterBase<"numberWithSliderPropSetter", number> {
+export interface NumberWithSliderRockPropSetter extends RockSinglePropSetterBase<"numberWithSliderPropSetter", number> {
   min?: number;
   max?: number;
   step?: number;
 }
 
-export interface NumberWithUnitsRockPropSetter extends RockPropSetterBase<"numberWithUnitsPropSetter", number> {
+export interface NumberWithUnitsRockPropSetter extends RockSinglePropSetterBase<"numberWithUnitsPropSetter", number> {
   defaultUnit?: string;
   min?: number;
   max?: number;
@@ -200,26 +222,36 @@ export interface NumberWithUnitsRockPropSetter extends RockPropSetterBase<"numbe
   }[];
 }
 
-export interface SelectRockPropSetter extends RockPropSetterBase<"selectPropSetter", string> {
+export interface SelectRockPropSetter extends RockSinglePropSetterBase<"selectPropSetter", string> {
   options: {
     label: string;
     value: string;
   }[];
   showSearch?: boolean;
+  allowClear?: boolean;
 }
 
-export interface SwitchRockPropSetter extends RockPropSetterBase<"switchPropSetter", boolean> {
+export interface SwitchRockPropSetter extends RockSinglePropSetterBase<"switchPropSetter", boolean> {
   checkedValue?: any;
   uncheckedValue?: any;
 }
 
-export interface SingleControlRockPropSetter<TValue = any> extends RockPropSetterBase<"singleControlPropSetter", TValue> {
+export interface SingleControlRockPropSetter<TPropValue = any> extends RockSinglePropSetterBase<"singleControlPropSetter", TPropValue> {
   control: RockConfig;
   extra?: RockConfig;
 }
 
-export interface MultiControlsRockPropSetter<TValue = any> extends RockPropSetterBase<"multiControlsPropSetter", TValue> {
-  expressionPropName?: string;
+export interface SingleControlMultiPropsSetter<TPropValue = any> extends RockMultiPropsSetterBase<"singleControlMultiPropsSetter", TPropValue> {
+  control: RockConfig;
+  extra?: RockConfig;
+}
+
+export interface MultiControlsRockPropSetter<TPropValue = any> extends RockSinglePropSetterBase<"multiControlsPropSetter", TPropValue> {
+  controls?: RockPropSetterControl[];
+  extra?: RockConfig;
+}
+
+export interface MultiControlsMultiPropsSetter<TPropValue = any> extends RockMultiPropsSetterBase<"multiControlsMultiPropsSetter", TPropValue> {
   controls?: RockPropSetterControl[];
   extra?: RockConfig;
 }
@@ -261,7 +293,7 @@ export type RockEvent = {
   name: string;
   senderCategory: "component";
   sender: any;
-  args?: any[];
+  args: any[];
 };
 
 export type RockPageEventSubscriptionConfig = {

@@ -10,6 +10,7 @@ export interface SelectSetterInputProps extends RockConfigBase {
     value: string;
   }[];
   showSearch?: boolean;
+  allowClear?: boolean;
 }
 
 export default {
@@ -17,7 +18,7 @@ export default {
 
   Renderer(context, props: SelectSetterInputProps) {
     const { framework, page, scope } = context;
-    const { $id, onChange, options, showSearch } = props;
+    const { $id, onChange, options, showSearch, allowClear } = props;
 
     const onSelectChange: RockEventHandlerScript["script"] = useCallback(
       (event: RockEvent) => {
@@ -36,6 +37,7 @@ export default {
       value: props.value,
       options,
       showSearch,
+      allowClear,
       onChange: {
         $action: "script",
         script: onSelectChange,

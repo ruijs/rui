@@ -1,51 +1,40 @@
-import { RockConfig, RockConfigBase, Rock, RockPropSetter, unitOptions } from "@ruiapp/move-style";
-import { renderRockChildren } from "@ruiapp/react-renderer";
-import { useMemo } from "react";
+import { RockConfig, RockConfigBase, Rock, RockPropSetter } from "@ruiapp/move-style";
+import { renderComponentPropPanel } from "./ComponentPropPanel";
 
 const setters: RockPropSetter[] = [
   {
     $type: "textPropSetter",
     label: "$id",
     propName: "$id",
+    dynamicForbidden: true,
+    readOnly: true,
   },
 
   {
     $type: "textPropSetter",
     label: "$name",
     propName: "$name",
+    dynamicForbidden: true,
   },
 
   {
     $type: "switchPropSetter",
-    label: "hidden",
+    label: "隐藏",
     propName: "_hidden",
   },
 ];
 
-export interface PositionPropPanelProps extends RockConfigBase {
+export interface CommonPropPanelRockConfig extends RockConfigBase {
   componentConfig: RockConfig;
 }
 
 export default {
   $type: "commonPropPanel",
 
-  Renderer(context, props: PositionPropPanelProps) {
-    const { componentConfig } = props;
-
-    const rockChildrenConfig: RockConfig[] = useMemo(() => {
-      return setters.map((setter) => {
-        return Object.assign({}, setter, {
-          $id: `${props.$id}-${setter.label}`,
-          componentConfig: props.componentConfig,
-        });
-      });
-    }, [setters, componentConfig]);
-
-    return (
-      <div>
-        <h3>common</h3>
-        {renderRockChildren({ context, rockChildrenConfig })}
-      </div>
-    );
+  Renderer(context, props: CommonPropPanelRockConfig) {
+    return renderComponentPropPanel(context, {
+      ...props,
+      setters,
+    });
   },
 } as Rock;

@@ -3,7 +3,7 @@ export { isComponentPropertyDynamic, isEventPropName } from "./component-config-
 
 export { getRockDefaultProps } from "./rock-meta-utility";
 
-export { omitSystemRockConfigFields } from "./rock-config-utility";
+export * from "./rock-config-utility";
 
 export { canUseDOM, waitVariable } from "./dom-utility";
 

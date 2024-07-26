@@ -1,22 +1,27 @@
-import { ContainerRockConfig, MultiControlsRockPropSetter, RockConfig, RockEvent, RockEventHandlerScript, Rock } from "@ruiapp/move-style";
+import {
+  ContainerRockConfig,
+  MultiControlsRockPropSetter,
+  RockConfig,
+  RockEvent,
+  RockEventHandlerScript,
+  Rock,
+  PropSetterRockConfigBase,
+  RockInstanceContext,
+  handleComponentEvent,
+} from "@ruiapp/move-style";
 import { renderRock } from "@ruiapp/react-renderer";
-import _ from "lodash";
+import { isUndefined } from "lodash";
 import { useMemo } from "react";
-import { DesignerStore } from "../../stores/DesignerStore";
-import { sendDesignerCommand } from "../../utilities/DesignerUtility";
-import { PropSetterProps } from "../PropSetter";
+import { PropSetterRockConfig } from "../PropSetter";
 
-export interface MultiControlsPropSetterProps extends MultiControlsRockPropSetter {
-  $id: string;
-  componentConfig: RockConfig;
-}
+export interface MultiControlsPropSetterRockConfig<TPropValue = any> extends MultiControlsRockPropSetter<TPropValue>, PropSetterRockConfigBase {}
 
 export default {
   $type: "multiControlsPropSetter",
 
-  Renderer(context, props: MultiControlsPropSetterProps) {
-    const { page } = context;
-    const { $id, controls, componentConfig, expressionPropName } = props;
+  Renderer(context, props: MultiControlsPropSetterRockConfig) {
+    const { framework, page, scope } = context;
+    const { $id, controls, componentConfig, propName, dynamicForbidden, onPropValueChange, onPropExpressionChange, onPropExpressionRemove } = props;
 
     const controlRocks: RockConfig[] = useMemo(() => {
       let rowNum = 1;
@@ -28,25 +33,21 @@ export default {
 
       for (const control of controls) {
         const { control: inputControlRockConfig, propName, defaultValue, span = 2 } = control;
+        const { onChange } = inputControlRockConfig;
         inputControlRockConfig.$id = `${$id}-input-${inputNum}`;
-        if (propName) {
+        if (propName && !onChange) {
           if (componentConfig.hasOwnProperty(propName)) {
             inputControlRockConfig.value = componentConfig[propName];
-          } else if (!_.isUndefined(defaultValue)) {
+          } else if (!isUndefined(defaultValue)) {
             inputControlRockConfig.value = defaultValue;
           }
 
           const onInputControlChange: RockEventHandlerScript["script"] = (event: RockEvent) => {
             const propValue = event.args[0];
-            const store = page.getStore<DesignerStore>("designerStore");
-            sendDesignerCommand(page, store, {
-              name: "setComponentProperty",
-              payload: {
-                componentId: store.selectedComponentId,
-                propName,
-                propValue,
-              },
-            });
+            const propChanges = {
+              [propName]: propValue,
+            };
+            handleComponentEvent("onPropValueChange", framework, page, scope, props, onPropValueChange, [propChanges]);
           };
 
           inputControlRockConfig.onChange = {
@@ -78,19 +79,32 @@ export default {
       return rowRocks;
     }, [controls, componentConfig]);
 
-    const rockConfig: PropSetterProps = {
+    const rockConfig: PropSetterRockConfig = {
       $type: "propSetter",
       $id: props.$id,
       label: props.label,
       labelTip: props.labelTip,
-      expressionPropName: expressionPropName,
+      dynamicForbidden,
+      expressionPropName: propName,
       componentConfig,
       children: controlRocks,
+      onPropExpressionChange,
+      onPropExpressionRemove,
     };
 
     return renderRock({ context, rockConfig });
   },
 } as Rock;
+
+export function renderMultiControlsPropSetter(context: RockInstanceContext, props: Omit<MultiControlsPropSetterRockConfig, "$type">) {
+  let rockConfig: MultiControlsPropSetterRockConfig = {
+    ...props,
+    $id: `${props.$id}-multi-setter`,
+    $type: "multiControlsPropSetter",
+  } as any;
+
+  return renderRock({ context, rockConfig });
+}
 
 function getFreeSpace(rowRock: ContainerRockConfig) {
   if (!rowRock) {

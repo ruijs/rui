@@ -1,28 +1,115 @@
-import { ContainerRockConfig, RockConfig, Rock, MoveStyleUtils } from "@ruiapp/move-style";
+import {
+  RockConfig,
+  Rock,
+  PropSetterRockConfigBase,
+  RockPropSetterBase,
+  RockChildrenConfig,
+  handleComponentEvent,
+  RockEvent,
+  MoveStyleUtils,
+} from "@ruiapp/move-style";
 import { renderRock } from "@ruiapp/react-renderer";
-import React, { useState } from "react";
-import { DesignerStore } from "../stores/DesignerStore";
-import { sendDesignerCommand } from "../utilities/DesignerUtility";
+import React, { useEffect, useState } from "react";
+import { getComponentPropExpression } from "~/utilities/SetterUtility";
 
-export interface PropSetterProps extends ContainerRockConfig {
-  $type: "propSetter";
-  label: string;
-  labelTip?: string;
+export interface PropSetterRockConfig<TPropValue = any> extends RockPropSetterBase<"propSetter", TPropValue>, PropSetterRockConfigBase {
   labelLayout?: "horizontal" | "vertical";
   componentConfig: RockConfig;
   expressionPropName?: string;
   extra?: RockConfig;
+  children?: RockChildrenConfig;
+}
+
+interface PropSetterState {
+  expIndicatorHovered: boolean;
+  expEditing: boolean;
+  expression?: string;
 }
 
 export default {
   $type: "propSetter",
 
-  Renderer(context, props: PropSetterProps) {
-    const { page } = context;
-    const [expIndicatorHovered, setExpIndicatorHovered] = useState(false);
+  Renderer(context, props: PropSetterRockConfig) {
+    const { framework, page, scope } = context;
+    const { $id, label, labelTip, componentConfig, expressionPropName, extra, dynamicForbidden, onPropExpressionRemove, onPropExpressionChange } = props;
 
-    const { label, labelTip, componentConfig, expressionPropName, extra } = props;
+    const [state, setState] = useState<PropSetterState>({
+      expIndicatorHovered: false,
+      expEditing: false,
+      expression: getComponentPropExpression(componentConfig, expressionPropName),
+    });
+
+    const { expIndicatorHovered, expEditing, expression } = state;
     const isPropDynamic = MoveStyleUtils.isComponentPropertyDynamic(componentConfig, expressionPropName);
+    const expMode = isPropDynamic || expEditing;
+
+    useEffect(() => {
+      const componentPropExpression = getComponentPropExpression(componentConfig, expressionPropName);
+      if (componentPropExpression !== expression) {
+        setState({
+          ...state,
+          expression: componentPropExpression,
+        });
+      }
+    }, [expMode, componentConfig, expressionPropName]);
+
+    const expIndicatorRockConfig: RockConfig = dynamicForbidden
+      ? {
+          $id: `${props.$id}-exp-indicator-placeholder`,
+          $type: "htmlElement",
+          htmlTag: "div",
+          style: styleSetterExpIndicatorPlaceholder,
+        }
+      : {
+          $id: `${props.$id}-exp-indicator-container`,
+          $type: "htmlElement",
+          htmlTag: "div",
+          style: styleSetterExpIndicatorContainer,
+          attributes: {
+            onMouseEnter: () => setState({ ...state, expIndicatorHovered: true }),
+            onMouseLeave: () => setState({ ...state, expIndicatorHovered: false }),
+            onClick: () => {
+              if (expMode) {
+                handleComponentEvent("onPropExpressionRemove", framework, page, scope, props, onPropExpressionRemove, [expressionPropName]);
+              }
+              setState({ ...state, expEditing: !expMode, expression: "" });
+            },
+          },
+          children: {
+            $id: expIndicatorHovered && expMode ? `${props.$id}-exp-indicator-cancle` : `${props.$id}-exp-indicator-set`,
+            $type: "antdIcon",
+            name: expIndicatorHovered && expMode ? "CloseCircleOutlined" : "FunctionOutlined",
+            style: {
+              backgroundColor: expIndicatorHovered || expMode ? "#c038ff" : "#eeeeee",
+              borderRadius: "100%",
+            },
+            color: "#ffffff",
+          },
+        };
+
+    const expressionInputRockConfig: RockConfig = {
+      $id: `${$id}-expressionSetterInput`,
+      $type: "expressionSetterInput",
+      value: expression,
+      onChange: {
+        $action: "script",
+        script: (event: RockEvent) => {
+          const expression = event.args[0];
+          setState({ ...state, expression });
+        },
+      },
+      onBlur: {
+        $action: "script",
+        script: (event: RockEvent) => {
+          let propExpression = expression?.trim();
+          if (propExpression) {
+            handleComponentEvent("onPropExpressionChange", framework, page, scope, props, onPropExpressionChange, [expressionPropName, propExpression]);
+          }
+        },
+      },
+    };
+
+    const childrenRockConfig = expMode ? expressionInputRockConfig : props.children;
 
     const rockConfig: RockConfig = {
       $id: `${props.$id}`,
@@ -30,47 +117,7 @@ export default {
       htmlTag: "div",
       style: styleSetter,
       children: [
-        {
-          $id: `${props.$id}-exp-indicator-container`,
-          $type: "htmlElement",
-          htmlTag: "div",
-          style: styleSetterExpIndicatorContainer,
-          attributes: {
-            onMouseEnter: () => setExpIndicatorHovered(true),
-            onMouseLeave: () => setExpIndicatorHovered(false),
-            onClick: () => {
-              const designerStore = page.getStore<DesignerStore>("designerStore");
-              if (isPropDynamic) {
-                sendDesignerCommand(page, designerStore, {
-                  name: "removeComponentPropertyExpression",
-                  payload: {
-                    componentId: designerStore.selectedComponentId,
-                    propName: expressionPropName,
-                  },
-                });
-              } else {
-                sendDesignerCommand(page, designerStore, {
-                  name: "setComponentPropertyExpression",
-                  payload: {
-                    componentId: designerStore.selectedComponentId,
-                    propName: expressionPropName,
-                    propExpression: "",
-                  },
-                });
-              }
-            },
-          },
-          children: {
-            $id: expIndicatorHovered && isPropDynamic ? `${props.$id}-exp-indicator-cancle` : `${props.$id}-exp-indicator-set`,
-            $type: "antdIcon",
-            name: expIndicatorHovered && isPropDynamic ? "CloseCircleOutlined" : "FunctionOutlined",
-            style: {
-              backgroundColor: expIndicatorHovered || isPropDynamic ? "#c038ff" : "#eeeeee",
-              borderRadius: "100%",
-            },
-            color: "#ffffff",
-          },
-        },
+        expIndicatorRockConfig,
         {
           $id: `${props.$id}-label-section`,
           $type: "htmlElement",
@@ -98,12 +145,12 @@ export default {
           $type: "htmlElement",
           htmlTag: "div",
           style: styleSetterControls,
-          children: props.children,
+          children: childrenRockConfig,
         },
       ],
     };
 
-    if (extra) {
+    if (extra && !expEditing) {
       rockConfig.children.push({
         $id: `${props.$id}-extra-wrapper`,
         $type: "htmlElement",
@@ -123,6 +170,11 @@ const styleSetter: React.CSSProperties = {
   width: "260px",
   alignItems: "center",
   paddingBottom: "5px",
+};
+
+const styleSetterExpIndicatorPlaceholder: React.CSSProperties = {
+  width: "20px",
+  height: "30px",
 };
 
 const styleSetterExpIndicatorContainer: React.CSSProperties = {

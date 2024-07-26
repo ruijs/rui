@@ -1,6 +1,5 @@
 import { RockConfig, RockConfigBase, Rock, RockPropSetter, unitOptions } from "@ruiapp/move-style";
-import { renderRockChildren } from "@ruiapp/react-renderer";
-import { useMemo } from "react";
+import { renderComponentPropPanel } from "./ComponentPropPanel";
 
 const setters: RockPropSetter[] = [
   {
@@ -13,6 +12,14 @@ const setters: RockPropSetter[] = [
       { label: "fixed", value: "fixed" },
       { label: "inherit", value: "inherit" },
     ],
+    allowClear: true,
+  },
+
+  {
+    $type: "numberWithUnitsPropSetter",
+    label: "left",
+    propName: "left",
+    unitOptions,
   },
 
   {
@@ -35,39 +42,20 @@ const setters: RockPropSetter[] = [
     propName: "bottom",
     unitOptions,
   },
-
-  {
-    $type: "numberWithUnitsPropSetter",
-    label: "left",
-    propName: "left",
-    unitOptions,
-  },
 ];
 
-export interface PositionPropPanelProps extends RockConfigBase {
+export interface PositionPropPanelRockConfig extends RockConfigBase {
   componentConfig: RockConfig;
 }
 
 export default {
   $type: "positionPropPanel",
 
-  Renderer(context, props: PositionPropPanelProps) {
-    const { componentConfig } = props;
-
-    const rockChildrenConfig: RockConfig[] = useMemo(() => {
-      return setters.map((setter) => {
-        return Object.assign({}, setter, {
-          $id: `${props.$id}-${setter.label}`,
-          componentConfig: props.componentConfig,
-        });
-      });
-    }, [setters, componentConfig]);
-
-    return (
-      <div>
-        <h3>Position</h3>
-        {renderRockChildren({ context, rockChildrenConfig })}
-      </div>
-    );
+  Renderer(context, props: PositionPropPanelRockConfig) {
+    return renderComponentPropPanel(context, {
+      ...props,
+      title: "位置",
+      setters,
+    });
   },
 } as Rock;

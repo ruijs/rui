@@ -1,69 +1,95 @@
-import { RockConfig, RockEvent, RockEventHandlerScript, Rock, SingleControlRockPropSetter } from "@ruiapp/move-style";
+import {
+  RockConfig,
+  RockEvent,
+  Rock,
+  SingleControlRockPropSetter,
+  handleComponentEvent,
+  PropSetterRockConfigBase,
+  RockInstanceContext,
+} from "@ruiapp/move-style";
 import { renderRock } from "@ruiapp/react-renderer";
 import { useMemo } from "react";
-import { DesignerStore } from "../../stores/DesignerStore";
-import { sendDesignerCommand } from "../../utilities/DesignerUtility";
-import { PropSetterProps } from "../PropSetter";
+import { PropSetterRockConfig } from "../PropSetter";
 import { getComponentPropValue } from "../../utilities/SetterUtility";
 
-export interface SingleControlPropSetterProps extends SingleControlRockPropSetter {
-  $id: string;
-  componentConfig: RockConfig;
-}
+export interface SingleControlPropSetterRockConfig<TPropValue = any> extends SingleControlRockPropSetter<TPropValue>, PropSetterRockConfigBase {}
 
 export default {
   $type: "singleControlPropSetter",
 
-  Renderer(context, props: SingleControlPropSetterProps) {
-    const { page } = context;
-    const { propName, defaultValue, control, extra, componentConfig } = props;
+  Renderer(context, props: SingleControlPropSetterRockConfig) {
+    const { framework, page, scope } = context;
+    const {
+      $id,
+      propName,
+      defaultValue,
+      readOnly,
+      control,
+      extra,
+      componentConfig,
+      dynamicForbidden,
+      onPropValueChange,
+      onPropExpressionChange,
+      onPropExpressionRemove,
+    } = props;
+
+    const propValue = getComponentPropValue(componentConfig, propName, defaultValue);
 
     const controlRock: RockConfig = useMemo(() => {
-      const inputControlRockConfig = control;
-      inputControlRockConfig.$id = `${props.$id}-setterControl-${propName}`;
-      inputControlRockConfig.value = getComponentPropValue(componentConfig, propName, defaultValue);
-
-      const onInputControlChange: RockEventHandlerScript["script"] = (event: RockEvent) => {
-        const propValue = event.args[0];
-        const store = page.getStore<DesignerStore>("designerStore");
-        sendDesignerCommand(page, store, {
-          name: "setComponentProperty",
-          payload: {
-            componentId: store.selectedComponentId,
-            propName,
-            propValue,
+      const inputControlRockConfig: RockConfig = {
+        ...control,
+        $id: `${$id}-setterControl-${propName}`,
+        readOnly,
+        value: propValue,
+        onChange: {
+          $action: "script",
+          script: (event: RockEvent) => {
+            const propValue = event.args[0];
+            const propChanges = {
+              [propName]: propValue,
+            };
+            handleComponentEvent("onPropValueChange", framework, page, scope, props, onPropValueChange, [propChanges]);
           },
-        });
+        },
       };
 
-      inputControlRockConfig.onChange = {
-        $action: "script",
-        script: onInputControlChange,
-      };
       return {
         $id: `${inputControlRockConfig.$id}-wrap`,
         $type: "htmlElement",
         htmlTag: "div",
         children: inputControlRockConfig,
       } as RockConfig;
-    }, [control, componentConfig]);
+    }, [$id, control, componentConfig, propName, propValue]);
 
     if (extra) {
       extra.$id = `${props.$id}-setterControl-${propName}-extra`;
       extra.value = getComponentPropValue(componentConfig, propName, defaultValue);
     }
 
-    const rockConfig: PropSetterProps = {
+    const rockConfig: PropSetterRockConfig = {
       $type: "propSetter",
       $id: props.$id,
       label: props.label,
       labelTip: props.labelTip,
+      dynamicForbidden,
       expressionPropName: propName,
       componentConfig,
       children: controlRock,
       extra,
+      onPropExpressionChange,
+      onPropExpressionRemove,
     };
 
     return renderRock({ context, rockConfig });
   },
 } as Rock;
+
+export function renderSingleControlPropSetter(context: RockInstanceContext, props: Omit<SingleControlPropSetterRockConfig, "$type">) {
+  let rockConfig: SingleControlPropSetterRockConfig = {
+    ...props,
+    $id: `${props.$id}-single-setter`,
+    $type: "singleControlPropSetter",
+  } as any;
+
+  return renderRock({ context, rockConfig });
+}
