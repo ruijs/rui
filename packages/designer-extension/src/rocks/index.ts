@@ -51,6 +51,7 @@ import TextSetterInput from "./setter-input-controls/TextSetterInput";
 // controls
 import ColorPicker from "./controls/color-picker";
 import FileUploader from "./controls/file-uploader";
+import CommonPropPanel from "./prop-panels/CommonPropPanel";
 
 export default [
   ComponentEventHandlersPanel,
@@ -66,6 +67,7 @@ export default [
   AppearancePropPanel,
   ComponentPropPanel,
   PositionPropPanel,
+  CommonPropPanel,
   SizePropPanel,
   TextPropPanel,
   BorderPropPanel,
