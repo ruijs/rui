@@ -19,7 +19,7 @@ import BorderPropPanel from "./prop-panels/BorderPropPanel";
 import ExpressionPropSetter from "./internal-prop-setters/ExpressionPropSetter";
 import MultiControlsPropSetter from "./internal-prop-setters/MultiControlsPropSetter";
 import SingleControlPropSetter from "./internal-prop-setters/SingleControlPropSetter";
-import SingleControlPropsSetter from "./internal-prop-setters/SingleControlPropsSetter";
+import SingleControlMultiPropsSetter from "./internal-prop-setters/SingleControlMultiPropsSetter";
 
 // prop setters
 import JsonPropSetter from "./prop-setters/JsonPropSetter";
@@ -47,6 +47,9 @@ import SelectSetterInput from "./setter-input-controls/SelectSetterInput";
 import SliderSetterInput from "./setter-input-controls/SliderSetterInput";
 import SwitchSetterInput from "./setter-input-controls/SwitchSetterInput";
 import TextSetterInput from "./setter-input-controls/TextSetterInput";
+
+// prop renderers
+import TextPropRenderer from "./prop-renderers/TextPropRenderer";
 
 // controls
 import ColorPicker from "./controls/color-picker";
@@ -76,7 +79,7 @@ export default [
   ExpressionPropSetter,
   MultiControlsPropSetter,
   SingleControlPropSetter,
-  SingleControlPropsSetter,
+  SingleControlMultiPropsSetter,
 
   // prop setters
   JsonPropSetter,
@@ -105,7 +108,27 @@ export default [
   SwitchSetterInput,
   TextSetterInput,
 
+  // prop renderers
+  TextPropRenderer,
+
   // controls
   ColorPicker,
   FileUploader,
 ];
+
+export * from "./internal-prop-setters/ExpressionPropSetter";
+export * from "./internal-prop-setters/MultiControlsPropSetter";
+export * from "./internal-prop-setters/SingleControlPropSetter";
+export * from "./internal-prop-setters/SingleControlMultiPropsSetter";
+
+export * from "./prop-setters/ColorPropSetter";
+export * from "./prop-setters/FilePropSetter";
+export * from "./prop-setters/JsonPropSetter";
+export * from "./prop-setters/NumberPropSetter";
+export * from "./prop-setters/NumberWithSliderPropSetter";
+export * from "./prop-setters/NumberWithUnitsPropSetter";
+export * from "./prop-setters/SelectPropSetter";
+export * from "./prop-setters/SwitchPropSetter";
+export * from "./prop-setters/TextPropSetter";
+
+export * from "./prop-renderers/TextPropRenderer";

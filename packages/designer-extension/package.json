@@ -1,6 +1,6 @@
 {
   "name": "@ruiapp/designer-extension",
-  "version": "0.1.32",
+  "version": "0.2.0",
   "description": "",
   "types": "./dist/mod.d.ts",
   "main": "./dist/mod.js",

@@ -1,7 +1,7 @@
 .rr-color-picker {
   display: inline-flex;
   align-items: center;
-  padding: 4px 11px;
+  padding: 4px 11px 4px 5px;
   line-height: 1.5715;
   font-size: 14px;
   box-sizing: border-box;

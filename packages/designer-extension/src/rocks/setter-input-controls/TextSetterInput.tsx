@@ -4,6 +4,7 @@ import { useCallback } from "react";
 
 export interface TextSetterInputProps extends RockConfigBase {
   value?: string;
+  readOnly?: boolean;
   onChange?: RockEventHandler;
 }
 
@@ -12,7 +13,7 @@ export default {
 
   Renderer(context, props: TextSetterInputProps) {
     const { framework, page, scope } = context;
-    const { $id, onChange } = props;
+    const { $id, readOnly, onChange } = props;
 
     const onInputChange: RockEventHandlerScript["script"] = useCallback(
       (event: RockEvent) => {
@@ -26,6 +27,7 @@ export default {
       $id: `${props.$id}-internal`,
       $type: "antdInput",
       value: props.value,
+      disabled: readOnly,
       onChange: {
         $action: "script",
         script: onInputChange,

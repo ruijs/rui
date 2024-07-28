@@ -2,7 +2,7 @@ import { RockConfigBase, RockConfig, Rock, MoveStyleUtils, RockEventHandlerScrip
 import { renderRock } from "@ruiapp/react-renderer";
 import { find, isArray, isFunction, isUndefined } from "lodash";
 import { ExpressionPropSetterProps } from "../internal-prop-setters/ExpressionPropSetter";
-import { SingleControlPropSetterProps } from "../internal-prop-setters/SingleControlPropSetter";
+import { SingleControlPropSetterRockConfig } from "../internal-prop-setters/SingleControlPropSetter";
 import { getComponentPropValue } from "../../utilities/SetterUtility";
 import { sendDesignerCommand } from "~/utilities/DesignerUtility";
 import { useMemo } from "react";

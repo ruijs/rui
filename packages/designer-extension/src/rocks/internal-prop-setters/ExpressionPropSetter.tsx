@@ -1,21 +1,23 @@
-import { RockConfig, RockEvent, RockEventHandlerScript, Rock, ExpressionRockPropSetter } from "@ruiapp/move-style";
+import { RockConfig, RockEvent, RockEventHandlerScript, Rock, ExpressionRockPropSetter, PropSetterRockConfigBase } from "@ruiapp/move-style";
 import { renderRock } from "@ruiapp/react-renderer";
 import { useMemo } from "react";
 import { DesignerStore } from "../../stores/DesignerStore";
 import { sendDesignerCommand } from "../../utilities/DesignerUtility";
-import { PropSetterProps } from "../PropSetter";
+import { PropSetterRockConfig } from "../PropSetter";
 
-export interface ExpressionPropSetterProps extends ExpressionRockPropSetter {
-  $id: string;
+export interface ExpressionPropSetterProps extends ExpressionRockPropSetter, PropSetterRockConfigBase {
   componentConfig: RockConfig;
 }
 
+/**
+ * @deprecated
+ */
 export default {
   $type: "expressionPropSetter",
 
   Renderer(context, props: ExpressionPropSetterProps) {
     const { page } = context;
-    const { propName, componentConfig } = props;
+    const { propName, componentConfig, dynamicForbidden } = props;
 
     const controlRock: RockConfig = useMemo(() => {
       const inputControlRockConfig: RockConfig = {
@@ -49,11 +51,12 @@ export default {
       } as RockConfig;
     }, [componentConfig]);
 
-    const rockConfig: PropSetterProps = {
+    const rockConfig: PropSetterRockConfig = {
       $type: "propSetter",
       $id: props.$id,
       label: props.label,
       labelTip: props.labelTip,
+      dynamicForbidden,
       expressionPropName: propName,
       componentConfig,
       children: controlRock,

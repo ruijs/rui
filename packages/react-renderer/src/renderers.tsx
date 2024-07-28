@@ -11,10 +11,6 @@ import {
   Rock,
   RockInstance,
   RockInstanceContext,
-  RockMeta,
-  RockMetaSlot,
-  RockMetaSlots,
-  Scope,
 } from "@ruiapp/move-style";
 import { MoveStyleUtils } from "@ruiapp/move-style";
 import type { ContainerRockConfig, ConvertRockEventHandlerPropOptions, DeclarativeRock, ProCodeRock, RockConfig, RockRenderer } from "@ruiapp/move-style";

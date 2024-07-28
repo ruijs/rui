@@ -1,10 +1,11 @@
-import { handleComponentEvent, RockConfig, RockConfigBase, RockEvent, RockEventHandler, RockEventHandlerScript, Rock } from "@ruiapp/move-style";
+import { handleComponentEvent, RockConfig, RockConfigBase, RockEvent, RockEventHandlerScript, Rock, RockEventHandlerConfig } from "@ruiapp/move-style";
 import { renderRock } from "@ruiapp/react-renderer";
 import { useCallback } from "react";
 
 export interface ExpressionSetterInputProps extends RockConfigBase {
   value?: string;
-  onChange?: RockEventHandler;
+  onChange?: RockEventHandlerConfig;
+  onBlur?: RockEventHandlerConfig;
 }
 
 export default {
@@ -34,6 +35,7 @@ export default {
         $action: "script",
         script: onInputChange,
       },
+      onBlur: props.onBlur,
     };
 
     return renderRock({ context, rockConfig });

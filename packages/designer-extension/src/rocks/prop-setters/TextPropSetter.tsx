@@ -1,36 +1,17 @@
-import { TextRockPropSetter, RockConfig, Rock, MoveStyleUtils } from "@ruiapp/move-style";
-import { renderRock } from "@ruiapp/react-renderer";
-import { ExpressionPropSetterProps } from "../internal-prop-setters/ExpressionPropSetter";
-import { SingleControlPropSetterProps } from "../internal-prop-setters/SingleControlPropSetter";
+import { TextRockPropSetter, RockConfig, Rock, PropSetterRockConfigBase } from "@ruiapp/move-style";
+import { renderSingleControlPropSetter } from "../internal-prop-setters/SingleControlPropSetter";
 
-export interface TextPropSetterProps extends TextRockPropSetter {
-  $id: string;
-  componentConfig: RockConfig;
-}
+export interface TextPropSetterRockConfig extends TextRockPropSetter, PropSetterRockConfigBase {}
 
 export default {
   $type: "textPropSetter",
 
-  Renderer(context, props: TextPropSetterProps) {
-    const { $id, label, labelTip, componentConfig, propName, defaultValue } = props;
-    const isPropDynamic = MoveStyleUtils.isComponentPropertyDynamic(componentConfig, propName);
-
-    let rockConfig: SingleControlPropSetterProps | ExpressionPropSetterProps = {
-      $id: isPropDynamic ? `${$id}-dynamic` : `${$id}-static`,
-      $type: isPropDynamic ? "expressionPropSetter" : "singleControlPropSetter",
-      label,
-      labelTip,
-      propName,
-      componentConfig,
-    } as any;
-
-    if (!isPropDynamic) {
-      (rockConfig as SingleControlPropSetterProps).defaultValue = defaultValue;
-      (rockConfig as SingleControlPropSetterProps).control = {
+  Renderer(context, props: TextPropSetterRockConfig) {
+    return renderSingleControlPropSetter(context, {
+      ...props,
+      control: {
         $type: "textSetterInput",
-      };
-    }
-
-    return renderRock({ context, rockConfig });
+      },
+    });
   },
 } as Rock;

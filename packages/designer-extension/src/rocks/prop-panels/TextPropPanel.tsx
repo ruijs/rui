@@ -1,6 +1,5 @@
 import { lineStyleOptions, RockConfig, RockConfigBase, Rock, RockPropSetter, unitOptions } from "@ruiapp/move-style";
-import { renderRockChildren } from "@ruiapp/react-renderer";
-import { useMemo } from "react";
+import { renderComponentPropPanel } from "./ComponentPropPanel";
 
 const setters: RockPropSetter[] = [
   {
@@ -61,30 +60,18 @@ const setters: RockPropSetter[] = [
   },
 ];
 
-export interface TextPropPanelProps extends RockConfigBase {
+export interface TextPropPanelRockConfig extends RockConfigBase {
   componentConfig: RockConfig;
 }
 
 export default {
   $type: "textPropPanel",
 
-  Renderer(context, props: TextPropPanelProps) {
-    const { componentConfig } = props;
-
-    const rockChildrenConfig: RockConfig[] = useMemo(() => {
-      return setters.map((setter) => {
-        return Object.assign({}, setter, {
-          $id: `${props.$id}-${setter.label}`,
-          componentConfig: props.componentConfig,
-        });
-      });
-    }, [setters, componentConfig]);
-
-    return (
-      <div>
-        <h3>Text</h3>
-        {renderRockChildren({ context, rockChildrenConfig })}
-      </div>
-    );
+  Renderer(context, props: TextPropPanelRockConfig) {
+    return renderComponentPropPanel(context, {
+      ...props,
+      title: "文字",
+      setters,
+    });
   },
 } as Rock;

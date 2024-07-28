@@ -7,6 +7,8 @@ export default {
   stores,
 } as RuiExtension;
 
-export { DesignerStore } from "./stores/DesignerStore";
 export * as DesignerUtility from "./utilities/DesignerUtility";
 export * from "./utilities/SetterUtility";
+
+export * from "./rocks";
+export * from "./stores";
