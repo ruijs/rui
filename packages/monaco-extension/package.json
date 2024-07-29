@@ -4,13 +4,6 @@
   "description": "",
   "types": "./dist/mod.d.ts",
   "main": "./dist/mod.js",
-  "exports": {
-    ".": {
-      "types": "./dist/mod.d.ts",
-      "default": "./dist/mod.js"
-    },
-    "./source": "./src/mod.ts"
-  },
   "scripts": {
     "build": "rimraf dist && rollup --config",
     "dev": "webpack",
