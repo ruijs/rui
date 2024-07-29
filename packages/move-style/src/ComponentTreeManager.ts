@@ -51,7 +51,7 @@ export class ComponentTreeManager {
 
     var processedConfig = clone(config);
     if (processedConfig.layout) {
-      // TODO: finish process config of page with layout.
+      processedConfig.layout.view.forEach(this.travelRockConfig.bind(this, this.#processComponentOnLoadConfig.bind(this), this.#page.scope, null));
     }
     processedConfig.view.forEach(this.travelRockConfig.bind(this, this.#processComponentOnLoadConfig.bind(this), this.#page.scope, null));
 
@@ -100,6 +100,9 @@ export class ComponentTreeManager {
 
   initComponents() {
     this.#logger.debug(`Initializing components...`);
+    if (this.#config.layout) {
+      this.#config.layout.view.forEach(this.attachComponent.bind(this, this.#page.scope, null));
+    }
     this.#config.view.forEach(this.attachComponent.bind(this, this.#page.scope, null));
   }
 
