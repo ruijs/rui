@@ -5,6 +5,7 @@ import js_expression from "./js_expression";
 import js_script from "./js_script";
 import goto_step from "./goto_step";
 import goto_step_name from "./goto_step_name";
+import action_antdToast from "./action_antdToast";
 
 export interface Block {
   root: any;
@@ -34,4 +35,5 @@ export const definitions: { [key: string]: BlockDefCreator } = {
   js_script: js_script,
   goto_step: goto_step,
   goto_step_name: goto_step_name,
+  action_antdToast: action_antdToast,
 };

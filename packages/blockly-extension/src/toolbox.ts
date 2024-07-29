@@ -156,6 +156,17 @@ toolboxDef = {
       kind: "block",
       type: "goto_step_name",
     },
+    {
+      "kind": "block",
+      "type": "action_antdToast",
+      "inputs": {
+        "CONTENT": {
+          "shadow": {
+            "type": "text_multiline",
+          },
+        },
+      },
+    },
   ],
 };
 
