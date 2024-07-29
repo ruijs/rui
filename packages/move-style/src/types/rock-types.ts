@@ -289,12 +289,29 @@ export type RuiEvent = RockEvent;
 export type RockEvent = {
   framework: Framework;
   page: IPage;
-  scope: Scope;
+  scope: IScope;
   name: string;
   senderCategory: "component";
   sender: any;
   args: any[];
 };
+
+export type RockEventSender = RockInstance;
+
+export interface HandleRockEventContext {
+  framework: Framework;
+  page: IPage;
+  scope: IScope;
+}
+
+export interface HandleRockEventOptions {
+  context?: HandleRockEventContext;
+  parentEvent?: RockEvent;
+  eventName?: string;
+  sender?: RockEventSender;
+  handlers: RockEventHandlerConfig;
+  args?: any[];
+}
 
 export type RockPageEventSubscriptionConfig = {
   eventName: string;
@@ -686,11 +703,15 @@ export type PageCommandRemoveStep = {
 };
 
 export interface IPage {
+  get scope(): IScope;
+
   generateComponentId(type: string);
 
   setConfig(pageConfig: PageConfig);
 
   getConfig(): PageConfig;
+
+  interpreteExpression(expressionString: string, rootVars: Record<string, any>): any;
 
   addComponents(components: RockConfig[], parentComponentId?: string, slotPropName?: string, prevSiblingComponentId?: string);
 
@@ -721,6 +742,26 @@ export interface IPage {
   notifyEvent(event: RuiEvent);
 
   sendComponentMessage<TRockMessage extends RockMessage<any> = RockMessage<any>>(componentId: string, message: TRockMessage);
+
+  /**
+   * 处理事件
+   * @param options
+   * @example
+   * ```
+   *  page.handleEvent({
+   *    parentEvent: event,
+   *    handlers: [
+   *      {
+   *        $action: "setComponentProperty",
+   *        componentId: "text1",
+   *        propName: "text",
+   *        propValue: "hello"
+   *      }
+   *    ]
+   *  })
+   * ```
+   */
+  handleEvent(options: HandleRockEventOptions): Promise<void>;
 }
 
 //////////////

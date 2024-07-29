@@ -1,12 +1,23 @@
 import _, { each } from "lodash";
 import { ComponentTreeManager } from "./ComponentTreeManager";
 import { ExpressionInterpreter } from "./ExpressionInterpreter";
-import { RockConfig, RockPropValue, RuiEvent, PageCommand, PageConfig, IPage, RockPageEventSubscriptionConfig, RockMessage } from "./types/rock-types";
+import {
+  RockConfig,
+  RockPropValue,
+  RuiEvent,
+  PageCommand,
+  PageConfig,
+  IPage,
+  RockPageEventSubscriptionConfig,
+  RockMessage,
+  HandleRockEventOptions,
+} from "./types/rock-types";
 import { StoreConfig, IStore, StoreConfigBase } from "./types/store-types";
 import { HttpRequestInput } from "./types/request-types";
 import { Framework } from "./Framework";
 import { Scope } from "./Scope";
 import { RuiModuleLogger } from "./Logger";
+import { handleComponentEvent } from "./ComponentEventHandler";
 
 export class Page implements IPage {
   #framework: Framework;
@@ -187,5 +198,15 @@ export class Page implements IPage {
 
   async notifyEvent(event: RuiEvent) {
     this.scope.notifyEvent(event);
+  }
+
+  async handleEvent(options: HandleRockEventOptions) {
+    const { eventName, context, parentEvent, sender, handlers, args } = options;
+    if (!context && !parentEvent) {
+      throw new Error(`"context" or "parentEvent" must be provided.`);
+    }
+
+    let { framework, page, scope } = context || parentEvent;
+    await handleComponentEvent(eventName, framework, page, scope, sender || {}, handlers, args || []);
   }
 }
