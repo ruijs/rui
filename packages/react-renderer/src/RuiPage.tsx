@@ -48,7 +48,7 @@ function configWithoutLayout(context: RockInstanceContext, pageConfig: PageConfi
 
 function renderPageWithLayout(context: RockInstanceContext, pageConfig: PageConfig) {
   const rockConfig: RockConfig = {
-    $id: "_root",
+    $id: "$layout",
     $type: "component",
     component: {
       view: pageConfig.layout.view,
