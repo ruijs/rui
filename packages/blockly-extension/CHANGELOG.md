@@ -1,5 +1,11 @@
 # @ruiapp/blockly-extension
 
+## 0.1.31
+
+### Patch Changes
+
+- 571cf55: impl action_antdToast block
+
 ## 0.1.30
 
 ### Patch Changes
