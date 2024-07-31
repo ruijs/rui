@@ -55,6 +55,8 @@ import TextPropRenderer from "./prop-renderers/TextPropRenderer";
 import ColorPicker from "./controls/color-picker";
 import FileUploader from "./controls/file-uploader";
 import CommonPropPanel from "./prop-panels/CommonPropPanel";
+import SelectIconPropSetter from "./prop-setters/SelectIconPropSetter";
+import selectIcon from "./controls/select-icon";
 
 export default [
   ComponentEventHandlersPanel,
@@ -87,6 +89,7 @@ export default [
   NumberWithSliderPropSetter,
   NumberWithUnitsPropSetter,
   SelectPropSetter,
+  SelectIconPropSetter,
   SwitchPropSetter,
   TextPropSetter,
   ColorPropSetter,
@@ -114,6 +117,7 @@ export default [
   // controls
   ColorPicker,
   FileUploader,
+  selectIcon
 ];
 
 export * from "./internal-prop-setters/ExpressionPropSetter";

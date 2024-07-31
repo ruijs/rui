@@ -1,0 +1,31 @@
+.dropDownBox {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  max-height: 500px;
+  overflow-y: auto;
+  margin-bottom: 12px;
+}
+
+.searchBox {
+    margin: 12px;
+}
+
+.list {
+  width: 36px;
+  height: 36px;
+  background-color: rgb(247, 247, 247);
+  margin: 6px 0 0 6px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.no-result {
+  text-align: center;
+  width: 100%;
+  margin: 12px 0;
+}
