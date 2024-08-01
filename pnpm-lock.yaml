@@ -136,6 +136,9 @@ importers:
 
   packages/designer-extension:
     dependencies:
+      '@ant-design/icons':
+        specifier: 4.8.1
+        version: 4.8.1(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@ruiapp/move-style':
         specifier: workspace:^
         version: link:../move-style
@@ -148,6 +151,9 @@ importers:
       '@uiw/react-color-sketch':
         specifier: ^2.1.1
         version: 2.1.1(@babel/runtime@7.24.4)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      antd:
+        specifier: ^4.24.13
+        version: 4.24.15(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
     devDependencies:
       '@types/lodash':
         specifier: ^4.14.186
@@ -158,9 +164,6 @@ importers:
       '@types/react-dom':
         specifier: ^18.0.6
         version: 18.0.6
-      antd:
-        specifier: 4.24.13
-        version: 4.24.13(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
@@ -1804,7 +1807,7 @@ packages:
       react-dom: '>=16.9.0'
 
   antd@4.24.15:
-    resolution: {integrity: sha512-pXCNJB8cTSjQdqeW5RNadraiYiJkMec/Qt0Zh+fEKUK9UqwmD4TxIYs/xnEbyQIVtHHwtl0fW684xql73KhCyQ==, tarball: https://registry.npmmirror.com/antd/-/antd-4.24.15.tgz}
+    resolution: {integrity: sha512-pXCNJB8cTSjQdqeW5RNadraiYiJkMec/Qt0Zh+fEKUK9UqwmD4TxIYs/xnEbyQIVtHHwtl0fW684xql73KhCyQ==}
     peerDependencies:
       react: '>=16.9.0'
       react-dom: '>=16.9.0'
@@ -4274,7 +4277,7 @@ packages:
       react-dom: '>=16.9.0'
 
   rc-field-form@1.38.2:
-    resolution: {integrity: sha512-O83Oi1qPyEv31Sg+Jwvsj6pXc8uQI2BtIAkURr5lvEYHVggXJhdU/nynK8wY1gbw0qR48k731sN5ON4egRCROA==, tarball: https://registry.npmmirror.com/rc-field-form/-/rc-field-form-1.38.2.tgz}
+    resolution: {integrity: sha512-O83Oi1qPyEv31Sg+Jwvsj6pXc8uQI2BtIAkURr5lvEYHVggXJhdU/nynK8wY1gbw0qR48k731sN5ON4egRCROA==}
     engines: {node: '>=8.x'}
     peerDependencies:
       react: '>=16.9.0'
@@ -4547,7 +4550,7 @@ packages:
     engines: {node: '>=8'}
 
   regenerator-runtime@0.14.1:
-    resolution: {integrity: sha512-dYnhHh0nJoMfnkZs6GmmhFknAGRrLznOu5nc9ML+EJxGvrx6H7teuevqVqCuPcPK//3eDrrjQhehXVx9cnkGdw==, tarball: https://registry.npmmirror.com/regenerator-runtime/-/regenerator-runtime-0.14.1.tgz}
+    resolution: {integrity: sha512-dYnhHh0nJoMfnkZs6GmmhFknAGRrLznOu5nc9ML+EJxGvrx6H7teuevqVqCuPcPK//3eDrrjQhehXVx9cnkGdw==}
 
   regexp.prototype.flags@1.5.2:
     resolution: {integrity: sha512-NcDiDkTLuPR+++OCKB0nWafEmhg/Da8aUPLPMQbK+bxKKCm1/S5he+AqYa4PlMCVBalb4/yxIRub6qkEx5yJbw==, tarball: https://registry.npmmirror.com/regexp.prototype.flags/-/regexp.prototype.flags-1.5.2.tgz}
