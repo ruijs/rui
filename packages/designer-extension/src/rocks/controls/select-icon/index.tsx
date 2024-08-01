@@ -38,8 +38,6 @@ export default {
     const [searchValue, setSearchValue] = useState("");
     const [modalOpen, setModalOpen] = useState(false);
 
-    
-
     const openModal = () => {
       setModalOpen(true);
     };
@@ -54,7 +52,7 @@ export default {
 
     const selectItemHandle = (key: string) => {
       setValue(key);
-      eventHandlers.onChange?.(key)
+      eventHandlers.onChange?.(key);
       closeHandle();
     };
 
