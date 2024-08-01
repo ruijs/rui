@@ -10,6 +10,10 @@ export type FieldSettings = {
   valueNotNull?: boolean;
   description?: string;
   defaultValue?: any;
+  /**
+   * 当属性值发生变化时，需要触发的事件名
+   */
+  onChangeEventName?: string;
 };
 
 export type FieldValueType = "string" | "number" | "boolean" | "object";
