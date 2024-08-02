@@ -145,6 +145,51 @@ toolboxDef = {
       type: "set_component_property",
     },
     {
+      "kind": "label",
+      "text": "JSON 操作",
+    },
+    {
+      "kind": "block",
+      "type": "object_create",
+    },
+    {
+      "kind": "block",
+      "type": "object_keys",
+    },
+    {
+      "kind": "block",
+      "type": "object_from_json",
+      "inputs": {
+        "JSON": {
+          "shadow": {
+            "type": "text",
+          },
+        },
+      },
+    },
+    {
+      "kind": "block",
+      "type": "object_to_json",
+    },
+    {
+      "kind": "label",
+      "text": "网络请求",
+    },
+    {
+      "kind": "block",
+      "type": "http_request",
+      "inputs": {
+        "TIMEOUT": {
+          "shadow": {
+            "type": "math_number",
+            "fields": {
+              "NUM": 3000,
+            },
+          },
+        },
+      },
+    },
+    {
       kind: "label",
       text: "系统交互",
     },
