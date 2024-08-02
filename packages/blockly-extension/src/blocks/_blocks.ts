@@ -1,11 +1,14 @@
 import * as Blockly from "blockly";
 
-import event_start from "./event_start";
+import event_start from "./event_start"
 import js_expression from "./js_expression";
 import js_script from "./js_script";
 import goto_step from "./goto_step";
 import goto_step_name from "./goto_step_name";
 import action_antdToast from "./action_antdToast";
+import http_request from "./http_request";
+import "./json/objectBLocksDefs";
+import "./json/objectBlocksCodeGen";
 
 export interface Block {
   root: any;
@@ -21,19 +24,20 @@ export type AppStep = {
   $id: string;
   $name: string;
   $type: string;
-};
+}
 
 export type BlockContext = {
   steps: AppStep[];
-};
+}
 
 export type BlockDefCreator = (context: BlockContext) => BlockDef;
 
 export const definitions: { [key: string]: BlockDefCreator } = {
-  event_start: event_start,
-  js_expression: js_expression,
-  js_script: js_script,
-  goto_step: goto_step,
-  goto_step_name: goto_step_name,
-  action_antdToast: action_antdToast,
-};
+  "event_start": event_start,
+  "js_expression": js_expression,
+  "js_script": js_script,
+  "goto_step": goto_step,
+  "goto_step_name": goto_step_name,
+  "action_antdToast": action_antdToast,
+  "http_request": http_request,
+}
