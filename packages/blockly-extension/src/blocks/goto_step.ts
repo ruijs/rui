@@ -8,6 +8,7 @@ enum Step {
 }
 
 export default function (context: BlockContext): BlockDef {
+
   const generateOptions = function (this: FieldDropdown): MenuOption[] {
     let options: MenuOption[] = [
       ["选择步骤...", ""],
@@ -54,6 +55,6 @@ export default function (context: BlockContext): BlockDef {
       return `
   event.page.sendComponentMessage("linkshopApp", ${payload});
 `;
-    },
-  } as BlockDef;
+    }
+  } as BlockDef
 }
