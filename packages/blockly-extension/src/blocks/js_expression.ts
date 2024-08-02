@@ -6,10 +6,14 @@ export default function (context: BlockContext): BlockDef {
   return {
     block: {
       init: function () {
-        this.appendDummyInput().appendField(" input arguments ");
-        this.appendValueInput("ARGUMENTS").setCheck("Array");
-        this.appendDummyInput().appendField(" expression </> ");
-        this.appendValueInput("EXPRESSION").setCheck("String");
+        this.appendDummyInput()
+          .appendField(" input arguments ");
+        this.appendValueInput("ARGUMENTS")
+          .setCheck("Array");
+        this.appendDummyInput()
+          .appendField(" expression </> ");
+        this.appendValueInput("EXPRESSION")
+          .setCheck("String");
         this.setInputsInline(false);
         this.setColour(50);
         this.setTooltip("");
@@ -18,14 +22,18 @@ export default function (context: BlockContext): BlockDef {
         this.setOutput(true);
       },
     },
-    generator: function (block: Blockly.Block, generator: Blockly.CodeGenerator) {
+    generator: function (
+      block: Blockly.Block,
+      generator: Blockly.CodeGenerator
+    ) {
       let args = generator.valueToCode(block, "ARGUMENTS", Order.ATOMIC) || "[]";
       let expression = block.getInputTargetBlock("EXPRESSION")?.getFieldValue("TEXT");
-      let codeContent = `(function() {
-        ${expression}
-      }).apply(this, ${args})
-      `;
+      let codeContent = `
+  (function() {
+    ${expression}
+  }).apply(this, ${args})
+`;
       return [codeContent, Order.NONE];
     },
-  } as BlockDef;
+  } as BlockDef
 }
