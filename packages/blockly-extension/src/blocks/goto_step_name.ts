@@ -1,12 +1,15 @@
 import { BlockContext, BlockDef } from "./_blocks";
 import { Order } from "blockly/javascript";
 
+
 export default function (context: BlockContext): BlockDef {
   return {
     block: {
       init: function () {
-        this.appendDummyInput().appendField("goto step by name:");
-        this.appendValueInput("STEP").setCheck("String");
+        this.appendDummyInput()
+          .appendField("goto step by name:");
+        this.appendValueInput("STEP")
+          .setCheck("String");
         this.setPreviousStatement(true, null);
         this.setInputsInline(true);
         this.setColour(0);
@@ -21,6 +24,6 @@ export default function (context: BlockContext): BlockDef {
       return `
   event.page.sendComponentMessage("linkshopApp", ${payload});
 `;
-    },
-  } as BlockDef;
+    }
+  } as BlockDef
 }
