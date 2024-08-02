@@ -53,7 +53,7 @@ export default function (context: BlockContext): BlockDef {
     handlers: [{
     $action: "antdToast",
       type: "${type}",
-      content: ${content}
+      content: event.framework.getExpressionVars()._.toString(${content})
     }]
   });
 `;
