@@ -1,4 +1,4 @@
-import { MoveStyleUtils, Rock, RockInstanceContext, SimpleRockConfig } from "@ruiapp/move-style";
+import { MoveStyleUtils, Page, Rock, RockInstanceContext, SimpleRockConfig } from "@ruiapp/move-style";
 import { MutableRefObject, useEffect, useRef } from "react";
 import * as Blockly from "blockly";
 import { javascriptGenerator } from "blockly/javascript";
@@ -9,12 +9,13 @@ function loadBlocklyEditor(context: RockInstanceContext, container: HTMLElement)
   // Register the blocks and generator with Blockly
   const store = context.scope.getStore("designerStore") as any;
   const steps = store?.appConfig?.steps || [];
+  const currentStep = store?.currentStep || null;
 
   const blocks = Object.create(null);
   const generators = Object.create(null);
 
   for (let name in definitions) {
-    let definition = definitions[name]({ steps: steps });
+    let definition = definitions[name]({ steps: steps, currentStep: currentStep, framework: context.framework });
     blocks[name] = definition.block;
     generators[name] = definition.generator;
   }

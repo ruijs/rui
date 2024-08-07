@@ -137,8 +137,8 @@ toolboxDef = {
       },
     },
     {
-      kind: "label",
-      text: "数据获取",
+      kind: "block",
+      type: "get_data",
     },
     {
       kind: "label",
@@ -157,12 +157,12 @@ toolboxDef = {
       type: "goto_step_name",
     },
     {
-      "kind": "block",
-      "type": "action_antdToast",
-      "inputs": {
-        "CONTENT": {
-          "shadow": {
-            "type": "text_multiline",
+      kind: "block",
+      type: "action_antdToast",
+      inputs: {
+        CONTENT: {
+          shadow: {
+            type: "text_multiline",
           },
         },
       },
