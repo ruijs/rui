@@ -6,8 +6,8 @@ import js_script from "./js_script";
 import goto_step from "./goto_step";
 import goto_step_name from "./goto_step_name";
 import action_antdToast from "./action_antdToast";
-import get_data from "./get_data";
-import { Framework, Page } from "@ruiapp/move-style";
+import get_component_property from "./get_component_property";
+import { Framework } from "@ruiapp/move-style";
 
 export interface Block {
   root: any;
@@ -41,5 +41,5 @@ export const definitions: { [key: string]: BlockDefCreator } = {
   goto_step: goto_step,
   goto_step_name: goto_step_name,
   action_antdToast: action_antdToast,
-  get_data: get_data,
+  get_component_property: get_component_property,
 };

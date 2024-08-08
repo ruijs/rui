@@ -138,7 +138,7 @@ toolboxDef = {
     },
     {
       kind: "block",
-      type: "get_data",
+      type: "get_component_property",
     },
     {
       kind: "label",

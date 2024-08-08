@@ -1,8 +1,7 @@
 import * as Blockly from "blockly/core";
-import { FieldDropdown, MenuGenerator, MenuOption } from "blockly/core";
+import { MenuGenerator, MenuOption } from "blockly/core";
 import { BlockContext, BlockDef } from "./_blocks";
-import { FieldDependentDropdown } from "@blockly/field-dependent-dropdown";
-import type { ChildOptionMapping } from "@blockly/field-dependent-dropdown";
+import { FieldDependentDropdown, ChildOptionMapping } from "@blockly/field-dependent-dropdown";
 
 enum Step {
   Previous = "previous",
