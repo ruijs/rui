@@ -6,6 +6,8 @@ import js_script from "./js_script";
 import goto_step from "./goto_step";
 import goto_step_name from "./goto_step_name";
 import action_antdToast from "./action_antdToast";
+import get_component_property from "./get_component_property";
+import { Framework } from "@ruiapp/move-style";
 
 export interface Block {
   root: any;
@@ -21,10 +23,13 @@ export type AppStep = {
   $id: string;
   $name: string;
   $type: string;
+  children: any[];
 };
 
 export type BlockContext = {
   steps: AppStep[];
+  currentStep: AppStep;
+  framework: Framework;
 };
 
 export type BlockDefCreator = (context: BlockContext) => BlockDef;
@@ -36,4 +41,5 @@ export const definitions: { [key: string]: BlockDefCreator } = {
   goto_step: goto_step,
   goto_step_name: goto_step_name,
   action_antdToast: action_antdToast,
+  get_component_property: get_component_property,
 };
