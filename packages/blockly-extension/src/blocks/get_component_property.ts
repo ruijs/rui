@@ -3,11 +3,6 @@ import { MenuGenerator, MenuOption } from "blockly/core";
 import { BlockContext, BlockDef } from "./_blocks";
 import { FieldDependentDropdown, ChildOptionMapping } from "@blockly/field-dependent-dropdown";
 
-enum Step {
-  Previous = "previous",
-  Next = "next",
-}
-
 export default function (context: BlockContext): BlockDef {
   const generateparentOptions = (): MenuOption[] => {
     const components = context?.currentStep?.children || [];
