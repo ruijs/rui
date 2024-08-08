@@ -141,8 +141,8 @@ toolboxDef = {
       type: "get_component_property",
     },
     {
-      kind: "label",
-      text: "数据操作",
+      kind: "block",
+      type: "set_component_property",
     },
     {
       kind: "label",
