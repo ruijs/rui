@@ -1,5 +1,13 @@
 # @ruiapp/blockly-extension
 
+## 0.1.32
+
+### Patch Changes
+
+- a214b98: impl json object block
+  impl http_request block
+  fix #45
+
 ## 0.1.31
 
 ### Patch Changes
