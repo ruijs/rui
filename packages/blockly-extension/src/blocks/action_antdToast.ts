@@ -13,7 +13,6 @@ enum Level {
 export default function (context: BlockContext): BlockDef {
   const generateOptions = function (this: FieldDropdown): MenuOption[] {
     return [
-      ["选择...", ""],
       ["info", Level.Info],
       ["success", Level.Success],
       ["warning", Level.Warning],

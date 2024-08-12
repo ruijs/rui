@@ -8,10 +8,10 @@ const methods: MenuOption[] = [
   ["GET", "GET"],
   ["POST", "POST"],
   ["PUT", "PUT"],
+  ["PATCH", "PATCH"],
   ["DELETE", "DELETE"],
   ["OPTIONS", "OPTIONS"],
   ["HEAD", "HEAD"],
-  ["PATCH", "PATCH"],
   ["TRACE", "TRACE"],
 ];
 
@@ -133,7 +133,8 @@ export default function (context: BlockContext): BlockDef {
     headers: ${headers},
     data: ${data},
     timeout: ${timeout},
-    responseType: '${responseType}'
+    responseType: '${responseType}',
+    validateStatus: null
   };
   res = await event.framework.getExpressionVars().axios(reqConfig);
   ${varResponseStatus} = res.status;
