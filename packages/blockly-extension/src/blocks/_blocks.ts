@@ -1,6 +1,6 @@
 import * as Blockly from "blockly";
 
-import event_start from "./event_start";
+import event_start from "./event_start"
 import js_expression from "./js_expression";
 import js_script from "./js_script";
 import goto_step from "./goto_step";
@@ -9,6 +9,9 @@ import action_antdToast from "./action_antdToast";
 import get_component_property from "./get_component_property";
 import { Framework } from "@ruiapp/move-style";
 import set_component_property from "./set_component_property";
+import http_request from "./http_request";
+import "./json/objectBLocksDefs";
+import "./json/objectBlocksCodeGen";
 
 export interface Block {
   root: any;
@@ -44,4 +47,5 @@ export const definitions: { [key: string]: BlockDefCreator } = {
   action_antdToast: action_antdToast,
   get_component_property: get_component_property,
   set_component_property: set_component_property,
+  "http_request": http_request,
 };

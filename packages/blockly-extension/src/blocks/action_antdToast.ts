@@ -1,6 +1,7 @@
 import * as Blockly from "blockly/core";
 import { FieldDropdown, MenuGenerator, MenuOption } from "blockly/core";
 import { BlockContext, BlockDef } from "./_blocks";
+import { Order } from "blockly/javascript";
 
 enum Level {
   Info = "info",
@@ -11,18 +12,12 @@ enum Level {
 
 export default function (context: BlockContext): BlockDef {
   const generateOptions = function (this: FieldDropdown): MenuOption[] {
-    let options: MenuOption[] = [
-      ["选择...", ""],
+    return [
       ["info", Level.Info],
       ["success", Level.Success],
       ["warning", Level.Warning],
       ["error", Level.Error],
     ];
-
-    for (let step of context.steps) {
-      options.push([step.$name, step.$id]);
-    }
-    return options;
   };
 
   return {
@@ -49,7 +44,7 @@ export default function (context: BlockContext): BlockDef {
         return "";
       }
 
-      const content = JSON.stringify(block.getInputTargetBlock("CONTENT")?.getFieldValue("TEXT"));
+      let content = generator.valueToCode(block, "CONTENT", Order.NONE);
 
       return `
   event.page.handleEvent({
@@ -57,7 +52,7 @@ export default function (context: BlockContext): BlockDef {
     handlers: [{
     $action: "antdToast",
       type: "${type}",
-      content: ${content}
+      content: event.framework.getExpressionVars()._.toString(${content})
     }]
   });
 `;
