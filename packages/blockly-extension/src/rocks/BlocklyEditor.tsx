@@ -1,11 +1,12 @@
-import { MoveStyleUtils, Page, Rock, RockInstanceContext, SimpleRockConfig } from "@ruiapp/move-style";
-import { MutableRefObject, useEffect, useRef } from "react";
+import { MoveStyleUtils, Rock, RockInstanceContext, SimpleRockConfig, RockConfig, RockEventHandlerScript, RockEvent } from "@ruiapp/move-style";
+import { MutableRefObject, useEffect, useRef, useState } from "react";
 import * as Blockly from "blockly";
 import { javascriptGenerator } from "blockly/javascript";
 import { toolbox } from "~/toolbox";
 import { definitions } from "~/blocks/_blocks";
+import { renderRockChildren } from "@ruiapp/react-renderer";
 
-function loadBlocklyEditor(context: RockInstanceContext, container: HTMLElement): Blockly.WorkspaceSvg {
+function loadBlocklyEditor(context: RockInstanceContext, container: HTMLElement, commands: MutableRefObject<BlocklyEditorCommands>): Blockly.WorkspaceSvg {
   // Register the blocks and generator with Blockly
   const store = context.scope.getStore("designerStore") as any;
   const steps = store?.appConfig?.steps || [];
@@ -15,7 +16,12 @@ function loadBlocklyEditor(context: RockInstanceContext, container: HTMLElement)
   const generators = Object.create(null);
 
   for (let name in definitions) {
-    let definition = definitions[name]({ steps: steps, currentStep: currentStep, framework: context.framework });
+    let definition = definitions[name]({
+      steps: steps,
+      currentStep: currentStep,
+      framework: context.framework,
+      commands: commands,
+    });
     blocks[name] = definition.block;
     generators[name] = definition.generator;
   }
@@ -68,6 +74,8 @@ export interface BlocklyEditorCommands {
   setConfigs(data: string): void;
 
   clear(): void;
+
+  showMonacoEditorModal(inputContent: string): Promise<string>;
 }
 
 export interface BlocklyEditorProps extends SimpleRockConfig {
@@ -87,13 +95,31 @@ export default {
   },
 
   Renderer(context, props: BlocklyEditorProps) {
-    const refContainer = useRef();
-    const codeContainer = useRef();
+    const blocklyContainer: MutableRefObject<HTMLElement> = useRef();
+    const previewContainer: MutableRefObject<HTMLElement> = useRef();
+    const monacoEditorModalCallback: MutableRefObject<any> = useRef();
+    const monacoEditorCmds = useRef<{
+      getCodeContent(): string;
+      setCodeContent(codeContent: string);
+    }>();
+    const [monacoEditorModalOpen, setMonacoEditorModalOpen] = useState(false);
 
     const { commands } = props;
 
+
+    const onMonacoEditorModalSave: RockEventHandlerScript["script"] = (event: RockEvent) => {
+      const codeContent = monacoEditorCmds.current.getCodeContent();
+      monacoEditorModalCallback.current.resolve(codeContent);
+      setMonacoEditorModalOpen(false);
+    };
+
+    const onMonacoEditorModalCancel: RockEventHandlerScript["script"] = (event: RockEvent) => {
+      // monacoEditorModalCallback.current.reject();
+      setMonacoEditorModalOpen(false);
+    };
+
     async function initEditor() {
-      const workspace = loadBlocklyEditor(context, refContainer.current as HTMLElement);
+      const workspace = loadBlocklyEditor(context, blocklyContainer.current, commands);
 
       commands.current = {
         getConfigs(): string {
@@ -114,7 +140,7 @@ export default {
           Blockly.serialization.workspaces.load(JSON.parse(data), workspace, undefined);
           Blockly.Events.enable();
 
-          (codeContainer.current as HTMLElement).textContent = commands.current.getCodeContents();
+          previewContainer.current.textContent = commands.current.getCodeContents();
         },
         clear() {
           workspace.clear();
@@ -122,6 +148,15 @@ export default {
           document.querySelector(".blocklyWidgetDiv")?.remove();
           document.querySelector(".blocklyDropDownDiv")?.remove();
           document.querySelector(".blocklyTooltipDiv")?.remove();
+        },
+        showMonacoEditorModal(inputContent) {
+          MoveStyleUtils.waitVariable("current", monacoEditorCmds).then(() => {
+            monacoEditorCmds.current.setCodeContent(inputContent);
+          });
+          setMonacoEditorModalOpen(true);
+          return new Promise((resolve, reject) => {
+            monacoEditorModalCallback.current = { resolve, reject };
+          });
         },
       };
 
@@ -133,7 +168,7 @@ export default {
         if (e.isUiEvent || e.type == Blockly.Events.FINISHED_LOADING || workspace.isDragging()) {
           return;
         }
-        (codeContainer.current as HTMLElement).textContent = commands.current.getCodeContents();
+        previewContainer.current.textContent = commands.current.getCodeContents();
       });
     }
 
@@ -143,42 +178,131 @@ export default {
       }
     }, []);
 
-    return (
-      <div
-        style={{
+    const rockChildrenConfig: RockConfig[] = [
+      {
+        $id: `${props.$id}-tag-div-outside`,
+        $type: "htmlElement",
+        htmlTag: "div",
+        style: {
           display: "flex",
           width: "100%",
           height: "100%",
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            width: "300px",
-            flex: "0 0 300px",
-            flexDirection: "column",
-            overflow: "auto",
-            margin: "1rem",
-          }}
-        >
-          <pre
-            style={{
-              height: "100%",
+        },
+        children: [
+          {
+            $id: `${props.$id}-tag-div-inner`,
+            $type: "htmlElement",
+            htmlTag: "div",
+            style: {
+              display: "flex",
+              width: "300px",
+              flex: "0 0 300px",
+              flexDirection: "column",
+              overflow: "auto",
+              margin: "1rem",
+            },
+            children: [
+              {
+                $id: `${props.$id}-tag-pre`,
+                $type: "htmlElement",
+                htmlTag: "pre",
+                style: {
+                  flexBasis: "100%",
+                  height: "100%",
+                },
+                children: [
+                  {
+                    $id: `${props.$id}-preview-container`,
+                    $type: "htmlElement",
+                    htmlTag: "code",
+                    attributes: {
+                      ref: previewContainer,
+                    },
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            $id: `${props.$id}-blockly-container`,
+            $type: "htmlElement",
+            htmlTag: "div",
+            attributes: {
+              ref: blocklyContainer,
+            },
+            style: {
               flexBasis: "100%",
-            }}
-            ref={codeContainer}
-          >
-            <code></code>
-          </pre>
-        </div>
-        <div
-          style={{
-            flexBasis: "100%",
-            height: "100%",
-          }}
-          ref={refContainer}
-        ></div>
-      </div>
-    );
+              height: "100%",
+            },
+          },
+        ],
+      },
+      {
+        $id: `${props.$id}-editor-modal`,
+        $type: "antdDrawer",
+        title: "Edit content",
+        open: monacoEditorModalOpen,
+        width: "736px",
+        keyboard: false,
+        maskClosable: true,
+        children: [
+          {
+            $id: `${props.$id}-editor`,
+            $type: "monacoEditor",
+            cmds: monacoEditorCmds,
+            language: "javascript",
+          },
+        ],
+
+        extra: {
+          $type: "antdSpace",
+          children: [
+            {
+              $id: `${props.$id}-btn-cancel`,
+              $type: "antdButton",
+              onClick: [
+                {
+                  $action: "script",
+                  script: onMonacoEditorModalCancel,
+                },
+              ],
+              children: {
+                $type: "htmlElement",
+                htmlTag: "span",
+                children: {
+                  $type: "text",
+                  text: "取消",
+                },
+              },
+            },
+            {
+              $id: `${props.$id}-btn-save`,
+              $type: "antdButton",
+              type: "primary",
+              onClick: [
+                {
+                  $action: "script",
+                  script: onMonacoEditorModalSave,
+                },
+              ],
+              children: {
+                $type: "htmlElement",
+                htmlTag: "span",
+                children: {
+                  $type: "text",
+                  text: "保存",
+                },
+              },
+            },
+          ],
+        },
+        onClose: {
+          $action: "script",
+          script: onMonacoEditorModalCancel,
+        },
+      },
+    ];
+
+    return renderRockChildren({ context, rockChildrenConfig });
   },
 } as Rock;

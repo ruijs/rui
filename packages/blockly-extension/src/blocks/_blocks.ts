@@ -10,8 +10,11 @@ import get_component_property from "./get_component_property";
 import { Framework } from "@ruiapp/move-style";
 import set_component_property from "./set_component_property";
 import http_request from "./http_request";
+import text_monaco_editor from "./text_monaco_editor";
 import "./json/objectBLocksDefs";
 import "./json/objectBlocksCodeGen";
+import { MutableRefObject } from "react";
+import { BlocklyEditorCommands } from "~/rocks/BlocklyEditor";
 
 export interface Block {
   root: any;
@@ -34,6 +37,7 @@ export type BlockContext = {
   steps: AppStep[];
   currentStep: AppStep;
   framework: Framework;
+  commands: MutableRefObject<BlocklyEditorCommands>,
 };
 
 export type BlockDefCreator = (context: BlockContext) => BlockDef;
@@ -47,5 +51,6 @@ export const definitions: { [key: string]: BlockDefCreator } = {
   action_antdToast: action_antdToast,
   get_component_property: get_component_property,
   set_component_property: set_component_property,
-  "http_request": http_request,
+  http_request: http_request,
+  text_multiline: text_monaco_editor,
 };
