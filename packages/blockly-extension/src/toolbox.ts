@@ -145,6 +145,10 @@ toolboxDef = {
       type: "set_component_property",
     },
     {
+      kind: "block",
+      type: "send_component_message",
+    },
+    {
       "kind": "label",
       "text": "JSON 操作",
     },
