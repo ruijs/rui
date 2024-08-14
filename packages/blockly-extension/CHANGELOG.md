@@ -1,5 +1,11 @@
 # @ruiapp/blockly-extension
 
+## 0.1.33
+
+### Patch Changes
+
+- d729575: impl text_multiline support monaco editor
+
 ## 0.1.32
 
 ### Patch Changes
