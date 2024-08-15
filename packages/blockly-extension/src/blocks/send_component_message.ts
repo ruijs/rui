@@ -10,8 +10,13 @@ export default function (context: BlockContext): BlockDef {
         this.appendValueInput("COMPONENT_ID")
           .setCheck("String");
         this.appendDummyInput()
-          .appendField("message:");
-        this.appendValueInput("COMPONENT_MESSAGE");
+          .appendField("message name:");
+        this.appendValueInput("MESSAGE_NAME")
+          .setCheck("String");
+        ;
+        this.appendDummyInput()
+          .appendField("payload:");
+        this.appendValueInput("MESSAGE_PAYLOAD");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
         this.setInputsInline(true);
@@ -22,11 +27,15 @@ export default function (context: BlockContext): BlockDef {
     },
     generator: (block, generator) => {
       const id = generator.valueToCode(block, "COMPONENT_ID", Order.NONE);
-      const message = generator.valueToCode(block, "COMPONENT_MESSAGE", Order.NONE);
+      const name = generator.valueToCode(block, "MESSAGE_NAME", Order.NONE);
+      const payload = generator.valueToCode(block, "MESSAGE_PAYLOAD", Order.NONE);
       if (!id) return "";
-      if (!message) return "";
+      if (!name) return "";
       return `
-  event.page.sendComponentMessage(${id}, ${message});
+  event.page.sendComponentMessage(${id}, {
+    "name": ${name}` + (payload ? `,
+    "payload": ${payload}` : "") + `
+  });
 `;
     },
   } as BlockDef;
