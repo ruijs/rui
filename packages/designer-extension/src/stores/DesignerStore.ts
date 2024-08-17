@@ -139,6 +139,20 @@ export class DesignerStore implements IStore<DesignerStoreConfig> {
       const { parentComponentId, slotPropName, prevSiblingComponentId } = payload;
 
       this.#page.addComponents(this.#snippets, parentComponentId, slotPropName, prevSiblingComponentId);
+    } else if (command.name === "addStore") {
+      const { payload } = command;
+      this.#page.addStore(payload.store);
+    } else if (command.name === "addStores") {
+      const { payload } = command;
+      for (const store of payload.stores) {
+        this.#page.addStore(store);
+      }
+    } else if (command.name === "modifyStore" || command.name === "updateStore") {
+      const { payload } = command;
+      this.#page.updateStore(payload.store);
+    } else if (command.name === "removeStore") {
+      const { payload } = command;
+      this.#page.removeStore(payload.store);
     }
   }
 }
