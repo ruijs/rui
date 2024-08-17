@@ -545,6 +545,7 @@ export type PageCommand =
   | PageCommandAddStores
   | PageCommandAddStore
   | PageCommandModifyStore
+  | PageCommandUpdateStore
   | PageCommandRemoveStore
   | PageCommandAddStep
   | PageCommandModifyStep
@@ -671,8 +672,18 @@ export type PageCommandAddStore = {
   };
 };
 
+/**
+ * @deprecated
+ */
 export type PageCommandModifyStore = {
   name: "modifyStore";
+  payload: {
+    store: StoreConfig;
+  };
+};
+
+export type PageCommandUpdateStore = {
+  name: "updateStore";
   payload: {
     store: StoreConfig;
   };
