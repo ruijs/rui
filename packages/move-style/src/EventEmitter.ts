@@ -10,6 +10,10 @@ export class EventEmitter {
     this.#emitter.on(eventName, listener);
   }
 
+  off(eventName: string, listener: (...args: any) => void) {
+    this.#emitter.off(eventName, listener);
+  }
+
   emit(eventName: string, ...args: any) {
     this.#emitter.emit(eventName, ...args);
   }
