@@ -100,6 +100,10 @@ toolboxDef = {
     },
     {
       kind: "block",
+      type: "get_component_id",
+    },
+    {
+      kind: "block",
       type: "js_expression",
       inputs: {
         // "ARGUMENTS": {
@@ -143,6 +147,17 @@ toolboxDef = {
     {
       kind: "block",
       type: "set_component_property",
+    },
+    {
+      kind: "block",
+      type: "send_component_message",
+      inputs: {
+        MESSAGE_PAYLOAD: {
+          shadow: {
+            type: "logic_null"
+          },
+        },
+      },
     },
     {
       "kind": "label",

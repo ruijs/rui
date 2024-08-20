@@ -11,6 +11,8 @@ import { Framework } from "@ruiapp/move-style";
 import set_component_property from "./set_component_property";
 import http_request from "./http_request";
 import text_monaco_editor from "./text_monaco_editor";
+import send_component_message from "./send_component_message";
+import get_component_id from "./get_component_id";
 import "./json/objectBLocksDefs";
 import "./json/objectBlocksCodeGen";
 import { MutableRefObject } from "react";
@@ -53,4 +55,6 @@ export const definitions: { [key: string]: BlockDefCreator } = {
   set_component_property: set_component_property,
   http_request: http_request,
   text_multiline: text_monaco_editor,
+  send_component_message: send_component_message,
+  get_component_id: get_component_id,
 };
