@@ -1,5 +1,11 @@
 # @ruiapp/blockly-extension
 
+## 0.1.34
+
+### Patch Changes
+
+- 28f54f4: impl block send_component_message
+
 ## 0.1.33
 
 ### Patch Changes
