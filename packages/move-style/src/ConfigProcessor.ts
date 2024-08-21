@@ -1,5 +1,10 @@
-import { RockConfig } from "./types/rock-types";
+import { RockConfig, RockInstanceContext } from "./types/rock-types";
+
+export type BeforeRockRenderOptions = {
+  context: RockInstanceContext;
+  rockConfig: RockConfig;
+};
 
 export interface ConfigProcessor {
-  beforeRockRender?: (config: RockConfig) => void;
+  beforeRockRender?: (options: BeforeRockRenderOptions) => void;
 }
