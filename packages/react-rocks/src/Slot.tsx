@@ -1,4 +1,4 @@
-import { Rock, RockInstanceContext, SimpleRockConfig } from "@ruiapp/move-style";
+import { ContainerRockConfig, Rock, RockInstance, RockInstanceContext, SimpleRockConfig } from "@ruiapp/move-style";
 import { renderRockChildren, renderRockSlot } from "@ruiapp/react-renderer";
 import _ from "lodash";
 
@@ -31,7 +31,7 @@ export default {
 
   Renderer: (context: RockInstanceContext, props: SlotProps) => {
     const { slotName } = props;
-    const hostComponentProp = context.component;
+    const hostComponentProp: RockInstance<ContainerRockConfig> = context.component;
     if (!slotName || slotName === "children") {
       if (hostComponentProp.children) {
         return renderRockChildren({
