@@ -30,8 +30,10 @@ export interface CodeEditorCmds {
   setCodeContent(codeContent: string);
 }
 
+export type CodeEditorCmdsSetter = (cmds: CodeEditorCmds) => void;
+
 export interface CodeEditorProps extends SimpleRockConfig {
-  cmds: MutableRefObject<CodeEditorCmds>;
+  cmds: MutableRefObject<CodeEditorCmds> | CodeEditorCmdsSetter;
   language: "javascript" | "json";
   width: string;
   height: string;
@@ -75,7 +77,7 @@ export default {
   Renderer(context, props: CodeEditorProps) {
     const refContainer = useRef();
 
-    const { cmds } = props;
+    const cmdsRef = props.cmds;
 
     async function initEditor() {
       loadMonacoEditor();
@@ -86,8 +88,8 @@ export default {
         language: props.language,
       });
 
-      if (cmds) {
-        cmds.current = {
+      if (cmdsRef) {
+        const cmds = {
           getCodeContent(): string {
             return editor.getModel().getValue();
           },
@@ -96,6 +98,11 @@ export default {
             return editor.getModel().setValue(codeContent);
           },
         };
+        if (typeof cmdsRef === "function") {
+          cmdsRef(cmds);
+        } else {
+          cmdsRef.current = cmds;
+        }
       }
     }
 
