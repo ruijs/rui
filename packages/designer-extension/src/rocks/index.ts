@@ -1,7 +1,7 @@
 import ComponentEventHandlersPanel from "./component-event-handlers-panel";
 import ComponentPropertiesPanel from "./component-properties-panel";
 import ComponentTree from "./component-tree";
-import JsonValueDisplay from "./json-value-display";
+import JsonValueDisplay from "./setter-display-controls/json-value-display";
 import PreviewWrapper from "./preview-wrapper";
 import PropSetter from "./PropSetter";
 import EventHandlerSetter from "./EventHandlerSetter";
@@ -37,6 +37,9 @@ import ScriptEventHandlerSetter from "./event-handler-setters/ScriptEventHandler
 
 // event setter groups
 import ComponentEventHandlerSetterGroup from "./event-handler-setter-groups/ComponentEventHandlerSetterGroup";
+
+// setter displays
+import ExpressionSetterDisplay from "./setter-display-controls/ExpressionSetterDisplay";
 
 // setter inputs
 import ExpressionSetterInput from "./setter-input-controls/ExpressionSetterInput";
@@ -101,6 +104,9 @@ export default [
   // event settter groups
   ComponentEventHandlerSetterGroup,
 
+  // setter displays
+  ExpressionSetterDisplay,
+
   // setter inputs
   ExpressionSetterInput,
   JsonSetterInput,
@@ -117,7 +123,7 @@ export default [
   // controls
   ColorPicker,
   FileUploader,
-  selectIcon
+  selectIcon,
 ];
 
 export * from "./internal-prop-setters/ExpressionPropSetter";

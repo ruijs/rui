@@ -21,7 +21,17 @@ export default {
 
   Renderer(context, props: MultiControlsPropSetterRockConfig) {
     const { framework, page, scope } = context;
-    const { $id, controls, componentConfig, propName, dynamicForbidden, onPropValueChange, onPropExpressionChange, onPropExpressionRemove } = props;
+    const {
+      $id,
+      controls,
+      componentConfig,
+      propName,
+      dynamicForbidden,
+      onPropValueChange,
+      onSettingPropExpression,
+      onPropExpressionChange,
+      onPropExpressionRemove,
+    } = props;
 
     const controlRocks: RockConfig[] = useMemo(() => {
       let rowNum = 1;
@@ -88,6 +98,7 @@ export default {
       expressionPropName: propName,
       componentConfig,
       children: controlRocks,
+      onSettingPropExpression,
       onPropExpressionChange,
       onPropExpressionRemove,
     };

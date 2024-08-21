@@ -9,6 +9,7 @@ import {
   MoveStyleUtils,
 } from "@ruiapp/move-style";
 import { renderRock } from "@ruiapp/react-renderer";
+import { get } from "lodash";
 import React, { useEffect, useState } from "react";
 import { getComponentPropExpression } from "~/utilities/SetterUtility";
 
@@ -31,7 +32,18 @@ export default {
 
   Renderer(context, props: PropSetterRockConfig) {
     const { framework, page, scope } = context;
-    const { $id, label, labelTip, componentConfig, expressionPropName, extra, dynamicForbidden, onPropExpressionRemove, onPropExpressionChange } = props;
+    const {
+      $id,
+      label,
+      labelTip,
+      componentConfig,
+      expressionPropName,
+      extra,
+      dynamicForbidden,
+      onPropExpressionRemove,
+      onPropExpressionChange,
+      onSettingPropExpression,
+    } = props;
 
     const [state, setState] = useState<PropSetterState>({
       expIndicatorHovered: false,
@@ -41,7 +53,9 @@ export default {
 
     const { expIndicatorHovered, expEditing, expression } = state;
     const isPropDynamic = MoveStyleUtils.isComponentPropertyDynamic(componentConfig, expressionPropName);
-    const expMode = isPropDynamic || expEditing;
+    const dataBindingExpression = get(componentConfig.$dataBind, expressionPropName);
+    const isPropDataBinded = !!dataBindingExpression;
+    const expMode = isPropDataBinded || isPropDynamic || expEditing;
 
     useEffect(() => {
       const componentPropExpression = getComponentPropExpression(componentConfig, expressionPropName);
@@ -71,8 +85,14 @@ export default {
             onClick: () => {
               if (expMode) {
                 handleComponentEvent("onPropExpressionRemove", framework, page, scope, props, onPropExpressionRemove, [expressionPropName]);
+                setState({ ...state, expEditing: !expMode, expression: "" });
+              } else {
+                if (onSettingPropExpression) {
+                  handleComponentEvent("onSettingPropExpression", framework, page, scope, props, onSettingPropExpression, [expressionPropName]);
+                } else {
+                  setState({ ...state, expEditing: !expMode, expression: "" });
+                }
               }
-              setState({ ...state, expEditing: !expMode, expression: "" });
             },
           },
           children: {
@@ -109,7 +129,23 @@ export default {
       },
     };
 
-    const childrenRockConfig = expMode ? expressionInputRockConfig : props.children;
+    const expressionDisplayRockConfig: RockConfig = {
+      $id: `${$id}-dataBindDisplay`,
+      $type: "expressionSetterDisplay",
+      value: dataBindingExpression,
+      onClick: [
+        {
+          $action: "script",
+          script: () => {
+            handleComponentEvent("onSettingPropExpression", framework, page, scope, props, onSettingPropExpression, [expressionPropName]);
+          },
+        },
+      ],
+    };
+
+    const childrenRockConfig = expMode ? (isPropDataBinded ? expressionDisplayRockConfig : expressionInputRockConfig) : props.children;
+
+    const labelClickable = expMode && onSettingPropExpression;
 
     const rockConfig: RockConfig = {
       $id: `${props.$id}`,
@@ -128,7 +164,7 @@ export default {
               $id: `${props.$id}-label`,
               $type: "htmlElement",
               htmlTag: "div",
-              style: styleSetterLabel,
+              style: labelClickable ? { ...styleSetterLabel, ...styleSetterLabelExpression } : styleSetterLabel,
               attributes: {
                 title: label,
               },
@@ -137,6 +173,16 @@ export default {
                 $type: "text",
                 text: label,
               },
+              onClick: labelClickable
+                ? [
+                    {
+                      $action: "script",
+                      script: (event) => {
+                        handleComponentEvent("onSettingPropExpression", framework, page, scope, props, onSettingPropExpression, [expressionPropName]);
+                      },
+                    },
+                  ]
+                : null,
             },
           ],
         },
@@ -197,6 +243,10 @@ const styleSetterLabel: React.CSSProperties = {
   width: "75px",
   textOverflow: "ellipsis",
   overflow: "hidden",
+};
+
+const styleSetterLabelExpression: React.CSSProperties = {
+  cursor: "pointer",
 };
 
 const styleSetterControls: React.CSSProperties = {

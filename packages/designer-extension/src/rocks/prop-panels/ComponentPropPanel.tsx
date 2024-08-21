@@ -1,10 +1,6 @@
-import { RockConfig, RockConfigBase, Rock, RockPropSetter, MoveStyleUtils, RockEvent, RockInstanceContext, RockEventHandlerConfig } from "@ruiapp/move-style";
+import { RockConfig, RockConfigBase, Rock, RockPropSetter, RockInstanceContext, RockEventHandlerConfig } from "@ruiapp/move-style";
 import { renderRock, renderRockChildren } from "@ruiapp/react-renderer";
 import { useMemo } from "react";
-import { PropSetterRockConfig } from "../PropSetter";
-import { getComponentPropValue } from "~/utilities/SetterUtility";
-import { DesignerStore } from "~/stores/DesignerStore";
-import { sendDesignerCommand } from "~/utilities/DesignerUtility";
 
 export interface ComponentPropPanelRockConfig extends RockConfigBase {
   title?: string;
@@ -13,13 +9,14 @@ export interface ComponentPropPanelRockConfig extends RockConfigBase {
   onPropValueChange?: RockEventHandlerConfig;
   onPropExpressionChange?: RockEventHandlerConfig;
   onPropExpressionRemove?: RockEventHandlerConfig;
+  onSettingPropExpression?: RockEventHandlerConfig;
 }
 
 export default {
   $type: "componentPropPanel",
 
   Renderer(context, props: ComponentPropPanelRockConfig) {
-    const { $id, componentConfig, setters, onPropValueChange, onPropExpressionChange, onPropExpressionRemove } = props;
+    const { $id, componentConfig, setters, onPropValueChange, onPropExpressionChange, onPropExpressionRemove, onSettingPropExpression } = props;
 
     const rockChildrenConfig: RockConfig[] = useMemo(() => {
       return setters.map((setter, index) => {
@@ -32,6 +29,7 @@ export default {
           onPropValueChange: onPropValueChange,
           onPropExpressionChange: onPropExpressionChange,
           onPropExpressionRemove: onPropExpressionRemove,
+          onSettingPropExpression: onSettingPropExpression,
         };
       });
     }, [$id, setters, componentConfig]);

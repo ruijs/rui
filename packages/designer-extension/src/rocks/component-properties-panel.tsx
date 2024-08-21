@@ -1,4 +1,4 @@
-import { Page, RockConfig, Rock, SimpleRockConfig, RockEvent } from "@ruiapp/move-style";
+import { Page, RockConfig, Rock, SimpleRockConfig, RockEvent, RockEventHandlerConfig } from "@ruiapp/move-style";
 import { renderRockChildren } from "@ruiapp/react-renderer";
 import { useMemo } from "react";
 import { ComponentPropPanelRockConfig } from "./prop-panels/ComponentPropPanel";
@@ -9,6 +9,8 @@ export interface DesignerComponentPropertiesPanelProps extends SimpleRockConfig 
   selectedComponentId: string;
 
   designingPage: Page;
+
+  onSettingPropExpression?: RockEventHandlerConfig;
 }
 
 export default {
@@ -16,7 +18,7 @@ export default {
 
   Renderer(context, props: DesignerComponentPropertiesPanelProps) {
     const { framework } = context;
-    const { $id, designingPage, selectedComponentId } = props;
+    const { $id, designingPage, selectedComponentId, onSettingPropExpression } = props;
     const selectedComponentConfig = designingPage && selectedComponentId && designingPage.getComponent(selectedComponentId);
 
     const rockChildrenConfig = useMemo(() => {
@@ -46,6 +48,7 @@ export default {
             $type: panelRockType,
             componentConfig: selectedComponentConfig,
             setters: (propertyPanel as any).setters,
+            onSettingPropExpression,
             onPropValueChange: [
               {
                 $action: "script",
