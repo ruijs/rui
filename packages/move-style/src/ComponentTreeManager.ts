@@ -146,9 +146,7 @@ export class ComponentTreeManager {
               );
             }
 
-            config._state = {
-              scope,
-            };
+            config._scope = scope;
           }
         }
 

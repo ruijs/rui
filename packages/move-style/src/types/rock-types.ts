@@ -22,12 +22,13 @@ export type RockRenderer<TRockConfig = any, TRockState = any> = (
   context: RockInstanceContext,
   props: TRockConfig,
   state?: TRockState & { scope: Scope },
+  instance?: RockInstance,
 ) => any;
 
 export type ProCodeRock<TRockConfig = any, TRockState = any, TRockMessage extends RockMessage = RockMessage> = {
   Renderer: RockRenderer<TRockConfig, TRockState & { scope: Scope }>;
   onInit?: (context: RockInitContext, props: TRockConfig) => void;
-  onResolveState?: (props: TRockConfig, state: TRockState & { scope: Scope }) => any;
+  onResolveState?: (props: TRockConfig, state: TRockState & { scope: Scope }, instance: RockInstance) => any;
   onReceiveMessage?: (message: RockMessageToComponent<TRockMessage>, state: TRockState & { scope: Scope }, props: TRockConfig) => any;
 } & ProCodeRockMeta;
 
@@ -197,6 +198,7 @@ export interface PropSetterRockConfigBase extends Omit<RockConfigBase, "$type"> 
   onPropValueChange?: RockEventHandlerConfig;
   onPropExpressionChange?: RockEventHandlerConfig;
   onPropExpressionRemove?: RockEventHandlerConfig;
+  onSettingPropExpression?: RockEventHandlerConfig;
 }
 
 export interface ExpressionRockPropSetter extends RockSinglePropSetterBase<"expressionPropSetter", any> {}
@@ -507,13 +509,22 @@ export type RockInstanceContext = {
   logger: RuiRockLogger;
 };
 
+export type RockStateUpdater = (state: Record<string, any>) => Record<string, any>;
+
 export type RockInstanceOriginal<TState = any> = {
+  _context: RockInstanceContext;
+  _scope: Scope;
   _initialized: boolean;
   _state: TState;
+  setState: (stateChangesOrUpdater: Record<string, any> | RockStateUpdater) => void;
 };
 export type RockInstanceFields = keyof RockInstanceOriginal;
 
-export type RockInstance<TState = any> = RockConfig & RockInstanceOriginal;
+export type RockInstance<
+  TRockConfig extends RockConfigBase = RockConfigBase,
+  TState = Record<string, any>,
+  TMethods extends Record<string, any> = {},
+> = TRockConfig & RockInstanceOriginal<TState> & TMethods;
 
 //////////////
 // Page config

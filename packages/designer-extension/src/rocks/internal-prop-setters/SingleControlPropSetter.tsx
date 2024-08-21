@@ -29,6 +29,7 @@ export default {
       componentConfig,
       dynamicForbidden,
       onPropValueChange,
+      onSettingPropExpression,
       onPropExpressionChange,
       onPropExpressionRemove,
     } = props;
@@ -76,6 +77,7 @@ export default {
       componentConfig,
       children: controlRock,
       extra,
+      onSettingPropExpression,
       onPropExpressionChange,
       onPropExpressionRemove,
     };

@@ -15,7 +15,7 @@ import {
 import { MoveStyleUtils } from "@ruiapp/move-style";
 import type { ContainerRockConfig, ConvertRockEventHandlerPropOptions, DeclarativeRock, ProCodeRock, RockConfig, RockRenderer } from "@ruiapp/move-style";
 import { forEach, isArray, isFunction, isString, pick } from "lodash";
-import React from "react";
+import React, { useState } from "react";
 
 // TODO: support `$parent`?
 export function renderRock(options: RenderRockOptions) {
@@ -49,12 +49,12 @@ export function renderRock(options: RenderRockOptions) {
     ComponentRenderer.displayName = rock.$type;
   }
 
-  const configInstance = rockConfig as RockInstance;
-  if (!configInstance._initialized) {
+  const rockInstance = rockConfig as RockInstance;
+  if (!rockInstance._initialized) {
     // TODO: Temporary implement. Should refactor when re-implement the state management of ComponentTreeManager.
-    Object.assign(configInstance, pick(page.getComponent(configInstance.$id), ["_initialized", "_state"]));
+    Object.assign(rockInstance, pick(page.getComponent(rockInstance.$id), ["_initialized", "_state"]));
 
-    if (!configInstance._initialized) {
+    if (!rockInstance._initialized) {
       // TODO: should resolve parent component.
       const parent = null;
       page.attachComponent(scope, parent, rockConfig);
@@ -64,7 +64,7 @@ export function renderRock(options: RenderRockOptions) {
   const configProcessors = framework.getConfigProcessors();
   for (const configProcessor of configProcessors) {
     if (configProcessor.beforeRockRender) {
-      configProcessor.beforeRockRender(rockConfig);
+      configProcessor.beforeRockRender({ context, rockConfig });
     }
   }
 
@@ -84,6 +84,26 @@ export function renderRock(options: RenderRockOptions) {
   if (rockConfig._hidden) {
     return null;
   }
+
+  if (rock.declarativeComponent !== true && rock.onResolveState) {
+    const [state, setState] = useState({});
+    const resolvedState = rock.onResolveState(rockInstance, rockInstance._state, rockInstance);
+    if (resolvedState) {
+      // TODO: scope should remove from state
+      resolvedState.scope = scope;
+      rockInstance._state = resolvedState;
+    }
+    rockInstance.setState = (stateChangesOrUpdater) => {
+      let newState: any;
+      if (isFunction(stateChangesOrUpdater)) {
+        newState = Object.assign(rockInstance._state, stateChangesOrUpdater(rockInstance._state));
+      } else {
+        newState = Object.assign(rockInstance._state, stateChangesOrUpdater);
+      }
+      setState({ ...newState });
+    };
+  }
+
   const props = rockConfig;
   const $slot = expVars?.$slot;
   if ($slot) {
