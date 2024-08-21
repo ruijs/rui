@@ -9,6 +9,7 @@ import action_antdToast from "./action_antdToast";
 import get_component_property from "./get_component_property";
 import { Framework } from "@ruiapp/move-style";
 import set_component_property from "./set_component_property";
+import send_component_message from "./send_component_message";
 
 export interface Block {
   root: any;
@@ -44,4 +45,5 @@ export const definitions: { [key: string]: BlockDefCreator } = {
   action_antdToast: action_antdToast,
   get_component_property: get_component_property,
   set_component_property: set_component_property,
+  send_component_message: send_component_message,
 };
