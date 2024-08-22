@@ -17,17 +17,24 @@ import type { ContainerRockConfig, ConvertRockEventHandlerPropOptions, Declarati
 import { forEach, isArray, isFunction, isString, pick } from "lodash";
 import React, { useState } from "react";
 
-// TODO: support `$parent`?
+// TODO: remove ReactRockComponent for performance improvement
 export function renderRock(options: RenderRockOptions) {
+  return <ReactRockComponent {...options} />;
+}
+
+// TODO: support `$parent`?
+export const ReactRockComponent: React.FC<any> = (options: RenderRockOptions) => {
   const { context, rockConfig, fixedProps } = options;
   let { expVars } = options;
+
+  const [state, setState] = useState({});
 
   if (rockConfig == null) {
     return null;
   }
 
   if (isString(rockConfig)) {
-    return rockConfig;
+    return rockConfig as any;
   }
 
   const { framework, page, scope } = context;
@@ -86,7 +93,6 @@ export function renderRock(options: RenderRockOptions) {
   }
 
   if (rock.declarativeComponent !== true && rock.onResolveState) {
-    const [state, setState] = useState({});
     const resolvedState = rock.onResolveState(rockInstance, rockInstance._state, rockInstance);
     if (resolvedState) {
       // TODO: scope should remove from state
@@ -118,7 +124,7 @@ export function renderRock(options: RenderRockOptions) {
     ...slotProps,
     _context: context,
   });
-}
+};
 
 export function renderRockChildren(options: RenderRockChildrenOptions) {
   const { context, rockChildrenConfig, fixedProps } = options;
