@@ -470,7 +470,7 @@ export class ComponentTreeManager {
       name: message.name,
       payload: message.payload,
     };
-    onReceiveMessage(messageToComponent, componentConfig._state, componentConfig);
+    onReceiveMessage(messageToComponent, componentConfig._state, componentConfig, componentConfig);
   }
 
   getScope(scopeId: string) {

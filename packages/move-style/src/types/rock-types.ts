@@ -29,7 +29,7 @@ export type ProCodeRock<TRockConfig = any, TRockState = any, TRockMessage extend
   Renderer: RockRenderer<TRockConfig, TRockState & { scope: Scope }>;
   onInit?: (context: RockInitContext, props: TRockConfig) => void;
   onResolveState?: (props: TRockConfig, state: TRockState & { scope: Scope }, instance: RockInstance) => any;
-  onReceiveMessage?: (message: RockMessageToComponent<TRockMessage>, state: TRockState & { scope: Scope }, props: TRockConfig) => any;
+  onReceiveMessage?: (message: RockMessageToComponent<TRockMessage>, state: TRockState & { scope: Scope }, props: TRockConfig, instance: RockInstance) => any;
 } & ProCodeRockMeta;
 
 export type DeclarativeRock<TRockConfig = any, TRockState = any, TRockMessage extends RockMessage = RockMessage> = {
