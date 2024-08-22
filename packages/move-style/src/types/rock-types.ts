@@ -819,6 +819,18 @@ export interface IScope {
   get stores(): Record<string, IStore>;
 
   addStore(storeConfig: StoreConfig);
+
+  getStore<TStore = IStore<StoreConfigBase>>(storeName: string): TStore;
+
+  removeStore(storeConfig: StoreConfig);
+
+  updateStore(storeConfig: StoreConfig);
+
+  loadData(): Promise<void>;
+
+  loadStoreData(storeName: string, input: HttpRequestInput): Promise<void>;
+
+  notifyEvent(event: RuiEvent): Promise<void>;
 }
 
 export type RockInitContext = {
