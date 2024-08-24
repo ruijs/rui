@@ -1,0 +1,71 @@
+.rui-tree {
+  border: 1px solid #ccc;
+  padding: 4px;
+  font-size: 14px;
+
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+}
+
+.rui-tree-node {
+  display: flex;
+  padding: 0 4px;
+  height: 30px;
+  line-height: 30px;
+  border-radius: 4px;
+}
+
+.rui-tree-node:hover {
+  background-color: #faf0ff;
+}
+
+.rui-tree-node-active {
+  background-color: #c038ff;
+}
+
+.rui-tree-node-active:hover {
+  background-color: #c038ff;
+}
+
+.rui-tree-node-indent,
+.rui-tree-node-leaf,
+.rui-tree-node-toggler,
+.rui-tree-node-icon,
+.rui-tree-node-label,
+.rui-tree-node-actions {
+  display: inline-block;
+}
+
+.rui-tree-node-leaf,
+.rui-tree-node-toggler {
+  width: 16px;
+  text-align: center;
+}
+
+.rui-tree-node-toggler:hover {
+  color: #942bc5;
+}
+
+.rui-tree-node-icon {
+  width: 30px;
+  text-align: center;
+}
+
+.rui-tree-node-label {
+  padding-left: 4px;
+  cursor: default;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex-grow: 1;
+}
+
+.rui-tree-node-actions {
+  display: none;
+}
+
+.rui-tree-node:hover .rui-tree-node-actions,
+.rui-tree-node-active .rui-tree-node-actions {
+  display: inline-block;
+}

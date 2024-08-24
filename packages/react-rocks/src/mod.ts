@@ -11,9 +11,10 @@ import Slot from "./Slot";
 import Text from "./Text";
 import Label from "./Label";
 import List from "./List";
+import Tree from "./Tree";
 
-export { Rui, ErrorBoundary, Show, HtmlElement, Anchor, Box, Component, Scope, Slot, Text, Label, List };
+export { Rui, ErrorBoundary, Show, HtmlElement, Anchor, Box, Component, Scope, Slot, Text, Label, List, Tree };
 
 export default {
-  rocks: [Rui, ErrorBoundary, Show, HtmlElement, Anchor, Box, Component, Scope, Slot, Text, Label, List],
+  rocks: [Rui, ErrorBoundary, Show, HtmlElement, Anchor, Box, Component, Scope, Slot, Text, Label, List, Tree],
 } as RuiExtension;
