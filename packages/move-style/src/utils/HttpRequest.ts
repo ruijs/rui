@@ -20,5 +20,6 @@ export async function request<TBodyData = Record<string, any>, TQuery = Record<s
     url,
     headers: options.headers,
     data: options.data,
+    validateStatus: options.validateStatus,
   });
 }

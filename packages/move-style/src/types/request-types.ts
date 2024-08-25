@@ -7,6 +7,7 @@ export type HttpRequestOptions<TBodyData = Record<string, any>, TQuery = Record<
   headers?: AxiosRequestConfig<any>["headers"];
   onError?: any;
   onSuccess?: any;
+  validateStatus?: (status: number) => boolean;
 };
 
 export interface HttpRequestInput<TBodyData = Record<string, any>, TQuery = Record<string, any>> {
