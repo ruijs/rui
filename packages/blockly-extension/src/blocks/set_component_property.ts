@@ -54,7 +54,7 @@ export default function (context: BlockContext): BlockDef {
           .appendField("in")
           .appendField(new FieldDependentDropdown("COMPONENT_ID", childrenOptions, defaultOptions), "PROP_NAME")
           .appendField("by")
-        this.appendValueInput("PROP_VALUE").setCheck("String")
+        this.appendValueInput("PROP_VALUE");
         this.setPreviousStatement(true, null);
         this.setInputsInline(true);
         this.setNextStatement(true, null);
@@ -67,9 +67,11 @@ export default function (context: BlockContext): BlockDef {
       const componentId = block.getFieldValue("COMPONENT_ID");
       const propName = block.getFieldValue("PROP_NAME");
       const propValue = generator.valueToCode(block, "PROP_VALUE", Order.NONE);
-
+      if (!componentId) return "";
+      if (!propName) return "";
+      if (!propValue) return "";
       return `
-    event.page.setComponentProperty("${componentId}", "${propName}", ${propValue})
+  event.page.setComponentProperty("${componentId}", "${propName}", ${propValue});
  `;
     },
   } as BlockDef;
