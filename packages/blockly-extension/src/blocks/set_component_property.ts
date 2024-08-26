@@ -6,7 +6,7 @@ import { Order } from "blockly/javascript";
 
 export default function (context: BlockContext): BlockDef {
   const generateparentOptions = (): MenuOption[] => {
-    const components = context?.currentStep?.children || [];
+    const components = context.pageConfig.view || [];
     const framework = context?.framework;
 
     let options: MenuOption[] = [["选择组件", ""]];
@@ -20,7 +20,7 @@ export default function (context: BlockContext): BlockDef {
   };
 
   const generateChildren = (): ChildOptionMapping => {
-    const components = context?.currentStep?.children || [];
+    const components = context.pageConfig.view || [];
     const framework = context?.framework;
 
     const options: ChildOptionMapping = {};

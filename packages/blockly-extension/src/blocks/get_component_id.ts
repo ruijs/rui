@@ -4,7 +4,7 @@ import { BlockContext, BlockDef } from "./_blocks";
 import { Order } from "blockly/javascript";
 
 export default function (context: BlockContext): BlockDef {
-  const components = context.currentStep?.children || [];
+  const components = context.pageConfig.view || [];
   const framework = context.framework;
 
   const componentIdsOptions = function (this: FieldDropdown): MenuOption[] {

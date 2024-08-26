@@ -7,7 +7,7 @@ import goto_step from "./goto_step";
 import goto_step_name from "./goto_step_name";
 import action_antdToast from "./action_antdToast";
 import get_component_property from "./get_component_property";
-import { Framework } from "@ruiapp/move-style";
+import { Framework, PageConfig } from "@ruiapp/move-style";
 import set_component_property from "./set_component_property";
 import http_request from "./http_request";
 import text_monaco_editor from "./text_monaco_editor";
@@ -38,6 +38,7 @@ export type AppStep = {
 export type BlockContext = {
   steps: AppStep[];
   currentStep: AppStep;
+  pageConfig: PageConfig;
   framework: Framework;
   commands: MutableRefObject<BlocklyEditorCommands>,
 };
