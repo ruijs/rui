@@ -1,7 +1,6 @@
 import {
   ConvertRockEventHandlerPropsOptions,
   ConvertRockSlotPropsOptions,
-  createDeclarativeComponentRenderer,
   GenerateRockSlotRendererOptions,
   handleComponentEvent,
   RenderRockChildrenOptions,
@@ -13,21 +12,90 @@ import {
   RockInstanceContext,
 } from "@ruiapp/move-style";
 import { MoveStyleUtils } from "@ruiapp/move-style";
-import type { ContainerRockConfig, ConvertRockEventHandlerPropOptions, DeclarativeRock, ProCodeRock, RockConfig, RockRenderer } from "@ruiapp/move-style";
-import { forEach, isArray, isFunction, isString, pick } from "lodash";
+import type {
+  ContainerRockConfig,
+  ConvertRockEventHandlerPropOptions,
+  DeclarativeRock,
+  ProCodeRock,
+  RockConfig,
+  RockConfigSystemFields,
+  RockInstanceFields,
+} from "@ruiapp/move-style";
+import { forEach, isArray, isFunction, isString, omit, pick } from "lodash";
 import React, { useState } from "react";
 
-// TODO: remove ReactRockComponent for performance improvement
-export function renderRock(options: RenderRockOptions) {
-  return <ReactRockComponent {...options} />;
+export function wrapRenderer(rock: Rock) {
+  if (rock.declarativeComponent) {
+    rock.componentRenderer = createDeclarativeComponentRenderer(rock, getDeclarativeRockRenderer(rock));
+  } else {
+    rock.componentRenderer = createComponentRenderer(rock as ProCodeRock) as any;
+  }
+  rock.componentRenderer.displayName = rock.$type;
+
+  return rock.componentRenderer;
 }
 
+/**
+ * Convert rock renderer to component renderer.
+ * Rock renderer accepts props, state, and context parameters,
+ * While component renderer accepts just props parameter.
+ * @param rock
+ * @param rockRenderer
+ * @returns
+ */
+function genComponentRenderer(rock: Rock, rockRenderer: any) {
+  return function (rockInstance: RockInstance) {
+    // DO NOT remove "$id" and "$exps" fields.
+    const instanceFields: (RockInstanceFields | RockConfigSystemFields)[] = ["_initialized", "_state", "_hidden", "$type", "$version"];
+    const rockProps = omit(rockInstance, instanceFields);
+
+    const [state, setState] = useState({});
+    rockInstance._state.setState = (stateChangesOrUpdater) => {
+      let newState: any;
+      if (isFunction(stateChangesOrUpdater)) {
+        newState = Object.assign(rockInstance._state, stateChangesOrUpdater(rockInstance._state));
+      } else {
+        newState = Object.assign(rockInstance._state, stateChangesOrUpdater);
+      }
+      setState({ ...newState });
+    };
+    const renderResult = rockRenderer(rockInstance._context, rockProps, rockInstance._state, rockInstance);
+    return renderResult;
+  };
+}
+
+export function createComponentRenderer(rock: ProCodeRock) {
+  return genComponentRenderer(rock, rock.Renderer);
+}
+
+export function createDeclarativeComponentRenderer(rock: DeclarativeRock, rockRenderer: any) {
+  return genComponentRenderer(rock, rockRenderer);
+}
+
+export type DeclarativeComponentRockConfig = {
+  component: DeclarativeRock;
+} & ContainerRockConfig;
+
+const declarativeRockRenderer = (rockMeta: DeclarativeRock, context: RockInstanceContext, props: ContainerRockConfig, state) => {
+  context.component = props as RockInstance;
+  return renderRockChildren({
+    context,
+    rockChildrenConfig: rockMeta.view,
+  });
+};
+
+export const getDeclarativeRockRenderer = (rockMeta: DeclarativeRock) => {
+  const renderer: ProCodeRock<DeclarativeComponentRockConfig>["Renderer"] = (context, props, state) => {
+    return declarativeRockRenderer(rockMeta, context, props, state);
+  };
+
+  return renderer;
+};
+
 // TODO: support `$parent`?
-export const ReactRockComponent: React.FC<any> = (options: RenderRockOptions) => {
+export function renderRock(options: RenderRockOptions) {
   const { context, rockConfig, fixedProps } = options;
   let { expVars } = options;
-
-  const [state, setState] = useState({});
 
   if (rockConfig == null) {
     return null;
@@ -44,16 +112,6 @@ export const ReactRockComponent: React.FC<any> = (options: RenderRockOptions) =>
   if (!rock) {
     logger.debug(`Unknown component '${componentType}'`, { rockConfig });
     throw new Error(`Unknown component '${componentType}'`);
-  }
-
-  let ComponentRenderer: any;
-  if (rock.declarativeComponent === true) {
-    ComponentRenderer = createDeclarativeComponentRenderer(framework, rock, getDeclarativeRockRenderer(rock));
-  } else {
-    ComponentRenderer = rock.componentRenderer;
-  }
-  if (!ComponentRenderer.displayName) {
-    ComponentRenderer.displayName = rock.$type;
   }
 
   const rockInstance = rockConfig as RockInstance;
@@ -99,15 +157,10 @@ export const ReactRockComponent: React.FC<any> = (options: RenderRockOptions) =>
       resolvedState.scope = scope;
       rockInstance._state = resolvedState;
     }
-    rockInstance.setState = (stateChangesOrUpdater) => {
-      let newState: any;
-      if (isFunction(stateChangesOrUpdater)) {
-        newState = Object.assign(rockInstance._state, stateChangesOrUpdater(rockInstance._state));
-      } else {
-        newState = Object.assign(rockInstance._state, stateChangesOrUpdater);
-      }
-      setState({ ...newState });
-    };
+  }
+
+  if (!rockInstance._state) {
+    rockInstance._state = {};
   }
 
   const props = rockConfig;
@@ -118,13 +171,18 @@ export const ReactRockComponent: React.FC<any> = (options: RenderRockOptions) =>
 
   const slotProps = convertToSlotProps({ context, rockConfig: props, slotsMeta: rock.slots, isEarly: true });
   logger.verbose(`Creating react element of '${rockConfig.$type}', $id=${rockConfig.$id}`);
+
+  let ComponentRenderer: any = rock.componentRenderer;
+  if (!ComponentRenderer) {
+    ComponentRenderer = wrapRenderer(rock);
+  }
   return React.createElement(ComponentRenderer, {
     key: rockConfig.$id,
     ...props,
     ...slotProps,
     _context: context,
   });
-};
+}
 
 export function renderRockChildren(options: RenderRockChildrenOptions) {
   const { context, rockChildrenConfig, fixedProps } = options;
@@ -349,23 +407,3 @@ export function convertToSlotProps(options: ConvertRockSlotPropsOptions) {
   }
   return slotProps;
 }
-
-export type DeclarativeComponentRockConfig = {
-  component: DeclarativeRock;
-} & ContainerRockConfig;
-
-const declarativeRockRenderer = (rockMeta: DeclarativeRock, context: RockInstanceContext, props: ContainerRockConfig, state) => {
-  context.component = props as RockInstance;
-  return renderRockChildren({
-    context,
-    rockChildrenConfig: rockMeta.view,
-  });
-};
-
-export const getDeclarativeRockRenderer = (rockMeta: DeclarativeRock) => {
-  const renderer: ProCodeRock<DeclarativeComponentRockConfig>["Renderer"] = (context, props, state) => {
-    return declarativeRockRenderer(rockMeta, context, props, state);
-  };
-
-  return renderer;
-};

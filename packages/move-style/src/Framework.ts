@@ -8,7 +8,6 @@ import { RuiExtension } from "./types/extension-types";
 import { Rock } from "./types/rock-types";
 import { IStore, StoreConfig } from "./types/store-types";
 import ruiExp from "./utils/rui-exp";
-import { wrapRenderer } from "./ComponentRenderer";
 import { ConfigProcessor } from "./ConfigProcessor";
 import { LoggerFactory, LoggerProvider, RuiModulesNames } from "./Logger";
 import * as MoveStyleUtils from "./utils";
@@ -56,7 +55,6 @@ export class Framework {
   registerComponent(component: Rock) {
     // TODO: should respect component.version
     const key = `${component.$type}`;
-    wrapRenderer(this, component);
     this.#components.set(key, component);
   }
 
