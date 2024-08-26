@@ -19,6 +19,7 @@ function loadBlocklyEditor(context: RockInstanceContext, container: HTMLElement,
     let definition = definitions[name]({
       steps: steps,
       currentStep: currentStep,
+      pageConfig: store.pageConfig,
       framework: context.framework,
       commands: commands,
     });

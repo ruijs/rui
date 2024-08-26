@@ -2,10 +2,11 @@ import * as Blockly from "blockly/core";
 import { MenuGenerator, MenuOption } from "blockly/core";
 import { BlockContext, BlockDef } from "./_blocks";
 import { FieldDependentDropdown, ChildOptionMapping } from "@blockly/field-dependent-dropdown";
+import { Order } from "blockly/javascript";
 
 export default function (context: BlockContext): BlockDef {
   const generateparentOptions = (): MenuOption[] => {
-    const components = context?.currentStep?.children || [];
+    const components = context.pageConfig.view || [];
     const framework = context?.framework;
 
     let options: MenuOption[] = [["选择组件", ""]];
@@ -19,7 +20,7 @@ export default function (context: BlockContext): BlockDef {
   };
 
   const generateChildren = (): ChildOptionMapping => {
-    const components = context?.currentStep?.children || [];
+    const components = context.pageConfig.view || [];
     const framework = context?.framework;
 
     const options: ChildOptionMapping = {};
@@ -52,7 +53,6 @@ export default function (context: BlockContext): BlockDef {
           .appendField(new Blockly.FieldDropdown(parentOptions as MenuGenerator) as Blockly.Field, "COMPONENT_ID")
           .appendField("in")
           .appendField(new FieldDependentDropdown("COMPONENT_ID", childrenOptions, defaultOptions), "PROP_NAME");
-        this.setPreviousStatement(true, null);
         this.setInputsInline(true);
         this.setColour(255);
         this.setTooltip("");
@@ -63,10 +63,9 @@ export default function (context: BlockContext): BlockDef {
     generator: (block, generator) => {
       const componentId = block.getFieldValue("COMPONENT_ID");
       const propName = block.getFieldValue("PROP_NAME");
-
-      return `
-    event.page.getComponentProperty("${componentId}", "${propName}")
- `;
+      if (!componentId) return "";
+      if (!propName) return "";
+      return [`event.page.getComponentProperty("${componentId}", "${propName}")`, Order.ATOMIC];
     },
   } as BlockDef;
 }
