@@ -16,7 +16,8 @@ export default function (context: BlockContext): BlockDef {
       },
     },
     generator: function (block: Blockly.Block, generator: Blockly.CodeGenerator) {
-      let statement_do = generator.statementToCode(block, "STATEMENT_DO");
+      const targetBlock = block.getInputTargetBlock("STATEMENT_DO");
+      let statement_do = generator.blockToCode(targetBlock);
       return `
 await (async function() {
   ${statement_do}
