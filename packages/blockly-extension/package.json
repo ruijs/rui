@@ -36,6 +36,8 @@
     "@ruiapp/move-style": "workspace:^",
     "@ruiapp/react-renderer": "workspace:^",
     "blockly": "^10.0.0",
+    "js-beautify": "^1.15.1",
+    "@types/js-beautify": "^1.14.3",
     "lodash": "^4.17.21"
   }
 }
