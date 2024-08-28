@@ -60,6 +60,8 @@ import FileUploader from "./controls/file-uploader";
 import CommonPropPanel from "./prop-panels/CommonPropPanel";
 import SelectIconPropSetter from "./prop-setters/SelectIconPropSetter";
 import selectIcon from "./controls/select-icon";
+import ArrayBuilder from "./controls/array-builder";
+import ArrayPropSetter from "./prop-setters/ArrayPropSetter";
 
 export default [
   ComponentEventHandlersPanel,
@@ -97,6 +99,7 @@ export default [
   TextPropSetter,
   ColorPropSetter,
   FilePropSetter,
+  ArrayPropSetter,
 
   // event setters
   ScriptEventHandlerSetter,
@@ -124,6 +127,7 @@ export default [
   ColorPicker,
   FileUploader,
   selectIcon,
+  ArrayBuilder
 ];
 
 export * from "./internal-prop-setters/ExpressionPropSetter";

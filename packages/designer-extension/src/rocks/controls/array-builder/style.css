@@ -1,0 +1,9 @@
+.array-builder {}
+
+.array-builder .drop-down-button {
+  margin-bottom: 6px;
+}
+
+.array-builder .drop-down-button .ant-btn-compact-first-item {
+  flex: 1;
+}
