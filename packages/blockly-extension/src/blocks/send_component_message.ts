@@ -32,7 +32,7 @@ export default function (context: BlockContext): BlockDef {
       if (!id) return "";
       if (!name) return "";
       return `
-  event.page.sendComponentMessage(${id}, {
+  await event.page.sendComponentMessage(${id}, {
     "name": ${name}` + (payload ? `,
     "payload": ${payload}` : "") + `
   });

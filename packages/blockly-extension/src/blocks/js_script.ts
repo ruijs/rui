@@ -30,7 +30,7 @@ export default function (context: BlockContext): BlockDef {
       let args = generator.valueToCode(block, "ARGUMENTS", Order.ATOMIC) || "[]";
       let expression = block.getInputTargetBlock("EXPRESSION")?.getFieldValue("TEXT");
       return `
-  (function() {
+  await (async function() {
     ${expression}
   }).apply(this, ${args});
 `;
