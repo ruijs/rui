@@ -1,5 +1,11 @@
 # @ruiapp/blockly-extension
 
+## 0.1.36
+
+### Patch Changes
+
+- aa308b6: add await & support format js preview code
+
 ## 0.1.35
 
 ### Patch Changes
