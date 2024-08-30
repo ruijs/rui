@@ -2,8 +2,11 @@ import { Rock, SimpleRockConfig } from "@ruiapp/move-style";
 import { CSSProperties, useEffect, useState } from "react";
 import { Button, Modal, Form, Input, Space, Dropdown, MenuProps } from "antd";
 import { convertToEventHandlers } from "@ruiapp/react-renderer";
+import { CSS } from "@dnd-kit/utilities";
 
 import "./style.css";
+import { closestCenter, DndContext, DragEndEvent, KeyboardSensor, PointerSensor, useSensor, useSensors } from "@dnd-kit/core";
+import { arrayMove, SortableContext, sortableKeyboardCoordinates, useSortable, verticalListSortingStrategy } from "@dnd-kit/sortable";
 
 export interface ArrayBuilderProps extends SimpleRockConfig {
   value?: FormItemStyle[];
@@ -22,11 +25,34 @@ type FormItemStyle = {
 
 let id = 1;
 
+function SortableItem(props: { id: number; children: React.ReactNode }) {
+  const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id: props.id });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    display: "flex",
+    flexDireaction: "row",
+    cursor: "move",
+  };
+
+  return (
+    <div ref={setNodeRef} style={style} {...attributes}>
+      <svg viewBox="0 0 20 20" width="12" {...listeners} style={{marginRight: 6}}>
+        <path d="M7 2a2 2 0 1 0 .001 4.001A2 2 0 0 0 7 2zm0 6a2 2 0 1 0 .001 4.001A2 2 0 0 0 7 8zm0 6a2 2 0 1 0 .001 4.001A2 2 0 0 0 7 14zm6-8a2 2 0 1 0-.001-4.001A2 2 0 0 0 13 6zm0 2a2 2 0 1 0 .001 4.001A2 2 0 0 0 13 8zm0 6a2 2 0 1 0 .001 4.001A2 2 0 0 0 13 14z"></path>
+      </svg>
+      {props.children}
+    </div>
+  );
+}
+
 export default {
   $type: "arrayBuilder",
 
   Renderer(context, props: ArrayBuilderProps) {
     const { value = [] } = props;
+
+    console.log(value)
 
     const [visible, setVisible] = useState(false);
     const [form] = Form.useForm();
@@ -34,6 +60,29 @@ export default {
     const [checkedId, setCheckedId] = useState(0);
 
     const eventHandlers = convertToEventHandlers({ context, rockConfig: props }) as any;
+
+    const sensors = useSensors(
+      useSensor(PointerSensor),
+      useSensor(KeyboardSensor, {
+        coordinateGetter: sortableKeyboardCoordinates,
+      }),
+    );
+
+    function handleDragEnd(event: DragEndEvent) {
+      const { active, over } = event;
+
+      if (!active || !over) return;
+
+      if (active.id !== over?.id) {
+        const ids = value.map((v) => v.id);
+        const oldIndex = ids.indexOf(active.id as number);
+        const newIndex = ids.indexOf(over.id as number);
+        const data = arrayMove(value, oldIndex, newIndex);
+        eventHandlers.onChange?.(data);
+
+        return data;
+      }
+    }
 
     const addHandle = () => {
       form.resetFields();
@@ -100,24 +149,30 @@ export default {
 
     return (
       <div className="array-builder">
-        {value.map((d) => {
-          return (
-            <Dropdown.Button
-              key={d.id}
-              className="drop-down-button"
-              style={{ width: "100%" }}
-              type="default"
-              menu={{
-                items,
-                onClick: ({ key }) => {
-                  dropdownClickHandle(key, d);
-                },
-              }}
-            >
-              {d.key} : {d.value}
-            </Dropdown.Button>
-          );
-        })}
+        <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+          <SortableContext items={value.map((v) => v.id)} strategy={verticalListSortingStrategy}>
+            {value.map((s) => {
+              return (
+                <SortableItem key={s.id} id={s.id}>
+                  <Dropdown.Button
+                    key={s.id}
+                    className="drop-down-button"
+                    style={{ width: "100%" }}
+                    type="default"
+                    menu={{
+                      items,
+                      onClick: ({ key }) => {
+                        dropdownClickHandle(key, s);
+                      },
+                    }}
+                  >
+                    {s.key} : {s.value}
+                  </Dropdown.Button>
+                </SortableItem>
+              );
+            })}
+          </SortableContext>
+        </DndContext>
         <Button type="link" onClick={addHandle}>
           添加数据
         </Button>
