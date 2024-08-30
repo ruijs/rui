@@ -49,6 +49,14 @@ function genComponentRenderer(rock: Rock, rockRenderer: any) {
     const instanceFields: (RockInstanceFields | RockConfigSystemFields)[] = ["_initialized", "_state", "_hidden", "$type", "$version"];
     const rockProps = omit(rockInstance, instanceFields);
 
+    if (rock.declarativeComponent !== true && rock.onResolveState) {
+      // TODO: the first parameter should be rockProps
+      const resolvedState = rock.onResolveState(rockInstance, rockInstance._state, rockInstance);
+      if (resolvedState) {
+        Object.assign(rockInstance._state, resolvedState);
+      }
+    }
+
     const [state, setState] = useState({});
     rockInstance._state.setState = (stateChangesOrUpdater) => {
       let newState: any;
@@ -125,6 +133,9 @@ export function renderRock(options: RenderRockOptions) {
       page.attachComponent(scope, parent, rockConfig);
     }
   }
+  if (!rockInstance._state) {
+    rockInstance._state = {};
+  }
 
   const configProcessors = framework.getConfigProcessors();
   for (const configProcessor of configProcessors) {
@@ -135,10 +146,10 @@ export function renderRock(options: RenderRockOptions) {
 
   // TODO: remove $scope from expVars?
   if (expVars) {
-    expVars.$scope = scope || page.scope;
+    expVars.$scope = scope;
   } else {
     expVars = {
-      $scope: scope || page.scope,
+      $scope: scope,
     };
   }
   page.interpreteComponentProperties(null, rockConfig, expVars);
@@ -148,19 +159,6 @@ export function renderRock(options: RenderRockOptions) {
 
   if (rockConfig._hidden) {
     return null;
-  }
-
-  if (rock.declarativeComponent !== true && rock.onResolveState) {
-    const resolvedState = rock.onResolveState(rockInstance, rockInstance._state, rockInstance);
-    if (resolvedState) {
-      // TODO: scope should remove from state
-      resolvedState.scope = scope;
-      rockInstance._state = resolvedState;
-    }
-  }
-
-  if (!rockInstance._state) {
-    rockInstance._state = {};
   }
 
   const props = rockConfig;

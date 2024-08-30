@@ -68,6 +68,7 @@ export class ComponentTreeManager {
     serializableConfig.view.forEach((rockConfig) => {
       this.travelRockConfig(
         (scope: Scope, parentConfig: RockInstance, config: RockInstance) => {
+          delete rockConfig._scope;
           delete rockConfig._state;
           delete rockConfig._initialized;
         },
