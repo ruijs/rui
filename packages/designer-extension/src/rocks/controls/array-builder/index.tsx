@@ -18,8 +18,8 @@ export interface ArrayBuilderProps extends SimpleRockConfig {
 }
 
 type FormItemStyle = {
-  key: string;
   value: string;
+  label: string;
   id: number;
 };
 
@@ -166,7 +166,7 @@ export default {
                       },
                     }}
                   >
-                    {s.key} : {s.value}
+                    {s.value} : {s.label}
                   </Dropdown.Button>
                 </SortableItem>
               );
@@ -178,10 +178,10 @@ export default {
         </Button>
         <Modal width={600} title="添加数据" open={visible} onCancel={closeHandle} onOk={okHandle} okText="保存" cancelText="取消">
           <Form name="form" form={form} labelCol={{ span: 6 }} wrapperCol={{ span: 16 }} autoComplete="off">
-            <Form.Item label="key" name="key" rules={[{ required: true, message: "key必须填写" }]}>
+            <Form.Item label="value" name="value" rules={[{ required: true, message: "value必须填写" }]}>
               <Input></Input>
             </Form.Item>
-            <Form.Item label="value" name="value" rules={[{ required: true, message: "value必须填写" }]}>
+            <Form.Item label="label" name="label" rules={[{ required: true, message: "label必须填写" }]}>
               <Input></Input>
             </Form.Item>
           </Form>
