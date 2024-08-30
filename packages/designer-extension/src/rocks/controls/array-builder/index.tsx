@@ -52,8 +52,6 @@ export default {
   Renderer(context, props: ArrayBuilderProps) {
     const { value = [] } = props;
 
-    console.log(value)
-
     const [visible, setVisible] = useState(false);
     const [form] = Form.useForm();
 
@@ -98,11 +96,11 @@ export default {
       form.validateFields().then((res) => {
         let confirmData = [];
         if (checkedId) {
-          confirmData = value.map((d) => {
-            if (d.id === checkedId) {
+          confirmData = value.map((item) => {
+            if (item.id === checkedId) {
               return { ...res, id: checkedId };
             } else {
-              return d;
+              return item;
             }
           });
         } else {
@@ -122,7 +120,7 @@ export default {
     };
 
     const delHandle = (formData: FormItemStyle) => {
-      eventHandlers.onChange?.(value.filter((d) => d.id !== formData.id));
+      eventHandlers.onChange?.(value.filter((item) => item.id !== formData.id));
     };
 
     const dropdownClickHandle = (key: string, formData: FormItemStyle) => {
@@ -151,22 +149,22 @@ export default {
       <div className="array-builder">
         <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
           <SortableContext items={value.map((v) => v.id)} strategy={verticalListSortingStrategy}>
-            {value.map((s) => {
+            {value.map((item) => {
               return (
-                <SortableItem key={s.id} id={s.id}>
+                <SortableItem key={item.id} id={item.id}>
                   <Dropdown.Button
-                    key={s.id}
+                    key={item.id}
                     className="drop-down-button"
                     style={{ width: "100%" }}
                     type="default"
                     menu={{
                       items,
                       onClick: ({ key }) => {
-                        dropdownClickHandle(key, s);
+                        dropdownClickHandle(key, item);
                       },
                     }}
                   >
-                    {s.value} : {s.label}
+                    {item.value} : {item.label}
                   </Dropdown.Button>
                 </SortableItem>
               );
