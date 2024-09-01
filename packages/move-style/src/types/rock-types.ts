@@ -560,7 +560,8 @@ export type PageCommand =
   | PageCommandRemoveStore
   | PageCommandAddStep
   | PageCommandModifyStep
-  | PageCommandRemoveStep;
+  | PageCommandRemoveStep
+  | PageCommandSetScopeVars;
 
 export type PageCommandSetPageConfig = {
   name: "setPageConfig";
@@ -734,6 +735,15 @@ export type PageCommandRemoveStep = {
   name: "removeStep";
   payload: {
     step: Record<string, any>;
+  };
+};
+
+export type PageCommandSetScopeVars = {
+  name: "setScopeVars";
+  payload: {
+    scopeId?: string;
+    vars: Record<string, any>;
+    silent?: boolean;
   };
 };
 

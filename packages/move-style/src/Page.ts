@@ -102,6 +102,19 @@ export class Page implements IPage {
     return this.#pageScope.loadData();
   }
 
+  setScopeVars(scopeId: string | null, vars: Record<string, any>, silent: boolean = false) {
+    let scope = this.#pageScope;
+    if (scopeId) {
+      scope = this.getScope(scopeId);
+    }
+
+    if (!scope) {
+      throw new Error(`Scope with id "${scopeId}" was not found.`);
+    }
+
+    scope.setVars(vars, silent);
+  }
+
   observe(callback: (config: PageConfig) => void) {
     this.#componentTreeManager.observe(callback);
   }

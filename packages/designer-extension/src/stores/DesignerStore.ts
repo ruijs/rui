@@ -153,6 +153,9 @@ export class DesignerStore implements IStore<DesignerStoreConfig> {
     } else if (command.name === "removeStore") {
       const { payload } = command;
       this.#page.removeStore(payload.store);
+    } else if (command.name === "setScopeVars") {
+      const { payload } = command;
+      this.#page.setScopeVars(payload.scopeId, payload.vars, payload.silent);
     }
   }
 }
