@@ -81,9 +81,6 @@ importers:
       '@ruiapp/react-renderer':
         specifier: workspace:^
         version: link:../react-renderer
-      '@types/js-beautify':
-        specifier: ^1.14.3
-        version: 1.14.3
       blockly:
         specifier: ^10.0.0
         version: 10.4.3
@@ -91,6 +88,9 @@ importers:
         specifier: ^1.15.1
         version: 1.15.1
     devDependencies:
+      '@types/js-beautify':
+        specifier: ^1.14.3
+        version: 1.14.3
       '@types/lodash':
         specifier: ^4.14.186
         version: 4.17.0

@@ -560,7 +560,8 @@ export type PageCommand =
   | PageCommandRemoveStore
   | PageCommandAddStep
   | PageCommandModifyStep
-  | PageCommandRemoveStep;
+  | PageCommandRemoveStep
+  | PageCommandSetScopeVars;
 
 export type PageCommandSetPageConfig = {
   name: "setPageConfig";
@@ -707,6 +708,9 @@ export type PageCommandRemoveStore = {
   };
 };
 
+/**
+ * @deprecated
+ */
 export type PageCommandAddStep = {
   name: "addStep";
   payload: {
@@ -714,6 +718,9 @@ export type PageCommandAddStep = {
   };
 };
 
+/**
+ * @deprecated
+ */
 export type PageCommandModifyStep = {
   name: "modifyStep";
   payload: {
@@ -721,10 +728,22 @@ export type PageCommandModifyStep = {
   };
 };
 
+/**
+ * @deprecated
+ */
 export type PageCommandRemoveStep = {
   name: "removeStep";
   payload: {
     step: Record<string, any>;
+  };
+};
+
+export type PageCommandSetScopeVars = {
+  name: "setScopeVars";
+  payload: {
+    scopeId?: string;
+    vars: Record<string, any>;
+    silent?: boolean;
   };
 };
 

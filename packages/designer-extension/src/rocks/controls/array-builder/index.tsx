@@ -38,7 +38,7 @@ function SortableItem(props: { id: number; children: React.ReactNode }) {
 
   return (
     <div ref={setNodeRef} style={style} {...attributes}>
-      <svg viewBox="0 0 20 20" width="12" {...listeners} style={{marginRight: 6}}>
+      <svg viewBox="0 0 20 20" width="12" {...listeners} style={{ marginRight: 6 }}>
         <path d="M7 2a2 2 0 1 0 .001 4.001A2 2 0 0 0 7 2zm0 6a2 2 0 1 0 .001 4.001A2 2 0 0 0 7 8zm0 6a2 2 0 1 0 .001 4.001A2 2 0 0 0 7 14zm6-8a2 2 0 1 0-.001-4.001A2 2 0 0 0 13 6zm0 2a2 2 0 1 0 .001 4.001A2 2 0 0 0 13 8zm0 6a2 2 0 1 0 .001 4.001A2 2 0 0 0 13 14z"></path>
       </svg>
       {props.children}
@@ -174,13 +174,13 @@ export default {
         <Button type="link" onClick={addHandle}>
           添加数据
         </Button>
-        <Modal width={600} title="添加数据" open={visible} onCancel={closeHandle} onOk={okHandle} okText="保存" cancelText="取消">
+        <Modal width={600} title="添加数据" open={visible} onCancel={closeHandle} onOk={okHandle} okText="确定" cancelText="取消">
           <Form name="form" form={form} labelCol={{ span: 6 }} wrapperCol={{ span: 16 }} autoComplete="off">
             <Form.Item label="value" name="value" rules={[{ required: true, message: "value必须填写" }]}>
-              <Input></Input>
+              <Input />
             </Form.Item>
             <Form.Item label="label" name="label" rules={[{ required: true, message: "label必须填写" }]}>
-              <Input></Input>
+              <Input />
             </Form.Item>
           </Form>
         </Modal>
