@@ -707,6 +707,9 @@ export type PageCommandRemoveStore = {
   };
 };
 
+/**
+ * @deprecated
+ */
 export type PageCommandAddStep = {
   name: "addStep";
   payload: {
@@ -714,6 +717,9 @@ export type PageCommandAddStep = {
   };
 };
 
+/**
+ * @deprecated
+ */
 export type PageCommandModifyStep = {
   name: "modifyStep";
   payload: {
@@ -721,6 +727,9 @@ export type PageCommandModifyStep = {
   };
 };
 
+/**
+ * @deprecated
+ */
 export type PageCommandRemoveStep = {
   name: "removeStep";
   payload: {
