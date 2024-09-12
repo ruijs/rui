@@ -17,6 +17,7 @@ import "./json/objectBLocksDefs";
 import "./json/objectBlocksCodeGen";
 import { MutableRefObject } from "react";
 import { BlocklyEditorCommands } from "~/rocks/BlocklyEditor";
+import action_refreshComponentData from "./action_refreshComponentData";
 
 export interface Block {
   root: any;
@@ -58,4 +59,5 @@ export const definitions: { [key: string]: BlockDefCreator } = {
   text_multiline: text_monaco_editor,
   send_component_message: send_component_message,
   get_component_id: get_component_id,
+  action_refreshComponentData: action_refreshComponentData,
 };
