@@ -1,5 +1,11 @@
 # @ruiapp/blockly-extension
 
+## 0.1.37
+
+### Patch Changes
+
+- 4a8d168: add refreshComponentData block & add blockly default blocks
+
 ## 0.1.36
 
 ### Patch Changes
