@@ -7,6 +7,12 @@ import { definitions } from "~/blocks/_blocks";
 import { renderRockChildren } from "@ruiapp/react-renderer";
 import js_beautify, { JSBeautifyOptions } from "js-beautify";
 
+const categoryStyles = {
+  "triggers_category": {
+    "colour": "#000",
+  },
+};
+
 const jsBeautifyOptions = {
   indent_size: 2,
   indent_char: " ",
@@ -85,6 +91,11 @@ function loadBlocklyEditor(context: RockInstanceContext, container: HTMLElement,
     // maxInstances: {
     //   'event_start': 1,
     // },
+    theme: Blockly.Theme.defineTheme("theme", {
+      name: "theme",
+      base: "classic",
+      categoryStyles: categoryStyles,
+    }),
   });
 
   javascriptGenerator.init(ws);
