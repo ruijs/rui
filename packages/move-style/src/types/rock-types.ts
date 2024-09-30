@@ -345,6 +345,7 @@ export type RockEventHandler =
 
 export type RockEventHandlerBase = {
   _disabled?: boolean;
+  $exps?: RockPropExpressions;
 };
 
 export type RockEventHandlerScript = RockEventHandlerBase & {
@@ -382,6 +383,7 @@ export type RockEventHandlerNotifyEvent = RockEventHandlerBase & {
   $action: "notifyEvent";
   eventName?: string;
   scopeId?: string;
+  args?: any;
 };
 
 export type RockEventHandlerNotifyToPage = RockEventHandlerBase & {

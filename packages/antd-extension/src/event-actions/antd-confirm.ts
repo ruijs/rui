@@ -4,14 +4,24 @@ import { Modal } from "antd";
 export interface RockEventHandlerAntdConfirm {
   $action: "antdConfirm";
   title: string;
+  content?: string;
   onOk: any;
   onCancel: any;
 }
 
-export async function antdMessage(eventName: string, framework: Framework, page: Page, scope: Scope, sender: any, eventHandler: RockEventHandlerAntdConfirm, eventArgs: any) {
+export async function antdMessage(
+  eventName: string,
+  framework: Framework,
+  page: Page,
+  scope: Scope,
+  sender: any,
+  eventHandler: RockEventHandlerAntdConfirm,
+  eventArgs: any,
+) {
   return new Promise((resolve, reject) => {
     Modal.confirm({
       title: eventHandler.title,
+      content: eventHandler.content,
       onOk: () => {
         if (eventHandler.onOk) {
           handleComponentEvent(eventName, framework, page, scope, sender, eventHandler.onOk, eventArgs)
