@@ -168,7 +168,7 @@ export class Scope implements IScope {
         continue;
       }
 
-      await handleComponentEvent(eventSubscription.eventName, event.framework, event.page as any, event.scope, event.sender, eventSubscription.handlers, event.args);
+      await handleComponentEvent(event.name, event.framework, event.page as any, event.scope, event.sender, eventSubscription.handlers, event.args);
     }
   }
 }

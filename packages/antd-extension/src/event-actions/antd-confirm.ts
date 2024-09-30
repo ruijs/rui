@@ -8,7 +8,15 @@ export interface RockEventHandlerAntdConfirm {
   onCancel: any;
 }
 
-export async function antdMessage(eventName: string, framework: Framework, page: Page, scope: Scope, sender: any, eventHandler: RockEventHandlerAntdConfirm, eventArgs: any) {
+export async function antdMessage(
+  eventName: string,
+  framework: Framework,
+  page: Page,
+  scope: Scope,
+  sender: any,
+  eventHandler: RockEventHandlerAntdConfirm,
+  eventArgs: any,
+) {
   return new Promise((resolve, reject) => {
     Modal.confirm({
       title: eventHandler.title,

@@ -245,7 +245,7 @@ async function handleNotifyEvent(
     sender,
     name: eventHandler.eventName,
     senderCategory: "component",
-    args: eventArgs,
+    args: eventHandler.args,
   };
   await targetScope.notifyEvent(eventToNotify);
 }
