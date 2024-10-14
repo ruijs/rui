@@ -19,7 +19,7 @@ export interface TreeProps<TNodeData = DefaultTreeNodeData> {
   width?: string;
   initialData: TNodeData[];
   expandNodesByDefault?: boolean;
-  expandNodeOnDoubleClick?: boolean;
+  toggleNodeOnDoubleClick?: boolean;
   defaultExpandedKeys?: string[];
   defaultSelectedKeys?: string[];
   defaultActiveKey?: string;
@@ -45,13 +45,13 @@ export interface TreeCmds<TNodeData> {
   iconRenderer?: TreeNodePartRenderer<TNodeData>;
   actionsRenderer?: TreeNodePartRenderer<TNodeData>;
   expandNodesByDefault: boolean;
-  expandNodeOnDoubleClick: boolean;
+  toggleNodeOnDoubleClick: boolean;
   expandedKeys: string[];
   selectedKeys: string[];
   activeKey?: string;
   notifyNodeExpand: (nodeKey: string) => void;
   notifyNodeCollapse: (nodeKey: string) => void;
-  notifyNodeActive: (nodeKey: string) => void;
+  notifyNodeActive: (nodeKey: string, nodeData: TNodeData) => void;
 }
 
 function Tree<TNodeData>(props: TreeProps<TNodeData>) {
@@ -66,7 +66,7 @@ function Tree<TNodeData>(props: TreeProps<TNodeData>) {
     iconRenderer,
     actionsRenderer,
     expandNodesByDefault = false,
-    expandNodeOnDoubleClick = false,
+    toggleNodeOnDoubleClick = false,
     defaultExpandedKeys = [],
     defaultSelectedKeys = [],
     defaultActiveKey,
@@ -79,6 +79,7 @@ function Tree<TNodeData>(props: TreeProps<TNodeData>) {
   const notifyNodeCollapse = (nodeKey: string) => {};
   const notifyNodeActive = (nodeKey: string) => {
     setActiveKey(nodeKey);
+    props.onSelect?.([nodeKey]);
   };
 
   const treeCmds: TreeCmds<TNodeData> = {
@@ -90,7 +91,7 @@ function Tree<TNodeData>(props: TreeProps<TNodeData>) {
     iconRenderer,
     actionsRenderer,
     expandNodesByDefault,
-    expandNodeOnDoubleClick,
+    toggleNodeOnDoubleClick,
     expandedKeys,
     selectedKeys,
     activeKey,
