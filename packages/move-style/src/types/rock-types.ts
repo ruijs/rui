@@ -433,6 +433,7 @@ export type RockEventHandlerSendHttpRequest = RockEventHandlerBase & {
 export type RockEventHandlerLoadStoreData = RockEventHandlerBase & {
   $action: "loadStoreData";
   scopeId?: string;
+  rootScope?: boolean;
   storeName: string;
   input?: any;
 };
@@ -446,6 +447,7 @@ export type RockEventHandlerSetVars = RockEventHandlerBase & {
   $action: "setVars";
   $exps?: RockPropExpressions;
   scopeId?: string;
+  rootScope?: boolean;
   name?: string;
   value?: any;
   vars?: Record<string, any>;

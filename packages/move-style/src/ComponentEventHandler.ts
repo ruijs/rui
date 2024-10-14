@@ -378,13 +378,15 @@ async function handleSetVars(
   eventHandler: RockEventHandlerSetVars,
   eventArgs: any[],
 ) {
-  const { name, value, vars, scopeId } = eventHandler;
+  const { name, value, vars, scopeId, rootScope } = eventHandler;
   let targetScope = scope;
-  if (scopeId) {
+  if (rootScope) {
+    targetScope = page.scope;
+  } else if (scopeId) {
     targetScope = page.getScope(scopeId);
   }
   if (!targetScope) {
-    targetScope = scope || page.scope;
+    throw new Error(`Scope with id "${scopeId}" was not found.`);
   }
 
   if (targetScope) {
@@ -408,13 +410,16 @@ async function handleLoadStoreData(
   eventHandler: RockEventHandlerLoadStoreData,
   eventArgs: any[],
 ) {
-  const { storeName, input, scopeId } = eventHandler;
+  const { storeName, input, scopeId, rootScope } = eventHandler;
   let targetScope = scope;
-  if (scopeId) {
+  if (rootScope) {
+    targetScope = page.scope;
+  } else if (scopeId) {
     targetScope = page.getScope(scopeId);
-  }
-  if (!targetScope) {
-    targetScope = scope || page.scope;
+
+    if (!targetScope) {
+      throw new Error(`Scope with id "${scopeId}" was not found.`);
+    }
   }
 
   if (targetScope) {
