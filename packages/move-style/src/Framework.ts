@@ -7,7 +7,6 @@ import StoreFactory from "./stores/StoreFactory";
 import { RuiExtension } from "./types/extension-types";
 import { Rock } from "./types/rock-types";
 import { IStore, StoreConfig } from "./types/store-types";
-import ruiExp from "./utils/rui-exp";
 import { ConfigProcessor } from "./ConfigProcessor";
 import { LoggerFactory, LoggerProvider, RuiModulesNames } from "./Logger";
 import * as MoveStyleUtils from "./utils";
@@ -35,7 +34,7 @@ export class Framework {
     this.#configProcessors = [];
     this.#pages = new Map();
 
-    this.registerExpressionVar("$rui", ruiExp);
+    this.registerExpressionVar("$rui", MoveStyleUtils);
 
     globalThis.$framework = this;
   }

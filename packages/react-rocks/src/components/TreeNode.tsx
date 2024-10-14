@@ -12,7 +12,7 @@ function TreeNode<TNodeData>(props: TreeNodeProps<TNodeData>) {
   const { tree, data, level } = props;
   const {
     expandNodesByDefault,
-    expandNodeOnDoubleClick,
+    toggleNodeOnDoubleClick,
     expandedKeys,
     keyField,
     labelField,
@@ -44,11 +44,11 @@ function TreeNode<TNodeData>(props: TreeNodeProps<TNodeData>) {
   };
 
   const onNodeClick = () => {
-    notifyNodeActive(nodeKey);
+    notifyNodeActive(nodeKey, data);
   };
 
   const onNodeDoubleClick = () => {
-    if (!isLeaf && expandNodeOnDoubleClick) {
+    if (!isLeaf && toggleNodeOnDoubleClick) {
       setExpanded(!expanded);
     }
   };

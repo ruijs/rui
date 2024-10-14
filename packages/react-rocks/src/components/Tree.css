@@ -17,15 +17,15 @@
 }
 
 .rui-tree-node:hover {
-  background-color: #faf0ff;
+  background-color: #e6e6e6;
 }
 
 .rui-tree-node-active {
-  background-color: #c038ff;
+  background-color: #BAE7FF;
 }
 
 .rui-tree-node-active:hover {
-  background-color: #c038ff;
+  background-color: #BAE7FF;
 }
 
 .rui-tree-node-indent,
@@ -44,7 +44,7 @@
 }
 
 .rui-tree-node-toggler:hover {
-  color: #942bc5;
+  color: #007abb;
 }
 
 .rui-tree-node-icon {
