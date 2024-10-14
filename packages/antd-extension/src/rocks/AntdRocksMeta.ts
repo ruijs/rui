@@ -9,6 +9,8 @@ import Input from "./rock-meta/Input";
 import ListItemMeta from "./rock-meta/ListItemMeta";
 import Modal from "./rock-meta/Modal";
 import Drawer from "./rock-meta/Drawer";
+import Dropdown from "./rock-meta/Dropdown";
+import DropdownButton from "./rock-meta/DropdownButton";
 import Rate from "./rock-meta/Rate";
 import Switch from "./rock-meta/Switch";
 import Tabs from "./rock-meta/Tabs";
@@ -16,7 +18,6 @@ import TabPane from "./rock-meta/TabPane";
 import Tree from "./rock-meta/Tree";
 import Result from "~/rocks/rock-meta/Result";
 import Table from "~/rocks/rock-meta/Table";
-
 
 const metaOfRocks: Record<string, RockMeta> = {};
 
@@ -36,6 +37,8 @@ function regMetaOfRocks(meta: RockMeta) {
   Descriptions,
   DescriptionsItem,
   Drawer,
+  Dropdown,
+  DropdownButton,
   FormItem,
   Input,
   ListItemMeta,
@@ -48,7 +51,7 @@ function regMetaOfRocks(meta: RockMeta) {
   Tabs,
   Tree,
 ].forEach((meta) => {
-  regMetaOfRocks(meta)
+  regMetaOfRocks(meta);
 });
 
 export default metaOfRocks;
