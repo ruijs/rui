@@ -1,6 +1,6 @@
 {
   "name": "@ruiapp/move-style",
-  "version": "0.3.6",
+  "version": "0.3.7",
   "description": "",
   "types": "./dist/mod.d.ts",
   "main": "./dist/mod.js",
