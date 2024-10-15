@@ -1,6 +1,6 @@
 {
   "name": "@ruiapp/antd-extension",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "",
   "types": "./dist/mod.d.ts",
   "main": "./dist/mod.js",
