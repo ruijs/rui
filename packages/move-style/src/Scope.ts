@@ -123,7 +123,7 @@ export class Scope implements IScope {
     }
   }
 
-  async loadStoreData(storeName: string, input: HttpRequestInput) {
+  async loadStoreData(storeName: string, input?: HttpRequestInput) {
     const store = find(this.#stores, (item) => item.name === storeName);
     if (!store) {
       throw new Error(`Store '${storeName}' not found.`);

@@ -786,7 +786,7 @@ export interface IPage {
 
   addStore(storeConfig: StoreConfig);
 
-  loadStoreData(storeName: string, input: HttpRequestInput): Promise<any>;
+  loadStoreData(storeName: string, input?: HttpRequestInput): Promise<any>;
 
   notifyEvent(event: RuiEvent);
 
@@ -851,7 +851,7 @@ export interface IScope {
 
   loadData(): Promise<void>;
 
-  loadStoreData(storeName: string, input: HttpRequestInput): Promise<void>;
+  loadStoreData(storeName: string, input?: HttpRequestInput): Promise<void>;
 
   notifyEvent(event: RuiEvent): Promise<void>;
 }
