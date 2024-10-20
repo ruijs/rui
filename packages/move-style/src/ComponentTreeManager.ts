@@ -96,7 +96,9 @@ export class ComponentTreeManager {
     }
 
     // Interprete expressions.
-    this.interpreteConfigExpressions(parentConfig, config, {});
+    this.interpreteConfigExpressions(parentConfig, config, {
+      $scope: scope,
+    });
   }
 
   initComponents() {
