@@ -7,12 +7,14 @@ import { Framework } from "./Framework";
 import { Scope } from "./Scope";
 import { RuiModuleLogger } from "./Logger";
 import { handleComponentEvent } from "./ComponentEventHandler";
+import { EventEmitter } from "./EventEmitter";
 
 export class Page implements IPage {
   #framework: Framework;
   #logger: RuiModuleLogger;
   #readyToRender: boolean;
   #interpreter: ExpressionInterpreter;
+  #emitter: EventEmitter;
   #componentTreeManager: ComponentTreeManager;
   #pageScope: Scope;
 
@@ -29,7 +31,11 @@ export class Page implements IPage {
     this.#logger.debug(`Consturcting Page object, page.$id='${pageConfig.$id}'`);
     this.#framework = framework;
     this.#interpreter = new ExpressionInterpreter();
+    this.#emitter = new EventEmitter();
     this.#componentTreeManager = new ComponentTreeManager(framework, this, this.#interpreter);
+    this.#componentTreeManager.observe(() => {
+      this.#emitter.emit("change", this.#componentTreeManager.getConfig());
+    });
 
     if (pageConfig) {
       this.setConfig(pageConfig);
@@ -61,7 +67,7 @@ export class Page implements IPage {
       initialVars: pageConfig.initialVars || {},
     });
     this.#pageScope.observe(() => {
-      this.#componentTreeManager.reload();
+      this.#emitter.emit("change", this.#componentTreeManager.getConfig());
     });
 
     this.#interpreter.setStores(this.#pageScope.stores);
@@ -116,7 +122,7 @@ export class Page implements IPage {
   }
 
   observe(callback: (config: PageConfig) => void) {
-    this.#componentTreeManager.observe(callback);
+    this.#emitter.on("change", callback);
   }
 
   unsubscribe() {
