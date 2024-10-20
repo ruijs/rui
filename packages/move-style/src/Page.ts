@@ -194,7 +194,7 @@ export class Page implements IPage {
     }
   }
 
-  loadStoreData(storeName: string, input: HttpRequestInput) {
+  loadStoreData(storeName: string, input?: HttpRequestInput) {
     return this.#pageScope.loadStoreData(storeName, input);
   }
 
