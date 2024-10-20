@@ -11,6 +11,7 @@ const RuiPage = (props: RuiPageProps): any => {
   const { framework, page } = props;
   const logger = framework.getLogger("componentRenderer");
   const [pageConfig, setPageConfig] = useState(() => page.getConfig());
+  const [scopeState, setScopeState] = useState<any>();
 
   useEffect(() => {
     logger.info("[RuiPage] Mounting page");
@@ -20,6 +21,13 @@ const RuiPage = (props: RuiPageProps): any => {
     });
     page.loadData();
   }, [page]);
+
+  const scope = page.scope;
+  useEffect(() => {
+    scope.observe((state: any) => {
+      setScopeState(state);
+    });
+  }, [scope]);
 
   if (!pageConfig) {
     logger.debug("[RuiPage] rendering null pageConfig.");
