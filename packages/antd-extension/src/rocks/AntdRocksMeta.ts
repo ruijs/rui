@@ -11,6 +11,7 @@ import Modal from "./rock-meta/Modal";
 import Drawer from "./rock-meta/Drawer";
 import Dropdown from "./rock-meta/Dropdown";
 import DropdownButton from "./rock-meta/DropdownButton";
+import PageHeader from "./rock-meta/PageHeader";
 import Rate from "./rock-meta/Rate";
 import Switch from "./rock-meta/Switch";
 import Tabs from "./rock-meta/Tabs";
@@ -43,6 +44,7 @@ function regMetaOfRocks(meta: RockMeta) {
   Input,
   ListItemMeta,
   Modal,
+  PageHeader,
   Rate,
   Result,
   Switch,
