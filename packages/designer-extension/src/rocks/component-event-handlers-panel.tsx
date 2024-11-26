@@ -39,6 +39,7 @@ export default {
           eventName: eventConfig.name,
           label: eventConfig.label,
           labelTip: eventConfig.description,
+          args: eventConfig.args,
         };
       });
       return setters;

@@ -14,6 +14,7 @@ export interface ScriptEventSetterProps extends RockConfigBase {
   labelTip?: string;
   eventName: string;
   componentConfig: RockConfig;
+  args: any;
 }
 
 export default {
@@ -21,7 +22,7 @@ export default {
 
   Renderer(context, props: ScriptEventSetterProps) {
     const { page } = context;
-    const { $id, label, labelTip, componentConfig, eventName } = props;
+    const { $id, label, labelTip, componentConfig, eventName, args } = props;
 
     const controlRock: RockConfig = useMemo(() => {
       const inputControlRockConfig: RockConfig = {
@@ -31,6 +32,7 @@ export default {
       };
 
       const onInputControlChange: RockEventHandlerScript["script"] = (event: RockEvent) => {
+        event;
         const store = page.getStore<DesignerStore>("designerStore");
 
         if (!event.args) {
@@ -70,6 +72,7 @@ export default {
           generator: "blockly",
           blockly: {
             configs: event.args[0],
+            args: args,
           },
         };
         
