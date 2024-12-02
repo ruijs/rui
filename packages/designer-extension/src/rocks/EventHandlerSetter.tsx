@@ -142,6 +142,15 @@ export default {
           style: styleSetterControls,
           children: isActionConfigured ? props.children : null,
         },
+        isActionConfigured && props?.args.useIntervalTime ? {
+          $id: `${props.$id}-controls-wrapper`,
+          $type: "antdInputNumber",
+          addonAfter: 's',
+          onChange: (value) => {
+            componentConfig.intervalTime = value;
+          },
+          defaultValue: componentConfig.intervalTime,
+        } : null,
       ],
     };
 

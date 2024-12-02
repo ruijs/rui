@@ -29,6 +29,7 @@ export default {
         $type: "scriptSetterInput",
         $id: `${$id}-setterControl-${eventName}`,
         eventName: eventName,
+        args: args,
       };
 
       const onInputControlChange: RockEventHandlerScript["script"] = (event: RockEvent) => {
@@ -122,6 +123,7 @@ export default {
       label,
       labelTip,
       eventName,
+      args,
       componentConfig,
       children: [controlRock],
     } as any;

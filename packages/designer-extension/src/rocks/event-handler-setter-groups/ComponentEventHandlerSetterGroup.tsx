@@ -19,6 +19,7 @@ export default {
           $id: `${props.$id}-${setter.eventName}`,
           $type: "scriptEventHandlerSetter",
           componentConfig: props.componentConfig,
+          args: setter.args,
         });
       });
     }, [setters, componentConfig]);
