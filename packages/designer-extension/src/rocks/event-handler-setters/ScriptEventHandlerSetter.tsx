@@ -14,6 +14,7 @@ export interface ScriptEventSetterProps extends RockConfigBase {
   labelTip?: string;
   eventName: string;
   componentConfig: RockConfig;
+  args: any;
 }
 
 export default {
@@ -21,28 +22,48 @@ export default {
 
   Renderer(context, props: ScriptEventSetterProps) {
     const { page } = context;
-    const { $id, label, labelTip, componentConfig, eventName } = props;
+    const { $id, label, labelTip, componentConfig, eventName, args } = props;
 
     const controlRock: RockConfig = useMemo(() => {
       const inputControlRockConfig: RockConfig = {
         $type: "scriptSetterInput",
         $id: `${$id}-setterControl-${eventName}`,
         eventName: eventName,
+        args: args,
       };
 
       const onInputControlChange: RockEventHandlerScript["script"] = (event: RockEvent) => {
+        event;
         const store = page.getStore<DesignerStore>("designerStore");
 
         if (!event.args) {
           // 删除事件清空属性
-          sendDesignerCommand(page, store, {
-            name: "removeComponentProperty",
-            payload: {
-              componentId: store.selectedComponentId,
-              propName: eventName,
-            },
-          });
-          return;
+          if(store.selectedComponentId) {
+            sendDesignerCommand(page, store, {
+              name: "removeComponentProperty",
+              payload: {
+                componentId: store.selectedComponentId,
+                propName: eventName,
+              },
+            });
+            return;
+          } else {
+            // 处理step清空
+            sendDesignerCommand(page, store, {
+              name: "setPageConfig",
+              payload: {
+                pageConfig: {
+                  ...store.pageConfig,
+                  steps: store.steps.map(step => {
+                    if(step.$id === store.currentStep?.$id) {
+                      delete step[eventName]
+                    }
+                    return step
+                  })
+                }
+              },
+            });
+          }
         }
 
         // 保存事件更新属性
@@ -52,16 +73,36 @@ export default {
           generator: "blockly",
           blockly: {
             configs: event.args[0],
+            args: args,
           },
         };
-        sendDesignerCommand(page, store, {
-          name: "setComponentProperty",
-          payload: {
-            componentId: store.selectedComponentId,
-            propName: eventName,
-            propValue: latestEventHandler,
-          },
-        });
+        
+        if(store.selectedComponentId) {
+          sendDesignerCommand(page, store, {
+            name: "setComponentProperty",
+            payload: {
+              componentId: store.selectedComponentId,
+              propName: eventName,
+              propValue: latestEventHandler,
+            },
+          });
+        } else {
+          // 处理step添加事件
+          sendDesignerCommand(page, store, {
+            name: "setPageConfig",
+            payload: {
+              pageConfig: {
+                ...store.pageConfig,
+                steps: store.steps.map(step => {
+                  if(step.$id === store.currentStep?.$id) {
+                    step[eventName] = latestEventHandler
+                  }
+                  return step
+                })
+              }
+            },
+          });
+        }
       };
 
       inputControlRockConfig.onChange = {
@@ -82,6 +123,7 @@ export default {
       label,
       labelTip,
       eventName,
+      args,
       componentConfig,
       children: [controlRock],
     } as any;
