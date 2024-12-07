@@ -1,6 +1,5 @@
-import type { RockConfig, Rock, SimpleRockConfig, ContainerRockConfig } from "@ruiapp/move-style";
-import { renderRock, renderRockChildren } from "@ruiapp/react-renderer";
-import { each } from "lodash";
+import type { RockConfig, Rock, SimpleRockConfig } from "@ruiapp/move-style";
+import { genRockRenderer } from "@ruiapp/react-renderer";
 
 export interface ListProps extends SimpleRockConfig {
   dataSource?: any[];
@@ -8,8 +7,6 @@ export interface ListProps extends SimpleRockConfig {
   item?: RockConfig;
   separator?: RockConfig;
   footer?: RockConfig;
-  listContainer?: ContainerRockConfig;
-  itemContainer?: ContainerRockConfig;
 }
 
 export default {
@@ -23,19 +20,12 @@ export default {
   ],
 
   slots: {
-    listContainer: {
-      required: false,
-      allowMultiComponents: false,
-    },
-
-    itemContainer: {
-      required: false,
-      allowMultiComponents: false,
-    },
-
     item: {
       required: false,
       allowMultiComponents: false,
+      toRenderProp: true,
+      argumentsToProps: true,
+      argumentNames: ["item", "list", "index"],
     },
 
     separator: {
@@ -45,73 +35,42 @@ export default {
 
     header: {
       required: false,
-      allowMultiComponents: false,
+      allowMultiComponents: true,
     },
 
     footer: {
       required: false,
-      allowMultiComponents: false,
+      allowMultiComponents: true,
     },
   },
 
-  Renderer(context, props) {
-    const { $id, dataSource, item, separator, header, footer, listContainer, itemContainer } = props;
-    let children: RockConfig[] = [];
-
-    if (header) {
-      children.push({
-        ...header,
-        $id: `${$id}-header`,
-      });
-    }
-
-    if (dataSource) {
-      each(dataSource, (value, index) => {
-        if (index !== 0 && separator) {
-          children.push({
-            ...separator,
-            $id: `${$id}-separator-${index}`,
-          });
-        }
-
-        if (itemContainer) {
-          children.push({
-            ...itemContainer,
-            $id: `${$id}-item-${index}-ctnr`,
-            children: {
-              ...item,
-              $id: `${$id}-item-${index}`,
-              value,
-            },
-          });
-        } else {
-          children.push({
-            ...item,
-            $id: `${$id}-item-${index}`,
-            value,
-          });
-        }
-      });
-    }
-
-    if (footer) {
-      children.push({
-        ...footer,
-        $id: `${$id}-footer`,
-      });
-    }
-
-    if (listContainer) {
-      return renderRock({
-        context,
-        rockConfig: {
-          ...listContainer,
-          $id: `${$id}-ctnr`,
-          children,
-        },
-      });
-    } else {
-      return renderRockChildren({ context, rockChildrenConfig: children });
-    }
-  },
+  Renderer: genRockRenderer("list", List),
 } as Rock<ListProps>;
+
+function List(props: any) {
+  const { dataSource, item, separator, header, footer } = props;
+  const dataList = dataSource || [];
+
+  return (
+    <div>
+      {header}
+      {dataList.map((dataItem, index) => {
+        if (separator) {
+          if (index > 0) {
+            return (
+              <>
+                {separator}
+                {item(dataItem, dataList, index)}
+              </>
+            );
+          } else {
+            return item(dataItem, dataList, index);
+          }
+        } else {
+          return item(dataItem, dataList, index);
+        }
+      })}
+      {footer}
+    </div>
+  );
+}

@@ -20,6 +20,7 @@ export type RenderRockSlotOptions = {
   rockType: string;
   slotPropName: string;
   args: any[];
+  fixedProps?: any;
 };
 
 export type RenderRockSlotWithMetaOptions = {
@@ -35,6 +36,7 @@ export type GenerateRockSlotRendererOptions = {
   slot: RockChildrenConfig;
   rockType: string;
   slotPropName: string;
+  fixedProps?: any;
 };
 
 export type ConvertRockEventHandlerPropsOptions = {
@@ -54,4 +56,5 @@ export type ConvertRockSlotPropsOptions = {
   rockConfig: RockConfig;
   slotsMeta: RockMetaSlots;
   isEarly?: boolean;
+  fixedProps?: any;
 };

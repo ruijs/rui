@@ -61,7 +61,14 @@ export default {
   Renderer: (context, props: TreeRockConfig) => {
     const {} = props;
     const eventHandlers = convertToEventHandlers({ context, rockConfig: props });
-    const slotProps = convertToSlotProps({ context, rockConfig: props, slotsMeta });
+    const slotProps = convertToSlotProps({
+      context,
+      fixedProps: {
+        $slot: props.$slot,
+      },
+      rockConfig: props,
+      slotsMeta,
+    });
 
     const treeProps = {
       ...props,
