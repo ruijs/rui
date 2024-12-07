@@ -29,6 +29,16 @@ export default {
       scope.loadData();
     }, [page, scope]);
     const childrenContext = { framework, page, scope, logger };
-    return <>{renderRockChildren({ context: childrenContext, rockChildrenConfig: props.children })}</>;
+    return (
+      <>
+        {renderRockChildren({
+          context: childrenContext,
+          fixedProps: {
+            $slot: props.$slot,
+          },
+          rockChildrenConfig: props.children,
+        })}
+      </>
+    );
   },
 } as Rock;

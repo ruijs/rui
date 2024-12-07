@@ -40,9 +40,6 @@ export default {
     return renderRockChildren({
       context,
       rockChildrenConfig: children,
-      expVars: {
-        $slot: props.$slot,
-      },
       fixedProps: {
         $slot: props.$slot,
       },

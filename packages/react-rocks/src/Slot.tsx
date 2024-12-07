@@ -36,6 +36,9 @@ export default {
       if (hostComponentProp.children) {
         return renderRockChildren({
           context,
+          fixedProps: {
+            $slot: props.$slot,
+          },
           rockChildrenConfig: hostComponentProp.children,
         });
       } else {
@@ -46,6 +49,9 @@ export default {
       if (slotConfig) {
         return renderRockSlot({
           context,
+          fixedProps: {
+            $slot: props.$slot,
+          },
           slot: slotConfig,
           slotPropName: slotName,
           // TODO: make rockType optional
