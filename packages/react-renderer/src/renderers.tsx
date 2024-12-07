@@ -21,7 +21,7 @@ import type {
   RockConfigSystemFields,
   RockInstanceFields,
 } from "@ruiapp/move-style";
-import { forEach, isArray, isFunction, isString, omit, pick } from "lodash";
+import { forEach, isArray, isFunction, isString, omit, pick, set } from "lodash";
 import React, { useState } from "react";
 
 export function genRockRenderer(rockType: string, ReactComponent: any) {
@@ -146,8 +146,9 @@ export function renderRock(options: RenderRockOptions) {
   const componentType = rockConfig.$type;
   const rock: Rock = framework.getComponent(componentType);
   if (!rock) {
-    logger.debug(`Unknown component '${componentType}'`, { rockConfig });
-    throw new Error(`Unknown component '${componentType}'`);
+    const errorMessage = framework.getLocaleStringResource("move-style", "unknownComponentType", { componentType });
+    logger.debug(errorMessage, { rockConfig });
+    throw new Error(errorMessage);
   }
 
   const rockInstance = rockConfig as RockInstance;
@@ -163,6 +164,14 @@ export function renderRock(options: RenderRockOptions) {
   }
   if (!rockInstance._state) {
     rockInstance._state = {};
+  }
+
+  let i18n = rockConfig.$i18n;
+  if (i18n) {
+    for (const propName in i18n) {
+      const getSrConfig = i18n[propName];
+      set(rockConfig, propName, framework.getLocaleStringResource(getSrConfig));
+    }
   }
 
   const configProcessors = framework.getConfigProcessors();
