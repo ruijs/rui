@@ -1,4 +1,4 @@
-import { each } from "lodash";
+import { each, get, isObject, isString, merge } from "lodash";
 import { Page } from "./Page";
 import { Scope } from "./Scope";
 import { ConstantStore } from "./stores/ConstantStore";
@@ -10,6 +10,8 @@ import { IStore, StoreConfig } from "./types/store-types";
 import { ConfigProcessor } from "./ConfigProcessor";
 import { LoggerFactory, LoggerProvider, RuiModulesNames } from "./Logger";
 import * as MoveStyleUtils from "./utils";
+import { GetStringResourceConfig, Lingual, LocaleNamespace, LocaleResource } from "./types/locale-types";
+import locales from "./locales";
 
 export class Framework {
   #loggerFactory: LoggerFactory;
@@ -20,6 +22,11 @@ export class Framework {
   #expVars: Record<string, any>;
   #configProcessors: ConfigProcessor[];
   #pages: Map<string, Page>;
+
+  #lingual: string;
+  #fallbackLingual: string;
+  #locales: Map<Lingual, Map<LocaleNamespace, LocaleResource>>;
+
   constructor() {
     this.#loggerFactory = new LoggerFactory();
 
@@ -33,8 +40,14 @@ export class Framework {
     this.#expVars = {};
     this.#configProcessors = [];
     this.#pages = new Map();
+    this.#locales = new Map();
 
     this.registerExpressionVar("$rui", MoveStyleUtils);
+    this.registerExpressionVar("$sr", this.getLocaleStringResource.bind(this));
+
+    this.loadLocaleResources("move-style", locales);
+    this.setLingual("zh-CN");
+    this.setFallbackLingual("zh-CN");
 
     globalThis.$framework = this;
   }
@@ -130,6 +143,10 @@ export class Framework {
     each(extension.configProcessors, (configProcessor) => {
       this.registerConfigProcessor(configProcessor);
     });
+
+    if (extension.locales) {
+      this.loadLocaleResources(extension.name, extension.locales);
+    }
   }
 
   setPage(id: string, page: Page) {
@@ -138,5 +155,92 @@ export class Framework {
 
   getPage(id: string): Page | undefined {
     return this.#pages.get(id);
+  }
+
+  setLingual(lingual: string) {
+    this.#lingual = lingual;
+  }
+
+  setFallbackLingual(lingual: string) {
+    this.#fallbackLingual = lingual;
+  }
+
+  getLocaleResources() {
+    return this.#locales;
+  }
+
+  loadLocaleResources(ns: string, localeResources: Record<string, LocaleResource>) {
+    for (const lingual in localeResources) {
+      const localeResourceToLoad = localeResources[lingual];
+
+      let localeResourcesOfLingual = this.#locales.get(lingual);
+      if (!localeResourcesOfLingual) {
+        localeResourcesOfLingual = new Map();
+        this.#locales.set(lingual, localeResourcesOfLingual);
+      }
+
+      let localeResource = localeResourcesOfLingual.get(ns);
+      if (!localeResource) {
+        localeResource = {
+          translation: {},
+        };
+        localeResourcesOfLingual.set(ns, localeResource);
+      }
+
+      merge(localeResource.translation, localeResourceToLoad.translation);
+    }
+  }
+
+  getLocaleStringResource(ns: string | GetStringResourceConfig, name?: string, params?: Record<string, any>): string {
+    if (arguments.length === 1) {
+      if (isObject(ns)) {
+        params = ns.params;
+        name = ns.name;
+        ns = ns.ns;
+      } else {
+        name = ns;
+        ns = "default";
+      }
+    } else if (arguments.length === 2) {
+      if (isString(ns) && isObject(name)) {
+        params = name;
+        name = ns;
+        ns = "default";
+      }
+    }
+
+    if (!ns) {
+      ns = "default";
+    }
+
+    let localeResourcesOfLingual = this.#locales.get(this.#lingual);
+    if (!localeResourcesOfLingual) {
+      localeResourcesOfLingual = this.#locales.get(this.#fallbackLingual);
+    }
+
+    if (!localeResourcesOfLingual) {
+      localeResourcesOfLingual = new Map();
+    }
+
+    let localeResourceOfNs = localeResourcesOfLingual.get(ns as string);
+    if (!localeResourcesOfLingual) {
+      localeResourceOfNs = {
+        translation: {},
+      };
+    }
+
+    const sr = get(localeResourceOfNs.translation, name);
+    if (!sr) {
+      return `${ns}:${name}`;
+    }
+    if (isObject(sr)) {
+      throw new Error("String resource should be a text string. Check the 'name' parameter.");
+    }
+
+    if (!params) {
+      return sr;
+    }
+
+    return MoveStyleUtils.fulfillVariablesInString(sr, params);
   }
 }

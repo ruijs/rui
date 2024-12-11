@@ -3,6 +3,7 @@ export * from "./types/rock-types";
 export * from "./types/render-types";
 export * from "./types/request-types";
 export * from "./types/extension-types";
+export * from "./types/locale-types";
 export * from "./ComponentEventHandler";
 export * from "./ComponentTreeManager";
 export * from "./EventEmitter";
