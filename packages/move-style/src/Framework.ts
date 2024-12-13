@@ -191,6 +191,47 @@ export class Framework {
     }
   }
 
+  hasLocaleStringResource(ns: string | GetStringResourceConfig, name?: string): boolean {
+    if (arguments.length === 1) {
+      if (isObject(ns)) {
+        name = ns.name;
+        ns = ns.ns;
+      } else {
+        name = ns;
+        ns = "default";
+      }
+    } else if (arguments.length === 2) {
+      if (isString(ns) && isObject(name)) {
+        name = ns;
+        ns = "default";
+      }
+    }
+
+    if (!ns) {
+      ns = "default";
+    }
+
+    let localeResourceOfNs = this.#locales.get(ns as string);
+    if (!localeResourceOfNs) {
+      return false;
+    }
+
+    let localeResourcesOfLingual = localeResourceOfNs.get(this.#lingual);
+    if (!localeResourcesOfLingual) {
+      return false;
+    }
+
+    const sr = get(localeResourcesOfLingual.translation, name);
+    if (!sr) {
+      return false;
+    }
+    if (isObject(sr)) {
+      throw new Error("String resource should be a text string. Check the 'name' parameter.");
+    }
+
+    return true;
+  }
+
   getLocaleStringResource(ns: string | GetStringResourceConfig, name?: string, params?: Record<string, any>): string {
     if (arguments.length === 1) {
       if (isObject(ns)) {
