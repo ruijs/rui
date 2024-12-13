@@ -859,8 +859,8 @@ export interface IScope {
 }
 
 export type RockInitContext = {
+  framework: Framework;
   page: IPage;
-
   scope: IScope;
 };
 
