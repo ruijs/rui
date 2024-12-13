@@ -142,6 +142,7 @@ export class ComponentTreeManager {
               this.#logger.debug(`Initializing component '${config.$id}'...`);
               rock.onInit(
                 {
+                  framework: this.#framework,
                   page: this.#page,
                   scope: scope || this.#page.scope,
                 },
