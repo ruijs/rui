@@ -25,7 +25,7 @@ export class Framework {
 
   #lingual: string;
   #fallbackLingual: string;
-  #locales: Map<Lingual, Map<LocaleNamespace, LocaleResource>>;
+  #locales: Map<LocaleNamespace, Map<Lingual, LocaleResource>>;
 
   constructor() {
     this.#loggerFactory = new LoggerFactory();
@@ -173,18 +173,18 @@ export class Framework {
     for (const lingual in localeResources) {
       const localeResourceToLoad = localeResources[lingual];
 
-      let localeResourcesOfLingual = this.#locales.get(lingual);
-      if (!localeResourcesOfLingual) {
-        localeResourcesOfLingual = new Map();
-        this.#locales.set(lingual, localeResourcesOfLingual);
+      let localeResourcesOfNs = this.#locales.get(ns);
+      if (!localeResourcesOfNs) {
+        localeResourcesOfNs = new Map();
+        this.#locales.set(ns, localeResourcesOfNs);
       }
 
-      let localeResource = localeResourcesOfLingual.get(ns);
+      let localeResource = localeResourcesOfNs.get(lingual);
       if (!localeResource) {
         localeResource = {
           translation: {},
         };
-        localeResourcesOfLingual.set(ns, localeResource);
+        localeResourcesOfNs.set(lingual, localeResource);
       }
 
       merge(localeResource.translation, localeResourceToLoad.translation);
@@ -213,23 +213,21 @@ export class Framework {
       ns = "default";
     }
 
-    let localeResourcesOfLingual = this.#locales.get(this.#lingual);
+    let localeResourceOfNs = this.#locales.get(ns as string);
+    if (!localeResourceOfNs) {
+      return `${ns}:${name}`;
+    }
+
+    let localeResourcesOfLingual = localeResourceOfNs.get(this.#lingual);
     if (!localeResourcesOfLingual) {
-      localeResourcesOfLingual = this.#locales.get(this.#fallbackLingual);
+      localeResourcesOfLingual = localeResourceOfNs.get(this.#fallbackLingual);
     }
 
     if (!localeResourcesOfLingual) {
-      localeResourcesOfLingual = new Map();
+      return `${ns}:${name}`;
     }
 
-    let localeResourceOfNs = localeResourcesOfLingual.get(ns as string);
-    if (!localeResourcesOfLingual) {
-      localeResourceOfNs = {
-        translation: {},
-      };
-    }
-
-    const sr = get(localeResourceOfNs.translation, name);
+    const sr = get(localeResourcesOfLingual.translation, name);
     if (!sr) {
       return `${ns}:${name}`;
     }
