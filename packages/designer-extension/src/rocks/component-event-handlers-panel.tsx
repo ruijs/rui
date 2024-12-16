@@ -14,8 +14,14 @@ export default {
 
   Renderer(context, props: DesignerComponentPropertiesPanelProps) {
     const { framework } = context;
-    const { $id, designingPage, selectedComponentId } = props;
-    const selectedComponentConfig = designingPage && selectedComponentId && designingPage.getComponent(selectedComponentId);
+    const { $id, designingPage, selectedComponentId, currentStep } = props;
+    let selectedComponentConfig;
+
+    if(selectedComponentId) {
+      selectedComponentConfig = designingPage && selectedComponentId && designingPage.getComponent(selectedComponentId);
+    } else if (currentStep) {
+      selectedComponentConfig = currentStep;
+    }
 
     const setters = useMemo(() => {
       if (!selectedComponentConfig) {
@@ -33,6 +39,7 @@ export default {
           eventName: eventConfig.name,
           label: eventConfig.label,
           labelTip: eventConfig.description,
+          args: eventConfig.args,
         };
       });
       return setters;
@@ -42,9 +49,9 @@ export default {
       return null;
     }
 
-    if (!selectedComponentId) {
-      return null;
-    }
+    // if (!selectedComponentId) {
+    //   return null;
+    // }
 
     const setterGroupRockConfig: RockConfig = {
       $id: `${$id}-setter-group`,
