@@ -1,6 +1,8 @@
-import { get, isObject, isString, merge } from "lodash";
+import { get, isNull, isObject, isString, isUndefined, merge, set } from "lodash";
 import { GetStringResourceConfig, Lingual, LocaleNamespace, LocaleResource } from "~/types/locale-types";
 import { fulfillVariablesInString } from "./variable-fulfiller";
+import { Framework } from "~/Framework";
+import { RuiModuleLogger } from "~/Logger";
 
 export function loadLocaleResources(
   localesStore: Map<LocaleNamespace, Map<Lingual, LocaleResource>>,
@@ -130,4 +132,46 @@ export function getLocaleStringResource(
   }
 
   return fulfillVariablesInString(sr, params);
+}
+
+export function localizeConfigProps(framework: Framework, logger: RuiModuleLogger, config: Record<string, any>) {
+  let i18n = config.$i18n;
+  if (i18n) {
+    for (const propName in i18n) {
+      let getSrConfig = i18n[propName];
+      if (isUndefined(getSrConfig) || isNull(getSrConfig)) {
+        continue;
+      }
+
+      if (isString(getSrConfig)) {
+        getSrConfig = {
+          name: getSrConfig,
+        };
+      }
+
+      const hasLocaleStringResource = framework.hasLocaleStringResource(getSrConfig);
+      if (hasLocaleStringResource) {
+        set(config, propName, framework.getLocaleStringResource(getSrConfig));
+      }
+    }
+  }
+
+  let locales = config.$locales;
+  if (locales) {
+    for (const propName in locales) {
+      if (propName.startsWith("$")) {
+        logger.error(`Can not set locale text to system field "${propName}".`);
+        continue;
+      }
+
+      const propLocales = locales[propName];
+      let resourceOfLingual = propLocales[framework.getLingual()];
+      if (!resourceOfLingual) {
+        resourceOfLingual = propLocales[framework.getFallbackLingual()];
+      }
+      if (resourceOfLingual) {
+        set(config, propName, resourceOfLingual);
+      }
+    }
+  }
 }

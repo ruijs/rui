@@ -463,6 +463,7 @@ export type RockEventHandlerOther = RockEventHandlerBase & {
 
 /**
  * @deprecated
+ * use RockExpsConfig
  */
 // TODO: remove this. use RockExpsConfig
 export type RockPropExpressions = Record<string, string>;
