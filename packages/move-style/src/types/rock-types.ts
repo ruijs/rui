@@ -285,9 +285,9 @@ export type RockConfigBase = {
   $version?: string;
   $name?: string;
   $notes?: string;
-  $exps?: RockPropExpressions;
-  $i18n?: Record<string, GetStringResourceConfig>;
-  $locales?: Record<string, Record<Lingual, string>>;
+  $exps?: RockExpsConfig;
+  $i18n?: RockI18nConfig;
+  $locales?: RockLocalesConfig;
   _hidden?: boolean;
 };
 
@@ -348,7 +348,7 @@ export type RockEventHandler =
 
 export type RockEventHandlerBase = {
   _disabled?: boolean;
-  $exps?: RockPropExpressions;
+  $exps?: RockExpsConfig;
 };
 
 export type RockEventHandlerScript = RockEventHandlerBase & {
@@ -396,7 +396,7 @@ export type RockEventHandlerNotifyToPage = RockEventHandlerBase & {
 
 export type RockEventHandlerSetComponentProperty = RockEventHandlerBase & {
   $action: "setComponentProperty";
-  $exps?: RockPropExpressions;
+  $exps?: RockExpsConfig;
   componentId: string;
   propName: string;
   propValue: RockPropValue;
@@ -404,28 +404,28 @@ export type RockEventHandlerSetComponentProperty = RockEventHandlerBase & {
 
 export type RockEventHandlerSetComponentProperties = RockEventHandlerBase & {
   $action: "setComponentProperties";
-  $exps?: RockPropExpressions;
+  $exps?: RockExpsConfig;
   componentId: string;
   props: Record<string, RockPropValue>;
 };
 
 export type RockEventHandlerRemoveComponentProperty = RockEventHandlerBase & {
   $action: "removeComponentProperty";
-  $exps?: RockPropExpressions;
+  $exps?: RockExpsConfig;
   componentId: string;
   propName: string;
 };
 
 export type RockEventHandlerSendComponentMessage<TRockMessage extends RockMessage = RockMessage> = RockEventHandlerBase & {
   $action: "sendComponentMessage";
-  $exps?: RockPropExpressions;
+  $exps?: RockExpsConfig;
   componentId: string;
   message: TRockMessage;
 };
 
 export type RockEventHandlerSendHttpRequest = RockEventHandlerBase & {
   $action: "sendHttpRequest";
-  $exps?: RockPropExpressions;
+  $exps?: RockExpsConfig;
 
   /**
    * 如果设置为true，则请求出错时不抛出异常
@@ -448,7 +448,7 @@ export type RockEventHandlerLoadScopeData = RockEventHandlerBase & {
 
 export type RockEventHandlerSetVars = RockEventHandlerBase & {
   $action: "setVars";
-  $exps?: RockPropExpressions;
+  $exps?: RockExpsConfig;
   scopeId?: string;
   rootScope?: boolean;
   name?: string;
@@ -461,7 +461,17 @@ export type RockEventHandlerOther = RockEventHandlerBase & {
   [k: string]: any;
 };
 
+/**
+ * @deprecated
+ */
+// TODO: remove this. use RockExpsConfig
 export type RockPropExpressions = Record<string, string>;
+
+export type RockExpsConfig = RockPropExpressions;
+
+export type RockI18nConfig = Record<string, GetStringResourceConfig>;
+
+export type RockLocalesConfig = Record<string, Record<Lingual, string>>;
 
 export type SimpleRockConfig = RockConfigBase & {
   [k: string]: RockPropValue;
@@ -476,7 +486,9 @@ export type RockPropValue =
   | RockConfig
   | RockConfig[]
   | RockEventHandlerConfig
-  | RockPropExpressions
+  | RockExpsConfig
+  | RockI18nConfig
+  | RockLocalesConfig
   | Record<string, string | number | boolean | RockConfig | RockConfig[]>
   | RockPropValueProducer
   | any;
