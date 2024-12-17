@@ -12,6 +12,7 @@ import { LoggerFactory, LoggerProvider, RuiModulesNames } from "./Logger";
 import * as MoveStyleUtils from "./utils";
 import { GetStringResourceConfig, Lingual, LocaleNamespace, LocaleResource } from "./types/locale-types";
 import locales from "./locales";
+import { getLocaleStringResource, hasLocaleStringResource, loadLocaleResources } from "./utils/i18n-utility";
 
 export class Framework {
   #loggerFactory: LoggerFactory;
@@ -161,8 +162,16 @@ export class Framework {
     this.#lingual = lingual;
   }
 
+  getLingual() {
+    return this.#lingual;
+  }
+
   setFallbackLingual(lingual: string) {
     this.#fallbackLingual = lingual;
+  }
+
+  getFallbackLingual() {
+    return this.#fallbackLingual;
   }
 
   getLocaleResources() {
@@ -170,116 +179,14 @@ export class Framework {
   }
 
   loadLocaleResources(ns: string, localeResources: Record<string, LocaleResource>) {
-    for (const lingual in localeResources) {
-      const localeResourceToLoad = localeResources[lingual];
-
-      let localeResourcesOfNs = this.#locales.get(ns);
-      if (!localeResourcesOfNs) {
-        localeResourcesOfNs = new Map();
-        this.#locales.set(ns, localeResourcesOfNs);
-      }
-
-      let localeResource = localeResourcesOfNs.get(lingual);
-      if (!localeResource) {
-        localeResource = {
-          translation: {},
-        };
-        localeResourcesOfNs.set(lingual, localeResource);
-      }
-
-      merge(localeResource.translation, localeResourceToLoad.translation);
-    }
+    loadLocaleResources(this.#locales, ns, localeResources);
   }
 
   hasLocaleStringResource(ns: string | GetStringResourceConfig, name?: string): boolean {
-    if (arguments.length === 1) {
-      if (isObject(ns)) {
-        name = ns.name;
-        ns = ns.ns;
-      } else {
-        name = ns;
-        ns = "default";
-      }
-    } else if (arguments.length === 2) {
-      if (isString(ns) && isObject(name)) {
-        name = ns;
-        ns = "default";
-      }
-    }
-
-    if (!ns) {
-      ns = "default";
-    }
-
-    let localeResourceOfNs = this.#locales.get(ns as string);
-    if (!localeResourceOfNs) {
-      return false;
-    }
-
-    let localeResourcesOfLingual = localeResourceOfNs.get(this.#lingual);
-    if (!localeResourcesOfLingual) {
-      return false;
-    }
-
-    const sr = get(localeResourcesOfLingual.translation, name);
-    if (!sr) {
-      return false;
-    }
-    if (isObject(sr)) {
-      throw new Error("String resource should be a text string. Check the 'name' parameter.");
-    }
-
-    return true;
+    return hasLocaleStringResource(this.#locales, this.#lingual, ns, name);
   }
 
   getLocaleStringResource(ns: string | GetStringResourceConfig, name?: string, params?: Record<string, any>): string {
-    if (arguments.length === 1) {
-      if (isObject(ns)) {
-        params = ns.params;
-        name = ns.name;
-        ns = ns.ns;
-      } else {
-        name = ns;
-        ns = "default";
-      }
-    } else if (arguments.length === 2) {
-      if (isString(ns) && isObject(name)) {
-        params = name;
-        name = ns;
-        ns = "default";
-      }
-    }
-
-    if (!ns) {
-      ns = "default";
-    }
-
-    let localeResourceOfNs = this.#locales.get(ns as string);
-    if (!localeResourceOfNs) {
-      return `${ns}:${name}`;
-    }
-
-    let localeResourcesOfLingual = localeResourceOfNs.get(this.#lingual);
-    if (!localeResourcesOfLingual) {
-      localeResourcesOfLingual = localeResourceOfNs.get(this.#fallbackLingual);
-    }
-
-    if (!localeResourcesOfLingual) {
-      return `${ns}:${name}`;
-    }
-
-    const sr = get(localeResourcesOfLingual.translation, name);
-    if (!sr) {
-      return `${ns}:${name}`;
-    }
-    if (isObject(sr)) {
-      throw new Error("String resource should be a text string. Check the 'name' parameter.");
-    }
-
-    if (!params) {
-      return sr;
-    }
-
-    return MoveStyleUtils.fulfillVariablesInString(sr, params);
+    return getLocaleStringResource(this.#locales, this.#lingual, this.#fallbackLingual, ns, name, params);
   }
 }

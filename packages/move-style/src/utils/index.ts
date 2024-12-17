@@ -18,3 +18,5 @@ export { fulfillVariables, fulfillVariablesInString } from "./variable-fulfiller
 export { request } from "./HttpRequest";
 
 export const execVarText = fulfillVariablesInString;
+
+export * from "./i18n-utility";
