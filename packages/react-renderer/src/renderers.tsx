@@ -21,6 +21,7 @@ import type {
   RockConfigSystemFields,
   RockInstanceFields,
 } from "@ruiapp/move-style";
+import { localizeConfigProps } from "@ruiapp/move-style/dist/utils";
 import { forEach, isArray, isFunction, isNull, isString, isUndefined, omit, pick, set } from "lodash";
 import React, { useState } from "react";
 
@@ -166,45 +167,7 @@ export function renderRock(options: RenderRockOptions) {
     rockInstance._state = {};
   }
 
-  let i18n = rockConfig.$i18n;
-  if (i18n) {
-    for (const propName in i18n) {
-      let getSrConfig = i18n[propName];
-      if (isUndefined(getSrConfig) || isNull(getSrConfig)) {
-        continue;
-      }
-
-      if (isString(getSrConfig)) {
-        getSrConfig = {
-          name: getSrConfig,
-        };
-      }
-
-      const hasLocaleStringResource = framework.hasLocaleStringResource(getSrConfig);
-      if (hasLocaleStringResource) {
-        set(rockConfig, propName, framework.getLocaleStringResource(getSrConfig));
-      }
-    }
-  }
-
-  let locales = rockConfig.$locales;
-  if (locales) {
-    for (const propName in locales) {
-      if (propName.startsWith("$")) {
-        logger.error(`Can not set locale text to system field "${propName}".`);
-        continue;
-      }
-
-      const propLocales = locales[propName];
-      let resourceOfLingual = propLocales[framework.getLingual()];
-      if (!resourceOfLingual) {
-        resourceOfLingual = propLocales[framework.getFallbackLingual()];
-      }
-      if (resourceOfLingual) {
-        set(rockConfig, propName, resourceOfLingual);
-      }
-    }
-  }
+  localizeConfigProps(framework, logger, rockConfig);
 
   const configProcessors = framework.getConfigProcessors();
   for (const configProcessor of configProcessors) {
