@@ -2,7 +2,7 @@ import { get, isNull, isObject, isString, isUndefined, merge, set } from "lodash
 import { GetStringResourceConfig, Lingual, LocaleNamespace, LocaleResource } from "~/types/locale-types";
 import { fulfillVariablesInString } from "./variable-fulfiller";
 import { Framework } from "~/Framework";
-import { RuiModuleLogger } from "~/Logger";
+import { RuiLogger } from "~/Logger";
 
 export function loadLocaleResources(
   localesStore: Map<LocaleNamespace, Map<Lingual, LocaleResource>>,
@@ -134,7 +134,7 @@ export function getLocaleStringResource(
   return fulfillVariablesInString(sr, params);
 }
 
-export function localizeConfigProps(framework: Framework, logger: RuiModuleLogger, config: Record<string, any>) {
+export function localizeConfigProps(framework: Framework, logger: RuiLogger, config: Record<string, any>) {
   let i18n = config.$i18n;
   if (i18n) {
     for (const propName in i18n) {

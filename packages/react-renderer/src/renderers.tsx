@@ -21,8 +21,7 @@ import type {
   RockConfigSystemFields,
   RockInstanceFields,
 } from "@ruiapp/move-style";
-import { localizeConfigProps } from "@ruiapp/move-style/dist/utils";
-import { forEach, isArray, isFunction, isNull, isString, isUndefined, omit, pick, set } from "lodash";
+import { forEach, isArray, isFunction, isString, omit, pick } from "lodash";
 import React, { useState } from "react";
 
 export function genRockRenderer(rockType: string, ReactComponent: any) {
@@ -167,7 +166,7 @@ export function renderRock(options: RenderRockOptions) {
     rockInstance._state = {};
   }
 
-  localizeConfigProps(framework, logger, rockConfig);
+  MoveStyleUtils.localizeConfigProps(framework, logger, rockConfig);
 
   const configProcessors = framework.getConfigProcessors();
   for (const configProcessor of configProcessors) {
