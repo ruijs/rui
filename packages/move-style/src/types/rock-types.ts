@@ -4,7 +4,7 @@ import { IStore, StoreConfig, StoreConfigBase } from "./store-types";
 import { Framework } from "~/Framework";
 import { Page } from "~/Page";
 import { RuiRockLogger } from "~/Logger";
-import { GetStringResourceConfig } from "./locale-types";
+import { GetStringResourceConfig, Lingual } from "./locale-types";
 
 export type FieldSettings = {
   valueType: FieldValueType;
@@ -287,6 +287,7 @@ export type RockConfigBase = {
   $notes?: string;
   $exps?: RockPropExpressions;
   $i18n?: Record<string, GetStringResourceConfig>;
+  $locales?: Record<string, Record<Lingual, string>>;
   _hidden?: boolean;
 };
 
