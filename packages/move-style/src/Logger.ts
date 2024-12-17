@@ -274,10 +274,16 @@ export class RuiModuleLogger {
 export class RuiRockLogger {
   #logger: RuiLogger;
 
+  // TODO: should pass rockProps in constructor
   constructor(loggerProvider: LoggerProvider) {
     if (loggerProvider) {
       this.#logger = loggerProvider.createLogger();
     }
+  }
+
+  // TODO: should remove this
+  getInternalLogger() {
+    return this.#logger;
   }
 
   get level() {
