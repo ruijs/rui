@@ -104,7 +104,8 @@ async function doHandleComponentEvent(
     }
   }
   if (action === "printToConsole") {
-    console.info("[RUI][ComponentEvent] ", event);
+    const logger = framework.getLogger("componentEventHandler");
+    logger.info("printToConsole", event);
   } else if (action === "script") {
     await handleScript.apply(null, arguments);
   } else if (action === "throwError") {

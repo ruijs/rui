@@ -239,7 +239,8 @@ export function renderRockSlot(options: RenderRockSlotOptions) {
   const rockMeta = framework.getComponent(rockType);
   let slotMeta = rockMeta.slots && rockMeta.slots[slotPropName];
   if (!slotMeta) {
-    console.warn(`Slot '${slotPropName}' of rock '${rockType}' was not found.`);
+    const logger = framework.getLogger("componentRenderer");
+    logger.warn(`Slot '${slotPropName}' of rock '${rockType}' was not found.`);
 
     slotMeta = {
       allowMultiComponents: true,

@@ -32,6 +32,7 @@ export default {
 
   Renderer(context, props: ComponentTreeProps) {
     const { framework, page } = context;
+    const logger = framework.getRockLogger();
     const designingPage: Page = props.designingPage;
     const designingPageConfig = designingPage.getConfig();
 
@@ -61,7 +62,7 @@ export default {
     const onComponentTreeNodeDrop: RockEventHandlerScript["script"] = useCallback(
       (event: RockEvent) => {
         const { event: dragEvent, node, dragNode } = event.args[0];
-        console.log({
+        logger.debug(props, "onComponentTreeNodeDrop", {
           dragEvent,
           node,
           dragNode,

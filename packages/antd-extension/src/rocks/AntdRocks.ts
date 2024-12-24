@@ -23,7 +23,8 @@ function wrapToRocks(prefixName, groupName, componentGroup) {
   }
 }
 
-console.info("Converting Antd components to rocks.");
+console.info(`[${new Date()}] info: Converting Antd components to rocks.`);
 wrapToRocks("antd", "Antd", Antd);
+console.info(`[${new Date()}] info:Antd rocks converted.`);
 
 export default rocks;
