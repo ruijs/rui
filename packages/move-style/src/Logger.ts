@@ -62,7 +62,16 @@ export interface LoggerProvider {
   createLogger(): RuiLogger;
 }
 
-export type RuiModulesNames = "framework" | "page" | "scope" | "store" | "componentTreeManager" | "componentRenderer" | "componentEventHandler" | "other";
+export type RuiModulesNames =
+  | "framework"
+  | "page"
+  | "scope"
+  | "store"
+  | "componentTreeManager"
+  | "componentRenderer"
+  | "componentEventHandler"
+  | "expressionInterpreter"
+  | "other";
 
 export class LoggerFactory {
   #provider: LoggerProvider;

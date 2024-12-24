@@ -7,7 +7,9 @@ export default {
 
   Renderer(context, props, state) {
     // const [color, setColor] = useState<string>("#fffff");
-    console.log('props=>', props)
+    const { framework } = context;
+    const logger = framework.getRockLogger();
+    logger.debug(props, "rendering commonPropPanelExample");
 
     return renderRock({
       context,
@@ -15,18 +17,20 @@ export default {
         $type: "designerComponentPropertiesPanel",
         $id: "designerComponentPropertiesPanel",
         // componentConfig: {},
-        $exps: {
-          selectedComponentId: 'designerComponentPropertiesPanel',
-          designingPage: new Page(context.framework, {
-            $id: 'designerComponentPropertiesPanel-children',
-            view: [{
+        designingPage: new Page(context.framework, {
+          $id: "designerComponentPropertiesPanel-children",
+          view: [
+            {
               $type: "htmlElement",
               $id: "htmlElement-page",
               htmlTag: "div",
-              $exps: {}
-            }]
-          }),
-        }
+              $exps: {},
+            },
+          ],
+        }),
+        $exps: {
+          selectedComponentId: "designerComponentPropertiesPanel",
+        },
       },
     });
   },

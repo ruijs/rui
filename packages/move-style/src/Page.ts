@@ -30,7 +30,7 @@ export class Page implements IPage {
 
     this.#logger.debug(`Consturcting Page object, page.$id='${pageConfig.$id}'`);
     this.#framework = framework;
-    this.#interpreter = new ExpressionInterpreter();
+    this.#interpreter = new ExpressionInterpreter(framework.getLogger("expressionInterpreter"));
     this.#emitter = new EventEmitter();
     this.#componentTreeManager = new ComponentTreeManager(framework, this, this.#interpreter);
     this.#componentTreeManager.observe(() => {

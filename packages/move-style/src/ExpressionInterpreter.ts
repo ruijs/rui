@@ -1,10 +1,14 @@
 import { memoize } from "lodash";
 import { IStore } from "./types/store-types";
+import { RuiLogger } from "./Logger";
 
 export class ExpressionInterpreter {
+  #logger: RuiLogger;
   #stores: Record<string, IStore>;
 
-  constructor() {}
+  constructor(logger: RuiLogger) {
+    this.#logger = logger;
+  }
 
   // TODO: It's better to inject root variables using a common method.
   setStores(stores: Record<string, IStore>) {
@@ -26,7 +30,7 @@ export class ExpressionInterpreter {
       const expression = genExpression(varNames, expressionString);
       result = expression(...varValues);
     } catch (err) {
-      console.error(`Expression interprete error. expression: '${expressionString}', error:`, err.message);
+      this.#logger.error(`Expression interprete error. expression: '${expressionString}', error:${err.message}`);
     }
     return result;
   }

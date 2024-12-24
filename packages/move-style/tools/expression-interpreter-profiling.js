@@ -21,7 +21,7 @@ rootVars.$self = {
   },
 };
 
-const interpreter = new ExpressionInterpreter();
+const interpreter = new ExpressionInterpreter(rootVars.$framework.getLogger("other"));
 
 console.time("interprete");
 for (let i = 0; i < 10000; i++) {
