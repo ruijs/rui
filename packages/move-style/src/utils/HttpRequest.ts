@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosRequestConfig } from "axios";
 import qs from "qs";
 import { HttpRequestOptions } from "../types/request-types";
 
@@ -17,11 +17,18 @@ export async function request<TRequestData = Record<string, any>, TQuery = Recor
     url = url + prefixChar + queryString;
   }
 
-  return axios<TResponseData>({
+  const axiosConfig: AxiosRequestConfig<any> = {
     method: options.method,
     url,
     headers: options.headers,
     data: options.data,
-    validateStatus: options.validateStatus,
-  });
+  };
+  if (options.hasOwnProperty("validateStatus")) {
+    axiosConfig.validateStatus = options.validateStatus;
+  }
+  return axios<TResponseData>(axiosConfig);
+}
+
+export function isResponseStatusSuccess(status: number) {
+  return status < 400;
 }
