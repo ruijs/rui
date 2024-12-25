@@ -24,7 +24,7 @@ import {
   RockEventHandlerWait,
   RockPropExpressions,
 } from "./types/rock-types";
-import { request } from "./utils/HttpRequest";
+import { isResponseStatusSuccess, request } from "./utils/HttpRequest";
 import { AxiosResponse } from "axios";
 
 // TODO: make event handling extensible.
@@ -348,18 +348,40 @@ async function handleSendHttpRequest(
   const { onError, onSuccess, silentOnError } = eventHandler;
   let res: AxiosResponse<any, any>;
   try {
-    res = await request(eventHandler as HttpRequestOptions);
-
-    if (onSuccess) {
-      await handleComponentEvent(eventName, framework, page, scope, sender, onSuccess, [res.data]);
+    const requestOptions = eventHandler as HttpRequestOptions;
+    if (!eventHandler.validateStatus) {
+      requestOptions.validateStatus = null;
     }
-  } catch (ex: any) {
-    const message = ex?.response?.data?.error?.message || ex.message;
-    const err = new Error(message, {
-      cause: ex,
-    });
-    err.name = "RuiHttpRequestError";
+    res = await request(requestOptions);
 
+    if (isResponseStatusSuccess(res.status)) {
+      if (onSuccess) {
+        await handleComponentEvent(eventName, framework, page, scope, sender, onSuccess, [res.data]);
+      }
+    } else {
+      let err: Error;
+      try {
+        const result = res.data;
+        const resultError = result?.error;
+        if (resultError) {
+          const errorMessage = resultError?.message;
+          err = new Error(errorMessage, {
+            cause: resultError,
+          });
+        }
+      } catch (ex: any) {
+        const logger = framework.getLogger("componentEventHandler");
+        logger.error("Failed to get response body as JSON. %s", ex.message);
+      }
+
+      if (!err) {
+        err = new Error(`${res.status} ${res.statusText}`);
+      }
+      err.name = "RuiHttpRequestError";
+
+      throw err;
+    }
+  } catch (err: any) {
     if (onError) {
       await handleComponentEvent(eventName, framework, page, scope, sender, onError, [err]);
     }
