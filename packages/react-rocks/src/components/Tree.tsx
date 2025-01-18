@@ -33,7 +33,7 @@ export interface TreeProps<TNodeData = DefaultTreeNodeData> {
   iconRenderer?: TreeNodePartRenderer<TNodeData>;
   actionsRenderer?: TreeNodePartRenderer<TNodeData>;
 
-  onSelect?: (selectedKeys: string[]) => void;
+  onSelect?: (selectedKeys: string[], selectedRecords: any[]) => void;
 }
 
 export interface TreeCmds<TNodeData> {
@@ -77,9 +77,9 @@ function Tree<TNodeData>(props: TreeProps<TNodeData>) {
 
   const notifyNodeExpand = (nodeKey: string) => {};
   const notifyNodeCollapse = (nodeKey: string) => {};
-  const notifyNodeActive = (nodeKey: string) => {
+  const notifyNodeActive = (nodeKey: string, nodeData: any) => {
     setActiveKey(nodeKey);
-    props.onSelect?.([nodeKey]);
+    props.onSelect?.([nodeKey], [nodeData]);
   };
 
   const treeCmds: TreeCmds<TNodeData> = {
