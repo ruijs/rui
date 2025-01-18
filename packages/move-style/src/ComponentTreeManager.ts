@@ -175,7 +175,7 @@ export class ComponentTreeManager {
         {
           $framework: this.#framework,
           $page: this.#page,
-          $functions: this.#framework.getFunctions(),
+          $functions: { ...this.#framework.getFunctions(), ...this.#page.getFunctions() },
           $self: config,
           $parent: parentConfig,
         },

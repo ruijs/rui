@@ -146,6 +146,10 @@ export class Page implements IPage {
     // TODO: implement this.
   }
 
+  getFunctions(): Record<string, Function> {
+    return this.#functions;
+  }
+
   interpreteExpression(expressionString: string, rootVars: Record<string, any>) {
     rootVars.$page = this;
     rootVars.$functions = {
