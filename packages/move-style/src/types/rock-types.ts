@@ -557,6 +557,7 @@ export type PageConfig = {
   layout?: PageConfig;
   view: RockConfig[];
   eventSubscriptions?: RockPageEventSubscriptionConfig[];
+  functions?: FunctionConfig[];
 };
 
 export type PageCommand =
@@ -896,4 +897,9 @@ export type EventActionHandler<TEventActionConfig> = (
 export type EventAction<TEventActionConfig extends { $action: string }> = {
   name: TEventActionConfig["$action"];
   handler: EventActionHandler<TEventActionConfig>;
+};
+
+export type FunctionConfig = {
+  name: string;
+  func: string | Function;
 };

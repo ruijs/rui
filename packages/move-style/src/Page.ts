@@ -8,6 +8,7 @@ import { Scope } from "./Scope";
 import { RuiModuleLogger } from "./Logger";
 import { handleComponentEvent } from "./ComponentEventHandler";
 import { EventEmitter } from "./EventEmitter";
+import { isString } from "lodash";
 
 export class Page implements IPage {
   #framework: Framework;
@@ -17,6 +18,7 @@ export class Page implements IPage {
   #emitter: EventEmitter;
   #componentTreeManager: ComponentTreeManager;
   #pageScope: Scope;
+  #functions: Record<string, Function>;
 
   constructor(framework: Framework, pageConfig?: PageConfig) {
     this.#logger = framework.getLogger("page");
@@ -60,6 +62,21 @@ export class Page implements IPage {
     }
 
     this.#framework.setPage(pageConfig.$id, this);
+
+    this.#functions = {};
+    const functions = pageConfig.functions;
+    if (functions) {
+      for (const functionConfig of functions) {
+        let func: Function;
+        if (isString(functionConfig.func)) {
+          func = this.#interpreter.interprete(functionConfig.func, {});
+        } else {
+          func = functionConfig.func;
+        }
+
+        this.#functions[functionConfig.name] = func;
+      }
+    }
 
     this.#pageScope = new Scope(this.#framework, this, {
       $id: `${pageConfig.$id}-scope`,
@@ -131,7 +148,10 @@ export class Page implements IPage {
 
   interpreteExpression(expressionString: string, rootVars: Record<string, any>) {
     rootVars.$page = this;
-    rootVars.$functions = this.#framework.getFunctions();
+    rootVars.$functions = {
+      ...this.#framework.getFunctions(),
+      ...this.#functions,
+    };
 
     const vars = Object.assign({}, this.#framework.getExpressionVars(), rootVars);
     return this.#interpreter.interprete(expressionString, vars);
