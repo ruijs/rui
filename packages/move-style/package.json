@@ -1,6 +1,6 @@
 {
   "name": "@ruiapp/move-style",
-  "version": "0.4.12",
+  "version": "0.4.13",
   "description": "",
   "types": "./dist/mod.d.ts",
   "main": "./dist/mod.js",
@@ -16,6 +16,7 @@
     "@rollup/plugin-commonjs": "^25.0.7",
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@types/lodash": "^4.14.186",
+    "@types/qs": "^6.9.15",
     "lodash": "^4.17.21",
     "rimraf": "^3.0.2",
     "rollup": "^2.79.1",

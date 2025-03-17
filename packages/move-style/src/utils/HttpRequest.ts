@@ -7,7 +7,7 @@ export async function request<TRequestData = Record<string, any>, TQuery = Recor
 ) {
   let url = options.url;
   if (options.query) {
-    const queryString = qs(options.query);
+    const queryString = qs.stringify(options.query);
     let prefixChar;
     if (url.indexOf("?") === -1) {
       prefixChar = "?";

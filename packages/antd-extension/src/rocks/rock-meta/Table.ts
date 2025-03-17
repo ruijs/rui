@@ -10,6 +10,14 @@ export default {
       withAdapter: true,
       adapterSlots: ["columnTitle"],
     },
+
+    summary: {
+      allowMultiComponents: false,
+      required: false,
+      argumentNames: ["records"],
+      argumentsToProps: true,
+      toRenderProp: true,
+    },
   },
 
   propertyPanels: [],
