@@ -102,10 +102,10 @@ importers:
         version: 18.2.25
       css-loader:
         specifier: ^6.7.2
-        version: 6.7.2(webpack@5.75.0(webpack-cli@5.0.1))
+        version: 6.7.2(webpack@5.75.0)
       file-loader:
         specifier: ^6.2.0
-        version: 6.2.0(webpack@5.75.0(webpack-cli@5.0.1))
+        version: 6.2.0(webpack@5.75.0)
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
@@ -129,10 +129,10 @@ importers:
         version: 0.34.1(rollup@2.79.1)(typescript@4.8.4)
       style-loader:
         specifier: ^3.3.1
-        version: 3.3.1(webpack@5.75.0(webpack-cli@5.0.1))
+        version: 3.3.1(webpack@5.75.0)
       ts-loader:
         specifier: ^9.4.2
-        version: 9.4.2(typescript@4.8.4)(webpack@5.75.0(webpack-cli@5.0.1))
+        version: 9.4.2(typescript@4.8.4)(webpack@5.75.0)
       typescript:
         specifier: ^4.8.4
         version: 4.8.4
@@ -285,10 +285,10 @@ importers:
         version: 18.0.6
       css-loader:
         specifier: ^6.7.2
-        version: 6.7.2(webpack@5.75.0(webpack-cli@5.0.1))
+        version: 6.7.2(webpack@5.75.0)
       file-loader:
         specifier: ^6.2.0
-        version: 6.2.0(webpack@5.75.0(webpack-cli@5.0.1))
+        version: 6.2.0(webpack@5.75.0)
       react:
         specifier: ^18.2.0
         version: 18.2.0
@@ -309,10 +309,10 @@ importers:
         version: 0.34.1(rollup@2.79.1)(typescript@4.8.4)
       style-loader:
         specifier: ^3.3.1
-        version: 3.3.1(webpack@5.75.0(webpack-cli@5.0.1))
+        version: 3.3.1(webpack@5.75.0)
       ts-loader:
         specifier: ^9.4.2
-        version: 9.4.2(typescript@4.8.4)(webpack@5.75.0(webpack-cli@5.0.1))
+        version: 9.4.2(typescript@4.8.4)(webpack@5.75.0)
       typescript:
         specifier: ^4.8.4
         version: 4.8.4
@@ -344,6 +344,9 @@ importers:
       '@types/lodash':
         specifier: ^4.14.186
         version: 4.14.186
+      '@types/qs':
+        specifier: ^6.9.15
+        version: 6.9.15
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
@@ -432,10 +435,10 @@ importers:
         version: 4.24.13(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       css-loader:
         specifier: ^6.7.2
-        version: 6.7.2(webpack@5.75.0(webpack-cli@5.0.1))
+        version: 6.7.2(webpack@5.75.0)
       file-loader:
         specifier: ^6.2.0
-        version: 6.2.0(webpack@5.75.0(webpack-cli@5.0.1))
+        version: 6.2.0(webpack@5.75.0)
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
@@ -462,10 +465,10 @@ importers:
         version: 0.34.1(rollup@2.79.1)(typescript@4.8.4)
       style-loader:
         specifier: ^3.3.1
-        version: 3.3.1(webpack@5.75.0(webpack-cli@5.0.1))
+        version: 3.3.1(webpack@5.75.0)
       ts-loader:
         specifier: ^9.4.2
-        version: 9.4.2(typescript@4.8.4)(webpack@5.75.0(webpack-cli@5.0.1))
+        version: 9.4.2(typescript@4.8.4)(webpack@5.75.0)
       typescript:
         specifier: ^4.8.4
         version: 4.8.4
@@ -1059,14 +1062,17 @@ packages:
   '@lerna/bootstrap@5.5.4':
     resolution: {integrity: sha512-MGC6naM0DrFNYTZPEW477uqWCqXmI4MRBKjtGNMiJhczYcFdD6x30u688zoAuO5HUoyqL6Uw7Ea28GVEyDm93Q==}
     engines: {node: ^14.15.0 || >=16.0.0}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   '@lerna/changed@5.5.4':
     resolution: {integrity: sha512-/tns9PA5m9XCKJk13RRJotCOFR/bZ+7zfxz20zpIELT9GehZLTaEPsItxVnlqQ4dMHMe0fl6XG6dFqeBqLOW4g==}
     engines: {node: ^14.15.0 || >=16.0.0}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   '@lerna/check-working-tree@5.5.4':
     resolution: {integrity: sha512-uIHlEb/JSX9P230UNH69W21fWM4oKu8ulRdXuYCBckpbJkDz9nT1yS2y4wUHx+3GfXWqGKygTh8Z06vSdYg+2A==}
     engines: {node: ^14.15.0 || >=16.0.0}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   '@lerna/child-process@5.5.4':
     resolution: {integrity: sha512-1QlxFASrKlV3cG7XPFolOdrS4W784zv4DgipmTxaP++VlVAwbrHhqUdIEytDV6d0rlRksf6LPYzJhXdwlBkCEQ==}
@@ -1075,6 +1081,7 @@ packages:
   '@lerna/clean@5.5.4':
     resolution: {integrity: sha512-q1fXRm6ZXo3HrFfsgyY9C83haotPT/Xa5K8fQX6GADuNLk0Xo3+ycouHeidblRLmQtCa3WNPEmCthTuaWrSUoQ==}
     engines: {node: ^14.15.0 || >=16.0.0}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   '@lerna/cli@5.5.4':
     resolution: {integrity: sha512-4uJEFEN0QNnQgghbpdY5wLmBPOeUeBeCKGh9s2pc1fkn0I1wKDhG0QByOfcf+jGuid2bA7DXzvJRXRgq0fWw0A==}
@@ -1084,14 +1091,17 @@ packages:
   '@lerna/collect-uncommitted@5.5.4':
     resolution: {integrity: sha512-xLCsp8Qx5z/BWCxqUt8W8Se2XJcCQE6YUAti9TSWD5Ar+M5Etkgz2YJiUjZfZrsWZPBCqNfGfxx9Sjs7a/r+8A==}
     engines: {node: ^14.15.0 || >=16.0.0}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   '@lerna/collect-updates@5.5.4':
     resolution: {integrity: sha512-m34bVoMO5QOd5K5uyAtQtkTiXBIEJHydXMwNXs+YTIAgy82JXNHfZE9vV63Fd5ZWOGY6ORthuXuC2Jn0Vx9tQA==}
     engines: {node: ^14.15.0 || >=16.0.0}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   '@lerna/command@5.5.4':
     resolution: {integrity: sha512-/7drNy2DjVjDjm2knsDfEQIFEdRgPE2/lQ3yfEjVbXqs319o6KWbQVeoNy5GjGnLvc3v3eObA0cSJXHzEV11Bg==}
     engines: {node: ^14.15.0 || >=16.0.0}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   '@lerna/conventional-commits@5.5.4':
     resolution: {integrity: sha512-zLcaveLXnIDYo3e9ChKsHSxiG7vOJeKdcoC5Fj8WH4DjAq/aqy15TE5SJr6aO8hOU/ph0EonPwyQBf4X2Lg5fg==}
@@ -1101,6 +1111,7 @@ packages:
   '@lerna/create-symlink@5.5.4':
     resolution: {integrity: sha512-TOfkeEQGhE90mvtky0Vpfl+6hwBz0tSXV0+gjRBmla/sYU/9+QoSH36TauHrmu/O3C8/CWtoGruxiWq8jP6Gyw==}
     engines: {node: ^14.15.0 || >=16.0.0}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   '@lerna/create@5.5.4':
     resolution: {integrity: sha512-mmZKy5U4OKBr/r8Tm6C8gubYHubQaHdPJ+aYuA/l4uCfK0p/Jly84Fy7M3kclcqm8FKDPKDhlp0Y2jnc32jBbA==}
@@ -1109,10 +1120,12 @@ packages:
   '@lerna/describe-ref@5.5.4':
     resolution: {integrity: sha512-2LDEsuSbZTta7SuwKVo9ofeKvxqy4YFNOjEt7+JceZIfh4si3MjIPBX7l8AsCaUmwJnpOEYba0aau72AUAOtoA==}
     engines: {node: ^14.15.0 || >=16.0.0}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   '@lerna/diff@5.5.4':
     resolution: {integrity: sha512-OTieqJA4zKAV0KeG0nXwPnCkwg3LH+ucXlelnj1w+gaP2ndHbJVwgUWXGpqCHk8tn935KKOULhP7BGmAwvTYlQ==}
     engines: {node: ^14.15.0 || >=16.0.0}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   '@lerna/exec@5.5.4':
     resolution: {integrity: sha512-o1SQ+6/U6L8hih6+wAgjyOhqo2CKzMcW6YWLs5erRY9E6VCEc2kX7SW3223ehsAhUIPfG7n+KYPmuZbWvTpbGQ==}
@@ -1122,6 +1135,7 @@ packages:
   '@lerna/filter-options@5.5.4':
     resolution: {integrity: sha512-t1amUypgloaKN8d3VN7GiJQd4ommDplxSisAMS8hztb6ail3EbxasRQ03GXz4+6yQ98sam+D03soqSWAJcinrw==}
     engines: {node: ^14.15.0 || >=16.0.0}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   '@lerna/filter-packages@5.5.4':
     resolution: {integrity: sha512-mwpiF+L0np003AUp3ntKEFkNOXWBONwm9q8rW9TOR8OeqMXbxYWGLg2IR+Wc8EClmen79tahn076nUD85OLqew==}
@@ -1141,42 +1155,52 @@ packages:
   '@lerna/github-client@5.5.4':
     resolution: {integrity: sha512-m5vTRsHyfzh16T3fX3ipdjZyQwl4Gnwav4RmEaVUFp2uMqsr0TrML7LJ/eqOqjGvj/+JWa52rIQsUCQe9BJYag==}
     engines: {node: ^14.15.0 || >=16.0.0}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   '@lerna/gitlab-client@5.5.4':
     resolution: {integrity: sha512-vPSr6xFxtOigFY/fE8oYF+360WsV+g2ZkoJB34FA6UucjWBBPu2W13ydUYfqvJYODJYFzhTjB9b8zf0MJ0KMrQ==}
     engines: {node: ^14.15.0 || >=16.0.0}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   '@lerna/global-options@5.5.4':
     resolution: {integrity: sha512-J2K4CsnYuKrW7bDR2gRABUFFrLaJ5z4GaaDpaKtQi6sHFKcVBfYz0B51Fe3NGFOvrct4YS9N7SgKDxPd5Nznig==}
     engines: {node: ^14.15.0 || >=16.0.0}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   '@lerna/has-npm-version@5.5.4':
     resolution: {integrity: sha512-l+nDc/QYvfA5f0tFxzd9mZ/SP0nfxbqpZ9csGyqU8NV/40fHRRouO+fcLtxjcG/mruMjiAB/P216BBbRmGb2VA==}
     engines: {node: ^14.15.0 || >=16.0.0}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   '@lerna/import@5.5.4':
     resolution: {integrity: sha512-1edy4e+0w4/awahc3uPvRQngIHbri5BGZZbjvsX8aKlPUd9pFg5U9/5w3lVE5jnZFRnqwhpJyyvJjL2M5F6IgQ==}
     engines: {node: ^14.15.0 || >=16.0.0}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   '@lerna/info@5.5.4':
     resolution: {integrity: sha512-JgYRP2WZUCuiYyf3CQjqEMGoqWpM7t/bammKW/sC3P0/xGSykh45vdRwVojcu4fGRZ/YS7sfFt28Dbw4QFp0iQ==}
     engines: {node: ^14.15.0 || >=16.0.0}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   '@lerna/init@5.5.4':
     resolution: {integrity: sha512-BteH3O8ywUN8eBhwzOey3gTXxxKRxGz1JJ6tP1mA0KZoJgiBsSFoZbx7SJeGrR8gY7kmEyvXTY1geaxmb7V+vQ==}
     engines: {node: ^14.15.0 || >=16.0.0}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   '@lerna/link@5.5.4':
     resolution: {integrity: sha512-/kFST918MLhvWbs3szbUw3/6pPa0/vS77WnHk8n3S3v/PuzUEjm9CncYrZ0xB1ZiGk6oa4YTPWMlqyYMY1k0hQ==}
     engines: {node: ^14.15.0 || >=16.0.0}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   '@lerna/list@5.5.4':
     resolution: {integrity: sha512-ppLy99mQYoDkO+SxqnknPYqOnO+iJskb0G2h2fLF4ZK98oy2duJWkkehagwCVtmPax/DqWDDc/IAj+KWpcC0bQ==}
     engines: {node: ^14.15.0 || >=16.0.0}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   '@lerna/listable@5.5.4':
     resolution: {integrity: sha512-c6acWwSDQE5zeBcnH3m+mwfDr3zr515LsC30tXRenkqp4lbXeyrUPw0Mckw1ksw2nyb5LZl8gQnrFbAKC8gBSA==}
     engines: {node: ^14.15.0 || >=16.0.0}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   '@lerna/log-packed@5.5.4':
     resolution: {integrity: sha512-g3lW5yIIe66aVTOYn78+h21GR9gr/WdU3/z8jm0VzGC+VR7KqCKU+49JOCOh7LlNf7sY4ZE6ZbaZptp5wUjrgQ==}
@@ -1186,34 +1210,42 @@ packages:
   '@lerna/npm-conf@5.5.4':
     resolution: {integrity: sha512-BwnP0ezR84nQ5Sh0CdH77Q8evDcqP9bFUdjX6eZT4Rxl0432ocB1YpweNnUDQO4Boxj/FiOu/OaE0Kej+I+5ew==}
     engines: {node: ^14.15.0 || >=16.0.0}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   '@lerna/npm-dist-tag@5.5.4':
     resolution: {integrity: sha512-aAisCh5b2+6cjLxZh03/MGGcBjL7KNBWi5qW6OCdQQpcxH5r0aUJ5F1rmXJE0qxgsLWaGRLzngWk+v6VJHqYJQ==}
     engines: {node: ^14.15.0 || >=16.0.0}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   '@lerna/npm-install@5.5.4':
     resolution: {integrity: sha512-lglf2KRxg30dCvNWwxQRJmCfXC51byNqYQt9/dFrnWcotHwpNRIFnVM3tWMdVxlwJMiozU/PjUFBateaxmukXw==}
     engines: {node: ^14.15.0 || >=16.0.0}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   '@lerna/npm-publish@5.5.4':
     resolution: {integrity: sha512-Z3GQqby0FR7HW82/t7j7nOF9pfSwNVmgms0zTq7a8YaEe8uDlAxGMW4sVN8uT89mZfBfS6R1WMlBbC5Ea+jy/A==}
     engines: {node: ^14.15.0 || >=16.0.0}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   '@lerna/npm-run-script@5.5.4':
     resolution: {integrity: sha512-fwHZRTGUldN9D2Rugg0HdwE8A8OZ7CF7g63y7OjzIoxASqtZBDyHZgrVbY/xZcrhqCF0+VJ1vR0c/uFwtWFrtA==}
     engines: {node: ^14.15.0 || >=16.0.0}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   '@lerna/otplease@5.5.4':
     resolution: {integrity: sha512-c/tSjuMGw0esoxqtW0Qs2gCcvFDCrOlFnd4EgTJQKUSbNwVrabMkDJRMP0zu7UiSYJCCWKlBnjpBCiBXNG2H4A==}
     engines: {node: ^14.15.0 || >=16.0.0}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   '@lerna/output@5.5.4':
     resolution: {integrity: sha512-qiYtDQ4k9sXzXRlbSuLUFDNLk42sJY3n7x7fWKt6v5I9s2uh5d3cBctBuvV8+YX82H1inQ9hpyFafzOBO8tbCA==}
     engines: {node: ^14.15.0 || >=16.0.0}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   '@lerna/pack-directory@5.5.4':
     resolution: {integrity: sha512-yUhu8ADzUZOZPfimMwlxxuxIweXitMKTVAmhz9eruiNHxsc0GpKb89yemep03iXqtrjC1Pt/QsS+dhJNNKdZ4A==}
     engines: {node: ^14.15.0 || >=16.0.0}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   '@lerna/package-graph@5.5.4':
     resolution: {integrity: sha512-1g0c08mooZBtrIG8gMOdpbZ3rn5VM+e47pLFAXZcfGUaNUfc0OM58Z50ONiJq23XlJmS4vQ2e4X3cs7Hc7+Dxw==}
@@ -1228,10 +1260,12 @@ packages:
   '@lerna/prerelease-id-from-version@5.5.4':
     resolution: {integrity: sha512-IHNQxbILrRGhw9CCdqy0ncSjDpNvdJCcaGFh3+TJRx6Bjhl5ifbUjI0gBUxd7i5Aict5dguWlhAWHQpef48AqA==}
     engines: {node: ^14.15.0 || >=16.0.0}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   '@lerna/profiler@5.5.4':
     resolution: {integrity: sha512-LPnO8mXhXSBT8PD5pEWkgd+2d8lJqQ0fnwcIPG0B8o6tnQrSc2gXLNxStYOFedzcZXRhAYiFVrf5VjOKHV6Ghw==}
     engines: {node: ^14.15.0 || >=16.0.0}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   '@lerna/project@5.5.4':
     resolution: {integrity: sha512-iLdyc+jPU0cR6BQO3V3Sf51WP3Oac+I/+518dIGdWS7ot9nEbjuZripHJjIkyZKSfnKPTEtz2aUta0ndoewwuQ==}
@@ -1241,6 +1275,7 @@ packages:
   '@lerna/prompt@5.5.4':
     resolution: {integrity: sha512-X8H2V4dDkFLYzZkMTillvuGAphU5fTDR66HgZlhgKtbJjm7OrjxhoRdk/YlMpI+HdYwXhdUzhEe9YJEhqhfe6w==}
     engines: {node: ^14.15.0 || >=16.0.0}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   '@lerna/publish@5.5.4':
     resolution: {integrity: sha512-zBlZsk+NBUfg4o7ycKH8/hc4NRJWd4RmxB6Kn7xo7MOJMW3x+K4aABcqY2GGxEMUxx3rBBVPIdziVWbyS7UIxA==}
@@ -1250,49 +1285,61 @@ packages:
   '@lerna/pulse-till-done@5.5.4':
     resolution: {integrity: sha512-xC4/QPnIQfrE1aA8W5w6AfaT0gTm8SeVmrsQzMMlUTJ2JAnflsHv1oG69M89xq2DrlXsEVaah56Xbjavy+woQg==}
     engines: {node: ^14.15.0 || >=16.0.0}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   '@lerna/query-graph@5.5.4':
     resolution: {integrity: sha512-TJsmJ++3NpEs+LxF0B02hAv2HigJ9ffa9e+paK27oE8sTiH3YataMHaNu5ZkeotJTw7u0IiRLm0zi4z4xoRlLg==}
     engines: {node: ^14.15.0 || >=16.0.0}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   '@lerna/resolve-symlink@5.5.4':
     resolution: {integrity: sha512-cAIXELf04dHx/XF/2njCM0bpiyup6Nedpmm1XNJzrJuWrGmwK2qW5F2wQ/RHXWXsLIe/BsOl/hfEONm7o7k8sA==}
     engines: {node: ^14.15.0 || >=16.0.0}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   '@lerna/rimraf-dir@5.5.4':
     resolution: {integrity: sha512-++I7ToqICE4KSqi4T8enfcou8XPZV3gmrpARVD9VW4Tz3w8BP/JijB6AJwgZKojdqQenXU7u3lLTzfepKN1iOA==}
     engines: {node: ^14.15.0 || >=16.0.0}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   '@lerna/run-lifecycle@5.5.4':
     resolution: {integrity: sha512-MIE8HJml8gWkH5jt/5omiPr69VUMUPwvhkf6Irpg5yxIE5K4oeViVZMay2v6cPA9jAeTDCshHb7gt2EPBSsYQA==}
     engines: {node: ^14.15.0 || >=16.0.0}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   '@lerna/run-topologically@5.5.4':
     resolution: {integrity: sha512-p1UNHgR8sOaS40nVD0HyqwmawDXBOikIibjbJLcY2QuvWwzAGKjfWm/sAXagYjgzaPYQAhaHyOxTdGe8T+a7uQ==}
     engines: {node: ^14.15.0 || >=16.0.0}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   '@lerna/run@5.5.4':
     resolution: {integrity: sha512-R9g+4nfIDgK+I4RleAJpXrStzLlUCEHR/rxH2t5LJ6DLaoKUG6oeRZsf2w/It/r2IMV1dq2xG6chs+H1o1J+Ow==}
     engines: {node: ^14.15.0 || >=16.0.0}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   '@lerna/symlink-binary@5.5.4':
     resolution: {integrity: sha512-FVhkL8KIgk0gPJV136Sl0/t3LD3qDngIRqJVNPIbATVHagkLVsuJM6+BcdWLxoMUCtwHIyWqgcXn1Oa/DVSUEA==}
     engines: {node: ^14.15.0 || >=16.0.0}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   '@lerna/symlink-dependencies@5.5.4':
     resolution: {integrity: sha512-BfOcATr0TreXRfIhIRvgGCT2o8uEqrwVLo8edCQICeqgju19fFn22Qmyb8LW+LMJjBUuSkpJDqqamQ6nj3Ch2A==}
     engines: {node: ^14.15.0 || >=16.0.0}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   '@lerna/temp-write@5.5.4':
     resolution: {integrity: sha512-cJy9f9uSvnPxfc2a1ARapGLJXllQlJKKb0idi8aA3ylvgDA7grfKIDPdkf6cBcpPAq8aixDq9GdCZ6oLKdISeA==}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   '@lerna/timer@5.5.4':
     resolution: {integrity: sha512-B3eesmrNaw64Svo2pkmCtBVIJbomegiOMrdxFkZrf8ugTKwobn3KSZZkdbN+hjq8SKpRz3XgtjAuSFUzdg8c3A==}
     engines: {node: ^14.15.0 || >=16.0.0}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   '@lerna/validation-error@5.5.4':
     resolution: {integrity: sha512-FUC3x40zBAu0ny1AWXT38LOVRaSJkjdAv9GiYLu9sx+7T7X18q38zPFyVPIIhrrTJsNNWkro/NTA7r4/BcdvoQ==}
     engines: {node: ^14.15.0 || >=16.0.0}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   '@lerna/version@5.5.4':
     resolution: {integrity: sha512-J39m2KfhkkDzfCUjnC2+UbBrWBRs1TkrvFlHFbb8wHUOY5bs+dj5RLyUchF/VJOYFSJXr8LLQFdMPeptF2wItg==}
@@ -1302,6 +1349,7 @@ packages:
   '@lerna/write-log-file@5.5.4':
     resolution: {integrity: sha512-PDdVuWHLkMw6ygP1hKTciphmYKRDTmNJASxVlxxOv9UkZe7QQvfke0i/OXNPRZHJK7eKCtv2Zu91amE8qCjVNw==}
     engines: {node: ^14.15.0 || >=16.0.0}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   '@manypkg/find-root@1.1.0':
     resolution: {integrity: sha512-mki5uBvhHzO8kYYix/WRy2WX8S3B5wdVSc9D6KcU5lQNglP2yt58/VfLuAK49glRXChosY8ap2oJ1qgma3GUVA==}
@@ -1824,6 +1872,7 @@ packages:
 
   acorn-import-assertions@1.8.0:
     resolution: {integrity: sha512-m7VZ3jwz4eK6A4Vtt8Ew1/mNbP24u0FhdyfA7fSvnJR6LMdfOYnmuIrrJAgrYfYJ10F/otaHTtrtrtmHdMNzEw==}
+    deprecated: package has been renamed to acorn-import-attributes
     peerDependencies:
       acorn: ^8
 
@@ -2658,6 +2707,7 @@ packages:
   eslint@8.57.0:
     resolution: {integrity: sha512-dZ6+mexnaTIbSBZWgou51U6OmzIhYM2VcNdtiTtI7qPNZm35Akpr0f6vtw3w1Kmn5PYo+tZVfh13WrhpS6oLqQ==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
+    deprecated: This version is no longer supported. Please see https://eslint.org/version-support for other options.
     hasBin: true
 
   espree@9.6.1:
@@ -7404,17 +7454,17 @@ snapshots:
       '@webassemblyjs/ast': 1.11.1
       '@xtuc/long': 4.2.2
 
-  '@webpack-cli/configtest@2.0.1(webpack-cli@5.0.1(webpack@5.75.0))(webpack@5.75.0(webpack-cli@5.0.1))':
+  '@webpack-cli/configtest@2.0.1(webpack-cli@5.0.1)(webpack@5.75.0)':
     dependencies:
       webpack: 5.75.0(webpack-cli@5.0.1)
       webpack-cli: 5.0.1(webpack@5.75.0)
 
-  '@webpack-cli/info@2.0.1(webpack-cli@5.0.1(webpack@5.75.0))(webpack@5.75.0(webpack-cli@5.0.1))':
+  '@webpack-cli/info@2.0.1(webpack-cli@5.0.1)(webpack@5.75.0)':
     dependencies:
       webpack: 5.75.0(webpack-cli@5.0.1)
       webpack-cli: 5.0.1(webpack@5.75.0)
 
-  '@webpack-cli/serve@2.0.1(webpack-cli@5.0.1(webpack@5.75.0))(webpack@5.75.0(webpack-cli@5.0.1))':
+  '@webpack-cli/serve@2.0.1(webpack-cli@5.0.1)(webpack@5.75.0)':
     dependencies:
       webpack: 5.75.0(webpack-cli@5.0.1)
       webpack-cli: 5.0.1(webpack@5.75.0)
@@ -8078,7 +8128,7 @@ snapshots:
     dependencies:
       postcss: 8.4.38
 
-  css-loader@6.7.2(webpack@5.75.0(webpack-cli@5.0.1)):
+  css-loader@6.7.2(webpack@5.75.0):
     dependencies:
       icss-utils: 5.1.0(postcss@8.4.38)
       postcss: 8.4.38
@@ -8630,7 +8680,7 @@ snapshots:
     dependencies:
       flat-cache: 3.2.0
 
-  file-loader@6.2.0(webpack@5.75.0(webpack-cli@5.0.1)):
+  file-loader@6.2.0(webpack@5.75.0):
     dependencies:
       loader-utils: 2.0.2
       schema-utils: 3.1.1
@@ -11197,7 +11247,7 @@ snapshots:
 
   style-inject@0.3.0: {}
 
-  style-loader@3.3.1(webpack@5.75.0(webpack-cli@5.0.1)):
+  style-loader@3.3.1(webpack@5.75.0):
     dependencies:
       webpack: 5.75.0(webpack-cli@5.0.1)
 
@@ -11258,7 +11308,7 @@ snapshots:
 
   term-size@2.2.1: {}
 
-  terser-webpack-plugin@5.3.6(webpack@5.75.0(webpack-cli@5.0.1)):
+  terser-webpack-plugin@5.3.6(webpack@5.75.0):
     dependencies:
       '@jridgewell/trace-mapping': 0.3.25
       jest-worker: 27.5.1
@@ -11332,7 +11382,7 @@ snapshots:
     dependencies:
       typescript: 4.8.4
 
-  ts-loader@9.4.2(typescript@4.8.4)(webpack@5.75.0(webpack-cli@5.0.1)):
+  ts-loader@9.4.2(typescript@4.8.4)(webpack@5.75.0):
     dependencies:
       chalk: 4.1.2
       enhanced-resolve: 5.10.0
@@ -11541,9 +11591,9 @@ snapshots:
   webpack-cli@5.0.1(webpack@5.75.0):
     dependencies:
       '@discoveryjs/json-ext': 0.5.7
-      '@webpack-cli/configtest': 2.0.1(webpack-cli@5.0.1(webpack@5.75.0))(webpack@5.75.0(webpack-cli@5.0.1))
-      '@webpack-cli/info': 2.0.1(webpack-cli@5.0.1(webpack@5.75.0))(webpack@5.75.0(webpack-cli@5.0.1))
-      '@webpack-cli/serve': 2.0.1(webpack-cli@5.0.1(webpack@5.75.0))(webpack@5.75.0(webpack-cli@5.0.1))
+      '@webpack-cli/configtest': 2.0.1(webpack-cli@5.0.1)(webpack@5.75.0)
+      '@webpack-cli/info': 2.0.1(webpack-cli@5.0.1)(webpack@5.75.0)
+      '@webpack-cli/serve': 2.0.1(webpack-cli@5.0.1)(webpack@5.75.0)
       colorette: 2.0.19
       commander: 9.4.1
       cross-spawn: 7.0.3
@@ -11585,7 +11635,7 @@ snapshots:
       neo-async: 2.6.2
       schema-utils: 3.1.1
       tapable: 2.2.1
-      terser-webpack-plugin: 5.3.6(webpack@5.75.0(webpack-cli@5.0.1))
+      terser-webpack-plugin: 5.3.6(webpack@5.75.0)
       watchpack: 2.4.0
       webpack-sources: 3.2.3
     optionalDependencies:
