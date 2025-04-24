@@ -39,27 +39,66 @@ export default {
             onClick: () => {
               const designerStore = page.getStore<DesignerStore>("designerStore");
               if (isActionConfigured) {
-                sendDesignerCommand(page, designerStore, {
-                  name: "removeComponentProperty",
-                  payload: {
-                    componentId: designerStore.selectedComponentId,
-                    propName: eventName,
-                  },
-                });
-              } else {
-                sendDesignerCommand(page, designerStore, {
-                  name: "setComponentProperty",
-                  payload: {
-                    componentId: designerStore.selectedComponentId,
-                    propName: eventName,
-                    propValue: {
-                      $action: "script",
-                      script: "",
-                      generator: "blockly",
-                      blockly: {},
+                if(designerStore.selectedComponentId) {
+                  sendDesignerCommand(page, designerStore, {
+                    name: "removeComponentProperty",
+                    payload: {
+                      componentId: designerStore.selectedComponentId,
+                      propName: eventName,
                     },
-                  },
-                });
+                  });
+                } else {
+                  sendDesignerCommand(page, designerStore, {
+                    name: "setPageConfig",
+                    payload: {
+                      pageConfig: {
+                        ...designerStore.pageConfig,
+                        steps: designerStore.steps.filter(step => {
+                          if(step.$id === designerStore.currentStep?.$id) {
+                            delete step[eventName]
+                          }
+                          return step
+                        })
+                      }
+                    },
+                  });
+                }
+              } else {
+                if(designerStore.selectedComponentId) {
+                  sendDesignerCommand(page, designerStore, {
+                    name: "setComponentProperty",
+                    payload: {
+                      componentId: designerStore.selectedComponentId,
+                      propName: eventName,
+                      propValue: {
+                        $action: "script",
+                        script: "",
+                        generator: "blockly",
+                        blockly: {},
+                      },
+                    },
+                  });
+                } else {
+                  sendDesignerCommand(page, designerStore, {
+                    name: "setPageConfig",
+                    payload: {
+                      pageConfig: {
+                        ...designerStore.pageConfig,
+                        steps: designerStore.steps.map(step => {
+                          if(step.$id === designerStore.currentStep?.$id) {
+                            step[eventName] = {
+                              $action: "script",
+                              script: "",
+                              generator: "blockly",
+                              blockly: {},
+                            }
+                          }
+                          return step
+                        })
+                      }
+                    },
+                  });
+                }
               }
             },
           },
@@ -103,6 +142,15 @@ export default {
           style: styleSetterControls,
           children: isActionConfigured ? props.children : null,
         },
+        isActionConfigured && props?.args.useIntervalTime ? {
+          $id: `${props.$id}-controls-wrapper`,
+          $type: "antdInputNumber",
+          addonAfter: 's',
+          onChange: (value) => {
+            componentConfig.intervalTime = value;
+          },
+          defaultValue: componentConfig.intervalTime,
+        } : null,
       ],
     };
 
