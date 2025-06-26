@@ -284,7 +284,11 @@ export type RockConfigBase = {
   $type: string;
   $version?: string;
   $name?: string;
-  $notes?: string;
+
+  /**
+   * 描述
+   */
+  $description?: string;
   $exps?: RockExpsConfig;
   $i18n?: RockI18nConfig;
   $locales?: RockLocalesConfig;
