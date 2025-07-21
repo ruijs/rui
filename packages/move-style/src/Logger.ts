@@ -1,66 +1,6 @@
-export type RuiLogLevelNames = "emerg" | "crit" | "error" | "warn" | "info" | "debug" | "verbose";
+import { RuiLogger, RuiLoggerProvider, RuiLogLevelNames } from "@ruiapp/log";
 
-export interface RuiLogMethod {
-  (level: string, message: string, meta?: object): void;
-}
-
-export interface RuiLeveledLogMethod {
-  (message: string, meta?: object): void;
-}
-
-export interface RuiLogger {
-  level?: RuiLogLevelNames;
-
-  isLevelEnabled(level: RuiLogLevelNames): boolean;
-
-  isEmergEnabled(): boolean;
-
-  isCritEnabled(): boolean;
-
-  isErrorEnabled(): boolean;
-
-  isWarnEnabled(): boolean;
-
-  isInfoEnabled(): boolean;
-
-  isDebugEnabled(): boolean;
-
-  isVerboseEnabled(): boolean;
-
-  log: RuiLogMethod;
-  /**
-   * The service/app is going to stop or become unusable now. An operator should definitely look into this immediately.
-   */
-  emerg: RuiLeveledLogMethod;
-  /**
-   * Fatal for a particular service, but the app continues servicing other requests. An operator should look at this immediately.
-   */
-  crit: RuiLeveledLogMethod;
-  /**
-   * Fatal for a particular request, but the service/app continues servicing other requests. An operator should look at this soon(ish).
-   */
-  error: RuiLeveledLogMethod;
-  /**
-   * A note on something that should probably be looked at by an operator eventually.
-   */
-  warn: RuiLeveledLogMethod;
-  /**
-   * Detail on regular operation.
-   */
-  info: RuiLeveledLogMethod;
-  /**
-   * Anything else, i.e. too verbose to be included in "info" level.
-   */
-  debug: RuiLeveledLogMethod;
-  /**
-   * Logging from external libraries used by your app or very detailed application logging.
-   */
-  verbose: RuiLeveledLogMethod;
-}
-
-export interface LoggerProvider {
-  createLogger(): RuiLogger;
-}
+export * from "@ruiapp/log";
 
 export type RuiModulesNames =
   | "framework"
@@ -73,8 +13,8 @@ export type RuiModulesNames =
   | "expressionInterpreter"
   | "other";
 
-export class LoggerFactory {
-  #provider: LoggerProvider;
+export class RuiModuleLoggerFactory {
+  #provider: RuiLoggerProvider;
   #loggers: Map<RuiModulesNames, RuiModuleLogger>;
   #rockLogger: RuiRockLogger;
 
@@ -82,7 +22,7 @@ export class LoggerFactory {
     this.#loggers = new Map();
   }
 
-  setLoggerProvider(provider: LoggerProvider) {
+  setLoggerProvider(provider: RuiLoggerProvider) {
     this.#provider = provider;
   }
 
@@ -109,7 +49,7 @@ export class RuiModuleLogger {
   #logger: RuiLogger;
   #moduleName: RuiModulesNames;
 
-  constructor(loggerProvider: LoggerProvider, moduleName: RuiModulesNames) {
+  constructor(loggerProvider: RuiLoggerProvider, moduleName: RuiModulesNames) {
     if (loggerProvider) {
       this.#logger = loggerProvider.createLogger();
     }
@@ -284,7 +224,7 @@ export class RuiRockLogger {
   #logger: RuiLogger;
 
   // TODO: should pass rockProps in constructor
-  constructor(loggerProvider: LoggerProvider) {
+  constructor(loggerProvider: RuiLoggerProvider) {
     if (loggerProvider) {
       this.#logger = loggerProvider.createLogger();
     }

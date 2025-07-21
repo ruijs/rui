@@ -1,6 +1,6 @@
 import { memoize } from "lodash";
 import { IStore } from "./types/store-types";
-import { RuiLogger } from "./Logger";
+import { RuiLogger } from "@ruiapp/log";
 
 export class ExpressionInterpreter {
   #logger: RuiLogger;

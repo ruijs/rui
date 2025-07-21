@@ -1,4 +1,5 @@
-import { each, get, isObject, isString, merge } from "lodash";
+import { each } from "lodash";
+import { RuiLoggerProvider } from "@ruiapp/log";
 import { Page } from "./Page";
 import { Scope } from "./Scope";
 import { ConstantStore } from "./stores/ConstantStore";
@@ -8,14 +9,14 @@ import { RuiExtension } from "./types/extension-types";
 import { Rock } from "./types/rock-types";
 import { IStore, StoreConfig } from "./types/store-types";
 import { ConfigProcessor } from "./ConfigProcessor";
-import { LoggerFactory, LoggerProvider, RuiModulesNames } from "./Logger";
+import { RuiModuleLoggerFactory, RuiModulesNames } from "./Logger";
 import * as MoveStyleUtils from "./utils";
 import { GetStringResourceConfig, Lingual, LocaleNamespace, LocaleResource } from "./types/locale-types";
 import locales from "./locales";
 import { getLocaleStringResource, hasLocaleStringResource, loadLocaleResources } from "./utils/i18n-utility";
 
 export class Framework {
-  #loggerFactory: LoggerFactory;
+  #loggerFactory: RuiModuleLoggerFactory;
   #storeFactory: StoreFactory;
   #components: Map<string, Rock>;
   #functions: Record<string, Function>;
@@ -29,7 +30,7 @@ export class Framework {
   #locales: Map<LocaleNamespace, Map<Lingual, LocaleResource>>;
 
   constructor() {
-    this.#loggerFactory = new LoggerFactory();
+    this.#loggerFactory = new RuiModuleLoggerFactory();
 
     this.#storeFactory = new StoreFactory();
     this.#storeFactory.registerStoreConstructor("constant", ConstantStore);
@@ -53,7 +54,7 @@ export class Framework {
     globalThis.$framework = this;
   }
 
-  setLoggerProvider(provider: LoggerProvider) {
+  setLoggerProvider(provider: RuiLoggerProvider) {
     this.#loggerFactory.setLoggerProvider(provider);
   }
 

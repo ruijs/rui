@@ -356,6 +356,9 @@ importers:
 
   packages/move-style:
     dependencies:
+      '@ruiapp/log':
+        specifier: workspace:^
+        version: link:../log
       axios:
         specifier: ^1.1.2
         version: 1.1.2
@@ -2471,6 +2474,9 @@ packages:
 
   dateformat@3.0.3:
     resolution: {integrity: sha512-jyCETtSl3VMZMWeRo7iY1FL19ges1t55hMo5yaam4Jrsm5EPL89UQkoQRyiI+Yf4k8r2ZpdngkV8hr1lIdjb3Q==}
+
+  dayjs@1.11.13:
+    resolution: {integrity: sha512-oaMBel6gjolK862uaPQOVTA7q3TZhuSvuMQAAglQDOWYO9A91IrAOUJEyKVlqJlHE0vq5p5UXxzdPfMH/x6xNg==}
 
   dayjs@1.11.7:
     resolution: {integrity: sha512-+Yw9U6YO5TQohxLcIkrXBeY73WP3ejHWVvx8XCk3gxvQDCTEmS48ZrSZCKciI7Bhl/uCMyxYtE9UqRILmFphkQ==}
@@ -8284,6 +8290,8 @@ snapshots:
   date-fns@2.29.3: {}
 
   dateformat@3.0.3: {}
+
+  dayjs@1.11.13: {}
 
   dayjs@1.11.7: {}
 
