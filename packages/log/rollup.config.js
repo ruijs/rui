@@ -22,5 +22,5 @@ export default {
     }),
   ],
 
-  external: ["@ruiapp/log", "axios", "lodash", "qs"],
+  external: ["axios", "lodash", "qs"],
 };

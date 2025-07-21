@@ -3,6 +3,7 @@
   "private": true,
   "scripts": {
     "dev": "lerna run --parallel dev",
+    "dev:log": "pnpm --filter=log run dev",
     "dev:move-style": "pnpm --filter=move-style run dev",
     "dev:react-renderer": "pnpm --filter=react-renderer run dev",
     "dev:react-rocks": "pnpm --filter=react-rocks run dev",
@@ -12,7 +13,7 @@
     "dev:monaco-extension": "pnpm --filter=monaco-extension run dev",
     "dev:echarts-extension": "pnpm --filter=echarts-extension run dev",
     "build": "pnpm libs",
-    "libs": "pnpm dev:move-style && pnpm dev:react-renderer && pnpm dev:react-rocks && pnpm dev:monaco-extension && pnpm dev:antd-extension && pnpm dev:designer-extension && pnpm dev:blockly-extension && pnpm dev:echarts-extension",
+    "libs": "pnpm dev:log && pnpm dev:move-style && pnpm dev:react-renderer && pnpm dev:react-rocks && pnpm dev:monaco-extension && pnpm dev:antd-extension && pnpm dev:designer-extension && pnpm dev:blockly-extension && pnpm dev:echarts-extension",
     "test": "lerna run test",
     "fmt:code": "prettier . --write"
   },

@@ -2,7 +2,7 @@ import { get, isNull, isObject, isString, isUndefined, merge, set } from "lodash
 import { GetStringResourceConfig, Lingual, LocaleNamespace, LocaleResource } from "~/types/locale-types";
 import { fulfillVariablesInString } from "./variable-fulfiller";
 import { Framework } from "~/Framework";
-import { RuiLogger } from "~/Logger";
+import { RuiLogger } from "@ruiapp/log";
 
 export function loadLocaleResources(
   localesStore: Map<LocaleNamespace, Map<Lingual, LocaleResource>>,

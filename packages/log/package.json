@@ -1,6 +1,6 @@
 {
-  "name": "@ruiapp/move-style",
-  "version": "0.4.15",
+  "name": "@ruiapp/log",
+  "version": "0.1.0",
   "description": "",
   "types": "./dist/mod.d.ts",
   "main": "./dist/mod.js",
@@ -15,23 +15,15 @@
   "devDependencies": {
     "@rollup/plugin-commonjs": "^25.0.7",
     "@rollup/plugin-node-resolve": "^15.2.3",
-    "@types/lodash": "^4.14.186",
-    "@types/qs": "^6.9.15",
-    "lodash": "^4.17.21",
     "rimraf": "^3.0.2",
     "rollup": "^2.79.1",
     "rollup-plugin-tsc-alias": "^1.1.2",
     "rollup-plugin-typescript2": "^0.34.1",
-    "typescript": "^4.8.4",
-    "winston": "^3.13.0"
+    "typescript": "^4.8.4"
   },
   "peerDependencies": {
-    "lodash": "^4.17.21"
+    "dayjs": "^1.11.11",
+    "winston": "^3.13.0"
   },
-  "dependencies": {
-    "@ruiapp/log": "workspace:^",
-    "axios": "^1.1.2",
-    "events": "^3.3.0",
-    "qs": "^6.11.0"
-  }
+  "dependencies": {}
 }
