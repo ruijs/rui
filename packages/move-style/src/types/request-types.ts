@@ -1,10 +1,34 @@
-import { AxiosRequestConfig } from "axios";
+export type HttpMethod =
+  | "get"
+  | "GET"
+  | "delete"
+  | "DELETE"
+  | "head"
+  | "HEAD"
+  | "options"
+  | "OPTIONS"
+  | "post"
+  | "POST"
+  | "put"
+  | "PUT"
+  | "patch"
+  | "PATCH"
+  | "purge"
+  | "PURGE"
+  | "link"
+  | "LINK"
+  | "unlink"
+  | "UNLINK";
+
+export type HttpHeaderValue = string | string[] | number | boolean | null;
+
+export type HttpHeaders = Record<string, HttpHeaderValue>;
 
 export type HttpRequestOptions<TBodyData = Record<string, any>, TQuery = Record<string, any>> = HttpRequestInput<TBodyData, TQuery> & {
-  method: "GET" | "POST" | "PUT" | "DELETE";
+  method: HttpMethod;
   url: string;
   urlParams?: Record<string, string>;
-  headers?: AxiosRequestConfig<any>["headers"];
+  headers?: HttpHeaders;
   onError?: any;
   onSuccess?: any;
   validateStatus?: (status: number) => boolean;
