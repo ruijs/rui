@@ -151,20 +151,21 @@ export function renderRock(options: RenderRockOptions) {
     throw new Error(errorMessage);
   }
 
-  const rockInstance = rockConfig as RockInstance;
-  if (!rockInstance._initialized) {
-    // TODO: Temporary implement. Should refactor when re-implement the state management of ComponentTreeManager.
-    Object.assign(rockInstance, pick(page.getComponent(rockInstance.$id), ["_initialized", "_state"]));
-
-    if (!rockInstance._initialized) {
-      // TODO: should resolve parent component.
-      const parent = null;
-      page.attachComponent(scope, parent, rockConfig);
-    }
+  // const rockInstance = rockConfig as RockInstance;
+  let rockInstance = page.getComponent(rockConfig.$id);
+  if (!rockInstance || !rockInstance._initialized) {
+    // TODO: should resolve parent component.
+    const parent = null;
+    page.attachComponent(scope, parent, rockConfig);
+  }
+  if (!rockInstance) {
+    rockInstance = page.getComponent(rockConfig.$id);
   }
   if (!rockInstance._state) {
     rockInstance._state = {};
   }
+  // TODO: Temporary implement. Should refactor when re-implement the state management of ComponentTreeManager.
+  Object.assign(rockConfig, pick(rockInstance, ["_initialized", "_state"]));
 
   MoveStyleUtils.localizeConfigProps(framework, logger, rockConfig);
 
