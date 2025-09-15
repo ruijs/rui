@@ -27,14 +27,14 @@ import {
 import { isResponseStatusSuccess, request } from "./utils/HttpRequest";
 import { AxiosResponse } from "axios";
 
-export type FireComponentEventOptions = {
+export type FireEventOptions = {
   framework: Framework;
   page: IPage;
   scope: IScope;
   sender: any;
   senderCategory?: RockEvent["senderCategory"];
   eventName: string;
-  eventHandlerOrHandlers: RockEventHandler | RockEventHandler[];
+  eventHandlers: RockEventHandler | RockEventHandler[];
   eventArgs: any[];
   parentEvent?: RockEvent;
 };
@@ -51,15 +51,15 @@ export type HandleComponentEventOptions = {
   parentEvent?: RockEvent;
 };
 
-export async function fireComponentEvent(options: FireComponentEventOptions) {
-  const { framework, page, sender, senderCategory, eventName, eventHandlerOrHandlers, eventArgs } = options;
+export async function fireEvent(options: FireEventOptions) {
+  const { framework, page, sender, senderCategory, eventName, eventHandlers, eventArgs } = options;
   let { scope } = options;
-  if (!eventHandlerOrHandlers) {
+  if (!eventHandlers) {
     return;
   }
 
-  if (isFunction(eventHandlerOrHandlers)) {
-    await eventHandlerOrHandlers(...eventArgs);
+  if (isFunction(eventHandlers)) {
+    await eventHandlers(...eventArgs);
   }
 
   // TODO: should remove these lines after we re-implement useRuiScope();
@@ -67,15 +67,15 @@ export async function fireComponentEvent(options: FireComponentEventOptions) {
     scope = page.scope;
   }
 
-  if (Array.isArray(eventHandlerOrHandlers)) {
-    for (const eventHandler of eventHandlerOrHandlers) {
+  if (Array.isArray(eventHandlers)) {
+    for (const eventHandler of eventHandlers) {
       if (!eventHandler._disabled) {
         await doHandleComponentEvent({ eventName, framework, page, scope, sender, senderCategory, eventHandler, eventArgs });
       }
     }
   } else {
-    if (!eventHandlerOrHandlers._disabled) {
-      await doHandleComponentEvent({ eventName, framework, page, scope, sender, senderCategory, eventHandler: eventHandlerOrHandlers, eventArgs });
+    if (!eventHandlers._disabled) {
+      await doHandleComponentEvent({ eventName, framework, page, scope, sender, senderCategory, eventHandler: eventHandlers, eventArgs });
     }
   }
 }
@@ -92,7 +92,7 @@ export async function handleComponentEvent(
   eventHandlerOrHandlers: RockEventHandler | RockEventHandler[],
   eventArgs: any[],
 ) {
-  await fireComponentEvent({ framework, page, scope, sender, eventName, eventHandlerOrHandlers, eventArgs });
+  await fireEvent({ framework, page, scope, sender, eventName, eventHandlers: eventHandlerOrHandlers, eventArgs });
 }
 
 async function doHandleComponentEvent(options: HandleComponentEventOptions) {
@@ -244,8 +244,18 @@ async function handleHandleEvent(
   sender: any,
   eventHandler: RockEventHandlerHandleEvent,
   eventArgs: any[],
+  parentEvent?: RockEvent,
 ) {
-  await handleComponentEvent(eventHandler.eventName, framework, page as any, eventHandler.scope || scope, sender, eventHandler.handlers, eventHandler.args);
+  await fireEvent({
+    eventName: eventHandler.eventName,
+    framework,
+    page,
+    scope: eventHandler.scope || scope,
+    sender,
+    eventHandlers: eventHandler.handlers,
+    eventArgs: eventHandler.args,
+    parentEvent: parentEvent,
+  });
 }
 
 async function handleNotifyEvent(
@@ -371,6 +381,7 @@ async function handleSendHttpRequest(
   sender: any,
   eventHandler: RockEventHandlerSendHttpRequest,
   eventArgs: any[],
+  parentEvent?: RockEvent,
 ) {
   const { onError, onSuccess, silentOnError } = eventHandler;
   let res: AxiosResponse<any, any>;
@@ -383,7 +394,17 @@ async function handleSendHttpRequest(
 
     if (isResponseStatusSuccess(res.status)) {
       if (onSuccess) {
-        await handleComponentEvent(eventName, framework, page, scope, sender, onSuccess, [res.data]);
+        await fireEvent({
+          eventName,
+          framework,
+          page,
+          scope,
+          sender: eventHandler,
+          senderCategory: "actionHandler",
+          eventHandlers: onSuccess,
+          eventArgs: [res.data],
+          parentEvent,
+        });
       }
     } else {
       let err: Error;
@@ -410,7 +431,17 @@ async function handleSendHttpRequest(
     }
   } catch (err: any) {
     if (onError) {
-      await handleComponentEvent(eventName, framework, page, scope, sender, onError, [err]);
+      await fireEvent({
+        eventName,
+        framework,
+        page,
+        scope,
+        sender: eventHandler,
+        senderCategory: "actionHandler",
+        eventHandlers: onError,
+        eventArgs: [err],
+        parentEvent,
+      });
     }
 
     if (!silentOnError) {
