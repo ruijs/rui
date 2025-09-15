@@ -304,9 +304,10 @@ export type RockEvent = {
   page: IPage;
   scope: IScope;
   name: string;
-  senderCategory: "component";
+  senderCategory?: "component" | "store" | "actionHandler" | "other";
   sender: any;
   args: any[];
+  parent?: RockEvent;
 };
 
 export type RockEventSender = RockInstance;

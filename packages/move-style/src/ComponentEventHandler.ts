@@ -22,22 +22,38 @@ import {
   RockEventHandlerSetVars,
   RockEventHandlerThrowError,
   RockEventHandlerWait,
-  RockPropExpressions,
+  RockExpsConfig,
 } from "./types/rock-types";
 import { isResponseStatusSuccess, request } from "./utils/HttpRequest";
 import { AxiosResponse } from "axios";
 
-// TODO: make event handling extensible.
+export type FireComponentEventOptions = {
+  framework: Framework;
+  page: IPage;
+  scope: IScope;
+  sender: any;
+  senderCategory?: RockEvent["senderCategory"];
+  eventName: string;
+  eventHandlerOrHandlers: RockEventHandler | RockEventHandler[];
+  eventArgs: any[];
+  parentEvent?: RockEvent;
+};
 
-export async function handleComponentEvent(
-  eventName: string,
-  framework: Framework,
-  page: IPage,
-  scope: IScope,
-  sender: any,
-  eventHandlerOrHandlers: RockEventHandler | RockEventHandler[],
-  eventArgs: any[],
-) {
+export type HandleComponentEventOptions = {
+  framework: Framework;
+  page: IPage;
+  scope: IScope;
+  sender: any;
+  senderCategory?: RockEvent["senderCategory"];
+  eventName: string;
+  eventHandler: RockEventHandler;
+  eventArgs: any[];
+  parentEvent?: RockEvent;
+};
+
+export async function fireComponentEvent(options: FireComponentEventOptions) {
+  const { framework, page, sender, senderCategory, eventName, eventHandlerOrHandlers, eventArgs } = options;
+  let { scope } = options;
   if (!eventHandlerOrHandlers) {
     return;
   }
@@ -54,25 +70,33 @@ export async function handleComponentEvent(
   if (Array.isArray(eventHandlerOrHandlers)) {
     for (const eventHandler of eventHandlerOrHandlers) {
       if (!eventHandler._disabled) {
-        await doHandleComponentEvent(eventName, framework, page, scope, sender, eventHandler, eventArgs);
+        await doHandleComponentEvent({ eventName, framework, page, scope, sender, senderCategory, eventHandler, eventArgs });
       }
     }
   } else {
     if (!eventHandlerOrHandlers._disabled) {
-      await doHandleComponentEvent(eventName, framework, page, scope, sender, eventHandlerOrHandlers, eventArgs);
+      await doHandleComponentEvent({ eventName, framework, page, scope, sender, senderCategory, eventHandler: eventHandlerOrHandlers, eventArgs });
     }
   }
 }
 
-async function doHandleComponentEvent(
+/**
+ * @deprecated use fireComponentEvent instead.
+ */
+export async function handleComponentEvent(
   eventName: string,
   framework: Framework,
   page: IPage,
   scope: IScope,
   sender: any,
-  eventHandler: RockEventHandler,
+  eventHandlerOrHandlers: RockEventHandler | RockEventHandler[],
   eventArgs: any[],
 ) {
+  await fireComponentEvent({ framework, page, scope, sender, eventName, eventHandlerOrHandlers, eventArgs });
+}
+
+async function doHandleComponentEvent(options: HandleComponentEventOptions) {
+  const { framework, page, scope, sender, senderCategory, eventName, eventHandler, eventArgs, parentEvent } = options;
   const action = eventHandler.$action;
   const event: RockEvent = {
     framework,
@@ -80,11 +104,12 @@ async function doHandleComponentEvent(
     scope,
     sender,
     name: eventName,
-    senderCategory: "component",
+    senderCategory,
     args: eventArgs,
+    parent: parentEvent,
   };
 
-  const expressions: RockPropExpressions = (eventHandler as any).$exps;
+  const expressions: RockExpsConfig = (eventHandler as any).$exps;
   if (expressions) {
     for (const propName in expressions) {
       if (propName.startsWith("$")) {
@@ -159,6 +184,7 @@ async function handleScript(
   sender: any,
   eventHandler: RockEventHandlerScript,
   eventArgs: any[],
+  parentEvent?: RockEvent,
 ) {
   const event: RockEvent = {
     framework,
@@ -168,6 +194,7 @@ async function handleScript(
     name: eventName,
     senderCategory: "component",
     args: eventArgs,
+    parent: parentEvent,
   };
 
   let script: any = eventHandler.script;
