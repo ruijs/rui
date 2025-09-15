@@ -340,6 +340,7 @@ export type RockEventHandler =
   | RockEventHandlerThrowError
   | RockEventHandlerWait
   | RockEventHandlerHandleEvent
+  | RockEventHandlerFireEvent
   | RockEventHandlerNotifyEvent
   | RockEventHandlerNotifyToPage
   | RockEventHandlerSetComponentProperty
@@ -381,6 +382,14 @@ export type RockEventHandlerWait = RockEventHandlerBase & {
 
 export type RockEventHandlerHandleEvent = RockEventHandlerBase & {
   $action: "handleEvent";
+  eventName?: string;
+  scope?: Scope;
+  handlers?: RockEventHandlerConfig;
+  args?: any;
+};
+
+export type RockEventHandlerFireEvent = RockEventHandlerBase & {
+  $action: "fireEvent";
   eventName?: string;
   scope?: Scope;
   handlers?: RockEventHandlerConfig;
@@ -804,6 +813,8 @@ export interface IPage {
 
   getComponent(componentId: string): RockConfig;
 
+  getScope(scopeId: string): Scope;
+
   getStore<TStore = IStore<StoreConfigBase>>(storeName: string): TStore;
 
   addStore(storeConfig: StoreConfig);
@@ -889,7 +900,9 @@ export type FunctionMeta = {
   func: Function;
 };
 
-export type EventActionHandler<TEventActionConfig> = (
+export type EventActionHandler<TEventActionConfig = RockEventHandler> = EventActionHandler1<TEventActionConfig> | EventActionHandler2<TEventActionConfig>;
+
+export type EventActionHandler1<TEventActionConfig = RockEventHandler> = (
   eventName: string,
   framework: Framework,
   page: IPage,
@@ -898,6 +911,7 @@ export type EventActionHandler<TEventActionConfig> = (
   eventHandler: TEventActionConfig,
   eventArgs: any,
 ) => any;
+export type EventActionHandler2<TEventActionConfig = RockEventHandler> = (event: RockEvent, handler: TEventActionConfig) => any;
 
 export type EventAction<TEventActionConfig extends { $action: string }> = {
   name: TEventActionConfig["$action"];

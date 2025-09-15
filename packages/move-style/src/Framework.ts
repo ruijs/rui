@@ -6,7 +6,7 @@ import { ConstantStore } from "./stores/ConstantStore";
 import { HttpRequestStore } from "./stores/HttpRequestStore";
 import StoreFactory from "./stores/StoreFactory";
 import { RuiExtension } from "./types/extension-types";
-import { Rock } from "./types/rock-types";
+import { EventActionHandler, Rock } from "./types/rock-types";
 import { IStore, StoreConfig } from "./types/store-types";
 import { ConfigProcessor } from "./ConfigProcessor";
 import { RuiModuleLoggerFactory, RuiModulesNames } from "./Logger";
@@ -20,7 +20,7 @@ export class Framework {
   #storeFactory: StoreFactory;
   #components: Map<string, Rock>;
   #functions: Record<string, Function>;
-  #eventActionHandlers: Map<string, Function>;
+  #eventActionHandlers: Map<string, EventActionHandler>;
   #expVars: Record<string, any>;
   #configProcessors: ConfigProcessor[];
   #pages: Map<string, Page>;
@@ -89,11 +89,11 @@ export class Framework {
     return this.#storeFactory.createStore(this, page, scope, storeConfig);
   }
 
-  registerEventActionHandler(actionName: string, handler: Function) {
+  registerEventActionHandler(actionName: string, handler: EventActionHandler) {
     this.#eventActionHandlers.set(actionName, handler);
   }
 
-  getEventActionHandler(actionName: string): Function {
+  getEventActionHandler(actionName: string): EventActionHandler {
     return this.#eventActionHandlers.get(actionName);
   }
 
