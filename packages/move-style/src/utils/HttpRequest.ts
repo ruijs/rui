@@ -1,13 +1,13 @@
 import axios, { AxiosRequestConfig } from "axios";
-import qs from "qs";
 import { HttpRequestOptions } from "../types/request-types";
+import { stringifyQuery } from "./url-utility";
 
 export async function request<TRequestData = Record<string, any>, TQuery = Record<string, any>, TResponseData = any>(
   options: HttpRequestOptions<TRequestData, TQuery>,
 ) {
   let url = options.url;
   if (options.query) {
-    const queryString = qs.stringify(options.query);
+    const queryString = stringifyQuery(options.query);
     let prefixChar;
     if (url.indexOf("?") === -1) {
       prefixChar = "?";
