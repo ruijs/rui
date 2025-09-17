@@ -11,7 +11,7 @@ export { canUseDOM, waitVariable } from "./dom-utility";
 
 export { listOrderBy } from "./list-utility";
 
-export { parseQuery } from "./url-utility";
+export * from "./url-utility";
 
 export { fulfillVariables, fulfillVariablesInString } from "./variable-fulfiller";
 

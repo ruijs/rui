@@ -1,11 +1,20 @@
 import qs from "qs";
 
-export function parseQuery() {
-  const search = location.search;
-  if (!search) {
-    return {};
+export function parseQuery(queryString?: string) {
+  if (!queryString) {
+    queryString = location.search;
   }
 
-  const query = qs.parse(search.substring(1));
-  return query;
+  if (!queryString) {
+    return {};
+  }
+  if (queryString.startsWith("?")) {
+    queryString = queryString.substring(1);
+  }
+
+  return qs.parse(queryString);
+}
+
+export function stringifyQuery(query: Record<string, any>) {
+  return qs.stringify(query);
 }

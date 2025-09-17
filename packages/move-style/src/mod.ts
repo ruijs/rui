@@ -17,5 +17,6 @@ export * from "./ConfigProcessor";
 export * as CommonProps from "./common-props";
 
 export * as MoveStyleUtils from "./utils";
+export * from "./utils";
 export { unitOptions } from "./common-options/unit-options";
 export { lineStyleOptions } from "./common-options/line-style-options";
