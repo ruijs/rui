@@ -18,6 +18,7 @@ export class Scope implements IScope {
   #vars: Record<string, any>;
   #eventSubscriptions?: RockPageEventSubscriptionConfig[];
   #version: number;
+  #triedLoadData: boolean;
 
   constructor(framework: Framework, page: Page, config: ScopeConfig) {
     this.#framework = framework;
@@ -74,6 +75,10 @@ export class Scope implements IScope {
           version: this.#version,
         });
       });
+
+      if (this.#triedLoadData) {
+        store.loadData();
+      }
     }
   }
 
@@ -117,6 +122,8 @@ export class Scope implements IScope {
 
   async loadData() {
     this.#logger.debug(`Loading scope data...`);
+
+    this.#triedLoadData = true;
     for (const storeName in this.#stores) {
       const store = this.#stores[storeName];
       await store.loadData();
