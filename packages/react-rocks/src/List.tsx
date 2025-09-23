@@ -25,7 +25,7 @@ export default {
       allowMultiComponents: false,
       toRenderProp: true,
       argumentsToProps: true,
-      argumentNames: ["item", "list", "index"],
+      argumentNames: ["item", "list", "index", "key"],
     },
 
     separator: {
@@ -60,14 +60,14 @@ function List(props: any) {
             return (
               <>
                 {separator}
-                {item(dataItem, dataList, index)}
+                {item(dataItem, dataList, index, `item-${index}`)}
               </>
             );
           } else {
-            return item(dataItem, dataList, index);
+            return item(dataItem, dataList, index, `item-${index}`);
           }
         } else {
-          return item(dataItem, dataList, index);
+          return item(dataItem, dataList, index, `item-${index}`);
         }
       })}
       {footer}

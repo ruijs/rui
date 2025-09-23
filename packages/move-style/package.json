@@ -1,6 +1,6 @@
 {
   "name": "@ruiapp/move-style",
-  "version": "0.4.20",
+  "version": "0.4.21",
   "description": "",
   "types": "./dist/mod.d.ts",
   "main": "./dist/mod.js",
@@ -26,10 +26,10 @@
     "winston": "^3.13.0"
   },
   "peerDependencies": {
+    "@ruiapp/log": "workspace:^",
     "lodash": "^4.17.21"
   },
   "dependencies": {
-    "@ruiapp/log": "workspace:^",
     "axios": "^1.1.2",
     "events": "^3.3.0",
     "qs": "^6.11.0"
