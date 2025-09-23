@@ -206,7 +206,7 @@ export function renderRock(options: RenderRockOptions) {
     ComponentRenderer = wrapRenderer(rock);
   }
   return React.createElement(ComponentRenderer, {
-    key: rockConfig.$id,
+    key: rockConfig.key || rockConfig.$id,
     ...rockConfig,
     ...slotProps,
     _context: context,
