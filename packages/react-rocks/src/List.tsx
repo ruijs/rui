@@ -20,6 +20,14 @@ export default {
   ],
 
   slots: {
+    itemContainer: {
+      required: false,
+      allowMultiComponents: false,
+      toRenderProp: true,
+      argumentsToProps: true,
+      argumentNames: ["item", "list", "index", "key", "children"],
+    },
+
     item: {
       required: false,
       allowMultiComponents: false,
@@ -48,7 +56,7 @@ export default {
 } as Rock<ListProps>;
 
 function List(props: any) {
-  const { dataSource, item, separator, header, footer } = props;
+  const { dataSource, itemContainer: itemContainerRenderer, item: itemRenderer, separator, header, footer } = props;
   const dataList = dataSource || [];
 
   return (
@@ -60,17 +68,27 @@ function List(props: any) {
             return (
               <>
                 {separator}
-                {item(dataItem, dataList, index, `item-${index}`)}
+                {renderItem(itemContainerRenderer, itemRenderer, dataItem, dataList, index, `item-${index}`)}
               </>
             );
           } else {
-            return item(dataItem, dataList, index, `item-${index}`);
+            return renderItem(itemContainerRenderer, itemRenderer, dataItem, dataList, index, `item-${index}`);
           }
         } else {
-          return item(dataItem, dataList, index, `item-${index}`);
+          return renderItem(itemContainerRenderer, itemRenderer, dataItem, dataList, index, `item-${index}`);
         }
       })}
       {footer}
     </div>
   );
+}
+
+function renderItem(itemContainerRenderer: any, itemRenderer: any, dataItem: any, dataList: any, index: any, key: any) {
+  if (itemContainerRenderer) {
+    return itemContainerRenderer(dataItem, dataList, index, key, () => {
+      return itemRenderer(dataItem, dataList, index, key);
+    });
+  }
+
+  return itemRenderer(dataItem, dataList, index, key);
 }
