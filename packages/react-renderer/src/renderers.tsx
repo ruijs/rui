@@ -224,6 +224,8 @@ export function renderRockChildren(options: RenderRockChildrenOptions) {
   if (Array.isArray(rockChildrenConfig)) {
     const rocks = rockChildrenConfig as RockConfig[];
     return rocks.map((rockConfig) => renderRock({ context, rockConfig, expVars, fixedProps }));
+  } else if (isFunction(rockChildrenConfig)) {
+    return rockChildrenConfig({ context, expVars, fixedProps });
   } else {
     const rockConfig = rockChildrenConfig as RockConfig;
     return renderRock({ context, rockConfig, expVars, fixedProps });
@@ -373,21 +375,24 @@ export function renderSlotToRenderProp(options: RenderRockSlotWithMetaOptions) {
   }
 
   return (...args) => {
-    let slotContextData = fixedProps?.$slot;
+    let slotRockProps = fixedProps?.$slot;
     const { argumentsToProps, argumentNames } = slotMeta;
     if (argumentsToProps && argumentNames) {
-      slotContextData = {};
+      slotRockProps = {};
       for (let argIdx = 0; argIdx < argumentNames.length; argIdx++) {
-        slotContextData[argumentNames[argIdx]] = args[argIdx];
+        slotRockProps[argumentNames[argIdx]] = args[argIdx];
       }
     }
 
     return renderRockChildren({
       context,
-      rockChildrenConfig: slot,
+      rockChildrenConfig: {
+        children: slotRockProps.children,
+        ...slot,
+      },
       fixedProps: {
         ...(fixedProps || {}),
-        $slot: slotContextData,
+        $slot: slotRockProps,
       },
     });
   };
