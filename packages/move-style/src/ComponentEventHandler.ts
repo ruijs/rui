@@ -29,6 +29,7 @@ import {
 } from "./types/rock-types";
 import { isResponseStatusSuccess, request } from "./utils/HttpRequest";
 import { AxiosResponse } from "axios";
+import { wait } from "./utils";
 
 export type FireEventOptions = {
   framework: Framework;
@@ -204,11 +205,7 @@ async function handleThrowError(event: RockEvent, handler: RockEventHandlerThrow
 }
 
 async function handleWait(event: RockEvent, handler: RockEventHandlerWait) {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(null);
-    }, handler.time);
-  });
+  return wait(handler.time);
 }
 
 async function handleHandleEvent(event: RockEvent, handler: RockEventHandlerHandleEvent) {

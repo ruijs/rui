@@ -11,6 +11,8 @@ export { canUseDOM, waitVariable } from "./dom-utility";
 
 export { listOrderBy } from "./list-utility";
 
+export * from "./promise-utility";
+
 export * from "./url-utility";
 
 export { fulfillVariables, fulfillVariablesInString } from "./variable-fulfiller";
