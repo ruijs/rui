@@ -19,14 +19,19 @@ export default {
           $id: `${props.$id}-${setter.eventName}`,
           $type: "scriptEventHandlerSetter",
           componentConfig: props.componentConfig,
+          args: setter.args,
         });
       });
     }, [setters, componentConfig]);
 
     let groupTitle = props.title;
     if (!groupTitle) {
-      const rockMeta: Rock = context.framework.getComponent(componentConfig.$type);
-      groupTitle = rockMeta.name || rockMeta.$type;
+      if(componentConfig.$type) {
+        const rockMeta: Rock = context.framework.getComponent(componentConfig.$type);
+        groupTitle = rockMeta.name || rockMeta.$type;
+      } else {
+        groupTitle = "事件";
+      }
     }
 
     return (
