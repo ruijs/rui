@@ -70,10 +70,6 @@ export function wrapRenderer(rock: Rock) {
  */
 function genComponentRenderer(rock: Rock, rockRenderer: any) {
   return function (rockInstance: RockInstance) {
-    // DO NOT remove "$id" and "$exps" fields.
-    const instanceFields: (RockInstanceFields | RockConfigSystemFields)[] = ["_initialized", "_state", "_hidden", "$type", "$version"];
-    const rockProps = omit(rockInstance, instanceFields);
-
     if (rock.declarativeComponent !== true && rock.onResolveState) {
       // TODO: the first parameter should be rockProps
       const resolvedState = rock.onResolveState(rockInstance, rockInstance._state, rockInstance);
@@ -92,7 +88,7 @@ function genComponentRenderer(rock: Rock, rockRenderer: any) {
       }
       setState({ ...newState });
     };
-    const renderResult = rockRenderer(rockInstance._context, rockProps, rockInstance._state, rockInstance);
+    const renderResult = rockRenderer(rockInstance._context, rockInstance, rockInstance._state, rockInstance);
     return renderResult;
   };
 }

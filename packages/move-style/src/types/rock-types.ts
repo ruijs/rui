@@ -21,8 +21,11 @@ export type FieldValueType = "string" | "number" | "boolean" | "object";
 
 export type RockRenderer<TRockConfig = any, TRockState = any> = (
   context: RockInstanceContext,
-  props: TRockConfig,
+  props: RockInstance & TRockConfig,
   state?: TRockState & { scope: Scope },
+  /**
+   * @deprecated Use props instead.
+   */
   instance?: RockInstance,
 ) => any;
 
