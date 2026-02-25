@@ -338,24 +338,24 @@ export function convertToEventHandler(options: ConvertRockEventHandlerPropOption
 }
 
 export function renderSlotWithAdapter(options: RenderRockSlotWithMetaOptions) {
-  const { context, slot, slotMeta, expVars, fixedProps } = options;
+  const { context, slot: slotConfig, slotMeta, expVars, fixedProps } = options;
   const adapterSlotPropNames = slotMeta.adapterSlots || ["children"];
-  if (isArray(slot)) {
+  if (isArray(slotConfig)) {
     const adapters = [];
-    forEach(slot, (child) => {
-      const adapter = { ...child };
+    forEach(slotConfig, (childConfig) => {
+      const adapterConfig = { ...childConfig };
       forEach(adapterSlotPropNames, (slotPropName) => {
-        adapter[slotPropName] = renderRockChildren({ context, rockChildrenConfig: adapter[slotPropName], expVars, fixedProps });
+        adapterConfig[slotPropName] = renderRockChildren({ context, rockChildrenConfig: adapterConfig[slotPropName], expVars, fixedProps });
       });
-      const eventHandlers = convertToEventHandlers({ context, rockConfig: adapter });
+      const eventHandlers = convertToEventHandlers({ context, rockConfig: adapterConfig });
       adapters.push({
-        ...adapter,
+        ...adapterConfig,
         ...eventHandlers,
       });
     });
     return adapters;
   } else {
-    const adapter = { ...slot };
+    const adapter = { ...slotConfig };
     forEach(adapterSlotPropNames, (slotPropName) => {
       adapter[slotPropName] = renderRockChildren({ context, rockChildrenConfig: adapter[slotPropName], expVars, fixedProps });
     });
@@ -368,8 +368,8 @@ export function renderSlotWithAdapter(options: RenderRockSlotWithMetaOptions) {
 }
 
 export function renderSlotToRenderProp(options: RenderRockSlotWithMetaOptions) {
-  const { context, slot, slotMeta, fixedProps } = options;
-  if (!slot) {
+  const { context, slot: slotConfig, slotMeta, fixedProps } = options;
+  if (!slotConfig) {
     return null;
   }
 
@@ -383,17 +383,27 @@ export function renderSlotToRenderProp(options: RenderRockSlotWithMetaOptions) {
       }
     }
 
-    return renderRockChildren({
-      context,
-      rockChildrenConfig: {
-        children: slotRockProps.children,
-        ...slot,
-      },
-      fixedProps: {
-        ...(fixedProps || {}),
-        $slot: slotRockProps,
-      },
-    });
+    if (isArray(slotConfig)) {
+      return renderRockChildren({
+        context,
+        rockChildrenConfig: slotConfig,
+        fixedProps: {
+          ...slotRockProps,
+          ...(fixedProps || {}),
+          $slot: slotRockProps,
+        },
+      });
+    } else {
+      return renderRock({
+        context,
+        rockConfig: slotConfig,
+        fixedProps: {
+          ...slotRockProps,
+          ...(fixedProps || {}),
+          $slot: slotRockProps,
+        },
+      });
+    }
   };
 }
 
@@ -408,6 +418,11 @@ export function convertToSlotProps(options: ConvertRockSlotPropsOptions) {
     // TODO: rename `slot` to `slotConfig`
     const slot = rockConfig[slotPropName];
     if (slot) {
+      if (isFunction(slot)) {
+        slotProps[slotPropName] = slot;
+        continue;
+      }
+
       const slotMeta = slotsMeta[slotPropName];
       if (isEarly) {
         if (slotMeta.earlyCreate) {
