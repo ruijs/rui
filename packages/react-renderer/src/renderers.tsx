@@ -24,9 +24,12 @@ import type {
 import { forEach, isArray, isFunction, isString, omit, pick } from "lodash";
 import React, { useState } from "react";
 
-export function genRockRenderer(rockType: string, ReactComponent: any) {
+export function genRockRenderer(rockType: string, ReactComponent: any, keepInstanceFieldsInProps: boolean = false) {
   return function RockComponentRenderer(context: RockInstanceContext, props: RockConfig) {
-    const reactComponentProps = MoveStyleUtils.omitSystemRockConfigFields(props);
+    let reactComponentProps = props;
+    if (!keepInstanceFieldsInProps) {
+      MoveStyleUtils.omitSystemRockConfigFields(props);
+    }
 
     const rock: Rock = context.framework.getComponent(rockType);
     const eventHandlers = convertToEventHandlers({ context, rockConfig: props });
