@@ -21,7 +21,7 @@ import type {
   RockConfigSystemFields,
   RockInstanceFields,
 } from "@ruiapp/move-style";
-import { forEach, isArray, isFunction, isString, omit, pick } from "lodash";
+import { cloneDeep, forEach, isArray, isFunction, isString, omit, pick } from "lodash";
 import React, { useState } from "react";
 
 export function genRockRenderer(rockType: string, ReactComponent: any, keepInstanceFieldsInProps: boolean = false) {
@@ -133,7 +133,9 @@ export const getDeclarativeRockRenderer = (rockMeta: DeclarativeRock) => {
 
 // TODO: support `$parent`?
 export function renderRock(options: RenderRockOptions) {
-  const { context, rockConfig, fixedProps } = options;
+  const { context, fixedProps } = options;
+  let { rockConfig } = options;
+
   let { expVars } = options;
 
   if (rockConfig == null) {
@@ -168,6 +170,7 @@ export function renderRock(options: RenderRockOptions) {
     rockInstance._state = {};
   }
   // TODO: Temporary implement. Should refactor when re-implement the state management of ComponentTreeManager.
+  rockConfig = cloneDeep(rockConfig);
   Object.assign(rockConfig, pick(rockInstance, ["_initialized", "_state"]));
 
   MoveStyleUtils.localizeConfigProps(framework, logger, rockConfig);
