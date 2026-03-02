@@ -1,13 +1,4 @@
-import {
-  RockConfig,
-  RockConfigBase,
-  RockEvent,
-  RockEventHandler,
-  RockEventHandlerScript,
-  Rock,
-  MoveStyleUtils,
-  handleComponentEvent
-} from "@ruiapp/move-style";
+import { RockConfig, RockConfigBase, RockEvent, RockEventHandler, RockEventHandlerScript, Rock, MoveStyleUtils, fireEvent } from "@ruiapp/move-style";
 import { renderRockChildren } from "@ruiapp/react-renderer";
 import { useRef, useState } from "react";
 import { DesignerStore } from "~/stores/DesignerStore";
@@ -51,7 +42,15 @@ export default {
     const onSave: RockEventHandlerScript["script"] = (event: RockEvent) => {
       let eventArgs = [commands.current.getConfigs(), commands.current.getCodeContents()];
       commands.current.clear();
-      handleComponentEvent("onChange", framework, page, scope, props, onChange, eventArgs);
+      fireEvent({
+        eventName: "onChange",
+        framework,
+        page,
+        scope,
+        sender: props,
+        eventHandlers: onChange,
+        eventArgs,
+      });
       setBlocklyEditorVisible(false);
     };
 

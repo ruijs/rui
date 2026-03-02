@@ -1,4 +1,4 @@
-import { handleComponentEvent, type EventAction, type Framework, type Page, type Scope } from "@ruiapp/move-style";
+import { fireEvent, type EventAction, type Framework, type Page, type Scope } from "@ruiapp/move-style";
 import { Modal, ModalFuncProps } from "antd";
 
 export interface RockEventHandlerAntdMessage {
@@ -9,14 +9,30 @@ export interface RockEventHandlerAntdMessage {
   type: "info" | "success" | "warning" | "error";
 }
 
-export async function antdMessage(eventName: string, framework: Framework, page: Page, scope: Scope, sender: any, eventHandler: RockEventHandlerAntdMessage, eventArgs: any) {
+export async function antdMessage(
+  eventName: string,
+  framework: Framework,
+  page: Page,
+  scope: Scope,
+  sender: any,
+  eventHandler: RockEventHandlerAntdMessage,
+  eventArgs: any,
+) {
   return new Promise((resolve, reject) => {
     const modalOptions: ModalFuncProps = {
       title: eventHandler.title,
       content: eventHandler.content,
       onOk: () => {
         if (eventHandler.onClose) {
-          handleComponentEvent(eventName, framework, page, scope, sender, eventHandler.onClose, eventArgs)
+          fireEvent({
+            eventName,
+            framework,
+            page,
+            scope,
+            sender,
+            eventHandlers: eventHandler.onClose,
+            eventArgs,
+          })
             .then(() => {
               resolve(null);
             })
@@ -28,7 +44,15 @@ export async function antdMessage(eventName: string, framework: Framework, page:
 
       onCancel: () => {
         if (eventHandler.onClose) {
-          handleComponentEvent(eventName, framework, page, scope, sender, eventHandler.onClose, eventArgs)
+          fireEvent({
+            eventName,
+            framework,
+            page,
+            scope,
+            sender,
+            eventHandlers: eventHandler.onClose,
+            eventArgs,
+          })
             .then(() => {
               resolve(null);
             })

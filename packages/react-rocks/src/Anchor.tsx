@@ -1,4 +1,4 @@
-import { Rock, RockEventHandler, ContainerRockConfig, CommonProps, handleComponentEvent } from "@ruiapp/move-style";
+import { Rock, RockEventHandler, ContainerRockConfig, CommonProps, fireEvent } from "@ruiapp/move-style";
 import { renderRockChildren } from "@ruiapp/react-renderer";
 import { pick } from "lodash";
 
@@ -6,7 +6,12 @@ export interface BoxProps extends ContainerRockConfig {
   onClick: RockEventHandler;
 }
 
-const boxStylePropNames = [...CommonProps.PositionStylePropNames, ...CommonProps.SizeStylePropNames, ...CommonProps.LayerStylePropNames, ...CommonProps.TextStylePropNames];
+const boxStylePropNames = [
+  ...CommonProps.PositionStylePropNames,
+  ...CommonProps.SizeStylePropNames,
+  ...CommonProps.LayerStylePropNames,
+  ...CommonProps.TextStylePropNames,
+];
 
 export default {
   $type: "anchor",
@@ -24,7 +29,14 @@ export default {
     const { framework, page, scope } = context;
     const style: React.CSSProperties = pick(props, boxStylePropNames) as any;
     return (
-      <a data-component-id={props.id} className={props.className} style={style} href={props.href} target={props.target} onClick={(e) => handleComponentEvent("onClick", framework, page, scope, props, props.onClick, [e])}>
+      <a
+        data-component-id={props.id}
+        className={props.className}
+        style={style}
+        href={props.href}
+        target={props.target}
+        onClick={(e) => fireEvent({ eventName: "onClick", framework, page, scope, sender: props, eventHandlers: props.onClick, eventArgs: [e] })}
+      >
         {renderRockChildren({
           context,
           rockChildrenConfig: props.children,

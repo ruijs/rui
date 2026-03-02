@@ -2,7 +2,7 @@ import {
   ConvertRockEventHandlerPropsOptions,
   ConvertRockSlotPropsOptions,
   GenerateRockSlotRendererOptions,
-  handleComponentEvent,
+  fireEvent,
   RenderRockChildrenOptions,
   RenderRockOptions,
   RenderRockSlotOptions,
@@ -338,9 +338,16 @@ export function convertToEventHandler(options: ConvertRockEventHandlerPropOption
   }
 
   // TODO: check if `eventHandlerConfig` is valid RockEventHandler(s)
-  const handleComponentEventWithEventName = handleComponentEvent.bind(null, eventName);
   return (...eventArgs) => {
-    handleComponentEventWithEventName(context.framework, context.page, context.scope, rockConfig, eventHandlerConfig, eventArgs);
+    fireEvent({
+      eventName,
+      framework: context.framework,
+      page: context.page,
+      scope: context.scope,
+      sender: rockConfig,
+      eventHandlers: eventHandlerConfig,
+      eventArgs,
+    });
   };
 }
 

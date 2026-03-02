@@ -1,4 +1,4 @@
-import { RockConfig, RockConfigBase, RockEvent, RockEventHandler, RockEventHandlerScript, Rock, MoveStyleUtils, handleComponentEvent } from "@ruiapp/move-style";
+import { RockConfig, RockConfigBase, RockEvent, RockEventHandler, RockEventHandlerScript, Rock, MoveStyleUtils, fireEvent } from "@ruiapp/move-style";
 import { convertToEventHandlers, renderRockChildren } from "@ruiapp/react-renderer";
 import { isFunction } from "lodash";
 import { useRef, useState } from "react";
@@ -32,7 +32,15 @@ export default {
       try {
         var value = JSON.parse(codeContent);
         setCodeEditorVisible(false);
-        handleComponentEvent("onChange", framework, page, scope, props, onChange, [value]);
+        fireEvent({
+          eventName: "onChange",
+          framework,
+          page,
+          scope,
+          sender: props,
+          eventHandlers: onChange,
+          eventArgs: [value],
+        });
       } catch (ex) {
         logger.error(props, "Invalid JSON string.", { error: ex });
       }

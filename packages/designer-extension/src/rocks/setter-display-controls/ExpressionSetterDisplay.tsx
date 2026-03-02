@@ -1,4 +1,4 @@
-import { handleComponentEvent, RockConfig, RockConfigBase, RockEvent, RockEventHandlerScript, Rock, RockEventHandlerConfig } from "@ruiapp/move-style";
+import { fireEvent, RockConfig, RockConfigBase, RockEvent, RockEventHandlerScript, Rock, RockEventHandlerConfig } from "@ruiapp/move-style";
 import { renderRock } from "@ruiapp/react-renderer";
 import { useCallback } from "react";
 
@@ -15,7 +15,15 @@ export default {
     const { $id, onClick } = props;
 
     const onDisplayClick = useCallback(() => {
-      handleComponentEvent("onClick", framework, page, scope, props, onClick, []);
+      fireEvent({
+        eventName: "onClick",
+        framework,
+        page,
+        scope,
+        sender: props,
+        eventHandlers: onClick,
+        eventArgs: [],
+      });
     }, [page, $id, onClick]);
 
     return (

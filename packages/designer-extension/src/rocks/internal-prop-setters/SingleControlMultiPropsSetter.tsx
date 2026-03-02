@@ -4,7 +4,7 @@ import {
   RockEventHandlerScript,
   Rock,
   PropSetterRockConfigBase,
-  handleComponentEvent,
+  fireEvent,
   MoveStyleUtils,
   RockInstanceContext,
   RockMultiPropsSetterBase,
@@ -39,7 +39,15 @@ export default {
 
       const onInputControlChange: RockEventHandlerScript["script"] = (event: RockEvent) => {
         let propValues = MoveStyleUtils.omitImmutableRockConfigFields(event.args[0] || {});
-        handleComponentEvent("onPropValueChange", framework, page, scope, props, onPropValueChange, [propValues]);
+        fireEvent({
+          eventName: "onPropValueChange",
+          framework,
+          page,
+          scope,
+          sender: props,
+          eventHandlers: onPropValueChange,
+          eventArgs: [propValues],
+        });
       };
 
       inputControlRockConfig.onChange = {

@@ -5,7 +5,7 @@ import { Page } from "./Page";
 import { HttpRequestInput } from "./types/request-types";
 import { IStore, StoreConfig, StoreConfigBase } from "./types/store-types";
 import { IScope, RockPageEventSubscriptionConfig, RuiEvent, ScopeConfig, ScopeState } from "./types/rock-types";
-import { handleComponentEvent } from "./ComponentEventHandler";
+import { fireEvent } from "./ComponentEventHandler";
 import { RuiModuleLogger } from "./Logger";
 
 export class Scope implements IScope {
@@ -175,7 +175,15 @@ export class Scope implements IScope {
         continue;
       }
 
-      await handleComponentEvent(event.name, event.framework, event.page as any, event.scope, event.sender, eventSubscription.handlers, event.args);
+      await fireEvent({
+        eventName: event.name,
+        framework: event.framework,
+        page: event.page as any,
+        scope: event.scope,
+        sender: event.sender,
+        eventHandlers: eventSubscription.handlers,
+        eventArgs: event.args,
+      });
     }
   }
 }
