@@ -3,3 +3,5 @@ build/
 dist/
 
 packages/react-player/public/vs/
+
+.trae/

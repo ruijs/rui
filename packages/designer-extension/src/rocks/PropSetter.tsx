@@ -1,13 +1,4 @@
-import {
-  RockConfig,
-  Rock,
-  PropSetterRockConfigBase,
-  RockPropSetterBase,
-  RockChildrenConfig,
-  handleComponentEvent,
-  RockEvent,
-  MoveStyleUtils,
-} from "@ruiapp/move-style";
+import { RockConfig, Rock, PropSetterRockConfigBase, RockPropSetterBase, RockChildrenConfig, fireEvent, RockEvent, MoveStyleUtils } from "@ruiapp/move-style";
 import { renderRock } from "@ruiapp/react-renderer";
 import { get } from "lodash";
 import React, { useEffect, useState } from "react";
@@ -84,11 +75,27 @@ export default {
             onMouseLeave: () => setState({ ...state, expIndicatorHovered: false }),
             onClick: () => {
               if (expMode) {
-                handleComponentEvent("onPropExpressionRemove", framework, page, scope, props, onPropExpressionRemove, [expressionPropName]);
+                fireEvent({
+                  eventName: "onPropExpressionRemove",
+                  framework,
+                  page,
+                  scope,
+                  sender: props,
+                  eventHandlers: onPropExpressionRemove,
+                  eventArgs: [expressionPropName],
+                });
                 setState({ ...state, expEditing: !expMode, expression: "" });
               } else {
                 if (onSettingPropExpression) {
-                  handleComponentEvent("onSettingPropExpression", framework, page, scope, props, onSettingPropExpression, [expressionPropName]);
+                  fireEvent({
+                    eventName: "onSettingPropExpression",
+                    framework,
+                    page,
+                    scope,
+                    sender: props,
+                    eventHandlers: onSettingPropExpression,
+                    eventArgs: [expressionPropName],
+                  });
                 } else {
                   setState({ ...state, expEditing: !expMode, expression: "" });
                 }
@@ -123,7 +130,15 @@ export default {
         script: (event: RockEvent) => {
           let propExpression = expression?.trim();
           if (propExpression) {
-            handleComponentEvent("onPropExpressionChange", framework, page, scope, props, onPropExpressionChange, [expressionPropName, propExpression]);
+            fireEvent({
+              eventName: "onPropExpressionChange",
+              framework,
+              page,
+              scope,
+              sender: props,
+              eventHandlers: onPropExpressionChange,
+              eventArgs: [expressionPropName, propExpression],
+            });
           }
         },
       },
@@ -137,7 +152,15 @@ export default {
         {
           $action: "script",
           script: () => {
-            handleComponentEvent("onSettingPropExpression", framework, page, scope, props, onSettingPropExpression, [expressionPropName]);
+            fireEvent({
+              eventName: "onSettingPropExpression",
+              framework,
+              page,
+              scope,
+              sender: props,
+              eventHandlers: onSettingPropExpression,
+              eventArgs: [expressionPropName],
+            });
           },
         },
       ],
@@ -178,7 +201,15 @@ export default {
                     {
                       $action: "script",
                       script: (event) => {
-                        handleComponentEvent("onSettingPropExpression", framework, page, scope, props, onSettingPropExpression, [expressionPropName]);
+                        fireEvent({
+                          eventName: "onSettingPropExpression",
+                          framework,
+                          page,
+                          scope,
+                          sender: props,
+                          eventHandlers: onSettingPropExpression,
+                          eventArgs: [expressionPropName],
+                        });
                       },
                     },
                   ]

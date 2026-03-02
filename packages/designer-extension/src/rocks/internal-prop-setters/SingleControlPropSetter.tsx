@@ -1,12 +1,4 @@
-import {
-  RockConfig,
-  RockEvent,
-  Rock,
-  SingleControlRockPropSetter,
-  handleComponentEvent,
-  PropSetterRockConfigBase,
-  RockInstanceContext,
-} from "@ruiapp/move-style";
+import { RockConfig, RockEvent, Rock, SingleControlRockPropSetter, fireEvent, PropSetterRockConfigBase, RockInstanceContext } from "@ruiapp/move-style";
 import { renderRock } from "@ruiapp/react-renderer";
 import { useMemo } from "react";
 import { PropSetterRockConfig } from "../PropSetter";
@@ -49,7 +41,15 @@ export default {
             const propChanges = {
               [propName]: propValue,
             };
-            handleComponentEvent("onPropValueChange", framework, page, scope, props, onPropValueChange, [propChanges]);
+            fireEvent({
+              eventName: "onPropValueChange",
+              framework,
+              page,
+              scope,
+              sender: props,
+              eventHandlers: onPropValueChange,
+              eventArgs: [propChanges],
+            });
           },
         },
       };

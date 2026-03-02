@@ -6,7 +6,7 @@ import { HttpRequestInput } from "./types/request-types";
 import { Framework } from "./Framework";
 import { Scope } from "./Scope";
 import { RuiModuleLogger } from "./Logger";
-import { handleComponentEvent } from "./ComponentEventHandler";
+import { fireEvent } from "./ComponentEventHandler";
 import { EventEmitter } from "./EventEmitter";
 import { isString } from "lodash";
 
@@ -239,6 +239,14 @@ export class Page implements IPage {
     }
 
     let { framework, page, scope } = context || parentEvent;
-    await handleComponentEvent(eventName, framework, page, scope, sender || {}, handlers, args || []);
+    await fireEvent({
+      eventName,
+      framework,
+      page,
+      scope,
+      sender: sender || {},
+      eventHandlers: handlers,
+      eventArgs: args || [],
+    });
   }
 }

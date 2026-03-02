@@ -1,4 +1,4 @@
-import { handleComponentEvent, type EventAction, type Framework, type Page, type Scope } from "@ruiapp/move-style";
+import { fireEvent, type EventAction, type Framework, type Page, type Scope } from "@ruiapp/move-style";
 import { message } from "antd";
 
 export interface RockEventHandlerAntdMessage {
@@ -9,14 +9,30 @@ export interface RockEventHandlerAntdMessage {
   type: "info" | "success" | "warning" | "error" | "loading";
 }
 
-export async function antdToast(eventName: string, framework: Framework, page: Page, scope: Scope, sender: any, eventHandler: RockEventHandlerAntdMessage, eventArgs: any) {
+export async function antdToast(
+  eventName: string,
+  framework: Framework,
+  page: Page,
+  scope: Scope,
+  sender: any,
+  eventHandler: RockEventHandlerAntdMessage,
+  eventArgs: any,
+) {
   return new Promise((resolve, reject) => {
     const toastOptions: any = {
       content: eventHandler.content,
       duration: eventHandler.duration,
       onClose: () => {
         if (eventHandler.onClose) {
-          handleComponentEvent(eventName, framework, page, scope, sender, eventHandler.onClose, eventArgs)
+          fireEvent({
+            eventName,
+            framework,
+            page,
+            scope,
+            sender,
+            eventHandlers: eventHandler.onClose,
+            eventArgs,
+          })
             .then(() => {
               resolve(null);
             })

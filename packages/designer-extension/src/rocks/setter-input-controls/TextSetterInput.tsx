@@ -1,4 +1,4 @@
-import { handleComponentEvent, RockConfig, RockConfigBase, RockEvent, RockEventHandler, RockEventHandlerScript, Rock } from "@ruiapp/move-style";
+import { fireEvent, RockConfig, RockConfigBase, RockEvent, RockEventHandler, RockEventHandlerScript, Rock } from "@ruiapp/move-style";
 import { renderRock } from "@ruiapp/react-renderer";
 import { useCallback } from "react";
 
@@ -18,7 +18,15 @@ export default {
     const onInputChange: RockEventHandlerScript["script"] = useCallback(
       (event: RockEvent) => {
         const value = event.args[0].target.value;
-        handleComponentEvent("onChange", framework, page, scope, props, onChange, [value]);
+        fireEvent({
+          eventName: "onChange",
+          framework,
+          page,
+          scope,
+          sender: props,
+          eventHandlers: onChange,
+          eventArgs: [value],
+        });
       },
       [page, $id, onChange],
     );

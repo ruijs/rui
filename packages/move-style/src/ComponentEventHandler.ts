@@ -1,7 +1,5 @@
 import { isFunction, isString, memoize, set } from "lodash";
 import { Framework } from "./Framework";
-import { Page } from "./Page";
-import { Scope } from "./Scope";
 import { HttpRequestOptions } from "./types/request-types";
 import {
   EventActionHandler1,
@@ -10,6 +8,7 @@ import {
   IScope,
   RockEvent,
   RockEventHandler,
+  RockEventHandlerConfig,
   RockEventHandlerFireEvent,
   RockEventHandlerHandleEvent,
   RockEventHandlerLoadScopeData,
@@ -38,7 +37,7 @@ export type FireEventOptions = {
   sender: any;
   senderCategory?: RockEvent["senderCategory"];
   eventName: string;
-  eventHandlers: RockEventHandler | RockEventHandler[];
+  eventHandlers: RockEventHandlerConfig;
   eventArgs: any[];
   parentEvent?: RockEvent;
 };
@@ -64,6 +63,7 @@ export async function fireEvent(options: FireEventOptions) {
 
   if (isFunction(eventHandlers)) {
     await eventHandlers(...eventArgs);
+    return;
   }
 
   // TODO: should remove these lines after we re-implement useRuiScope();

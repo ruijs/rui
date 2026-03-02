@@ -2,7 +2,7 @@ import {
   ConvertRockEventHandlerPropsOptions,
   ConvertRockSlotPropsOptions,
   GenerateRockSlotRendererOptions,
-  handleComponentEvent,
+  fireEvent,
   RenderRockChildrenOptions,
   RenderRockOptions,
   RenderRockSlotOptions,
@@ -21,7 +21,7 @@ import type {
   RockConfigSystemFields,
   RockInstanceFields,
 } from "@ruiapp/move-style";
-import { forEach, isArray, isFunction, isString, omit, pick } from "lodash";
+import { cloneDeep, forEach, isArray, isFunction, isString, omit, pick } from "lodash";
 import React, { useState } from "react";
 
 export function genRockRenderer(rockType: string, ReactComponent: any, keepInstanceFieldsInProps: boolean = false) {
@@ -73,6 +73,10 @@ export function wrapRenderer(rock: Rock) {
  */
 function genComponentRenderer(rock: Rock, rockRenderer: any) {
   return function (rockInstance: RockInstance) {
+    // DO NOT remove "$id" and "$exps" fields.
+    const instanceFields: (RockInstanceFields | RockConfigSystemFields)[] = ["_initialized", "_state", "_hidden"];
+    const rockProps = omit(rockInstance, instanceFields);
+
     if (rock.declarativeComponent !== true && rock.onResolveState) {
       // TODO: the first parameter should be rockProps
       const resolvedState = rock.onResolveState(rockInstance, rockInstance._state, rockInstance);
@@ -91,7 +95,7 @@ function genComponentRenderer(rock: Rock, rockRenderer: any) {
       }
       setState({ ...newState });
     };
-    const renderResult = rockRenderer(rockInstance._context, rockInstance, rockInstance._state, rockInstance);
+    const renderResult = rockRenderer(rockInstance._context, rockProps, rockInstance._state, rockInstance);
     return renderResult;
   };
 }
@@ -129,7 +133,9 @@ export const getDeclarativeRockRenderer = (rockMeta: DeclarativeRock) => {
 
 // TODO: support `$parent`?
 export function renderRock(options: RenderRockOptions) {
-  const { context, rockConfig, fixedProps } = options;
+  const { context, fixedProps } = options;
+  let { rockConfig } = options;
+
   let { expVars } = options;
 
   if (rockConfig == null) {
@@ -164,6 +170,7 @@ export function renderRock(options: RenderRockOptions) {
     rockInstance._state = {};
   }
   // TODO: Temporary implement. Should refactor when re-implement the state management of ComponentTreeManager.
+  rockConfig = cloneDeep(rockConfig);
   Object.assign(rockConfig, pick(rockInstance, ["_initialized", "_state"]));
 
   MoveStyleUtils.localizeConfigProps(framework, logger, rockConfig);
@@ -331,9 +338,16 @@ export function convertToEventHandler(options: ConvertRockEventHandlerPropOption
   }
 
   // TODO: check if `eventHandlerConfig` is valid RockEventHandler(s)
-  const handleComponentEventWithEventName = handleComponentEvent.bind(null, eventName);
   return (...eventArgs) => {
-    handleComponentEventWithEventName(context.framework, context.page, context.scope, rockConfig, eventHandlerConfig, eventArgs);
+    fireEvent({
+      eventName,
+      framework: context.framework,
+      page: context.page,
+      scope: context.scope,
+      sender: rockConfig,
+      eventHandlers: eventHandlerConfig,
+      eventArgs,
+    });
   };
 }
 

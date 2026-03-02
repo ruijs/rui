@@ -1,12 +1,4 @@
-import {
-  NumberWithUnitsRockPropSetter,
-  RockConfig,
-  RockEvent,
-  RockEventHandlerScript,
-  Rock,
-  PropSetterRockConfigBase,
-  handleComponentEvent,
-} from "@ruiapp/move-style";
+import { NumberWithUnitsRockPropSetter, RockConfig, RockEvent, RockEventHandlerScript, Rock, PropSetterRockConfigBase, fireEvent } from "@ruiapp/move-style";
 import { isNull, isString, isUndefined } from "lodash";
 import { getComponentPropValue } from "~/utilities/SetterUtility";
 import { renderMultiControlsPropSetter } from "../internal-prop-setters/MultiControlsPropSetter";
@@ -52,7 +44,15 @@ export default {
       const propChanges = {
         [propName]: propValue,
       };
-      handleComponentEvent("onPropValueChange", framework, page, scope, props, onPropValueChange, [propChanges]);
+      fireEvent({
+        eventName: "onPropValueChange",
+        framework,
+        page,
+        scope,
+        sender: props,
+        eventHandlers: onPropValueChange,
+        eventArgs: [propChanges],
+      });
     };
 
     const onSelectControlChange: RockEventHandlerScript["script"] = (event: RockEvent) => {
@@ -61,7 +61,15 @@ export default {
       const propChanges = {
         [propName]: propValue,
       };
-      handleComponentEvent("onPropValueChange", framework, page, scope, props, onPropValueChange, [propChanges]);
+      fireEvent({
+        eventName: "onPropValueChange",
+        framework,
+        page,
+        scope,
+        sender: props,
+        eventHandlers: onPropValueChange,
+        eventArgs: [propChanges],
+      });
     };
 
     return renderMultiControlsPropSetter(context, {

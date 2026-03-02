@@ -1,4 +1,4 @@
-import { handleComponentEvent, type EventAction, type Framework, type Page, type Scope } from "@ruiapp/move-style";
+import { fireEvent, type EventAction, type Framework, type Page, type Scope } from "@ruiapp/move-style";
 import { Modal } from "antd";
 
 export interface RockEventHandlerAntdConfirm {
@@ -24,7 +24,15 @@ export async function antdMessage(
       content: eventHandler.content,
       onOk: () => {
         if (eventHandler.onOk) {
-          handleComponentEvent(eventName, framework, page, scope, sender, eventHandler.onOk, eventArgs)
+          fireEvent({
+            eventName,
+            framework,
+            page,
+            scope,
+            sender,
+            eventHandlers: eventHandler.onOk,
+            eventArgs,
+          })
             .then(() => {
               resolve(null);
             })
@@ -36,7 +44,15 @@ export async function antdMessage(
 
       onCancel: () => {
         if (eventHandler.onCancel) {
-          handleComponentEvent(eventName, framework, page, scope, sender, eventHandler.onCancel, eventArgs)
+          fireEvent({
+            eventName,
+            framework,
+            page,
+            scope,
+            sender,
+            eventHandlers: eventHandler.onCancel,
+            eventArgs,
+          })
             .then(() => {
               resolve(null);
             })

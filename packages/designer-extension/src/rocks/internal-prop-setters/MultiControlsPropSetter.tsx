@@ -7,7 +7,7 @@ import {
   Rock,
   PropSetterRockConfigBase,
   RockInstanceContext,
-  handleComponentEvent,
+  fireEvent,
 } from "@ruiapp/move-style";
 import { renderRock } from "@ruiapp/react-renderer";
 import { isUndefined } from "lodash";
@@ -57,7 +57,15 @@ export default {
             const propChanges = {
               [propName]: propValue,
             };
-            handleComponentEvent("onPropValueChange", framework, page, scope, props, onPropValueChange, [propChanges]);
+            fireEvent({
+              eventName: "onPropValueChange",
+              framework,
+              page,
+              scope,
+              sender: props,
+              eventHandlers: onPropValueChange,
+              eventArgs: [propChanges],
+            });
           };
 
           inputControlRockConfig.onChange = {
