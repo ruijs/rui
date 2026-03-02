@@ -85,7 +85,7 @@ export async function fireEvent(options: FireEventOptions) {
 }
 
 /**
- * @deprecated use fireComponentEvent instead.
+ * @deprecated use fireEvent instead.
  */
 export async function handleComponentEvent(
   eventName: string,
@@ -93,7 +93,7 @@ export async function handleComponentEvent(
   page: IPage,
   scope: IScope,
   sender: any,
-  eventHandlerOrHandlers: RockEventHandler | RockEventHandler[],
+  eventHandlerOrHandlers: RockEventHandlerConfig,
   eventArgs: any[],
 ) {
   await fireEvent({ framework, page, scope, sender, eventName, eventHandlers: eventHandlerOrHandlers, eventArgs });
