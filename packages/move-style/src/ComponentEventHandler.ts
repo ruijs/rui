@@ -54,6 +54,28 @@ export type HandleComponentEventOptions<TEventHandler = RockEventHandler> = {
   parentEvent?: RockEvent;
 };
 
+export function combineEventHandlers(handlers1: RockEventHandlerConfig, handlers2: RockEventHandlerConfig): RockEventHandlerConfig {
+  if (!handlers1) {
+    return handlers2;
+  }
+  if (!handlers2) {
+    return handlers1;
+  }
+
+  let result = [];
+  if (Array.isArray(handlers1)) {
+    result.push(...handlers1);
+  } else {
+    result.push(handlers1);
+  }
+  if (Array.isArray(handlers2)) {
+    result.push(...handlers2);
+  } else {
+    result.push(handlers2);
+  }
+  return result;
+}
+
 export async function fireEvent(options: FireEventOptions) {
   const { framework, page, sender, senderCategory, eventName, eventHandlers, eventArgs, parentEvent } = options;
   let { scope } = options;
@@ -73,9 +95,7 @@ export async function fireEvent(options: FireEventOptions) {
 
   if (Array.isArray(eventHandlers)) {
     for (const eventHandler of eventHandlers) {
-      if (!eventHandler._disabled) {
-        await doHandleEvent({ eventName, framework, page, scope, sender, senderCategory, eventHandler, eventArgs, parentEvent });
-      }
+      await fireEvent({ eventName, framework, page, scope, sender, senderCategory, eventHandlers: eventHandler, eventArgs, parentEvent });
     }
   } else {
     if (!eventHandlers._disabled) {
@@ -101,6 +121,12 @@ export async function handleComponentEvent(
 
 async function doHandleEvent(options: HandleComponentEventOptions) {
   const { framework, page, scope, sender, senderCategory, eventName, eventHandler, eventArgs, parentEvent } = options;
+
+  if (isFunction(eventHandler)) {
+    await eventHandler(...eventArgs);
+    return;
+  }
+
   const action = eventHandler.$action;
   const event: RockEvent = {
     framework,

@@ -335,9 +335,12 @@ export type RockPageEventSubscriptionConfig = {
   handlers: RockEventHandlerConfig;
 };
 
-export type RockEventHandlerConfig = ((...args: any[]) => any) | RockEventHandler | RockEventHandler[] | null;
+export type RockEventHandlerConfig = RockEventHandler | RockEventHandler[] | null;
+
+export type RockEventHandlerFunction = (...args: any[]) => any;
 
 export type RockEventHandler =
+  | RockEventHandlerFunction
   | RockEventHandlerScript
   | RockEventHandlerPrintToConsole
   | RockEventHandlerThrowError
