@@ -85,7 +85,7 @@ function genComponentRenderer(rock: Rock, rockRenderer: any) {
       }
     }
 
-    const [state, setState] = useState({});
+    const [, setState] = useState({});
     rockInstance._state.setState = (stateChangesOrUpdater) => {
       let newState: any;
       if (isFunction(stateChangesOrUpdater)) {
@@ -95,7 +95,7 @@ function genComponentRenderer(rock: Rock, rockRenderer: any) {
       }
       setState({ ...newState });
     };
-    const renderResult = rockRenderer(rockInstance._context, rockProps, rockInstance._state, rockInstance);
+    const renderResult = rockRenderer(rockInstance._context, rockInstance, rockInstance._state, rockInstance);
     return renderResult;
   };
 }
@@ -135,6 +135,10 @@ export const getDeclarativeRockRenderer = (rockMeta: DeclarativeRock) => {
 export function renderRock(options: RenderRockOptions) {
   const { context, fixedProps } = options;
   let { rockConfig } = options;
+
+  if (React.isValidElement(rockConfig)) {
+    return rockConfig;
+  }
 
   let { expVars } = options;
 
