@@ -173,9 +173,13 @@ export function renderRock(options: RenderRockOptions) {
   if (!rockInstance._state) {
     rockInstance._state = {};
   }
-  // TODO: Temporary implement. Should refactor when re-implement the state management of ComponentTreeManager.
-  rockConfig = cloneDeep(rockConfig);
-  Object.assign(rockConfig, pick(rockInstance, ["_initialized", "_state"]));
+
+  let $exps = null;
+  if (rockConfig.$exps) {
+    $exps = cloneDeep(rockConfig.$exps);
+  }
+  rockConfig = Object.assign({}, rockConfig, pick(rockInstance, ["_initialized", "_state"]));
+  rockConfig.$exps = $exps;
 
   MoveStyleUtils.localizeConfigProps(framework, logger, rockConfig);
 
