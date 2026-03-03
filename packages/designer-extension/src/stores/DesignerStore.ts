@@ -14,6 +14,8 @@ export class DesignerStore implements IStore<DesignerStoreConfig> {
   #selectedComponentId: string;
   #selectedSlotPropName: string;
   #snippets: RockConfig[];
+  currentStep: RockConfig;
+  steps: RockConfig[];
 
   constructor(framework: Framework) {
     this.#emitter = new EventEmitter();
