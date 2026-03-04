@@ -1,10 +1,9 @@
-import { Rock, RockEventHandler, ContainerRockConfig, CommonProps, fireEvent } from "@ruiapp/move-style";
-import { renderRockChildren } from "@ruiapp/react-renderer";
+import { Rock, RockInstance, CommonProps, fireEvent } from "@ruiapp/move-style";
+import { genRockRenderer, renderRockChildren } from "@ruiapp/react-renderer";
 import { pick } from "lodash";
-
-export interface BoxProps extends ContainerRockConfig {
-  onClick: RockEventHandler;
-}
+import AnchorMeta from "./AnchorMeta";
+import { AnchorProps, AnchorRockConfig, ANCHOR_ROCK_TYPE } from "./anchor-types";
+import React from "react";
 
 const boxStylePropNames = [
   ...CommonProps.PositionStylePropNames,
@@ -13,41 +12,53 @@ const boxStylePropNames = [
   ...CommonProps.TextStylePropNames,
 ];
 
+export function configAnchor(config: AnchorRockConfig): AnchorRockConfig {
+  return config;
+}
+
+export function Anchor(props: AnchorProps) {
+  const { $id, $slot, _context: context } = props as any as RockInstance;
+  const { onClick, href, target, children, className } = props;
+  const { framework, page, scope } = context || {};
+
+  const style: React.CSSProperties = pick(props, boxStylePropNames) as any;
+
+  return (
+    <a
+      data-component-id={$id}
+      className={className}
+      style={style}
+      href={href}
+      target={target}
+      onClick={(e) => {
+        if (onClick) {
+          fireEvent({
+            eventName: "onClick",
+            framework,
+            page,
+            scope,
+            sender: props,
+            eventHandlers: onClick,
+            eventArgs: [e],
+          });
+        }
+      }}
+    >
+      {renderRockChildren({
+        context,
+        rockChildrenConfig: children,
+        expVars: {
+          $slot,
+        },
+        fixedProps: {
+          $slot,
+        },
+      })}
+    </a>
+  );
+}
+
 export default {
-  $type: "anchor",
-
-  props: {
-    ...CommonProps.PositionStyleProps,
-    ...CommonProps.SizeStyleProps,
-    ...CommonProps.LayerStyleProps,
-    ...CommonProps.TextStyleProps,
-  },
-
-  propertyPanels: [{ $type: "positionPropPanel" }, { $type: "sizePropPanel" }, { $type: "appearancePropPanel" }, { $type: "textPropPanel" }],
-
-  Renderer: (context, props: BoxProps) => {
-    const { framework, page, scope } = context;
-    const style: React.CSSProperties = pick(props, boxStylePropNames) as any;
-    return (
-      <a
-        data-component-id={props.id}
-        className={props.className}
-        style={style}
-        href={props.href}
-        target={props.target}
-        onClick={(e) => fireEvent({ eventName: "onClick", framework, page, scope, sender: props, eventHandlers: props.onClick, eventArgs: [e] })}
-      >
-        {renderRockChildren({
-          context,
-          rockChildrenConfig: props.children,
-          expVars: {
-            $slot: props.$slot,
-          },
-          fixedProps: {
-            $slot: props.$slot,
-          },
-        })}
-      </a>
-    );
-  },
-} as Rock;
+  Renderer: genRockRenderer(ANCHOR_ROCK_TYPE, Anchor),
+  ...AnchorMeta,
+} as Rock<AnchorRockConfig>;
