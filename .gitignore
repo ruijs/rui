@@ -4,4 +4,7 @@ dist/
 
 packages/react-player/public/vs/
 
+.claude/*
+!.claude/skills/
+.agents/
 .trae/
