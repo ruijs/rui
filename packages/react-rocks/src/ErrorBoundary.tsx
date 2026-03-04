@@ -1,46 +1,49 @@
-import { ContainerRockConfig, RockConfig, Rock } from "@ruiapp/move-style";
-import { renderRockChildren } from "@ruiapp/react-renderer";
+import { Rock, RockInstance } from "@ruiapp/move-style";
+import { genRockRenderer, renderRockChildren } from "@ruiapp/react-renderer";
 import React from "react";
+import ErrorBoundaryMeta from "./ErrorBoundaryMeta";
+import { ErrorBoundaryRockConfig, ErrorBoundaryProps } from "./error-boundary-types";
 
-export interface ErrorBoundaryRockProps extends ContainerRockConfig {
-  fallback?: RockConfig | RockConfig[];
+export function configErrorBoundary(config: ErrorBoundaryRockConfig): ErrorBoundaryRockConfig {
+  return config;
 }
 
-export interface ErrorBoundaryProps {
-  fallback?: any;
-  children?: any;
-  childrenConfig?: RockConfig | RockConfig[];
-}
-
-export interface ErrorBoundaryStates {
+interface ErrorBoundaryState {
   hasError: boolean;
   error?: Error;
 }
 
-class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundaryStates> {
-  constructor(props) {
+export class ErrorBoundary extends React.Component<ErrorBoundaryRockConfig, ErrorBoundaryState> {
+  constructor(props: ErrorBoundaryRockConfig) {
     super(props);
     this.state = { hasError: false };
   }
 
-  static getDerivedStateFromError(error) {
+  static getDerivedStateFromError(error: Error) {
     // Update state so the next render will show the fallback UI.
     return { hasError: true, error };
   }
 
-  componentDidCatch(error, errorInfo) {
+  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
     // You can also log the error to an error reporting service
   }
 
   clearError() {
     this.setState({
       hasError: false,
-      error: null,
+      error: undefined,
     });
   }
 
   render() {
+    const { fallback, children } = this.props;
+    const { _context: context } = this.props as any as RockInstance;
+
     if (this.state.hasError) {
+      if (fallback) {
+        return renderRockChildren({ context, rockChildrenConfig: fallback });
+      }
+
       return (
         <div>
           <pre
@@ -56,31 +59,17 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
             <button onClick={() => this.clearError()}>Retry</button>
           </div>
           <pre>
-            <code>{JSON.stringify(this.props.childrenConfig, null, 4)}</code>
+            <code>{JSON.stringify(children, null, 4)}</code>
           </pre>
         </div>
       );
     }
 
-    return this.props.children;
+    return renderRockChildren({ context, rockChildrenConfig: children });
   }
 }
 
 export default {
-  $type: "errorBoundary",
-
-  slots: {
-    fallback: {
-      allowMultiComponents: true,
-      required: false,
-    },
-  },
-
-  Renderer(context, props: ErrorBoundaryRockProps) {
-    return (
-      <ErrorBoundary fallback={renderRockChildren({ context, rockChildrenConfig: props.fallback })} childrenConfig={props.children}>
-        {renderRockChildren({ context, rockChildrenConfig: props.children })}
-      </ErrorBoundary>
-    );
-  },
-} as Rock;
+  Renderer: genRockRenderer(ErrorBoundaryMeta.$type, ErrorBoundary),
+  ...ErrorBoundaryMeta,
+} as Rock<ErrorBoundaryRockConfig>;
