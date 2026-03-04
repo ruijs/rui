@@ -20,6 +20,9 @@ export * from "./rocks/anchor/anchor-types";
 export { configBox } from "./rocks/box/Box";
 export * from "./rocks/box/Box-types";
 
+export { configComponent } from "./Component";
+export * from "./component-types";
+
 export { configHtmlElement } from "./rocks/htmlElement/HtmlElement";
 export * from "./rocks/htmlElement/html-element-types";
 
