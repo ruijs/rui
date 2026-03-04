@@ -35,6 +35,9 @@ export * from "./rocks/sr/sr-types";
 export { configText } from "./rocks/text/Text";
 export * from "./rocks/text/text-types";
 
+export { configTree } from "./Tree";
+export * from "./tree-types";
+
 export { Rui, ErrorBoundary, Show, HtmlElement, Anchor, Box, Component, Scope, Slot, Sr, Text, Label, List, Tree };
 
 export default {
