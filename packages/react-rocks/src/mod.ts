@@ -8,7 +8,7 @@ import Box from "./rocks/box/Box";
 import Component from "./Component";
 import Scope from "./Scope";
 import Slot from "./Slot";
-import Text from "./Text";
+import Text from "./rocks/text/Text";
 import Label from "./rocks/label/Label";
 import List from "./List";
 import Tree from "./Tree";
@@ -28,8 +28,8 @@ export * from "./rocks/label/label-types";
 export { configShow } from "./rocks/show/Show";
 export * from "./rocks/show/show-types";
 
-export { configText } from "./Text";
-export * from "./text-types";
+export { configText } from "./rocks/text/Text";
+export * from "./rocks/text/text-types";
 
 export { Rui, ErrorBoundary, Show, HtmlElement, Anchor, Box, Component, Scope, Slot, Text, Label, List, Tree };
 
