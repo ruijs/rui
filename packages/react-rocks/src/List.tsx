@@ -1,61 +1,14 @@
-import type { RockConfig, Rock, SimpleRockConfig } from "@ruiapp/move-style";
+import type { Rock } from "@ruiapp/move-style";
 import { genRockRenderer } from "@ruiapp/react-renderer";
+import ListMeta from "./ListMeta";
+import type { ListProps, ListRockConfig } from "./list-types";
+import React from "react";
 
-export interface ListProps extends SimpleRockConfig {
-  dataSource?: any[];
-  header?: RockConfig;
-  item?: RockConfig;
-  separator?: RockConfig;
-  footer?: RockConfig;
+export function configList(config: ListRockConfig): ListRockConfig {
+  return config;
 }
 
-export default {
-  $type: "list",
-
-  propertyPanels: [
-    {
-      $type: "componentPropPanel",
-      setters: [],
-    },
-  ],
-
-  slots: {
-    itemContainer: {
-      required: false,
-      allowMultiComponents: false,
-      toRenderProp: true,
-      argumentsToProps: true,
-      argumentNames: ["item", "list", "index", "key", "children"],
-    },
-
-    item: {
-      required: false,
-      allowMultiComponents: false,
-      toRenderProp: true,
-      argumentsToProps: true,
-      argumentNames: ["item", "list", "index", "key"],
-    },
-
-    separator: {
-      required: false,
-      allowMultiComponents: false,
-    },
-
-    header: {
-      required: false,
-      allowMultiComponents: true,
-    },
-
-    footer: {
-      required: false,
-      allowMultiComponents: true,
-    },
-  },
-
-  Renderer: genRockRenderer("list", List),
-} as Rock<ListProps>;
-
-function List(props: any) {
+export function List(props: ListProps) {
   const { dataSource, itemContainer: itemContainerRenderer, item: itemRenderer, separator, header, footer } = props;
   const dataList = dataSource || [];
 
@@ -66,10 +19,10 @@ function List(props: any) {
         if (separator) {
           if (index > 0) {
             return (
-              <>
+              <React.Fragment key={`sep-item-${index}`}>
                 {separator}
                 {renderItem(itemContainerRenderer, itemRenderer, dataItem, dataList, index, `item-${index}`)}
-              </>
+              </React.Fragment>
             );
           } else {
             return renderItem(itemContainerRenderer, itemRenderer, dataItem, dataList, index, `item-${index}`);
@@ -92,3 +45,8 @@ function renderItem(itemContainerRenderer: any, itemRenderer: any, dataItem: any
 
   return itemRenderer(dataItem, dataList, index, key);
 }
+
+export default {
+  Renderer: genRockRenderer(ListMeta.$type, List),
+  ...ListMeta,
+} as Rock<ListRockConfig>;
