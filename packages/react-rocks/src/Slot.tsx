@@ -1,66 +1,50 @@
-import { ContainerRockConfig, Rock, RockInstance, RockInstanceContext, SimpleRockConfig } from "@ruiapp/move-style";
-import { renderRockChildren, renderRockSlot } from "@ruiapp/react-renderer";
-import _ from "lodash";
+import { ContainerRockConfig, Rock, RockInstance, RockInstanceContext } from "@ruiapp/move-style";
+import { genRockRenderer, renderRockChildren, renderRockSlot } from "@ruiapp/react-renderer";
+import SlotMeta from "./SlotMeta";
+import { SlotProps, SlotRockConfig } from "./slot-types";
 
-export interface SlotProps extends SimpleRockConfig {
-  slotName: string;
+export function configSlot(config: SlotRockConfig): SlotRockConfig {
+  return config;
+}
+
+export function Slot(props: SlotProps) {
+  const { $slot, _context: context } = props as any as RockInstance;
+  const { slotName } = props;
+  const hostComponentProp: RockInstance<ContainerRockConfig> = context.component;
+
+  if (!slotName || slotName === "children") {
+    if (hostComponentProp.children) {
+      return renderRockChildren({
+        context,
+        fixedProps: {
+          $slot,
+        },
+        rockChildrenConfig: hostComponentProp.children,
+      }) as any;
+    } else {
+      return null;
+    }
+  } else {
+    const slotConfig = hostComponentProp[slotName];
+    if (slotConfig) {
+      return renderRockSlot({
+        context,
+        fixedProps: {
+          $slot,
+        },
+        slot: slotConfig,
+        slotPropName: slotName,
+        // TODO: make rockType optional
+        rockType: "slot",
+        args: [],
+      }) as any;
+    } else {
+      return null;
+    }
+  }
 }
 
 export default {
-  $type: "slot",
-
-  props: {
-    slotName: {
-      valueType: "string",
-      defaultValue: "children",
-    },
-  },
-
-  propertyPanels: [
-    {
-      $type: "componentPropPanel",
-      setters: [
-        {
-          $type: "textPropSetter",
-          label: "slotName",
-          propName: "slotName",
-        },
-      ],
-    },
-  ],
-
-  Renderer: (context: RockInstanceContext, props: SlotProps) => {
-    const { slotName } = props;
-    const hostComponentProp: RockInstance<ContainerRockConfig> = context.component;
-    if (!slotName || slotName === "children") {
-      if (hostComponentProp.children) {
-        return renderRockChildren({
-          context,
-          fixedProps: {
-            $slot: props.$slot,
-          },
-          rockChildrenConfig: hostComponentProp.children,
-        });
-      } else {
-        return null;
-      }
-    } else {
-      const slotConfig = hostComponentProp[slotName];
-      if (slotConfig) {
-        return renderRockSlot({
-          context,
-          fixedProps: {
-            $slot: props.$slot,
-          },
-          slot: slotConfig,
-          slotPropName: slotName,
-          // TODO: make rockType optional
-          rockType: "slot",
-          args: [],
-        });
-      } else {
-        return null;
-      }
-    }
-  },
-} as Rock;
+  Renderer: genRockRenderer(SlotMeta.$type, Slot),
+  ...SlotMeta,
+} as Rock<SlotRockConfig>;
