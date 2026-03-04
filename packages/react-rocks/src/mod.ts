@@ -12,7 +12,7 @@ import Sr from "./rocks/sr/Sr";
 import Text from "./rocks/text/Text";
 import Label from "./rocks/label/Label";
 import List from "./List";
-import Tree from "./Tree";
+import Tree from "./rocks/tree/Tree";
 
 export { configAnchor } from "./rocks/anchor/Anchor";
 export * from "./rocks/anchor/anchor-types";
@@ -35,8 +35,8 @@ export * from "./rocks/sr/sr-types";
 export { configText } from "./rocks/text/Text";
 export * from "./rocks/text/text-types";
 
-export { configTree } from "./Tree";
-export * from "./tree-types";
+export { configTree } from "./rocks/tree/Tree";
+export * from "./rocks/tree/tree-types";
 
 export { Rui, ErrorBoundary, Show, HtmlElement, Anchor, Box, Component, Scope, Slot, Sr, Text, Label, List, Tree };
 
