@@ -1,66 +1,42 @@
-import { Rock, ContainerRockConfig, CommonProps } from "@ruiapp/move-style";
-import { convertToEventHandlers, renderRockChildren } from "@ruiapp/react-renderer";
+import { Rock, RockInstance } from "@ruiapp/move-style";
+import HtmlElementMeta from "./HtmlElementMeta";
+import { HtmlElementProps, HtmlElementRockConfig } from "./html-element-types";
+import { convertToEventHandlers, renderRockChildren, genRockRenderer } from "@ruiapp/react-renderer";
 import React from "react";
 
-export interface HtmlElementProps extends ContainerRockConfig {
-  htmlTag: string;
-  style: any;
-  attributes: Record<string, string>;
+export function configHtmlElement(config: HtmlElementRockConfig): HtmlElementRockConfig {
+  return config;
+}
+
+export function HtmlElement(props: HtmlElementProps) {
+  const { htmlTag = "div", style, attributes, children } = props;
+  const { $id, $slot, _context: context } = props as any as RockInstance;
+  const eventHandlers = convertToEventHandlers({ context, rockConfig: props as any });
+
+  return React.createElement(
+    htmlTag,
+    {
+      "data-component-id": $id,
+      style,
+      ...eventHandlers,
+      ...attributes,
+    },
+    children
+      ? renderRockChildren({
+          context,
+          rockChildrenConfig: children,
+          expVars: {
+            $slot,
+          },
+          fixedProps: {
+            $slot,
+          },
+        })
+      : null,
+  );
 }
 
 export default {
-  $type: "htmlElement",
-
-  propertyPanels: [
-    {
-      $type: "componentPropPanel",
-      setters: [
-        {
-          $type: "textPropSetter",
-          label: "htmlTag",
-          propName: "htmlTag",
-          defaultValue: "div",
-        },
-
-        {
-          $type: "jsonPropSetter",
-          label: "style",
-          propName: "style",
-        },
-
-        {
-          $type: "jsonPropSetter",
-          label: "attributes",
-          propName: "attributes",
-        },
-      ],
-    },
-  ],
-
-  Renderer: (context, props: HtmlElementProps) => {
-    const eventHandlers = convertToEventHandlers({ context, rockConfig: props });
-
-    const style: React.CSSProperties = props.style;
-    return React.createElement(
-      props.htmlTag,
-      {
-        "data-component-id": props.id,
-        style,
-        ...eventHandlers,
-        ...props.attributes,
-      },
-      props.children
-        ? renderRockChildren({
-            context,
-            rockChildrenConfig: props.children,
-            expVars: {
-              $slot: props.$slot,
-            },
-            fixedProps: {
-              $slot: props.$slot,
-            },
-          })
-        : null,
-    );
-  },
-} as Rock;
+  Renderer: genRockRenderer(HtmlElementMeta.$type, HtmlElement),
+  ...HtmlElementMeta,
+} as Rock<HtmlElementRockConfig>;

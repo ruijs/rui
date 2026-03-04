@@ -22,6 +22,9 @@ export * from "./rocks/box/Box-types";
 export { configShow } from "./rocks/show/Show";
 export * from "./rocks/show/show-types";
 
+export { configHtmlElement } from "./HtmlElement";
+export * from "./html-element-types";
+
 export { Rui, ErrorBoundary, Show, HtmlElement, Anchor, Box, Component, Scope, Slot, Text, Label, List, Tree };
 
 export default {
