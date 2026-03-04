@@ -1,34 +1,27 @@
-import { Rock, SimpleRockConfig, CommonProps } from "@ruiapp/move-style";
+import { Rock, RockInstance, CommonProps } from "@ruiapp/move-style";
+import LabelMeta from "./LabelMeta";
+import { LabelProps, LabelRockConfig } from "./label-types";
+import { genRockRenderer } from "@ruiapp/react-renderer";
 import React from "react";
-import _ from "lodash";
+import { pick } from "lodash";
 
-export interface TextProps extends SimpleRockConfig {
-  text: string;
-  color?: string;
-  fontSize?: string;
-  lineHeight?: string;
-  textAlign?: string;
-  textDecorationLine?: string;
-  textDecorationStyle?: string;
+export function configLabel(config: LabelRockConfig): LabelRockConfig {
+  return config;
+}
+
+export function Label(props: LabelProps) {
+  const { $id } = props as any as RockInstance;
+  const { text } = props;
+  const style: React.CSSProperties = pick(props, CommonProps.TextStylePropNames) as any;
+
+  return (
+    <span data-component-id={$id} style={style}>
+      {text}
+    </span>
+  );
 }
 
 export default {
-  $type: "label",
-
-  props: {
-    text: {
-      valueType: "string",
-      valueNotNull: true,
-    },
-    ...CommonProps.TextStyleProps,
-  },
-
-  Renderer: (context, props: TextProps) => {
-    const style: React.CSSProperties = _.pick(props, CommonProps.TextStylePropNames) as any;
-    return (
-      <span data-component-id={props.id} style={style}>
-        {props.text}
-      </span>
-    );
-  },
-} as Rock;
+  Renderer: genRockRenderer(LabelMeta.$type, Label),
+  ...LabelMeta,
+} as Rock<LabelRockConfig>;
