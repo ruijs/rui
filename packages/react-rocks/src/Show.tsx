@@ -1,48 +1,35 @@
-import type { ContainerRockConfig, RockConfig, Rock } from "@ruiapp/move-style";
-import { renderRockChildren } from "@ruiapp/react-renderer";
+import { Rock, RockInstance } from "@ruiapp/move-style";
+import ShowMeta from "./ShowMeta";
+import { ShowProps, ShowRockConfig } from "./show-types";
+import { genRockRenderer, renderRockChildren } from "@ruiapp/react-renderer";
+import React from "react";
 
-export interface ShowProps extends ContainerRockConfig {
-  when: boolean;
-  fallback?: RockConfig | RockConfig[];
+export function configShow(config: ShowRockConfig): ShowRockConfig {
+  return config;
 }
 
-export default {
-  $type: "show",
+export function Show(props: ShowProps) {
+  const { _context: context } = props as any as RockInstance;
+  const { when, children, fallback } = props;
 
-  propertyPanels: [
-    {
-      $type: "componentPropPanel",
-      setters: [
-        {
-          $type: "switchPropSetter",
-          label: "when",
-          propName: "when",
-        },
-      ],
-    },
-  ],
-
-  slots: {
-    fallback: {
-      required: false,
-      allowMultiComponents: true,
-    },
-  },
-
-  Renderer(context, props: ShowProps) {
-    let children;
-    if (props.when) {
-      children = props.children;
-    } else if (props.fallback) {
-      children = props.fallback;
-    }
-
+  if (when) {
     return renderRockChildren({
       context,
       rockChildrenConfig: children,
-      fixedProps: {
-        $slot: props.$slot,
-      },
     });
-  },
-} as Rock;
+  }
+
+  if (fallback) {
+    return renderRockChildren({
+      context,
+      rockChildrenConfig: fallback,
+    });
+  }
+
+  return null;
+}
+
+export default {
+  Renderer: genRockRenderer(ShowMeta.$type, Show),
+  ...ShowMeta,
+} as Rock<ShowRockConfig>;
