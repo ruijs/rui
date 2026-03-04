@@ -9,7 +9,7 @@ import Component from "./Component";
 import Scope from "./Scope";
 import Slot from "./Slot";
 import Text from "./Text";
-import Label from "./Label";
+import Label from "./rocks/label/Label";
 import List from "./List";
 import Tree from "./Tree";
 
@@ -21,6 +21,9 @@ export * from "./rocks/box/Box-types";
 
 export { configHtmlElement } from "./rocks/htmlElement/HtmlElement";
 export * from "./rocks/htmlElement/html-element-types";
+
+export { configLabel } from "./rocks/label/Label";
+export * from "./rocks/label/label-types";
 
 export { configShow } from "./rocks/show/Show";
 export * from "./rocks/show/show-types";
