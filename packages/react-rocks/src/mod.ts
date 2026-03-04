@@ -11,7 +11,7 @@ import Slot from "./Slot";
 import Sr from "./rocks/sr/Sr";
 import Text from "./rocks/text/Text";
 import Label from "./rocks/label/Label";
-import List from "./List";
+import List from "./rocks/list/List";
 import Tree from "./rocks/tree/Tree";
 
 export { configAnchor } from "./rocks/anchor/Anchor";
@@ -25,6 +25,9 @@ export * from "./rocks/htmlElement/html-element-types";
 
 export { configLabel } from "./rocks/label/Label";
 export * from "./rocks/label/label-types";
+
+export { configList } from "./rocks/list/List";
+export * from "./rocks/list/list-types";
 
 export { configShow } from "./rocks/show/Show";
 export * from "./rocks/show/show-types";
