@@ -2,7 +2,7 @@ import { RuiExtension } from "@ruiapp/move-style";
 import Rui from "./Rui";
 import ErrorBoundary from "./ErrorBoundary";
 import Show from "./rocks/show/Show";
-import HtmlElement from "./HtmlElement";
+import HtmlElement from "./rocks/htmlElement/HtmlElement";
 import Anchor from "./rocks/anchor/Anchor";
 import Box from "./rocks/box/Box";
 import Component from "./Component";
@@ -19,11 +19,11 @@ export * from "./rocks/anchor/anchor-types";
 export { configBox } from "./rocks/box/Box";
 export * from "./rocks/box/Box-types";
 
+export { configHtmlElement } from "./rocks/htmlElement/HtmlElement";
+export * from "./rocks/htmlElement/html-element-types";
+
 export { configShow } from "./rocks/show/Show";
 export * from "./rocks/show/show-types";
-
-export { configHtmlElement } from "./HtmlElement";
-export * from "./html-element-types";
 
 export { Rui, ErrorBoundary, Show, HtmlElement, Anchor, Box, Component, Scope, Slot, Text, Label, List, Tree };
 
