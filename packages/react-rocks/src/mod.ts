@@ -5,7 +5,7 @@ import Show from "./rocks/show/Show";
 import HtmlElement from "./rocks/htmlElement/HtmlElement";
 import Anchor from "./rocks/anchor/Anchor";
 import Box from "./rocks/box/Box";
-import Component from "./Component";
+import Component from "./rocks/component/Component";
 import Scope from "./Scope";
 import Slot from "./Slot";
 import Sr from "./rocks/sr/Sr";
@@ -20,8 +20,8 @@ export * from "./rocks/anchor/anchor-types";
 export { configBox } from "./rocks/box/Box";
 export * from "./rocks/box/Box-types";
 
-export { configComponent } from "./Component";
-export * from "./component-types";
+export { configComponent } from "./rocks/component/Component";
+export * from "./rocks/component/component-types";
 
 export { configHtmlElement } from "./rocks/htmlElement/HtmlElement";
 export * from "./rocks/htmlElement/html-element-types";
