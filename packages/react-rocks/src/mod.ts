@@ -28,6 +28,9 @@ export * from "./rocks/label/label-types";
 export { configShow } from "./rocks/show/Show";
 export * from "./rocks/show/show-types";
 
+export { configText } from "./Text";
+export * from "./text-types";
+
 export { Rui, ErrorBoundary, Show, HtmlElement, Anchor, Box, Component, Scope, Slot, Text, Label, List, Tree };
 
 export default {

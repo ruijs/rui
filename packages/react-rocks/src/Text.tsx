@@ -1,33 +1,17 @@
-import { Rock, SimpleRockConfig } from "@ruiapp/move-style";
+import { Rock } from "@ruiapp/move-style";
+import TextMeta from "./TextMeta";
+import { TextProps, TextRockConfig } from "./text-types";
+import { genRockRenderer } from "@ruiapp/react-renderer";
 
-export interface TextProps extends SimpleRockConfig {
-  text: string;
+export function configText(config: TextRockConfig): TextRockConfig {
+  return config;
+}
+
+export function Text(props: TextProps) {
+  return props.text;
 }
 
 export default {
-  $type: "text",
-
-  props: {
-    text: {
-      valueType: "string",
-      valueNotNull: true,
-    },
-  },
-
-  propertyPanels: [
-    {
-      $type: "componentPropPanel",
-      setters: [
-        {
-          $type: "textPropSetter",
-          label: "text",
-          propName: "text",
-        },
-      ],
-    },
-  ],
-
-  Renderer: (context, props: TextProps) => {
-    return props.text;
-  },
-} as Rock;
+  Renderer: genRockRenderer(TextMeta.$type, Text),
+  ...TextMeta,
+} as Rock<TextRockConfig>;

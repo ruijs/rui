@@ -95,7 +95,13 @@ function genComponentRenderer(rock: Rock, rockRenderer: any) {
       }
       setState({ ...newState });
     };
-    const renderResult = rockRenderer(rockInstance._context, rockInstance, rockInstance._state, rockInstance);
+
+    let renderResult: React.ReactNode = null;
+    if (rockRenderer.length === 1) {
+      renderResult = rockRenderer(rockInstance);
+    } else {
+      renderResult = rockRenderer(rockInstance._context, rockInstance, rockInstance._state, rockInstance);
+    }
     return renderResult;
   };
 }
