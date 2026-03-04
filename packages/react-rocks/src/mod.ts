@@ -3,7 +3,7 @@ import Rui from "./Rui";
 import ErrorBoundary from "./ErrorBoundary";
 import Show from "./rocks/show/Show";
 import HtmlElement from "./HtmlElement";
-import Anchor from "./Anchor";
+import Anchor from "./rocks/anchor/Anchor";
 import Box from "./rocks/box/Box";
 import Component from "./Component";
 import Scope from "./Scope";
@@ -12,6 +12,9 @@ import Text from "./Text";
 import Label from "./Label";
 import List from "./List";
 import Tree from "./Tree";
+
+export { configAnchor } from "./rocks/anchor/Anchor";
+export * from "./rocks/anchor/anchor-types";
 
 export { configBox } from "./rocks/box/Box";
 export * from "./rocks/box/Box-types";
