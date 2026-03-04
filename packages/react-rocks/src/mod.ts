@@ -18,3 +18,6 @@ export { Rui, ErrorBoundary, Show, HtmlElement, Anchor, Box, Component, Scope, S
 export default {
   rocks: [Rui, ErrorBoundary, Show, HtmlElement, Anchor, Box, Component, Scope, Slot, Text, Label, List, Tree],
 } as RuiExtension;
+
+export { configBox } from "./Box";
+export * from "./Box-types";

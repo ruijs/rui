@@ -556,6 +556,7 @@ export type RockInstanceOriginal<TState = any> = {
   _scope: Scope;
   _initialized: boolean;
   _state: TState;
+  $slot: any;
   setState: (stateChangesOrUpdater: Record<string, any> | RockStateUpdater) => void;
 };
 export type RockInstanceFields = keyof RockInstanceOriginal;

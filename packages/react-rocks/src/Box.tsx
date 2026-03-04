@@ -1,11 +1,9 @@
-import { Rock, RockEventHandler, ContainerRockConfig, CommonProps, fireEvent } from "@ruiapp/move-style";
-import { renderRockChildren } from "@ruiapp/react-renderer";
+import { Rock, RockInstance, CommonProps, fireEvent } from "@ruiapp/move-style";
+import { genRockRenderer, renderRockChildren } from "@ruiapp/react-renderer";
 import { assign, pick } from "lodash";
-
-export interface BoxProps extends ContainerRockConfig {
-  style?: any;
-  onClick: RockEventHandler;
-}
+import BoxMeta from "./BoxMeta";
+import { BoxProps, BoxRockConfig } from "./Box-types";
+import React from "react";
 
 const boxStylePropNames = [
   ...CommonProps.PositionStylePropNames,
@@ -14,39 +12,43 @@ const boxStylePropNames = [
   ...CommonProps.TextStylePropNames,
 ];
 
+export function configBox(config: BoxRockConfig): BoxRockConfig {
+  return config;
+}
+
+export function Box(props: BoxProps) {
+  const { $id, $slot, _context: context } = props as any as RockInstance;
+  const { children } = props;
+  const { framework, page, scope } = context;
+
+  const style: React.CSSProperties = assign(pick(props, boxStylePropNames), props.style) as any;
+
+  return (
+    <div
+      data-component-id={$id}
+      className={props.className}
+      style={style}
+      onClick={(e) => {
+        if (props.onClick) {
+          fireEvent({ eventName: "onClick", framework, page, scope, sender: props, eventHandlers: props.onClick, eventArgs: [e] });
+        }
+      }}
+    >
+      {renderRockChildren({
+        context,
+        rockChildrenConfig: children,
+        expVars: {
+          $slot: $slot,
+        },
+        fixedProps: {
+          $slot: $slot,
+        },
+      })}
+    </div>
+  );
+}
+
 export default {
-  $type: "box",
-
-  props: {
-    ...CommonProps.PositionStyleProps,
-    ...CommonProps.SizeStyleProps,
-    ...CommonProps.LayerStyleProps,
-    ...CommonProps.TextStyleProps,
-  },
-
-  propertyPanels: [{ $type: "positionPropPanel" }, { $type: "sizePropPanel" }, { $type: "appearancePropPanel" }, { $type: "textPropPanel" }],
-
-  Renderer: (context, props: BoxProps) => {
-    const { framework, page, scope } = context;
-    const style: React.CSSProperties = assign(pick(props, boxStylePropNames), props.style) as any;
-    return (
-      <div
-        data-component-id={props.id}
-        className={props.className}
-        style={style}
-        onClick={(e) => fireEvent({ eventName: "onClick", framework, page, scope, sender: props, eventHandlers: props.onClick, eventArgs: [e] })}
-      >
-        {renderRockChildren({
-          context,
-          rockChildrenConfig: props.children,
-          expVars: {
-            $slot: props.$slot,
-          },
-          fixedProps: {
-            $slot: props.$slot,
-          },
-        })}
-      </div>
-    );
-  },
-} as Rock;
+  Renderer: genRockRenderer(BoxMeta.$type, Box),
+  ...BoxMeta,
+} as Rock<BoxRockConfig>;
