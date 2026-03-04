@@ -8,6 +8,7 @@ import Box from "./rocks/box/Box";
 import Component from "./Component";
 import Scope from "./Scope";
 import Slot from "./Slot";
+import Sr from "./rocks/sr/Sr";
 import Text from "./rocks/text/Text";
 import Label from "./rocks/label/Label";
 import List from "./List";
@@ -28,11 +29,14 @@ export * from "./rocks/label/label-types";
 export { configShow } from "./rocks/show/Show";
 export * from "./rocks/show/show-types";
 
+export { configSr } from "./rocks/sr/Sr";
+export * from "./rocks/sr/sr-types";
+
 export { configText } from "./rocks/text/Text";
 export * from "./rocks/text/text-types";
 
-export { Rui, ErrorBoundary, Show, HtmlElement, Anchor, Box, Component, Scope, Slot, Text, Label, List, Tree };
+export { Rui, ErrorBoundary, Show, HtmlElement, Anchor, Box, Component, Scope, Slot, Sr, Text, Label, List, Tree };
 
 export default {
-  rocks: [Rui, ErrorBoundary, Show, HtmlElement, Anchor, Box, Component, Scope, Slot, Text, Label, List, Tree],
+  rocks: [Rui, ErrorBoundary, Show, HtmlElement, Anchor, Box, Component, Scope, Slot, Sr, Text, Label, List, Tree],
 } as RuiExtension;
