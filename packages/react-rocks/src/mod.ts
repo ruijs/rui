@@ -14,6 +14,9 @@ import Label from "./rocks/label/Label";
 import List from "./rocks/list/List";
 import Tree from "./rocks/tree/Tree";
 
+export { configRui } from "./Rui";
+export * from "./rui-types";
+
 export { configAnchor } from "./rocks/anchor/Anchor";
 export * from "./rocks/anchor/anchor-types";
 
