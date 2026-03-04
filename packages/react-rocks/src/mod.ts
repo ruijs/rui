@@ -6,7 +6,7 @@ import HtmlElement from "./rocks/htmlElement/HtmlElement";
 import Anchor from "./rocks/anchor/Anchor";
 import Box from "./rocks/box/Box";
 import Component from "./rocks/component/Component";
-import Scope from "./Scope";
+import Scope from "./rocks/scope/Scope";
 import Slot from "./rocks/slot/Slot";
 import Sr from "./rocks/sr/Sr";
 import Text from "./rocks/text/Text";
@@ -34,6 +34,9 @@ export * from "./rocks/label/label-types";
 
 export { configList } from "./rocks/list/List";
 export * from "./rocks/list/list-types";
+
+export { configScope } from "./rocks/scope/Scope";
+export * from "./rocks/scope/scope-types";
 
 export { configShow } from "./rocks/show/Show";
 export * from "./rocks/show/show-types";
