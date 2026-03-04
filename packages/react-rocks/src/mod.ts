@@ -1,6 +1,6 @@
 import { RuiExtension } from "@ruiapp/move-style";
 import Rui from "./Rui";
-import ErrorBoundary from "./ErrorBoundary";
+import ErrorBoundary from "./rocks/errorBoundary/ErrorBoundary";
 import Show from "./rocks/show/Show";
 import HtmlElement from "./rocks/htmlElement/HtmlElement";
 import Anchor from "./rocks/anchor/Anchor";
@@ -22,6 +22,9 @@ export * from "./rocks/box/Box-types";
 
 export { configComponent } from "./rocks/component/Component";
 export * from "./rocks/component/component-types";
+
+export { configErrorBoundary } from "./rocks/errorBoundary/ErrorBoundary";
+export * from "./rocks/errorBoundary/error-boundary-types";
 
 export { configHtmlElement } from "./rocks/htmlElement/HtmlElement";
 export * from "./rocks/htmlElement/html-element-types";
