@@ -1,56 +1,21 @@
-import { Rock, SimpleRockConfig } from "@ruiapp/move-style";
+import { Rock, RockInstance } from "@ruiapp/move-style";
+import SrMeta from "./SrMeta";
+import { SrProps, SrRockConfig } from "./sr-types";
+import { genRockRenderer } from "@ruiapp/react-renderer";
 
-export interface SrProps extends SimpleRockConfig {
-  ns?: string;
-  name: string;
-  params?: Record<string, any>;
+export function configSr(config: SrRockConfig): SrRockConfig {
+  return config;
+}
+
+export function Sr(props: SrProps) {
+  const { ns, name, params } = props;
+  const { _context: context } = props as any as RockInstance;
+  const { framework } = context;
+
+  return framework.getLocaleStringResource(ns, name, params);
 }
 
 export default {
-  $type: "sr",
-
-  props: {
-    name: {
-      valueType: "string",
-      valueNotNull: true,
-    },
-
-    ns: {
-      valueType: "string",
-      valueNotNull: false,
-    },
-
-    params: {
-      valueType: "object",
-      valueNotNull: false,
-    },
-  },
-
-  propertyPanels: [
-    {
-      $type: "componentPropPanel",
-      setters: [
-        {
-          $type: "textPropSetter",
-          label: "ns",
-          propName: "ns",
-        },
-        {
-          $type: "textPropSetter",
-          label: "name",
-          propName: "name",
-        },
-        {
-          $type: "jsonPropSetter",
-          label: "params",
-          propName: "params",
-        },
-      ],
-    },
-  ],
-
-  Renderer: (context, props: SrProps) => {
-    const { framework } = context;
-    return framework.getLocaleStringResource(props.ns, props.name, props.params);
-  },
-} as Rock;
+  Renderer: genRockRenderer(SrMeta.$type, Sr),
+  ...SrMeta,
+} as Rock<SrRockConfig>;
