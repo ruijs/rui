@@ -1,5 +1,5 @@
 import { RuiExtension } from "@ruiapp/move-style";
-import Rui from "./Rui";
+import Rui from "./rocks/rui/Rui";
 import ErrorBoundary from "./rocks/errorBoundary/ErrorBoundary";
 import Show from "./rocks/show/Show";
 import HtmlElement from "./rocks/htmlElement/HtmlElement";
@@ -13,9 +13,6 @@ import Text from "./rocks/text/Text";
 import Label from "./rocks/label/Label";
 import List from "./rocks/list/List";
 import Tree from "./rocks/tree/Tree";
-
-export { configRui } from "./Rui";
-export * from "./rui-types";
 
 export { configAnchor } from "./rocks/anchor/Anchor";
 export * from "./rocks/anchor/anchor-types";
@@ -37,6 +34,9 @@ export * from "./rocks/label/label-types";
 
 export { configList } from "./rocks/list/List";
 export * from "./rocks/list/list-types";
+
+export { configRui } from "./rocks/rui/Rui";
+export * from "./rocks/rui/rui-types";
 
 export { configScope } from "./rocks/scope/Scope";
 export * from "./rocks/scope/scope-types";
