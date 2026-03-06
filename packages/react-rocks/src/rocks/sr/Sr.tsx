@@ -16,6 +16,6 @@ export function Sr(props: SrProps) {
 }
 
 export default {
-  Renderer: genRockRenderer(SrMeta.$type, Sr),
+  Renderer: genRockRenderer(SrMeta.$type, Sr, true),
   ...SrMeta,
 } as Rock<SrRockConfig>;

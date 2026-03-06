@@ -49,6 +49,6 @@ export function Box(props: BoxProps) {
 }
 
 export default {
-  Renderer: genRockRenderer(BoxMeta.$type, Box),
+  Renderer: genRockRenderer(BoxMeta.$type, Box, true),
   ...BoxMeta,
 } as Rock<BoxRockConfig>;

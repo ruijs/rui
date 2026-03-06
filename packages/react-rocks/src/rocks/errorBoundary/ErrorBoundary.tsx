@@ -70,6 +70,6 @@ export class ErrorBoundary extends React.Component<ErrorBoundaryRockConfig, Erro
 }
 
 export default {
-  Renderer: genRockRenderer(ErrorBoundaryMeta.$type, ErrorBoundary),
+  Renderer: genRockRenderer(ErrorBoundaryMeta.$type, ErrorBoundary, true),
   ...ErrorBoundaryMeta,
 } as Rock<ErrorBoundaryRockConfig>;

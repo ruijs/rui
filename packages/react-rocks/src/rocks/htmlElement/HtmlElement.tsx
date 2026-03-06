@@ -37,6 +37,6 @@ export function HtmlElement(props: HtmlElementProps) {
 }
 
 export default {
-  Renderer: genRockRenderer(HtmlElementMeta.$type, HtmlElement),
+  Renderer: genRockRenderer(HtmlElementMeta.$type, HtmlElement, true),
   ...HtmlElementMeta,
 } as Rock<HtmlElementRockConfig>;

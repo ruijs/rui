@@ -20,6 +20,6 @@ export function Component(props: ComponentProps) {
 }
 
 export default {
-  Renderer: genRockRenderer(ComponentMeta.$type, Component),
+  Renderer: genRockRenderer(ComponentMeta.$type, Component, true),
   ...ComponentMeta,
 } as Rock<ComponentRockConfig>;

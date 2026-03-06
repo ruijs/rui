@@ -2,7 +2,7 @@ import { Rock, RockInstance, CommonProps, fireEvent } from "@ruiapp/move-style";
 import { genRockRenderer, renderRockChildren } from "@ruiapp/react-renderer";
 import { pick } from "lodash";
 import AnchorMeta from "./AnchorMeta";
-import { AnchorProps, AnchorRockConfig, ANCHOR_ROCK_TYPE } from "./anchor-types";
+import { AnchorProps, AnchorRockConfig } from "./anchor-types";
 import React from "react";
 
 const boxStylePropNames = [
@@ -59,6 +59,6 @@ export function Anchor(props: AnchorProps) {
 }
 
 export default {
-  Renderer: genRockRenderer(ANCHOR_ROCK_TYPE, Anchor),
+  Renderer: genRockRenderer(AnchorMeta.$type, Anchor, true),
   ...AnchorMeta,
 } as Rock<AnchorRockConfig>;

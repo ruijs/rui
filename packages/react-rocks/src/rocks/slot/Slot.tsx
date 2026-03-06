@@ -45,6 +45,6 @@ export function Slot(props: SlotProps) {
 }
 
 export default {
-  Renderer: genRockRenderer(SlotMeta.$type, Slot),
+  Renderer: genRockRenderer(SlotMeta.$type, Slot, true),
   ...SlotMeta,
 } as Rock<SlotRockConfig>;

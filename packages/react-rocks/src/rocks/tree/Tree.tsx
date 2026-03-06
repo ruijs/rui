@@ -9,6 +9,6 @@ export function configTree(config: TreeRockConfig): TreeRockConfig {
 }
 
 export default {
-  Renderer: genRockRenderer(TreeMeta.$type, Tree),
+  Renderer: genRockRenderer(TreeMeta.$type, Tree, true),
   ...TreeMeta,
 } as Rock<TreeRockConfig>;

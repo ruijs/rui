@@ -12,6 +12,6 @@ export function Text(props: TextProps) {
 }
 
 export default {
-  Renderer: genRockRenderer(TextMeta.$type, Text),
+  Renderer: genRockRenderer(TextMeta.$type, Text, true),
   ...TextMeta,
 } as Rock<TextRockConfig>;

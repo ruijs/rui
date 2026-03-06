@@ -22,6 +22,6 @@ export function Label(props: LabelProps) {
 }
 
 export default {
-  Renderer: genRockRenderer(LabelMeta.$type, Label),
+  Renderer: genRockRenderer(LabelMeta.$type, Label, true),
   ...LabelMeta,
 } as Rock<LabelRockConfig>;

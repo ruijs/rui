@@ -30,6 +30,6 @@ export function Show(props: ShowProps) {
 }
 
 export default {
-  Renderer: genRockRenderer(ShowMeta.$type, Show),
+  Renderer: genRockRenderer(ShowMeta.$type, Show, true),
   ...ShowMeta,
 } as Rock<ShowRockConfig>;

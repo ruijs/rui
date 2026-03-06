@@ -47,6 +47,6 @@ function renderItem(itemContainerRenderer: any, itemRenderer: any, dataItem: any
 }
 
 export default {
-  Renderer: genRockRenderer(ListMeta.$type, List),
+  Renderer: genRockRenderer(ListMeta.$type, List, true),
   ...ListMeta,
 } as Rock<ListRockConfig>;
