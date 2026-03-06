@@ -796,8 +796,6 @@ export type PageCommandSetScopeVars = {
 export interface IPage {
   get scope(): IScope;
 
-  generateComponentId(type: string);
-
   setConfig(pageConfig: PageConfig);
 
   getConfig(): PageConfig;

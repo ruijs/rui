@@ -12,3 +12,9 @@ const regEventPropName = /^on[A-Z]/;
 export function isEventPropName(propName: string) {
   return regEventPropName.test(propName);
 }
+
+let idSeed = 0;
+
+export function generateComponentId(type: string) {
+  return `${type}${++idSeed}`;
+}

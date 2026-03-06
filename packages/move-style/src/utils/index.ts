@@ -1,7 +1,7 @@
 import { fulfillVariablesInString } from "./variable-fulfiller";
 
 export { default as listToTree } from "./list-to-tree";
-export { isComponentPropertyDynamic, isEventPropName } from "./component-config-utility";
+export * from "./component-config-utility";
 
 export { getRockDefaultProps } from "./rock-meta-utility";
 

@@ -6,6 +6,7 @@ import { Framework } from "./Framework";
 import { Page } from "./Page";
 import { Scope } from "./Scope";
 import { RuiModuleLogger } from "./Logger";
+import { generateComponentId } from "./utils/component-config-utility";
 
 type TravelProcessor = (scope: Scope, parentConfig: RockConfig, config: RockConfig) => void;
 
@@ -15,7 +16,6 @@ export class ComponentTreeManager {
   #page: Page;
   #interpreter: ExpressionInterpreter;
   #emitter: EventEmitter;
-  #idSeed: number;
   #config: PageConfig;
   #componentMapById: Map<string, RockConfig>;
   #parentIdMapById: Map<string, string>;
@@ -28,15 +28,10 @@ export class ComponentTreeManager {
     this.#page = page;
     this.#interpreter = interpreter;
     this.#emitter = new EventEmitter();
-    this.#idSeed = 0;
 
     this.#componentMapById = new Map();
     this.#parentIdMapById = new Map();
     this.#scopeMapById = new Map();
-  }
-
-  generateComponentId(type: string) {
-    return `${type}${++this.#idSeed}`;
   }
 
   observe(callback: (config: PageConfig) => void) {
@@ -88,7 +83,7 @@ export class ComponentTreeManager {
     // Set default id.
     if (!config.$id) {
       this.#logger.verbose(`Id of component '${config.$type}' was not set.`);
-      config.$id = this.generateComponentId(config.$type);
+      config.$id = generateComponentId(config.$type);
     }
 
     if (config.$type === "scope" && !this.#scopeMapById.get(config.$id)) {
@@ -124,7 +119,7 @@ export class ComponentTreeManager {
 
         if (!config.$id) {
           this.#logger.verbose(`Id of component '${config.$type}' was not set.`);
-          config.$id = this.generateComponentId(rockType);
+          config.$id = generateComponentId(rockType);
         }
         this.#logger.debug(`Attaching component '${config.$id}'...`);
 
@@ -156,6 +151,7 @@ export class ComponentTreeManager {
 
         // TODO: should set as _initialized after all children initialized.
         config._initialized = true;
+        config._state = {};
 
         this.#componentMapById.set(config.$id, config);
         this.#parentIdMapById.set(config.$id, parentConfig?.$id);
@@ -235,7 +231,7 @@ export class ComponentTreeManager {
       this.travelRockConfig(
         (scope, parentComponent, component) => {
           if (!component.$id || this.#componentMapById.has(component.$id)) {
-            component.$id = this.generateComponentId(component.$type);
+            component.$id = generateComponentId(component.$type);
           }
         },
         scope,
