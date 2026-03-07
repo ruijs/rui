@@ -1,18 +1,20 @@
-import { Rock, RockInstance, ScopeState } from "@ruiapp/move-style";
-import { renderRockChildren, genRockRenderer } from "@ruiapp/react-renderer";
+import { Rock, ScopeState } from "@ruiapp/move-style";
+import { renderRockChildren, ScopeContext, useRockInstance, useRockInstanceContext } from "@ruiapp/react-renderer";
 import { useEffect, useState } from "react";
 import ScopeMeta from "./ScopeMeta";
-import { ScopeProps, ScopeRockConfig } from "./scope-types";
+import { ScopeRockConfig } from "./scope-types";
 
 export function configScope(config: ScopeRockConfig): ScopeRockConfig {
   return config;
 }
 
-export function Scope(props: ScopeProps) {
+export function Scope(props: ScopeRockConfig) {
   const { children } = props;
-  const rockInstance = props as any as RockInstance;
-  const { $id, $slot, _context: context } = rockInstance;
-  const { framework, page, logger } = context;
+  const { $slot } = props as any;
+
+  const { $id } = useRockInstance(props);
+  const { framework, page } = useRockInstanceContext();
+  const logger = framework.getRockLogger();
 
   logger.debug(props, `[Scope Rock] rendering Scope '${$id}'`);
 
@@ -26,26 +28,24 @@ export function Scope(props: ScopeProps) {
       setScopeState(state);
     });
     scope.loadData();
-  }, [page, scope]);
+  }, [scope]);
 
   const childrenContext = { framework, page, scope, logger };
 
   return (
-    <>
+    <ScopeContext.Provider value={scope}>
       {renderRockChildren({
         context: childrenContext,
         fixedProps: {
-          $slot: $slot,
+          $slot,
         },
         rockChildrenConfig: children,
       })}
-    </>
+    </ScopeContext.Provider>
   );
 }
 
 export default {
-  Renderer: (context, props) => {
-    return Scope(props);
-  },
+  Renderer: Scope,
   ...ScopeMeta,
 } as Rock<ScopeRockConfig>;

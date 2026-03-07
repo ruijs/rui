@@ -550,7 +550,10 @@ export type RockInstanceContext = {
    */
   component?: RockInstance;
   scope: Scope;
-  logger: RuiRockLogger;
+  /**
+   * @deprecated should use framework.getRockLogger()
+   */
+  logger?: RuiRockLogger;
 };
 
 export type RockStateUpdater = (state: Record<string, any>) => Record<string, any>;
@@ -930,4 +933,9 @@ export type EventAction<TEventActionConfig extends { $action: string }> = {
 export type FunctionConfig = {
   name: string;
   func: string | Function;
+};
+
+export type RuiPageContextType = {
+  framework: Framework;
+  page: Page;
 };
