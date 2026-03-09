@@ -32,6 +32,9 @@ import { useRuiScope } from "./RuiScopeContext";
 
 /**
  * convert react component to RockRendererV1
+ *
+ * - convertToEventHandlers
+ * - convertToSlotProps
  * @param rockType
  * @param ReactComponent
  * @param keepInstanceFieldsInProps
@@ -66,7 +69,7 @@ export function genRockRenderer(rockType: string, ReactComponent: any, keepInsta
   };
 }
 
-export function useRockInstance(props: { $type: string; $id?: string }) {
+export function useRockInstance(props: { $type: string; $id?: string; $slot?: any }) {
   const [$id] = useState<string>(() => {
     const $id = props.$id || generateComponentId(props.$type);
     return $id;
@@ -74,6 +77,7 @@ export function useRockInstance(props: { $type: string; $id?: string }) {
 
   return {
     $id,
+    $slot: props.$slot,
   };
 }
 
@@ -144,7 +148,6 @@ export function wrapRenderer(rock: Rock): React.Component {
   } else {
     rock.componentRenderer = createComponentRenderer(rock as ProCodeRock) as any;
   }
-  rock.componentRenderer.displayName = rock.$type;
 
   return rock.componentRenderer;
 }
@@ -158,7 +161,7 @@ export function wrapRenderer(rock: Rock): React.Component {
  * @returns
  */
 function genComponentRenderer(rock: Rock, rockRenderer: RockRendererV1) {
-  return function (rockInstance: RockInstance) {
+  function ComponentRenderer(rockInstance: RockInstance) {
     if (rock.declarativeComponent !== true && rock.onResolveState) {
       // TODO: the first parameter should be rockProps
       const resolvedState = rock.onResolveState(rockInstance, rockInstance._state, rockInstance);
@@ -180,7 +183,9 @@ function genComponentRenderer(rock: Rock, rockRenderer: RockRendererV1) {
 
     let renderResult: React.ReactNode = (rockRenderer as RockRendererV1)(rockInstance._context, rockInstance, rockInstance._state, rockInstance);
     return renderResult;
-  };
+  }
+  ComponentRenderer.displayName = rock.$type;
+  return ComponentRenderer;
 }
 
 export function createComponentRenderer(rock: ProCodeRock) {

@@ -14,7 +14,7 @@ export function Scope(props: ScopeRockConfig) {
 
   const { $id } = useRockInstance(props);
   const { framework, page } = useRockInstanceContext();
-  const logger = framework.getRockLogger();
+  const logger = framework.getRockLogger(ScopeMeta.$type, $id);
 
   logger.debug(props, `[Scope Rock] rendering Scope '${$id}'`);
 

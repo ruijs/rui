@@ -12,8 +12,9 @@ export default {
   $type: "jsonSetterInput",
 
   Renderer(context, props: JsonSetterInputProps) {
-    const { logger, framework, page, scope } = context;
+    const { framework, page, scope } = context;
     const { $id, value, onChange } = props;
+    const logger = framework.getRockLogger("jsonSetterInput", $id);
 
     const cmdsEditor = useRef<{
       getCodeContent(): string;

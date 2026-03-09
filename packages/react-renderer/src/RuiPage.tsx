@@ -40,7 +40,7 @@ const RuiPage = (props: RuiPageProps): any => {
     return null;
   }
 
-  const context: RockInstanceContext = { framework, page, scope: page.scope, logger: framework.getRockLogger() };
+  const context: RockInstanceContext = { framework, page, scope: page.scope };
   if (pageConfig.layout) {
     return renderPageWithLayout(context, pageConfig);
   } else {
