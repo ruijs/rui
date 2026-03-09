@@ -1,6 +1,7 @@
 import { Framework, Page, PageConfig, RockConfig, RockInstanceContext } from "@ruiapp/move-style";
 import { useEffect, useState } from "react";
 import { renderRock, renderRockChildren } from "./renderers";
+import { ScopeContext } from "./RuiScopeContext";
 
 export interface RuiPageProps {
   framework: Framework;
@@ -40,12 +41,12 @@ const RuiPage = (props: RuiPageProps): any => {
     return null;
   }
 
-  const context: RockInstanceContext = { framework, page, scope: page.scope };
-  if (pageConfig.layout) {
-    return renderPageWithLayout(context, pageConfig);
-  } else {
-    return configWithoutLayout(context, pageConfig);
-  }
+  const context: RockInstanceContext = { framework, page, scope };
+  return (
+    <ScopeContext.Provider value={scope}>
+      {pageConfig.layout ? renderPageWithLayout(context, pageConfig) : renderRockChildren({ context, rockChildrenConfig: pageConfig.view })}
+    </ScopeContext.Provider>
+  );
 };
 
 export default RuiPage;
