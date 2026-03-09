@@ -7,6 +7,7 @@ import { IStore, StoreConfig, StoreConfigBase } from "./types/store-types";
 import { IScope, RockPageEventSubscriptionConfig, RuiEvent, ScopeConfig, ScopeState } from "./types/rock-types";
 import { fireEvent } from "./ComponentEventHandler";
 import { RuiModuleLogger } from "./Logger";
+import { generateComponentId } from "./utils/component-config-utility";
 
 export class Scope implements IScope {
   #framework: Framework;
@@ -32,7 +33,7 @@ export class Scope implements IScope {
   setConfig(config: ScopeConfig) {
     this.#logger.debug(`Setting scope config...`, { config });
     if (!config.$id) {
-      config.$id = this.#page.generateComponentId("scope");
+      config.$id = generateComponentId("scope");
     }
 
     this.#vars = config.initialVars || {};

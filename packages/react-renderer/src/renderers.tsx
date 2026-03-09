@@ -10,6 +10,8 @@ import {
   Rock,
   RockInstance,
   RockInstanceContext,
+  generateComponentId,
+  omitSystemRockConfigFields,
 } from "@ruiapp/move-style";
 import { MoveStyleUtils } from "@ruiapp/move-style";
 import type {
@@ -18,17 +20,29 @@ import type {
   DeclarativeRock,
   ProCodeRock,
   RockConfig,
-  RockConfigSystemFields,
-  RockInstanceFields,
+  RockEventHandlerFunction,
+  RockRenderer,
+  RockRendererV1,
+  RockRendererV2,
 } from "@ruiapp/move-style";
-import { cloneDeep, forEach, isArray, isFunction, isString, omit, pick } from "lodash";
+import { cloneDeep, forEach, isArray, isFunction, isString } from "lodash";
 import React, { useState } from "react";
+import { useRuiPageContext } from "./RuiPageContext";
+import { useRuiScope } from "./RuiScopeContext";
 
-export function genRockRenderer(rockType: string, ReactComponent: any, keepInstanceFieldsInProps: boolean = false) {
+/**
+ * convert react component to RockRendererV1
+ * @param rockType
+ * @param ReactComponent
+ * @param keepInstanceFieldsInProps
+ * @returns
+ * @deprecated use wrapToRockComponent instead
+ */
+export function genRockRenderer(rockType: string, ReactComponent: any, keepInstanceFieldsInProps: boolean = false): RockRenderer<any, any> {
   return function RockComponentRenderer(context: RockInstanceContext, props: RockConfig) {
-    let reactComponentProps = props;
+    let reactComponentProps: any = props;
     if (!keepInstanceFieldsInProps) {
-      MoveStyleUtils.omitSystemRockConfigFields(props);
+      reactComponentProps = omitSystemRockConfigFields(props);
     }
 
     const rock: Rock = context.framework.getComponent(rockType);
@@ -52,7 +66,79 @@ export function genRockRenderer(rockType: string, ReactComponent: any, keepInsta
   };
 }
 
-export function wrapRenderer(rock: Rock) {
+export function useRockInstance(props: { $type: string; $id?: string }) {
+  const [$id] = useState<string>(() => {
+    const $id = props.$id || generateComponentId(props.$type);
+    return $id;
+  });
+
+  return {
+    $id,
+  };
+}
+
+export function useRockInstanceContext(): RockInstanceContext {
+  const scope = useRuiScope();
+  const { framework, page } = useRuiPageContext();
+  return {
+    framework,
+    page,
+    scope,
+  };
+}
+
+/**
+ * wrap react component to rock component.
+ * use when you want convert some third-party react component to rock component.
+ * @param rockType
+ * @param ReactComponent
+ * @returns
+ */
+export function wrapToRockComponent<Props = any>(rockType: string, ReactComponent: any) {
+  function RockComponent(rockConfig: RockConfig) {
+    const context = useRockInstanceContext();
+    const rock: Rock = context.framework.getComponent(rockType);
+
+    const { scope } = context;
+    const $slot = rockConfig.$slot;
+    rockConfig = preprocessRockConfig({
+      context,
+      rock,
+      rockConfig,
+      expVars: {
+        $scope: scope,
+        $slot,
+      },
+      fixedProps: {
+        $slot,
+      },
+    });
+
+    const eventHandlers = convertToEventHandlers({ context, rockConfig });
+
+    const slotsMeta = rock.slots || {};
+    if (!rock.voidComponent && !slotsMeta.children) {
+      slotsMeta.children = {
+        allowMultiComponents: true,
+      };
+    }
+    const fixedProps = {
+      $slot: rockConfig.$slot,
+    };
+    const slotProps = convertToSlotProps({ context, fixedProps, rockConfig, slotsMeta });
+
+    const reactComponentProps = omitSystemRockConfigFields(rockConfig);
+    return React.createElement(ReactComponent, {
+      ...reactComponentProps,
+      ...eventHandlers,
+      ...slotProps,
+    });
+  }
+  RockComponent.displayName = rockType;
+  return RockComponent;
+}
+
+export function wrapRenderer(rock: Rock): React.Component {
   if (rock.declarativeComponent) {
     rock.componentRenderer = createDeclarativeComponentRenderer(rock, getDeclarativeRockRenderer(rock));
   } else {
@@ -64,19 +150,15 @@ export function wrapRenderer(rock: Rock) {
 }
 
 /**
- * Convert rock renderer to component renderer.
+ * Convert RockRendererV1 to component renderer.
  * Rock renderer accepts props, state, and context parameters,
  * While component renderer accepts just props parameter.
  * @param rock
  * @param rockRenderer
  * @returns
  */
-function genComponentRenderer(rock: Rock, rockRenderer: any) {
+function genComponentRenderer(rock: Rock, rockRenderer: RockRendererV1) {
   return function (rockInstance: RockInstance) {
-    // DO NOT remove "$id" and "$exps" fields.
-    const instanceFields: (RockInstanceFields | RockConfigSystemFields)[] = ["_initialized", "_state", "_hidden"];
-    const rockProps = omit(rockInstance, instanceFields);
-
     if (rock.declarativeComponent !== true && rock.onResolveState) {
       // TODO: the first parameter should be rockProps
       const resolvedState = rock.onResolveState(rockInstance, rockInstance._state, rockInstance);
@@ -95,16 +177,20 @@ function genComponentRenderer(rock: Rock, rockRenderer: any) {
       }
       setState({ ...newState });
     };
-    const renderResult = rockRenderer(rockInstance._context, rockInstance, rockInstance._state, rockInstance);
+
+    let renderResult: React.ReactNode = (rockRenderer as RockRendererV1)(rockInstance._context, rockInstance, rockInstance._state, rockInstance);
     return renderResult;
   };
 }
 
 export function createComponentRenderer(rock: ProCodeRock) {
+  if (rock.Renderer.length === 1) {
+    return rock.Renderer as RockRendererV2;
+  }
   return genComponentRenderer(rock, rock.Renderer);
 }
 
-export function createDeclarativeComponentRenderer(rock: DeclarativeRock, rockRenderer: any) {
+export function createDeclarativeComponentRenderer(rock: DeclarativeRock, rockRenderer: RockRenderer) {
   return genComponentRenderer(rock, rockRenderer);
 }
 
@@ -131,16 +217,75 @@ export const getDeclarativeRockRenderer = (rockMeta: DeclarativeRock) => {
   return renderer;
 };
 
+type PreprocessRockConfigOptions = {
+  context: RockInstanceContext;
+  rock: Rock;
+  rockConfig: RockConfig;
+  expVars?: Record<string, any>;
+  fixedProps?: Record<string, any>;
+};
+
+function preprocessRockConfig(options: PreprocessRockConfigOptions) {
+  const { context, rock, fixedProps } = options;
+  const { framework, page, scope } = context;
+  const logger = framework.getLogger("componentRenderer");
+
+  let { rockConfig } = options;
+
+  let $exps = null;
+  if (rockConfig.$exps) {
+    $exps = cloneDeep(rockConfig.$exps);
+  }
+  rockConfig = Object.assign({}, rockConfig);
+  rockConfig.$exps = $exps;
+
+  MoveStyleUtils.localizeConfigProps(framework, logger, rockConfig);
+
+  const configProcessors = framework.getConfigProcessors();
+  for (const configProcessor of configProcessors) {
+    if (configProcessor.beforeRockRender) {
+      configProcessor.beforeRockRender({ context, rockConfig });
+    }
+  }
+
+  // TODO: remove $scope from expVars?
+  let { expVars } = options;
+  if (expVars) {
+    expVars.$scope = scope;
+  } else {
+    expVars = {
+      $scope: scope,
+    };
+  }
+
+  let slotContextData;
+  if (fixedProps) {
+    Object.assign(rockConfig, fixedProps);
+    slotContextData = fixedProps.$slot;
+  }
+
+  expVars.$slot = slotContextData;
+  page.interpreteComponentProperties(null, rockConfig, expVars);
+
+  let slotProps: any;
+  if (!rockConfig._hidden) {
+    slotProps = convertToSlotProps({ context, fixedProps, rockConfig, slotsMeta: rock.slots, isEarly: true });
+  }
+
+  return {
+    ...rockConfig,
+    ...slotProps,
+  };
+}
+
 // TODO: support `$parent`?
 export function renderRock(options: RenderRockOptions) {
-  const { context, fixedProps } = options;
+  const { context, fixedProps = {} } = options;
   let { rockConfig } = options;
 
   if (React.isValidElement(rockConfig)) {
     return rockConfig;
   }
-
-  let { expVars } = options;
 
   if (rockConfig == null) {
     return null;
@@ -160,7 +305,6 @@ export function renderRock(options: RenderRockOptions) {
     throw new Error(errorMessage);
   }
 
-  // const rockInstance = rockConfig as RockInstance;
   let rockInstance = page.getComponent(rockConfig.$id);
   if (!rockInstance || !rockInstance._initialized) {
     // TODO: should resolve parent component.
@@ -170,50 +314,19 @@ export function renderRock(options: RenderRockOptions) {
   if (!rockInstance) {
     rockInstance = page.getComponent(rockConfig.$id);
   }
-  if (!rockInstance._state) {
-    rockInstance._state = {};
-  }
+  rockConfig._state = rockInstance._state;
 
-  let $exps = null;
-  if (rockConfig.$exps) {
-    $exps = cloneDeep(rockConfig.$exps);
-  }
-  rockConfig = Object.assign({}, rockConfig, pick(rockInstance, ["_initialized", "_state"]));
-  rockConfig.$exps = $exps;
-
-  MoveStyleUtils.localizeConfigProps(framework, logger, rockConfig);
-
-  const configProcessors = framework.getConfigProcessors();
-  for (const configProcessor of configProcessors) {
-    if (configProcessor.beforeRockRender) {
-      configProcessor.beforeRockRender({ context, rockConfig });
-    }
-  }
-
-  // TODO: remove $scope from expVars?
-  if (expVars) {
-    expVars.$scope = scope;
-  } else {
-    expVars = {
+  const $slot = fixedProps.$slot;
+  rockConfig = preprocessRockConfig({
+    context,
+    rock,
+    rockConfig,
+    expVars: {
       $scope: scope,
-    };
-  }
-
-  let slotContextData;
-  if (fixedProps) {
-    Object.assign(rockConfig, fixedProps);
-    slotContextData = fixedProps.$slot;
-  }
-
-  expVars.$slot = slotContextData;
-  page.interpreteComponentProperties(null, rockConfig, expVars);
-
-  if (rockConfig._hidden) {
-    return null;
-  }
-
-  const slotProps = convertToSlotProps({ context, fixedProps, rockConfig, slotsMeta: rock.slots, isEarly: true });
-  logger.verbose(`Creating react element of '${rockConfig.$type}', $id=${rockConfig.$id}`);
+      $slot,
+    },
+    fixedProps,
+  });
 
   let ComponentRenderer: any = rock.componentRenderer;
   if (!ComponentRenderer) {
@@ -222,7 +335,6 @@ export function renderRock(options: RenderRockOptions) {
   return React.createElement(ComponentRenderer, {
     key: rockConfig.key || rockConfig.$id,
     ...rockConfig,
-    ...slotProps,
     _context: context,
   });
 }
@@ -318,7 +430,7 @@ export function toRenderRockSlot(options: GenerateRockSlotRendererOptions) {
   };
 }
 
-export function convertToEventHandlers(options: ConvertRockEventHandlerPropsOptions) {
+export function convertToEventHandlers(options: ConvertRockEventHandlerPropsOptions): Record<string, RockEventHandlerFunction> {
   const { context, rockConfig } = options;
   const eventHandlers = {};
   // TODO: should memorize eventHandlers
@@ -336,7 +448,7 @@ export function convertToEventHandlers(options: ConvertRockEventHandlerPropsOpti
   return eventHandlers;
 }
 
-export function convertToEventHandler(options: ConvertRockEventHandlerPropOptions) {
+export function convertToEventHandler(options: ConvertRockEventHandlerPropOptions): RockEventHandlerFunction {
   const { context, rockConfig, eventName, eventHandlerConfig } = options;
 
   // Some components set children's event handlers. For example, FormItem set onChange event handler.

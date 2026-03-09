@@ -1,11 +1,8 @@
-import { Rock, SimpleRockConfig } from "@ruiapp/move-style";
-
-export interface TextProps extends SimpleRockConfig {
-  text: string;
-}
+import type { RockMeta } from "@ruiapp/move-style";
+import { TEXT_ROCK_TYPE } from "./text-types";
 
 export default {
-  $type: "text",
+  $type: TEXT_ROCK_TYPE,
 
   props: {
     text: {
@@ -26,8 +23,4 @@ export default {
       ],
     },
   ],
-
-  Renderer: (context, props: TextProps) => {
-    return props.text;
-  },
-} as Rock;
+} as RockMeta;

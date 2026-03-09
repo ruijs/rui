@@ -1,6 +1,7 @@
 import { Framework, Page } from "@ruiapp/move-style";
 import { useEffect } from "react";
 import RuiPage from "./RuiPage";
+import { RuiPageContext } from "./RuiPageContext";
 
 export interface RuiProps {
   framework: Framework;
@@ -23,7 +24,11 @@ function Rui(props: RuiProps) {
   const pageId = page.getConfig().$id;
   logger.debug(`[Rui] Rendering page '${pageId}'`);
 
-  return <RuiPage key={pageId} framework={framework} page={page} />;
+  return (
+    <RuiPageContext.Provider value={{ framework, page }}>
+      <RuiPage key={pageId} framework={framework} page={page} />
+    </RuiPageContext.Provider>
+  );
 }
 
 export default Rui;

@@ -19,7 +19,9 @@ export type FieldSettings = {
 
 export type FieldValueType = "string" | "number" | "boolean" | "object";
 
-export type RockRenderer<TRockConfig = any, TRockState = any> = (
+export type RockRenderer<TRockConfig = any, TRockState = any> = RockRendererV1<TRockConfig, TRockState> | RockRendererV2<TRockConfig>;
+
+export type RockRendererV1<TRockConfig = any, TRockState = any> = (
   context: RockInstanceContext,
   props: RockInstance & TRockConfig,
   state?: TRockState & { scope: Scope },
@@ -28,6 +30,8 @@ export type RockRenderer<TRockConfig = any, TRockState = any> = (
    */
   instance?: RockInstance,
 ) => any;
+
+export type RockRendererV2<TRockConfig = any> = (props: RockInstance & TRockConfig) => any;
 
 export type ProCodeRock<TRockConfig = any, TRockState = any, TRockMessage extends RockMessage = RockMessage> = {
   Renderer: RockRenderer<TRockConfig, TRockState>;
@@ -546,7 +550,10 @@ export type RockInstanceContext = {
    */
   component?: RockInstance;
   scope: Scope;
-  logger: RuiRockLogger;
+  /**
+   * @deprecated should use framework.getRockLogger()
+   */
+  logger?: RuiRockLogger;
 };
 
 export type RockStateUpdater = (state: Record<string, any>) => Record<string, any>;
@@ -792,8 +799,6 @@ export type PageCommandSetScopeVars = {
 export interface IPage {
   get scope(): IScope;
 
-  generateComponentId(type: string);
-
   setConfig(pageConfig: PageConfig);
 
   getConfig(): PageConfig;
@@ -928,4 +933,9 @@ export type EventAction<TEventActionConfig extends { $action: string }> = {
 export type FunctionConfig = {
   name: string;
   func: string | Function;
+};
+
+export type RuiPageContextType = {
+  framework: Framework;
+  page: Page;
 };

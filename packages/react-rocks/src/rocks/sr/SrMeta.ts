@@ -1,13 +1,8 @@
-import { Rock, SimpleRockConfig } from "@ruiapp/move-style";
-
-export interface SrProps extends SimpleRockConfig {
-  ns?: string;
-  name: string;
-  params?: Record<string, any>;
-}
+import { RockMeta } from "@ruiapp/move-style";
+import { SR_ROCK_TYPE } from "./sr-types";
 
 export default {
-  $type: "sr",
+  $type: SR_ROCK_TYPE,
 
   props: {
     name: {
@@ -48,9 +43,4 @@ export default {
       ],
     },
   ],
-
-  Renderer: (context, props: SrProps) => {
-    const { framework } = context;
-    return framework.getLocaleStringResource(props.ns, props.name, props.params);
-  },
-} as Rock;
+} as RockMeta;

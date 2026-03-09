@@ -165,7 +165,7 @@ export function RapidDictionaryEntryRenderer(props: RapidDictionaryEntryRenderer
 
 ```typescript
 export default {
-  Renderer: genRockRenderer(RapidDatePickerMeta.$type, RapidDatePicker),
+  Renderer: genRockRenderer(RapidDatePickerMeta.$type, RapidDatePicker, true),
   ...RapidDatePickerMeta,
 } as Rock<RapidDatePickerRockConfig>;
 ```
@@ -235,7 +235,7 @@ export function RapidDatePicker(props: RapidDatePickerProps) {
 }
 
 export default {
-  Renderer: genRockRenderer(RapidDatePickerMeta.$type, RapidDatePicker),
+  Renderer: genRockRenderer(RapidDatePickerMeta.$type, RapidDatePicker, true),
   ...RapidDatePickerMeta,
 } as Rock<RapidDatePickerRockConfig>;
 ```
@@ -316,7 +316,7 @@ export function RapidDictionaryEntryRenderer(props: RapidDictionaryEntryRenderer
 }
 
 export default {
-  Renderer: genRockRenderer(RapidDictionaryEntryRendererMeta.$type, RapidDictionaryEntryRenderer),
+  Renderer: genRockRenderer(RapidDictionaryEntryRendererMeta.$type, RapidDictionaryEntryRenderer, true),
   ...RapidDictionaryEntryRendererMeta,
 } as Rock<RapidDictionaryEntryRendererRockConfig>;
 ```
@@ -614,7 +614,7 @@ export default {
    }
 
    export default {
-     Renderer: genRockRenderer(SonicToolbarNewEntityButtonMeta.$type, SonicToolbarNewEntityButton),
+     Renderer: genRockRenderer(SonicToolbarNewEntityButtonMeta.$type, SonicToolbarNewEntityButton, true),
      ...SonicToolbarNewEntityButtonMeta,
    } as Rock<SonicToolbarNewEntityButtonRockConfig>;
    ```

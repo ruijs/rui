@@ -1,6 +1,6 @@
 import { TreeCmds, TreeNodeState } from "./Tree";
 import { useState } from "react";
-import { cx } from "../utils/classname-utility";
+import { cx } from "../../../utils/classname-utility";
 
 export interface TreeNodeProps<TNodeData> {
   tree?: TreeCmds<TNodeData>;

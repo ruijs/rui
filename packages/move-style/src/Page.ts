@@ -50,10 +50,6 @@ export class Page implements IPage {
     return this.#readyToRender;
   }
 
-  generateComponentId(type: string) {
-    return this.#componentTreeManager.generateComponentId(type);
-  }
-
   setConfig(pageConfig: PageConfig) {
     this.#logger.debug(`Setting page config...`);
     if (!pageConfig.$id) {
