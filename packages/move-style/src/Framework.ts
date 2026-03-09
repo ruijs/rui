@@ -62,8 +62,8 @@ export class Framework {
     return this.#loggerFactory.getLogger(moduleName);
   }
 
-  getRockLogger() {
-    return this.#loggerFactory.getRockLogger();
+  getRockLogger(rockType?: string, rockId?: string) {
+    return this.#loggerFactory.getRockLogger(rockType, rockId);
   }
 
   registerComponent(component: Rock) {

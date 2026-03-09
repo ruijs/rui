@@ -551,7 +551,7 @@ export type RockInstanceContext = {
   component?: RockInstance;
   scope: Scope;
   /**
-   * @deprecated should use framework.getRockLogger()
+   * @deprecated should use framework.getRockLogger(rockType: string, rockId: string)
    */
   logger?: RuiRockLogger;
 };

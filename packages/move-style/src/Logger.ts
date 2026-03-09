@@ -35,10 +35,10 @@ export class RuiModuleLoggerFactory {
     return logger;
   }
 
-  getRockLogger() {
+  getRockLogger(rockType: string, rockId: string) {
     let logger = this.#rockLogger;
     if (!logger) {
-      logger = new RuiRockLogger(this.#provider);
+      logger = new RuiRockLogger(this.#provider, rockType, rockId);
       this.#rockLogger = logger;
     }
     return logger;
@@ -223,10 +223,13 @@ export class RuiModuleLogger {
 export class RuiRockLogger {
   #logger: RuiLogger;
 
+  #rockInstance: Record<string, any>;
+
   // TODO: should pass rockProps in constructor
-  constructor(loggerProvider: RuiLoggerProvider) {
+  constructor(loggerProvider: RuiLoggerProvider, rockType: string, rockId: string) {
     if (loggerProvider) {
       this.#logger = loggerProvider.createLogger();
+      this.#rockInstance = { rockType, rockId };
     }
   }
 
@@ -309,6 +312,7 @@ export class RuiRockLogger {
     }
     this.#logger.log(level, message, {
       ...meta,
+      ...this.#rockInstance,
       rockProps,
     });
   }
@@ -321,6 +325,7 @@ export class RuiRockLogger {
     }
     this.#logger.emerg(message, {
       ...meta,
+      ...this.#rockInstance,
       rockProps,
     });
   }
@@ -333,6 +338,7 @@ export class RuiRockLogger {
     }
     this.#logger.crit(message, {
       ...meta,
+      ...this.#rockInstance,
       rockProps,
     });
   }
@@ -345,6 +351,7 @@ export class RuiRockLogger {
     }
     this.#logger.error(message, {
       ...meta,
+      ...this.#rockInstance,
       rockProps,
     });
   }
@@ -357,6 +364,7 @@ export class RuiRockLogger {
     }
     this.#logger.warn(message, {
       ...meta,
+      ...this.#rockInstance,
       rockProps,
     });
   }
@@ -369,6 +377,7 @@ export class RuiRockLogger {
     }
     this.#logger.info(message, {
       ...meta,
+      ...this.#rockInstance,
       rockProps,
     });
   }
@@ -381,6 +390,7 @@ export class RuiRockLogger {
     }
     this.#logger.debug(message, {
       ...meta,
+      ...this.#rockInstance,
       rockProps,
     });
   }
@@ -393,6 +403,7 @@ export class RuiRockLogger {
     }
     this.#logger.verbose(message, {
       ...meta,
+      ...this.#rockInstance,
       rockProps,
     });
   }

@@ -8,7 +8,7 @@ export default {
   Renderer(context, props, state) {
     // const [color, setColor] = useState<string>("#fffff");
     const { framework } = context;
-    const logger = framework.getRockLogger();
+    const logger = framework.getRockLogger("commonPropPanelExample", props.$id);
     logger.debug(props, "rendering commonPropPanelExample");
 
     return renderRock({

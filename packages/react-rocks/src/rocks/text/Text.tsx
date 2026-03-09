@@ -1,7 +1,6 @@
 import { Rock } from "@ruiapp/move-style";
 import TextMeta from "./TextMeta";
 import { TextProps, TextRockConfig } from "./text-types";
-import { genRockRenderer } from "@ruiapp/react-renderer";
 
 export function configText(config: TextRockConfig): TextRockConfig {
   return config;
@@ -12,6 +11,6 @@ export function Text(props: TextProps) {
 }
 
 export default {
-  Renderer: genRockRenderer(TextMeta.$type, Text, true),
+  Renderer: Text,
   ...TextMeta,
 } as Rock<TextRockConfig>;

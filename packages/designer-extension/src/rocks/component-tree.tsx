@@ -32,7 +32,8 @@ export default {
 
   Renderer(context, props: ComponentTreeProps) {
     const { framework, page } = context;
-    const logger = framework.getRockLogger();
+    const { $id } = props;
+    const logger = framework.getRockLogger("designerComponentTree", $id);
     const designingPage: Page = props.designingPage;
     const designingPageConfig = designingPage.getConfig();
 
