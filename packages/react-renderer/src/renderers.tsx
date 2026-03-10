@@ -118,6 +118,10 @@ export function wrapToRockComponent<Props = any>(rockType: string, ReactComponen
       },
     });
 
+    if (rockConfig._hidden) {
+      return null;
+    }
+
     const eventHandlers = convertToEventHandlers({ context, rockConfig });
 
     const slotsMeta = rock.slots || {};
@@ -332,6 +336,10 @@ export function renderRock(options: RenderRockOptions) {
     },
     fixedProps,
   });
+
+  if (rockConfig._hidden) {
+    return null;
+  }
 
   let ComponentRenderer: any = rock.componentRenderer;
   if (!ComponentRenderer) {
