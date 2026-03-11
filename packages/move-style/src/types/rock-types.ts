@@ -58,8 +58,8 @@ export type RockMessageToComponent<TRockMessage extends RockMessage> = TRockMess
   page: IPage;
 };
 
-export type RockMetaBase = {
-  $type: string;
+export type RockMetaBase<TRockType extends string = string> = {
+  $type: TRockType;
   $version?: string;
   name?: string;
   description?: string;
@@ -81,14 +81,14 @@ export type RockMetaBase = {
   propertyPanels?: RockPropPanels;
 };
 
-export type ProCodeRockMeta = { declarativeComponent?: false } & RockMetaBase;
+export type ProCodeRockMeta<TRockType extends string = string> = { declarativeComponent?: false } & RockMetaBase<TRockType>;
 
-export type DeclarativeRockMeta = {
+export type DeclarativeRockMeta<TRockType extends string = string> = {
   declarativeComponent: true;
   view: RockChildrenConfig;
-} & RockMetaBase;
+} & RockMetaBase<TRockType>;
 
-export type RockMeta = ProCodeRockMeta | DeclarativeRockMeta;
+export type RockMeta<TRockType extends string = string> = ProCodeRockMeta<TRockType> | DeclarativeRockMeta<TRockType>;
 
 export type RockMetaProps<TName extends string = string> = Record<TName, FieldSettings>;
 
@@ -283,6 +283,10 @@ export type RockPropSetterControl<TValue = any> = {
 export type RockChildrenConfig = RockConfig | RockConfig[] | null;
 
 export type RockConfig = SimpleRockConfig | RockWithSlotsConfig | ContainerRockConfig | RouterRockConfig;
+
+export type RockComponentConfig<TRockConfig> = Omit<TRockConfig, "$type"> & {
+  $type?: TRockConfig extends { $type: infer T } ? T : string;
+};
 
 export type RockCategory = "simple" | "withSlots" | "container" | "composite" | "router";
 

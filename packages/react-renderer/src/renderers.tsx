@@ -69,9 +69,9 @@ export function genRockRenderer(rockType: string, ReactComponent: any, keepInsta
   };
 }
 
-export function useRockInstance(props: { $type: string; $id?: string; $slot?: any }) {
+export function useRockInstance(props: { $type?: string; $id?: string; $slot?: any }, rockType: string = "rock") {
   const [$id] = useState<string>(() => {
-    const $id = props.$id || generateComponentId(props.$type);
+    const $id = props.$id || generateComponentId(props.$type || rockType);
     return $id;
   });
 
