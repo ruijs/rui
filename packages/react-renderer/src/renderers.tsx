@@ -19,8 +19,10 @@ import type {
   ConvertRockEventHandlerPropOptions,
   DeclarativeRock,
   ProCodeRock,
+  RockComponentConfig,
   RockConfig,
   RockEventHandlerFunction,
+  RockMeta,
   RockRenderer,
   RockRendererV1,
   RockRendererV2,
@@ -98,16 +100,19 @@ export function useRockInstanceContext(): RockInstanceContext {
  * @param ReactComponent
  * @returns
  */
-export function wrapToRockComponent<Props = any>(rockType: string, ReactComponent: any) {
+export function wrapToRockComponent<Props extends RockConfig>(
+  rockMeta: RockMeta,
+  ReactComponent: (props: RockComponentConfig<Props>) => React.ReactElement,
+): React.FC<RockComponentConfig<Props>> {
+  const rockType = rockMeta.$type;
   function RockComponent(rockConfig: RockConfig) {
     const context = useRockInstanceContext();
-    const rock: Rock = context.framework.getComponent(rockType);
 
     const { scope } = context;
     const $slot = rockConfig.$slot;
     rockConfig = preprocessRockConfig({
       context,
-      rock,
+      rockMeta,
       rockConfig,
       expVars: {
         $scope: scope,
@@ -124,8 +129,8 @@ export function wrapToRockComponent<Props = any>(rockType: string, ReactComponen
 
     const eventHandlers = convertToEventHandlers({ context, rockConfig });
 
-    const slotsMeta = rock.slots || {};
-    if (!rock.voidComponent && !slotsMeta.children) {
+    const slotsMeta = rockMeta.slots || {};
+    if (!rockMeta.voidComponent && !slotsMeta.children) {
       slotsMeta.children = {
         allowMultiComponents: true,
       };
@@ -140,10 +145,10 @@ export function wrapToRockComponent<Props = any>(rockType: string, ReactComponen
       ...reactComponentProps,
       ...eventHandlers,
       ...slotProps,
-    });
+    } as any);
   }
   RockComponent.displayName = rockType;
-  return RockComponent;
+  return RockComponent as any;
 }
 
 export function wrapRenderer(rock: Rock): React.Component {
@@ -228,14 +233,14 @@ export const getDeclarativeRockRenderer = (rockMeta: DeclarativeRock) => {
 
 type PreprocessRockConfigOptions = {
   context: RockInstanceContext;
-  rock: Rock;
+  rockMeta: RockMeta;
   rockConfig: RockConfig;
   expVars?: Record<string, any>;
   fixedProps?: Record<string, any>;
 };
 
 function preprocessRockConfig(options: PreprocessRockConfigOptions) {
-  const { context, rock, fixedProps } = options;
+  const { context, rockMeta, fixedProps } = options;
   const { framework, page, scope } = context;
   const logger = framework.getLogger("componentRenderer");
 
@@ -278,7 +283,7 @@ function preprocessRockConfig(options: PreprocessRockConfigOptions) {
 
   let slotProps: any;
   if (!rockConfig._hidden) {
-    slotProps = convertToSlotProps({ context, fixedProps, rockConfig, slotsMeta: rock.slots, isEarly: true });
+    slotProps = convertToSlotProps({ context, fixedProps, rockConfig, slotsMeta: rockMeta.slots, isEarly: true });
   }
 
   return {
@@ -328,7 +333,7 @@ export function renderRock(options: RenderRockOptions) {
   const $slot = fixedProps.$slot;
   rockConfig = preprocessRockConfig({
     context,
-    rock,
+    rockMeta: rock,
     rockConfig,
     expVars: {
       $scope: scope,

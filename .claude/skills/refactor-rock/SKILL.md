@@ -40,7 +40,7 @@ export interface RapidDatePickerProps {
 export interface RapidDatePickerRockConfig extends SimpleRockConfig, RapidDatePickerProps {}
 ```
 
-#### 1.1 {ROCK_NAME}_ROCK_TYPE 常量定义
+#### 1.1 {ROCK_NAME}\_ROCK_TYPE 常量定义
 
 为避免 `$type` 字符串在多个文件中重复定义，应在 types 文件中定义 `{ROCK_NAME}_ROCK_TYPE` 常量，并在 `RockConfig` 接口和 Meta 文件中引用：
 
@@ -101,6 +101,30 @@ export interface RapidCurrencyRendererProps {
 export interface RapidCurrencyRendererRockConfig extends RapidCurrencyRendererProps, Omit<RapidNumberRendererRockConfig, "value"> {}
 ```
 
+#### 1.2 Meta 文件定义 ({RockName}Meta.ts)
+
+Meta 文件定义了 Rock 组件的元数据，包括类型、属性、事件等。
+
+示例：
+
+```typescript
+import { RockMeta, CommonProps } from "@ruiapp/move-style";
+import { LABEL_ROCK_TYPE } from "./label-types";
+
+export default {
+  $type: LABEL_ROCK_TYPE,
+
+  props: {
+    text: {
+      valueType: "string",
+      valueNotNull: true,
+    },
+    // 引用通用属性
+    ...CommonProps.TextStyleProps,
+  },
+} as RockMeta<typeof LABEL_ROCK_TYPE>;
+```
+
 ### 2. 主组件文件 ({RockName}.tsx)
 
 #### 2.1 导出 config 函数
@@ -116,7 +140,7 @@ export function configRapidDatePicker(config: RockComponentConfig<RapidDatePicke
 }
 ```
 
-#### 2.2 抽取 React 组件
+#### 2.2 抽取并包装 React 组件
 
 从 Rock.Renderer 中抽取并导出同名的 React 组件，使用 JSX 语法。
 
@@ -125,18 +149,18 @@ export function configRapidDatePicker(config: RockComponentConfig<RapidDatePicke
 - 阅读 [renderRock 用法文档](renderRock-usage.md)，理解`renderRock`以及相关函数的调用方法，以便理解原代码的渲染逻辑
 - 如果原代码使用 `renderRock` 渲染 `antdTag`、`antdButton` 等 Rock，应改为直接导入并使用 Ant Design 的 `Tag`、`Button` 等组件
 - 只有当组件必须嵌套其他动态 Rock 配置时，才考虑保留 `renderRock` 调用
-- 利用 `genRockRenderer` 自动生成 Rock.Renderer
 - 组件 Props 使用 `RockComponentConfig<{RockName}RockConfig>`
 - 使用 `useRockInstance` 获取 `$id` 等实例信息，注意传入第二个参数 `Meta.$type`
+- 使用 `wrapToRockComponent` 将 React 组件包装为 Rock 组件并导出
 
 ```typescript
 // ✅ 推荐：直接使用 antd 组件
 import { Tag } from "antd";
 import { RockComponentConfig } from "@ruiapp/move-style";
-import { useRockInstance, useRockInstanceContext } from "@ruiapp/react-renderer";
+import { useRockInstance, useRockInstanceContext, wrapToRockComponent } from "@ruiapp/react-renderer";
 import RapidDictionaryEntryRendererMeta from "./RapidDictionaryEntryRendererMeta";
 
-export function RapidDictionaryEntryRenderer(props: RockComponentConfig<RapidDictionaryEntryRendererRockConfig>) {
+export function RapidDictionaryEntryRendererComponent(props: RockComponentConfig<RapidDictionaryEntryRendererRockConfig>) {
   const context = useRockInstanceContext();
   const { framework, page, scope } = context;
   const { $id } = useRockInstance(props, RapidDictionaryEntryRendererMeta.$type);
@@ -148,17 +172,19 @@ export function RapidDictionaryEntryRenderer(props: RockComponentConfig<RapidDic
 
   return <Tag color={value.color}>{value.name}</Tag>;
 }
+
+export const RapidDictionaryEntryRenderer = wrapToRockComponent(RapidDictionaryEntryRendererMeta, RapidDictionaryEntryRendererComponent);
 ```
 
-#### 2.3 Rock 定义使用 genRockRenderer
+#### 2.3 Rock 导出
 
-对于渲染 React 组件的 Rock，使用 `genRockRenderer` 自动生成 Renderer：
+对于渲染 React 组件的 Rock，导出默认对象时，Renderer 属性指向 React 组件：
 
 ```typescript
 export default {
-  Renderer: genRockRenderer(RapidDatePickerMeta.$type, RapidDatePicker, true),
-  ...RapidDatePickerMeta,
-} as Rock<RapidDatePickerRockConfig>;
+  Renderer: RapidDictionaryEntryRendererComponent,
+  ...RapidDictionaryEntryRendererMeta,
+} as Rock<RapidDictionaryEntryRendererRockConfig>;
 ```
 
 ### 3. 完整示例
@@ -183,7 +209,7 @@ export interface RapidDatePickerRockConfig extends SimpleRockConfig, RapidDatePi
 // RapidDatePicker.tsx
 import { Rock, RockComponentConfig } from "@ruiapp/move-style";
 import RapidDatePickerMeta from "./RapidDatePickerMeta";
-import { genRockRenderer, useRockInstance, useRockInstanceContext } from "@ruiapp/react-renderer";
+import { useRockInstance, useRockInstanceContext, wrapToRockComponent } from "@ruiapp/react-renderer";
 import { RapidDatePickerProps, RapidDatePickerRockConfig } from "./rapid-date-picker-types";
 import { DatePicker } from "antd";
 import { isString } from "lodash";
@@ -194,7 +220,7 @@ export function configRapidDatePicker(config: RockComponentConfig<RapidDatePicke
   return config as RapidDatePickerRockConfig;
 }
 
-export function RapidDatePicker(props: RockComponentConfig<RapidDatePickerRockConfig>) {
+export function RapidDatePickerComponent(props: RockComponentConfig<RapidDatePickerRockConfig>) {
   const context = useRockInstanceContext();
   const { framework, page, scope } = context;
   const { $id } = useRockInstance(props, RapidDatePickerMeta.$type);
@@ -230,8 +256,10 @@ export function RapidDatePicker(props: RockComponentConfig<RapidDatePickerRockCo
   return <DatePicker value={value as moment.Moment} onChange={handleChange} picker={picker} showTime={showTime} />;
 }
 
+export const RapidDatePicker = wrapToRockComponent(RapidDatePickerMeta, RapidDatePickerComponent);
+
 export default {
-  Renderer: genRockRenderer(RapidDatePickerMeta.$type, RapidDatePicker, true),
+  Renderer: RapidDatePickerComponent,
   ...RapidDatePickerMeta,
 } as Rock<RapidDatePickerRockConfig>;
 ```
@@ -294,7 +322,7 @@ export interface RapidDictionaryEntryRendererRockConfig extends SimpleRockConfig
 import { Rock, RockComponentConfig } from "@ruiapp/move-style";
 import RapidDictionaryEntryRendererMeta from "./RapidDictionaryEntryRendererMeta";
 import { RapidDictionaryEntryRendererProps, RapidDictionaryEntryRendererRockConfig } from "./rapid-dictionary-entry-renderer-types";
-import { genRockRenderer, useRockInstance, useRockInstanceContext } from "@ruiapp/react-renderer";
+import { useRockInstance, useRockInstanceContext, wrapToRockComponent } from "@ruiapp/react-renderer";
 import { Tag } from "antd";
 
 export function configRapidDictionaryEntryRenderer(config: RockComponentConfig<RapidDictionaryEntryRendererRockConfig>): RapidDictionaryEntryRendererRockConfig {
@@ -302,7 +330,7 @@ export function configRapidDictionaryEntryRenderer(config: RockComponentConfig<R
   return config as RapidDictionaryEntryRendererRockConfig;
 }
 
-export function RapidDictionaryEntryRenderer(props: RockComponentConfig<RapidDictionaryEntryRendererRockConfig>) {
+export function RapidDictionaryEntryRendererComponent(props: RockComponentConfig<RapidDictionaryEntryRendererRockConfig>) {
   const context = useRockInstanceContext();
   const { framework, page, scope } = context;
   const { $id } = useRockInstance(props, RapidDictionaryEntryRendererMeta.$type);
@@ -315,8 +343,10 @@ export function RapidDictionaryEntryRenderer(props: RockComponentConfig<RapidDic
   return <Tag color={value.color}>{value.name}</Tag>;
 }
 
+export const RapidDictionaryEntryRenderer = wrapToRockComponent(RapidDictionaryEntryRendererMeta, RapidDictionaryEntryRendererComponent);
+
 export default {
-  Renderer: genRockRenderer(RapidDictionaryEntryRendererMeta.$type, RapidDictionaryEntryRenderer, true),
+  Renderer: RapidDictionaryEntryRendererComponent,
   ...RapidDictionaryEntryRendererMeta,
 } as Rock<RapidDictionaryEntryRendererRockConfig>;
 ```
@@ -397,7 +427,7 @@ export default {
    - RockConfig 类型: `{RockName}RockConfig`
    - config 函数: `config{RockName}`
    - React 组件: `{RockName}`
-   - {ROCK_NAME}_ROCK_TYPE 常量: `{ROCK_NAME}_ROCK_TYPE` (定义在 types 文件中，统一使用此名称)
+   - {ROCK_NAME}\_ROCK_TYPE 常量: `{ROCK_NAME}_ROCK_TYPE` (定义在 types 文件中，统一使用此名称)
 
 2. **类型继承**:
 
@@ -405,7 +435,7 @@ export default {
    - {RockName}RockConfig 继承 `SimpleRockConfig` 或者 `ContainerRockConfig` (当 `{RockName}Props` 包含 children 属性时)
    - {RockName}RockConfig 类型继承时，对父类型中已存在的字段，使用 `Omit` 排除重复定义
 
-3. **genRockRenderer**:
+3. **wrapToRockComponent**:
 
    - 仅用于渲染 antd 组件或自定义 React 组件的场景
    - 纯渲染函数（返回字符串等）不需要使用
@@ -520,7 +550,7 @@ export default {
    }
    ```
 
-5. **{ROCK_NAME}_ROCK_TYPE 常量**:
+5. **{ROCK_NAME}\_ROCK_TYPE 常量**:
 
    - 在 types 文件中定义 `export const {ROCK_NAME}_ROCK_TYPE = "rockName" as const;`
    - `{RockName}RockConfig` 接口中使用 `$type: typeof {ROCK_NAME}_ROCK_TYPE;`
@@ -577,12 +607,12 @@ export default {
    import type { Rock, RockInstance, RockComponentConfig } from "@ruiapp/move-style";
    import { fireEvent } from "@ruiapp/move-style";
    import SonicToolbarNewEntityButtonMeta from "./SonicToolbarNewEntityButtonMeta";
-   import { genRockRenderer, useRockInstanceContext } from "@ruiapp/react-renderer";
+   import { useRockInstanceContext, wrapToRockComponent } from "@ruiapp/react-renderer";
    import { SonicToolbarNewEntityButtonProps, SonicToolbarNewEntityButtonRockConfig } from "./sonic-toolbar-new-entity-button-types";
    import { RapidToolbarButton } from "../rapid-toolbar-button/RapidToolbarButton";
    import { getExtensionLocaleStringResource } from "../../helpers/i18nHelper";
 
-   export function SonicToolbarNewEntityButton(props: RockComponentConfig<SonicToolbarNewEntityButtonProps>) {
+   export function SonicToolbarNewEntityButtonComponent(props: RockComponentConfig<SonicToolbarNewEntityButtonProps>) {
      const context = useRockInstanceContext();
      const { framework, page, scope } = context;
 
@@ -614,8 +644,10 @@ export default {
      );
    }
 
+   export const SonicToolbarNewEntityButton = wrapToRockComponent(SonicToolbarNewEntityButtonMeta, SonicToolbarNewEntityButtonComponent);
+
    export default {
-     Renderer: genRockRenderer(SonicToolbarNewEntityButtonMeta.$type, SonicToolbarNewEntityButton, true),
+     Renderer: SonicToolbarNewEntityButtonComponent,
      ...SonicToolbarNewEntityButtonMeta,
    } as Rock<SonicToolbarNewEntityButtonRockConfig>;
    ```
@@ -638,4 +670,4 @@ export default {
 - 新组件的功能和原 `Rock.Renderer` 方法保持一致
 - 如果原代码使用 `renderRock` 渲染 `antdTag`、`antdButton` 等 Rock，应改为直接导入并使用 Ant Design 的 `Tag`、`Button` 等组件
 - 只有当组件必须嵌套其他动态 Rock 配置时，才考虑保留 `renderRock` 调用
-- 利用 `genRockRenderer` 自动生成 Rock.Renderer
+- 使用 `wrapToRockComponent` 将 React 组件包装为 Rock 组件并导出

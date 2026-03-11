@@ -2,7 +2,7 @@ import { Rock, RockComponentConfig, CommonProps, fireEvent } from "@ruiapp/move-
 import { renderRockChildren, useRockInstance, useRockInstanceContext } from "@ruiapp/react-renderer";
 import { assign, pick } from "lodash";
 import BoxMeta from "./BoxMeta";
-import { BoxProps, BoxRockConfig } from "./Box-types";
+import { BoxRockConfig } from "./Box-types";
 import React from "react";
 
 const boxStylePropNames = [
