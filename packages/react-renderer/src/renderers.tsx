@@ -42,7 +42,11 @@ import { useRuiScope } from "./RuiScopeContext";
  * @param keepInstanceFieldsInProps
  * @returns
  */
-export function genRockRenderer(rockType: string, ReactComponent: any, keepInstanceFieldsInProps: boolean = false): RockRenderer<any, any> {
+export function genRockRenderer(
+  rockTypeOrRockMeta: string | RockMeta,
+  ReactComponent: any,
+  keepInstanceFieldsInProps: boolean = false,
+): RockRenderer<any, any> {
   return function RockComponentRenderer(props: RockInstanceProps) {
     let reactComponentProps: any = props;
     if (!keepInstanceFieldsInProps) {
@@ -50,10 +54,10 @@ export function genRockRenderer(rockType: string, ReactComponent: any, keepInsta
     }
 
     const context = useRockInstanceContext();
-    const rock: Rock = context.framework.getComponent(rockType);
+    const rockMeta: RockMeta = isString(rockTypeOrRockMeta) ? context.framework.getComponent(rockTypeOrRockMeta) : rockTypeOrRockMeta;
     const eventHandlers = convertToEventHandlers({ context, rockConfig: props });
-    const slotsMeta = rock.slots || {};
-    if (!rock.voidComponent && !slotsMeta.children) {
+    const slotsMeta = rockMeta.slots || {};
+    if (!rockMeta.voidComponent && !slotsMeta.children) {
       slotsMeta.children = {
         allowMultiComponents: true,
       };
