@@ -309,7 +309,7 @@ export type RockWithSlotsConfig<Props = Record<string, any>, RockType = string> 
 
 export type ContainerRockConfig<Props = Record<string, any>, RockType = string> = RockConfigBase<RockType> & {
   children?: RockChildrenConfig;
-} & Props;
+} & Omit<Props, "children">;
 
 export type RouterRockConfig<Props = Record<string, any>, RockType = string> = RockConfigBase<RockType> & {
   routes: RouteConfig[];

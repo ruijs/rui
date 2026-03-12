@@ -19,10 +19,5 @@ export default {
     },
   },
 
-  propertyPanels: [
-    { $type: "positionPropPanel" },
-    { $type: "sizePropPanel" },
-    { $type: "appearancePropPanel" },
-    { $type: "textPropPanel" },
-  ],
-} as RockMeta;
+  propertyPanels: [{ $type: "positionPropPanel" }, { $type: "sizePropPanel" }, { $type: "appearancePropPanel" }, { $type: "textPropPanel" }],
+} as RockMeta<typeof ANCHOR_ROCK_TYPE>;

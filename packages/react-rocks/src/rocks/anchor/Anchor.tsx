@@ -1,9 +1,9 @@
-import { Rock, RockInstanceProps, CommonProps, fireEvent } from "@ruiapp/move-style";
-import { genRockRenderer, renderRockChildren } from "@ruiapp/react-renderer";
-import { pick } from "lodash";
+import { Rock, RockComponentProps, fireEvent, CommonProps, RockInstanceProps } from "@ruiapp/move-style";
 import AnchorMeta from "./AnchorMeta";
-import { AnchorProps, AnchorRockConfig } from "./anchor-types";
+import { AnchorRockConfig } from "./anchor-types";
+import { renderRockChildren, useRockInstance, useRockInstanceContext, wrapToRockComponent } from "@ruiapp/react-renderer";
 import React from "react";
+import { pick } from "lodash";
 
 const boxStylePropNames = [
   ...CommonProps.PositionStylePropNames,
@@ -12,14 +12,16 @@ const boxStylePropNames = [
   ...CommonProps.TextStylePropNames,
 ];
 
-export function configAnchor(config: AnchorRockConfig): AnchorRockConfig {
-  return config;
+export function configAnchor(config: RockComponentProps<AnchorRockConfig>): AnchorRockConfig {
+  config.$type = AnchorMeta.$type;
+  return config as AnchorRockConfig;
 }
 
-export function Anchor(props: AnchorProps) {
-  const { $id, $slot, _context: context } = props as any as RockInstanceProps;
-  const { onClick, href, target, children, className } = props;
-  const { framework, page, scope } = context || {};
+export function AnchorComponent(props: RockInstanceProps<AnchorRockConfig>) {
+  const context = useRockInstanceContext();
+  const { framework, page, scope } = context;
+  const { $id } = useRockInstance(props, AnchorMeta.$type);
+  const { onClick, href, target, children, className, $slot } = props;
 
   const style: React.CSSProperties = pick(props, boxStylePropNames) as any;
 
@@ -58,7 +60,9 @@ export function Anchor(props: AnchorProps) {
   );
 }
 
+export const Anchor = wrapToRockComponent(AnchorMeta, AnchorComponent);
+
 export default {
-  Renderer: genRockRenderer(AnchorMeta.$type, Anchor, true),
+  Renderer: AnchorComponent,
   ...AnchorMeta,
 } as Rock<AnchorRockConfig>;
