@@ -10,6 +10,4 @@ export interface AnchorProps {
   onClick?: RockEventHandler;
 }
 
-export interface AnchorRockConfig extends ContainerRockConfig, Omit<AnchorProps, "children"> {
-  $type: typeof ANCHOR_ROCK_TYPE;
-}
+export type AnchorRockConfig = ContainerRockConfig<AnchorProps, typeof ANCHOR_ROCK_TYPE>;

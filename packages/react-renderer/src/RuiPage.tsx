@@ -1,4 +1,4 @@
-import { Framework, Page, PageConfig, RockConfig, RockInstanceContext } from "@ruiapp/move-style";
+import { ContainerRockConfig, Framework, Page, PageConfig, RockChildrenConfig, RockConfig, RockInstanceContext } from "@ruiapp/move-style";
 import { useEffect, useState } from "react";
 import { renderRock, renderRockChildren } from "./renderers";
 import { ScopeContext } from "./RuiScopeContext";
@@ -56,7 +56,7 @@ function configWithoutLayout(context: RockInstanceContext, pageConfig: PageConfi
 }
 
 function renderPageWithLayout(context: RockInstanceContext, pageConfig: PageConfig) {
-  const rockConfig: RockConfig = {
+  const rockConfig: ContainerRockConfig<{ component: { view: RockChildrenConfig } }> = {
     $id: "$layout",
     $type: "component",
     component: {

@@ -12,4 +12,4 @@ export default {
   },
 
   propertyPanels: [{ $type: "positionPropPanel" }, { $type: "sizePropPanel" }, { $type: "appearancePropPanel" }, { $type: "textPropPanel" }],
-} as RockMeta;
+} as RockMeta<typeof BOX_ROCK_TYPE>;

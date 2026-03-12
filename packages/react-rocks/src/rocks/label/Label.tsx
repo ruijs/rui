@@ -1,16 +1,17 @@
-import { Rock, RockInstance, CommonProps } from "@ruiapp/move-style";
+import { Rock, RockComponentProps, CommonProps, RockInstanceProps } from "@ruiapp/move-style";
 import LabelMeta from "./LabelMeta";
-import { LabelProps, LabelRockConfig } from "./label-types";
-import { genRockRenderer } from "@ruiapp/react-renderer";
+import { LabelRockConfig } from "./label-types";
+import { useRockInstance, wrapToRockComponent } from "@ruiapp/react-renderer";
 import React from "react";
 import { pick } from "lodash";
 
-export function configLabel(config: LabelRockConfig): LabelRockConfig {
-  return config;
+export function configLabel(config: RockComponentProps<LabelRockConfig>): LabelRockConfig {
+  config.$type = LabelMeta.$type;
+  return config as LabelRockConfig;
 }
 
-export function Label(props: LabelProps) {
-  const { $id } = props as any as RockInstance;
+export function LabelComponent(props: RockInstanceProps<LabelRockConfig>) {
+  const { $id } = useRockInstance(props, LabelMeta.$type);
   const { text } = props;
   const style: React.CSSProperties = pick(props, CommonProps.TextStylePropNames) as any;
 
@@ -21,7 +22,9 @@ export function Label(props: LabelProps) {
   );
 }
 
+export const Label = wrapToRockComponent(LabelMeta, LabelComponent);
+
 export default {
-  Renderer: genRockRenderer(LabelMeta.$type, Label, true),
+  Renderer: LabelComponent,
   ...LabelMeta,
 } as Rock<LabelRockConfig>;

@@ -1,13 +1,14 @@
-import { Rock } from "@ruiapp/move-style";
+import { Rock, RockComponentProps, RockInstanceProps } from "@ruiapp/move-style";
+import { renderRockChildren, useRockInstance, useRockInstanceContext, wrapToRockComponent } from "@ruiapp/react-renderer";
 import ShowMeta from "./ShowMeta";
-import { ShowProps, ShowRockConfig } from "./show-types";
-import { renderRockChildren, useRockInstanceContext } from "@ruiapp/react-renderer";
+import { ShowRockConfig } from "./show-types";
 
-export function configShow(config: ShowRockConfig): ShowRockConfig {
-  return config;
+export function configShow(config: RockComponentProps<ShowRockConfig>): ShowRockConfig {
+  config.$type = ShowMeta.$type;
+  return config as ShowRockConfig;
 }
 
-export function Show(props: ShowProps) {
+export function ShowComponent(props: RockInstanceProps<ShowRockConfig>) {
   const context = useRockInstanceContext();
   const { when, children, fallback } = props;
 
@@ -28,7 +29,9 @@ export function Show(props: ShowProps) {
   return null;
 }
 
+export const Show = wrapToRockComponent(ShowMeta, ShowComponent);
+
 export default {
-  Renderer: Show,
+  Renderer: ShowComponent,
   ...ShowMeta,
 } as Rock<ShowRockConfig>;

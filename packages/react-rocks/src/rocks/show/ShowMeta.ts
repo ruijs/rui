@@ -4,6 +4,20 @@ import { SHOW_ROCK_TYPE } from "./show-types";
 export default {
   $type: SHOW_ROCK_TYPE,
 
+  props: {
+    when: {
+      valueType: "boolean",
+      defaultValue: true,
+    },
+  },
+
+  slots: {
+    fallback: {
+      allowMultiComponents: true,
+      required: false,
+    },
+  },
+
   propertyPanels: [
     {
       $type: "componentPropPanel",
@@ -16,11 +30,4 @@ export default {
       ],
     },
   ],
-
-  slots: {
-    fallback: {
-      required: false,
-      allowMultiComponents: true,
-    },
-  },
-} as RockMeta;
+} as RockMeta<typeof SHOW_ROCK_TYPE>;

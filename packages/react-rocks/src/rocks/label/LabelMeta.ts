@@ -11,4 +11,4 @@ export default {
     },
     ...CommonProps.TextStyleProps,
   },
-} as RockMeta;
+} as RockMeta<typeof LABEL_ROCK_TYPE>;

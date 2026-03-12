@@ -44,4 +44,4 @@ export default {
       ],
     },
   ],
-} as RockMeta;
+} as RockMeta<typeof TREE_ROCK_TYPE>;

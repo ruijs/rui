@@ -6,9 +6,6 @@ export interface BoxProps {
   className?: string;
   style?: any;
   onClick?: RockEventHandlerConfig;
-  [key: string]: any;
 }
 
-export interface BoxRockConfig extends ContainerRockConfig, BoxProps {
-  $type: typeof BOX_ROCK_TYPE;
-}
+export type BoxRockConfig = ContainerRockConfig<BoxProps, typeof BOX_ROCK_TYPE>;

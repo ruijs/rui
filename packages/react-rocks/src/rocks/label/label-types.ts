@@ -1,4 +1,4 @@
-import { SimpleRockConfig } from "@ruiapp/move-style";
+import { RockConfig } from "@ruiapp/move-style";
 
 export const LABEL_ROCK_TYPE = "label" as const;
 
@@ -12,6 +12,4 @@ export interface LabelProps {
   textDecorationStyle?: string;
 }
 
-export interface LabelRockConfig extends SimpleRockConfig, LabelProps {
-  $type: typeof LABEL_ROCK_TYPE;
-}
+export type LabelRockConfig = RockConfig<LabelProps, typeof LABEL_ROCK_TYPE>;
