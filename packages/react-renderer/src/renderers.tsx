@@ -33,7 +33,7 @@ import { useRuiPageContext } from "./RuiPageContext";
 import { useRuiScope } from "./RuiScopeContext";
 
 /**
- * convert react component to RockRendererV1
+ * convert react component to RockRendererV2
  *
  * - convertToEventHandlers
  * - convertToSlotProps
@@ -41,15 +41,15 @@ import { useRuiScope } from "./RuiScopeContext";
  * @param ReactComponent
  * @param keepInstanceFieldsInProps
  * @returns
- * @deprecated use wrapToRockComponent instead
  */
 export function genRockRenderer(rockType: string, ReactComponent: any, keepInstanceFieldsInProps: boolean = false): RockRenderer<any, any> {
-  return function RockComponentRenderer(context: RockInstanceContext, props: RockInstanceProps) {
+  return function RockComponentRenderer(props: RockInstanceProps) {
     let reactComponentProps: any = props;
     if (!keepInstanceFieldsInProps) {
       reactComponentProps = omitSystemRockConfigFields(props);
     }
 
+    const context = useRockInstanceContext();
     const rock: Rock = context.framework.getComponent(rockType);
     const eventHandlers = convertToEventHandlers({ context, rockConfig: props });
     const slotsMeta = rock.slots || {};
@@ -108,12 +108,13 @@ export function wrapToRockComponent<RockConfig>(
   function RockComponent(rockConfig: RockInstanceProps) {
     const context = useRockInstanceContext();
 
+    let rockInstance = Object.assign({}, rockConfig);
     const { scope } = context;
     const $slot = rockConfig.$slot;
     rockConfig = preprocessRockConfig({
       context,
       rockMeta,
-      rockInstance: rockConfig,
+      rockInstance,
       expVars: {
         $scope: scope,
         $slot,
@@ -123,11 +124,11 @@ export function wrapToRockComponent<RockConfig>(
       },
     });
 
-    if (rockConfig._hidden) {
+    if (rockInstance._hidden) {
       return null;
     }
 
-    const eventHandlers = convertToEventHandlers({ context, rockConfig });
+    const eventHandlers = convertToEventHandlers({ context, rockConfig: rockInstance });
 
     const slotsMeta = rockMeta.slots || {};
     if (!rockMeta.voidComponent && !slotsMeta.children) {
@@ -136,14 +137,15 @@ export function wrapToRockComponent<RockConfig>(
       };
     }
     const fixedProps = {
-      $slot: rockConfig.$slot,
+      $slot: rockInstance.$slot,
     };
-    const slotProps = convertToSlotProps({ context, fixedProps, rockConfig, slotsMeta });
+    const slotProps = convertToSlotProps({ context, fixedProps, rockConfig: rockInstance, slotsMeta });
 
     return React.createElement(ReactComponent, {
-      ...rockConfig,
+      ...rockInstance,
       ...eventHandlers,
       ...slotProps,
+      _context: context,
     } as any);
   }
   RockComponent.displayName = rockType;
@@ -282,16 +284,19 @@ function preprocessRockConfig(options: PreprocessRockConfigOptions): RockInstanc
     slotProps = convertToSlotProps({ context, fixedProps, rockConfig: rockInstance, slotsMeta: rockMeta.slots, isEarly: true });
   }
 
+  const eventHandlers = convertToEventHandlers({ context, rockConfig: rockInstance });
+
   return {
     ...rockInstance,
+    ...eventHandlers,
     ...slotProps,
   };
 }
 
 // TODO: support `$parent`?
 export function renderRock(options: RenderRockOptions) {
-  const { context, fixedProps = {} } = options;
-  let { rockConfig } = options;
+  const { context } = options;
+  let { rockConfig, fixedProps = {} } = options;
 
   if (React.isValidElement(rockConfig)) {
     return rockConfig;
@@ -344,6 +349,18 @@ export function renderRock(options: RenderRockOptions) {
     return null;
   }
 
+  // const slotsMeta = rock.slots || {};
+  // if (!rock.voidComponent && !slotsMeta.children) {
+  //   slotsMeta.children = {
+  //     allowMultiComponents: true,
+  //   };
+  // }
+  // fixedProps = {
+  //   $slot: rockConfig.$slot,
+  //   ...fixedProps,
+  // };
+  // const slotProps = convertToSlotProps({ context, fixedProps, rockConfig, slotsMeta });
+
   let ComponentRenderer: any = rock.componentRenderer;
   if (!ComponentRenderer) {
     ComponentRenderer = wrapRenderer(rock);
@@ -351,6 +368,7 @@ export function renderRock(options: RenderRockOptions) {
   return React.createElement(ComponentRenderer, {
     key: rockInstance.key || rockInstance.$id,
     ...rockInstance,
+    // ...slotProps,
     _context: context,
   });
 }
