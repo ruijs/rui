@@ -1,8 +1,8 @@
 import { RockMeta } from "@ruiapp/move-style";
-import { SR_ROCK_TYPE } from "./sr-types";
+import { I18N_TEXT_ROCK_TYPE } from "./i18n-text-types";
 
 export default {
-  $type: SR_ROCK_TYPE,
+  $type: I18N_TEXT_ROCK_TYPE,
 
   props: {
     name: {
@@ -43,4 +43,4 @@ export default {
       ],
     },
   ],
-} as RockMeta<typeof SR_ROCK_TYPE>;
+} as RockMeta<typeof I18N_TEXT_ROCK_TYPE>;
