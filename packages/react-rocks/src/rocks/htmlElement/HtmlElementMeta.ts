@@ -29,4 +29,4 @@ export default {
       ],
     },
   ],
-} as RockMeta;
+} as RockMeta<typeof HTML_ELEMENT_ROCK_TYPE>;

@@ -1,4 +1,4 @@
-import { Rock, RockInstance, CommonProps, fireEvent } from "@ruiapp/move-style";
+import { Rock, RockInstanceProps, CommonProps, fireEvent } from "@ruiapp/move-style";
 import { genRockRenderer, renderRockChildren } from "@ruiapp/react-renderer";
 import { pick } from "lodash";
 import AnchorMeta from "./AnchorMeta";
@@ -17,7 +17,7 @@ export function configAnchor(config: AnchorRockConfig): AnchorRockConfig {
 }
 
 export function Anchor(props: AnchorProps) {
-  const { $id, $slot, _context: context } = props as any as RockInstance;
+  const { $id, $slot, _context: context } = props as any as RockInstanceProps;
   const { onClick, href, target, children, className } = props;
   const { framework, page, scope } = context || {};
 

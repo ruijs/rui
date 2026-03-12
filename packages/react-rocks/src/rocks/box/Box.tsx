@@ -1,5 +1,5 @@
-import { Rock, RockComponentConfig, CommonProps, fireEvent } from "@ruiapp/move-style";
-import { renderRockChildren, useRockInstance, useRockInstanceContext } from "@ruiapp/react-renderer";
+import { Rock, RockComponentProps, CommonProps, fireEvent, RockInstanceProps } from "@ruiapp/move-style";
+import { renderRockChildren, useRockInstance, useRockInstanceContext, wrapToRockComponent } from "@ruiapp/react-renderer";
 import { assign, pick } from "lodash";
 import BoxMeta from "./BoxMeta";
 import { BoxRockConfig } from "./Box-types";
@@ -12,12 +12,12 @@ const boxStylePropNames = [
   ...CommonProps.TextStylePropNames,
 ];
 
-export function configBox(config: RockComponentConfig<BoxRockConfig>): BoxRockConfig {
+export function configBox(config: RockComponentProps<BoxRockConfig>): BoxRockConfig {
   config.$type = BoxMeta.$type;
   return config as BoxRockConfig;
 }
 
-export function Box(props: RockComponentConfig<BoxRockConfig>) {
+export function BoxComponent(props: RockInstanceProps<BoxRockConfig>) {
   const context = useRockInstanceContext();
   const { framework, page, scope } = context;
   const { $id, $slot } = useRockInstance(props, BoxMeta.$type);
@@ -48,7 +48,9 @@ export function Box(props: RockComponentConfig<BoxRockConfig>) {
   );
 }
 
+export const Box = wrapToRockComponent(BoxMeta, BoxComponent);
+
 export default {
-  Renderer: Box,
+  Renderer: BoxComponent,
   ...BoxMeta,
 } as Rock<BoxRockConfig>;

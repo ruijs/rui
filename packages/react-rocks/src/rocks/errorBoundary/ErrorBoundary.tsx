@@ -1,4 +1,4 @@
-import { Rock, RockInstance } from "@ruiapp/move-style";
+import { Rock, RockInstanceProps } from "@ruiapp/move-style";
 import { genRockRenderer, renderRockChildren } from "@ruiapp/react-renderer";
 import React from "react";
 import ErrorBoundaryMeta from "./ErrorBoundaryMeta";
@@ -37,7 +37,7 @@ export class ErrorBoundary extends React.Component<ErrorBoundaryRockConfig, Erro
 
   render() {
     const { fallback, children } = this.props;
-    const { _context: context } = this.props as any as RockInstance;
+    const { _context: context } = this.props as any as RockInstanceProps;
 
     if (this.state.hasError) {
       if (fallback) {

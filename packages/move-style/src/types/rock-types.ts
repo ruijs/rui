@@ -23,21 +23,21 @@ export type RockRenderer<TRockConfig = any, TRockState = any> = RockRendererV1<T
 
 export type RockRendererV1<TRockConfig = any, TRockState = any> = (
   context: RockInstanceContext,
-  props: RockInstance & TRockConfig,
+  props: RockInstanceProps & TRockConfig,
   state?: TRockState & { scope: Scope },
   /**
    * @deprecated Use props instead.
    */
-  instance?: RockInstance,
+  instance?: RockInstanceProps,
 ) => any;
 
-export type RockRendererV2<TRockConfig = any> = (props: RockInstance & TRockConfig) => any;
+export type RockRendererV2<TRockConfig = any> = (props: RockInstanceProps & TRockConfig) => any;
 
 export type ProCodeRock<TRockConfig = any, TRockState = any, TRockMessage extends RockMessage = RockMessage> = {
   Renderer: RockRenderer<TRockConfig, TRockState>;
   onInit?: (context: RockInitContext, props: TRockConfig) => void;
-  onResolveState?: (props: TRockConfig, state: TRockState, instance: RockInstance) => any;
-  onReceiveMessage?: (message: RockMessageToComponent<TRockMessage>, state: TRockState, props: TRockConfig, instance: RockInstance) => any;
+  onResolveState?: (props: TRockConfig, state: TRockState, instance: RockInstanceProps) => any;
+  onReceiveMessage?: (message: RockMessageToComponent<TRockMessage>, state: TRockState, props: TRockConfig, instance: RockInstanceProps) => any;
 } & ProCodeRockMeta;
 
 export type DeclarativeRock<TRockConfig = any, TRockState = any, TRockMessage extends RockMessage = RockMessage> = {
@@ -280,19 +280,9 @@ export type RockPropSetterControl<TValue = any> = {
   span?: number;
 };
 
-export type RockChildrenConfig = RockConfig | RockConfig[] | null;
-
-export type RockConfig = SimpleRockConfig | RockWithSlotsConfig | ContainerRockConfig | RouterRockConfig;
-
-export type RockComponentConfig<TRockConfig> = Omit<TRockConfig, "$type"> & {
-  $type?: TRockConfig extends { $type: infer T } ? T : string;
-};
-
-export type RockCategory = "simple" | "withSlots" | "container" | "composite" | "router";
-
-export type RockConfigBase = {
+export type RockConfigBase<RockType = string> = {
   $id?: string;
-  $type: string;
+  $type: RockType;
   $version?: string;
   $name?: string;
 
@@ -305,6 +295,39 @@ export type RockConfigBase = {
   $locales?: RockLocalesConfig;
   _hidden?: boolean;
 };
+
+export type RockConfig<Props = Record<string, any>, RockType = string> = RockConfigBase<RockType> & Props;
+
+/**
+ * @deprecated use RockConfig<Props, RockType>
+ */
+export type SimpleRockConfig<Props = Record<string, any>, RockType = string> = RockConfigBase<RockType> & Props;
+
+export type RockWithSlotsConfig<Props = Record<string, any>, RockType = string> = RockConfigBase<RockType> & {
+  slots: Record<string, RockConfig | RockConfig[]>;
+} & Props;
+
+export type ContainerRockConfig<Props = Record<string, any>, RockType = string> = RockConfigBase<RockType> & {
+  children?: RockChildrenConfig;
+} & Props;
+
+export type RouterRockConfig<Props = Record<string, any>, RockType = string> = RockConfigBase<RockType> & {
+  routes: RouteConfig[];
+} & Props;
+
+export type RouteConfig = {
+  path: string;
+  element: RockConfig;
+  errorElement?: RockConfig;
+};
+
+export type RockChildrenConfig = RockConfig | RockConfig[] | null;
+
+export type RockComponentProps<TRockConfig> = Omit<TRockConfig, "$type"> & {
+  $type?: TRockConfig extends { $type: infer T } ? T : string;
+};
+
+export type RockCategory = "simple" | "withSlots" | "container" | "composite" | "router";
 
 export type RockConfigSystemFields = keyof RockConfigBase;
 
@@ -321,7 +344,7 @@ export type RockEvent = {
   parent?: RockEvent;
 };
 
-export type RockEventSender = RockInstance;
+export type RockEventSender = RockInstanceProps;
 
 export interface HandleRockEventContext {
   framework: Framework;
@@ -502,10 +525,6 @@ export type RockI18nConfig = Record<string, GetStringResourceConfig>;
 
 export type RockLocalesConfig = Record<string, Record<Lingual, string>>;
 
-export type SimpleRockConfig = RockConfigBase & {
-  [k: string]: RockPropValue;
-};
-
 export type RockPropValueProducer = () => RockPropValue;
 
 export type RockPropValue =
@@ -522,37 +541,13 @@ export type RockPropValue =
   | RockPropValueProducer
   | any;
 
-export type RockWithSlotsConfig = RockConfigBase & {
-  slots: Record<string, RockConfig | RockConfig[]>;
-} & {
-  [k: string]: RockPropValue;
-};
-
-export type ContainerRockConfig = RockConfigBase & {
-  children?: RockChildrenConfig;
-} & {
-  [k: string]: RockPropValue;
-};
-
-export type RouterRockConfig = RockConfigBase & {
-  routes: RouteConfig[];
-} & {
-  [k: string]: RockPropValue;
-};
-
-export type RouteConfig = {
-  path: string;
-  element: RockConfig;
-  errorElement?: RockConfig;
-};
-
 export type RockInstanceContext = {
   framework: Framework;
   page: Page;
   /**
    * Host component of the rock instance.
    */
-  component?: RockInstance;
+  component?: RockInstanceProps;
   scope: Scope;
   /**
    * @deprecated should use framework.getRockLogger(rockType: string, rockId: string)
@@ -569,10 +564,24 @@ export type RockInstanceOriginal<TState = any> = {
   _state: TState;
   $slot: any;
   setState: (stateChangesOrUpdater: Record<string, any> | RockStateUpdater) => void;
+
+  /**
+   * React component key
+   */
+  key?: string;
 };
 export type RockInstanceFields = keyof RockInstanceOriginal;
 
+/**
+ * @deprecated use RockInstanceProps
+ */
 export type RockInstance<
+  TRockConfig extends RockConfigBase = RockConfigBase,
+  TState = Record<string, any>,
+  TMethods extends Record<string, any> = {},
+> = TRockConfig & RockInstanceOriginal<TState> & TMethods;
+
+export type RockInstanceProps<
   TRockConfig extends RockConfigBase = RockConfigBase,
   TState = Record<string, any>,
   TMethods extends Record<string, any> = {},

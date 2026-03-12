@@ -1,17 +1,20 @@
-import { Rock, RockInstance } from "@ruiapp/move-style";
+import { Rock, RockComponentProps, RockInstanceProps } from "@ruiapp/move-style";
 import HtmlElementMeta from "./HtmlElementMeta";
-import { HtmlElementProps, HtmlElementRockConfig } from "./html-element-types";
-import { convertToEventHandlers, renderRockChildren, genRockRenderer } from "@ruiapp/react-renderer";
+import { HtmlElementRockConfig, HTML_ELEMENT_ROCK_TYPE } from "./html-element-types";
+import { convertToEventHandlers, renderRockChildren, useRockInstance, useRockInstanceContext, wrapToRockComponent } from "@ruiapp/react-renderer";
 import React from "react";
 
-export function configHtmlElement(config: HtmlElementRockConfig): HtmlElementRockConfig {
-  return config;
+export function configHtmlElement(config: RockComponentProps<HtmlElementRockConfig>): HtmlElementRockConfig {
+  config.$type = HtmlElementMeta.$type;
+  return config as HtmlElementRockConfig;
 }
 
-export function HtmlElement(props: HtmlElementProps) {
-  const { htmlTag = "div", style, attributes, children } = props;
-  const { $id, $slot, _context: context } = props as any as RockInstance;
-  const eventHandlers = convertToEventHandlers({ context, rockConfig: props as any });
+export function HtmlElementComponent(props: RockInstanceProps<HtmlElementRockConfig>) {
+  const context = useRockInstanceContext();
+  const { $id } = useRockInstance(props, HTML_ELEMENT_ROCK_TYPE);
+  const { htmlTag = "div", style, attributes, children, $slot } = props;
+
+  const eventHandlers = convertToEventHandlers({ context, rockConfig: props });
 
   return React.createElement(
     htmlTag,
@@ -36,7 +39,9 @@ export function HtmlElement(props: HtmlElementProps) {
   );
 }
 
+export const HtmlElement = wrapToRockComponent(HtmlElementMeta, HtmlElementComponent);
+
 export default {
-  Renderer: genRockRenderer(HtmlElementMeta.$type, HtmlElement, true),
+  Renderer: HtmlElementComponent,
   ...HtmlElementMeta,
 } as Rock<HtmlElementRockConfig>;
