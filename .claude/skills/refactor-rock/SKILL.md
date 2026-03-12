@@ -428,8 +428,16 @@ export default {
    ```
 
 7. **修复问题**:
+
    - 检查并修复拼写错误（如 `formatedValue` → `formattedValue`）
    - 确保导入的 Meta 类型和文件名一致
+
+8. **useRockInstance 使用时机**:
+
+渲染组件时，不一定要调用 `useRockInstance`。在以下情况下可以调用 `useRockInstance` 以获取自身 `$id`：
+
+- 如果组件渲染时需要渲染自身 `$id`
+- 当需要指定下级Rock组件的 `$id`，以便后续向特定组件发送message
 
 ## 执行步骤
 
