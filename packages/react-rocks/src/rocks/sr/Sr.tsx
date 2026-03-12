@@ -1,21 +1,25 @@
-import { Rock, RockInstanceProps } from "@ruiapp/move-style";
+import { Rock, RockComponentProps, RockInstanceProps } from "@ruiapp/move-style";
 import SrMeta from "./SrMeta";
-import { SrProps, SrRockConfig } from "./sr-types";
-import { genRockRenderer } from "@ruiapp/react-renderer";
+import { SrRockConfig } from "./sr-types";
+import { useRockInstance, useRockInstanceContext, wrapToRockComponent } from "@ruiapp/react-renderer";
+import React from "react";
 
-export function configSr(config: SrRockConfig): SrRockConfig {
-  return config;
+export function configSr(config: RockComponentProps<SrRockConfig>): SrRockConfig {
+  config.$type = SrMeta.$type;
+  return config as SrRockConfig;
 }
 
-export function Sr(props: SrProps) {
+export function SrComponent(props: RockInstanceProps<SrRockConfig>) {
+  const { framework } = useRockInstanceContext();
+  useRockInstance(props, SrMeta.$type);
   const { ns, name, params } = props;
-  const { _context: context } = props as any as RockInstanceProps;
-  const { framework } = context;
 
-  return framework.getLocaleStringResource(ns, name, params);
+  return <>{framework.getLocaleStringResource(ns, name, params)}</>;
 }
+
+export const Sr = wrapToRockComponent(SrMeta, SrComponent);
 
 export default {
-  Renderer: genRockRenderer(SrMeta.$type, Sr, true),
+  Renderer: SrComponent,
   ...SrMeta,
 } as Rock<SrRockConfig>;

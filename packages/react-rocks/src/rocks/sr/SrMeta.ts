@@ -43,4 +43,4 @@ export default {
       ],
     },
   ],
-} as RockMeta;
+} as RockMeta<typeof SR_ROCK_TYPE>;
