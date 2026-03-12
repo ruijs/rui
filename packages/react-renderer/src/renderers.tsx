@@ -42,7 +42,7 @@ import { useRuiScope } from "./RuiScopeContext";
  * @param keepInstanceFieldsInProps
  * @returns
  */
-export function genRockRenderer(
+export function wrapToRockRenderer(
   rockTypeOrRockMeta: string | RockMeta,
   ReactComponent: any,
   keepInstanceFieldsInProps: boolean = false,
@@ -74,6 +74,13 @@ export function genRockRenderer(
     });
   };
 }
+
+/**
+ * Alias of wrapToRockRenderer
+ * @deprecated use wrapToRockRenderer instead
+ * @see wrapToRockRenderer
+ */
+export const genRockRenderer = wrapToRockRenderer;
 
 export function useRockInstance(props: { $type?: string; $id?: string; $slot?: any }, rockType: string = "rock") {
   const [$id] = useState<string>(() => {

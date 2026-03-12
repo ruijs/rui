@@ -1,7 +1,7 @@
 import { Rock, RockInstanceProps } from "@ruiapp/move-style";
 import ComponentMeta from "./ComponentMeta";
 import { ComponentProps, ComponentRockConfig } from "./component-types";
-import { genRockRenderer, renderRockChildren } from "@ruiapp/react-renderer";
+import { wrapToRockRenderer, renderRockChildren } from "@ruiapp/react-renderer";
 
 export function configComponent(config: ComponentRockConfig): ComponentRockConfig {
   return config;
@@ -20,6 +20,6 @@ export function Component(props: ComponentProps) {
 }
 
 export default {
-  Renderer: genRockRenderer(ComponentMeta.$type, Component, true),
+  Renderer: wrapToRockRenderer(ComponentMeta.$type, Component, true),
   ...ComponentMeta,
 } as Rock<ComponentRockConfig>;

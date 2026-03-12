@@ -1,5 +1,5 @@
 import type { Rock } from "@ruiapp/move-style";
-import { genRockRenderer } from "@ruiapp/react-renderer";
+import { wrapToRockRenderer } from "@ruiapp/react-renderer";
 import ListMeta from "./ListMeta";
 import type { ListProps, ListRockConfig } from "./list-types";
 import React from "react";
@@ -47,6 +47,6 @@ function renderItem(itemContainerRenderer: any, itemRenderer: any, dataItem: any
 }
 
 export default {
-  Renderer: genRockRenderer(ListMeta.$type, List, true),
+  Renderer: wrapToRockRenderer(ListMeta.$type, List, true),
   ...ListMeta,
 } as Rock<ListRockConfig>;

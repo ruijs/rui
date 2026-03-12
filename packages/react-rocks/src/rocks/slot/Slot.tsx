@@ -1,5 +1,5 @@
 import { ContainerRockConfig, Rock, RockInstanceProps, RockInstanceContext } from "@ruiapp/move-style";
-import { genRockRenderer, renderRockChildren, renderRockSlot } from "@ruiapp/react-renderer";
+import { wrapToRockRenderer, renderRockChildren, renderRockSlot } from "@ruiapp/react-renderer";
 import SlotMeta from "./SlotMeta";
 import { SlotProps, SlotRockConfig } from "./slot-types";
 
@@ -45,6 +45,6 @@ export function Slot(props: SlotProps) {
 }
 
 export default {
-  Renderer: genRockRenderer(SlotMeta.$type, Slot, true),
+  Renderer: wrapToRockRenderer(SlotMeta.$type, Slot, true),
   ...SlotMeta,
 } as Rock<SlotRockConfig>;

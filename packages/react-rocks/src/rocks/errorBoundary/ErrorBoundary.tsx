@@ -1,5 +1,5 @@
 import { Rock, RockInstanceProps } from "@ruiapp/move-style";
-import { genRockRenderer, renderRockChildren } from "@ruiapp/react-renderer";
+import { wrapToRockRenderer, renderRockChildren } from "@ruiapp/react-renderer";
 import React from "react";
 import ErrorBoundaryMeta from "./ErrorBoundaryMeta";
 import { ErrorBoundaryRockConfig, ErrorBoundaryProps } from "./error-boundary-types";
@@ -70,6 +70,6 @@ export class ErrorBoundary extends React.Component<ErrorBoundaryRockConfig, Erro
 }
 
 export default {
-  Renderer: genRockRenderer(ErrorBoundaryMeta.$type, ErrorBoundary, true),
+  Renderer: wrapToRockRenderer(ErrorBoundaryMeta.$type, ErrorBoundary, true),
   ...ErrorBoundaryMeta,
 } as Rock<ErrorBoundaryRockConfig>;

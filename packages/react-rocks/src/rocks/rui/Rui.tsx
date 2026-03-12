@@ -1,5 +1,5 @@
 import { Rock } from "@ruiapp/move-style";
-import { Rui as RuiComponent, genRockRenderer } from "@ruiapp/react-renderer";
+import { Rui as RuiComponent, wrapToRockRenderer } from "@ruiapp/react-renderer";
 import RuiMeta from "./RuiMeta";
 import { RuiProps, RuiRockConfig } from "./rui-types";
 
