@@ -162,6 +162,35 @@ export default {
 } as Rock<AnchorRockConfig>;
 ```
 
+#### 2.4 直接包装现有组件 (wrapToRockRenderer)
+
+如果已经有一个标准的 React 组件（接受普通 Props 而非 `RockInstanceProps`），或者希望直接复用第三方组件库的组件，可以使用 `wrapToRockRenderer` 将其转换为 Rock Renderer。
+
+```typescript
+// Button.tsx
+import { wrapToRockRenderer } from "@ruiapp/react-renderer";
+import { Button as AntdButton } from "antd";
+import ButtonMeta from "./ButtonMeta";
+import { ButtonRockConfig } from "./button-types";
+import { Rock } from "@ruiapp/move-style";
+
+export default {
+  Renderer: wrapToRockRenderer(ButtonMeta, AntdButton),
+  ...ButtonMeta,
+} as Rock<ButtonRockConfig>;
+```
+
+**wrapToRockRenderer 的功能：**
+
+1. 自动处理 `RockInstanceProps` 到普通 Props 的转换（剔除 `$type`, `$id` 等系统属性）。
+2. 自动转换事件处理函数：将 Rock 事件配置转换为函数调用。
+3. 自动转换插槽（Slots）：将插槽配置转换为 ReactNode。
+
+**使用场景：**
+
+- 包装 Ant Design 等第三方 UI 库组件。
+- 包装不依赖 Rui 上下文的纯展示型 React 组件。
+
 ### 3. 完整示例
 
 #### Anchor 示例
