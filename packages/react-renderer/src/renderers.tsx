@@ -114,7 +114,7 @@ export function useRockInstanceContext(): RockInstanceContext {
 export function wrapToRockComponent<RockConfig>(
   rockMeta: RockMeta,
   ReactComponent: (props: RockConfig | Record<string, any>) => React.ReactNode,
-): (props: RockComponentProps<RockConfig>) => React.ReactNode {
+): (props: RockComponentProps<RockConfig>) => React.ReactElement | null {
   const rockType = rockMeta.$type;
   function RockComponent(rockConfig: RockInstanceProps) {
     const context = useRockInstanceContext();
