@@ -113,8 +113,8 @@ export function useRockInstanceContext(): RockInstanceContext {
  */
 export function wrapToRockComponent<RockConfig>(
   rockMeta: RockMeta,
-  ReactComponent: (props: RockConfig | Record<string, any>) => React.ReactElement,
-): React.FC<RockComponentProps<RockConfig>> {
+  ReactComponent: (props: RockConfig | Record<string, any>) => React.ReactNode,
+): (props: RockComponentProps<RockConfig>) => React.ReactNode {
   const rockType = rockMeta.$type;
   function RockComponent(rockConfig: RockInstanceProps) {
     const context = useRockInstanceContext();
@@ -152,12 +152,12 @@ export function wrapToRockComponent<RockConfig>(
     };
     const slotProps = convertToSlotProps({ context, fixedProps, rockConfig: rockInstance, slotsMeta });
 
-    return React.createElement(ReactComponent, {
+    return React.createElement(ReactComponent as any, {
       ...rockInstance,
       ...eventHandlers,
       ...slotProps,
       _context: context,
-    } as any);
+    });
   }
   RockComponent.displayName = rockType;
   return RockComponent as any;
