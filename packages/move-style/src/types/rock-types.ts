@@ -582,10 +582,11 @@ export type RockInstance<
 > = TRockConfig & RockInstanceOriginal<TState> & TMethods;
 
 export type RockInstanceProps<
-  TRockConfig extends RockConfigBase = RockConfigBase,
+  TRockRops = Record<string, any>,
   TState = Record<string, any>,
   TMethods extends Record<string, any> = {},
-> = TRockConfig & RockInstanceOriginal<TState> & TMethods;
+  RockType = string,
+> = TRockRops & RockConfigBase<RockType> & RockInstanceOriginal<TState> & TMethods;
 
 //////////////
 // Page config
