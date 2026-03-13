@@ -1,5 +1,5 @@
 import { EventEmitter } from "./EventEmitter";
-import { RockConfig, RockPropValue, PageConfig, RockMessage, RockInstanceProps, RockMessageToComponent, ScopeConfig } from "./types/rock-types";
+import { RockConfig, RockPropValue, PageConfig, RockMessage, RockInstanceProps, RockMessageToComponent, ScopeConfig, RockInstance } from "./types/rock-types";
 import { clone, cloneDeep, findIndex, isArray, isString, set } from "lodash";
 import { ExpressionInterpreter } from "./ExpressionInterpreter";
 import { Framework } from "./Framework";
@@ -62,10 +62,10 @@ export class ComponentTreeManager {
     const serializableConfig = cloneDeep(this.#config);
     serializableConfig.view.forEach((rockConfig) => {
       this.travelRockConfig(
-        (scope: Scope, parentConfig: RockInstanceProps, config: RockInstanceProps) => {
-          delete (rockConfig as any)._scope;
-          delete (rockConfig as any)._state;
-          delete (rockConfig as any)._initialized;
+        (scope: Scope, parentConfig: RockConfig, config: RockConfig) => {
+          delete (config as any)._scope;
+          delete (config as any)._state;
+          delete (config as any)._initialized;
         },
         this.#page.scope,
         null,
@@ -106,7 +106,7 @@ export class ComponentTreeManager {
 
   attachComponent(scope: Scope, parentConfig: RockConfig, config: RockConfig) {
     this.travelRockConfig(
-      (scope: Scope, parentConfig: RockInstanceProps, config: RockInstanceProps) => {
+      (scope: Scope, parentConfig: RockConfig, config: RockConfig) => {
         if (isString(config)) {
           return;
         }
@@ -447,7 +447,7 @@ export class ComponentTreeManager {
   }
 
   sendComponentMessage<TRockMessage extends RockMessage<any> = RockMessage<any>>(componentId: string, message: TRockMessage) {
-    const componentConfig = this.#componentMapById.get(componentId) as RockInstanceProps;
+    const componentConfig = this.#componentMapById.get(componentId) as RockInstance;
     if (!componentConfig) {
       this.#logger.error(`Component with id '${componentId}' not found.`);
       return;
