@@ -1,4 +1,4 @@
-import { ContainerRockConfig, Rock, RockInstanceProps, RockInstanceContext } from "@ruiapp/move-style";
+import { ContainerRockConfig, Rock, RockInstanceProps, RockInstanceContext, RockInstance } from "@ruiapp/move-style";
 import { wrapToRockRenderer, renderRockChildren, renderRockSlot } from "@ruiapp/react-renderer";
 import SlotMeta from "./SlotMeta";
 import { SlotProps, SlotRockConfig } from "./slot-types";
@@ -10,7 +10,7 @@ export function configSlot(config: SlotRockConfig): SlotRockConfig {
 export function Slot(props: SlotProps) {
   const { $slot, _context: context } = props as any as RockInstanceProps;
   const { slotName } = props;
-  const hostComponentProp: RockInstanceProps<ContainerRockConfig> = context.component;
+  const hostComponentProp: RockInstance<ContainerRockConfig> = context.component;
 
   if (!slotName || slotName === "children") {
     if (hostComponentProp.children) {

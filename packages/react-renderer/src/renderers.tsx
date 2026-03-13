@@ -22,6 +22,7 @@ import type {
   RockComponentProps,
   RockConfig,
   RockEventHandlerFunction,
+  RockInstance,
   RockMeta,
   RockRenderer,
   RockRendererV1,
@@ -47,7 +48,7 @@ export function wrapToRockRenderer(
   ReactComponent: any,
   keepInstanceFieldsInProps: boolean = false,
 ): RockRenderer<any, any> {
-  return function RockComponentRenderer(props: RockInstanceProps) {
+  return function RockComponentRenderer(props: RockInstance) {
     let reactComponentProps: any = props;
     if (!keepInstanceFieldsInProps) {
       reactComponentProps = omitSystemRockConfigFields(props);
@@ -116,7 +117,7 @@ export function wrapToRockComponent<RockConfig>(
   ReactComponent: (props: RockConfig | Record<string, any>) => React.ReactNode,
 ): (props: RockComponentProps<RockConfig>) => React.ReactElement | null {
   const rockType = rockMeta.$type;
-  function RockComponent(rockConfig: RockInstanceProps) {
+  function RockComponent(rockConfig: RockInstance) {
     const context = useRockInstanceContext();
 
     let rockInstance = Object.assign({}, rockConfig);
@@ -224,7 +225,7 @@ export type DeclarativeComponentRockConfig = {
   component: DeclarativeRock;
 } & ContainerRockConfig;
 
-const declarativeRockRenderer = (rockMeta: DeclarativeRock, context: RockInstanceContext, props: RockInstanceProps, state) => {
+const declarativeRockRenderer = (rockMeta: DeclarativeRock, context: RockInstanceContext, props: RockInstance, state) => {
   context.component = props;
   return renderRockChildren({
     context,
@@ -246,12 +247,12 @@ export const getDeclarativeRockRenderer = (rockMeta: DeclarativeRock) => {
 type PreprocessRockConfigOptions = {
   context: RockInstanceContext;
   rockMeta: RockMeta;
-  rockInstance: RockInstanceProps;
+  rockInstance: RockInstance;
   expVars?: Record<string, any>;
   fixedProps?: Record<string, any>;
 };
 
-function preprocessRockConfig(options: PreprocessRockConfigOptions): RockInstanceProps {
+function preprocessRockConfig(options: PreprocessRockConfigOptions): RockInstance {
   const { context, rockMeta, fixedProps } = options;
   const { framework, page, scope } = context;
   const logger = framework.getLogger("componentRenderer");
@@ -331,17 +332,17 @@ export function renderRock(options: RenderRockOptions) {
     throw new Error(errorMessage);
   }
 
-  let rockInstanceInPage = page.getComponent(rockConfig.$id) as RockInstanceProps;
+  let rockInstanceInPage = page.getComponent(rockConfig.$id) as RockInstance;
   if (!rockInstanceInPage || !rockInstanceInPage._initialized) {
     // TODO: should resolve parent component.
     const parent = null;
     page.attachComponent(scope, parent, rockConfig);
   }
   if (!rockInstanceInPage) {
-    rockInstanceInPage = page.getComponent(rockConfig.$id) as RockInstanceProps;
+    rockInstanceInPage = page.getComponent(rockConfig.$id) as RockInstance;
   }
 
-  let rockInstance: RockInstanceProps = Object.assign({}, rockConfig) as any;
+  let rockInstance: RockInstance = Object.assign({}, rockConfig) as any;
   rockInstance._state = rockInstanceInPage._state;
 
   const $slot = fixedProps.$slot;
@@ -360,18 +361,6 @@ export function renderRock(options: RenderRockOptions) {
     return null;
   }
 
-  // const slotsMeta = rock.slots || {};
-  // if (!rock.voidComponent && !slotsMeta.children) {
-  //   slotsMeta.children = {
-  //     allowMultiComponents: true,
-  //   };
-  // }
-  // fixedProps = {
-  //   $slot: rockConfig.$slot,
-  //   ...fixedProps,
-  // };
-  // const slotProps = convertToSlotProps({ context, fixedProps, rockConfig, slotsMeta });
-
   let ComponentRenderer: any = rock.componentRenderer;
   if (!ComponentRenderer) {
     ComponentRenderer = wrapRenderer(rock);
@@ -379,7 +368,6 @@ export function renderRock(options: RenderRockOptions) {
   return React.createElement(ComponentRenderer, {
     key: rockInstance.key || rockInstance.$id,
     ...rockInstance,
-    // ...slotProps,
     _context: context,
   });
 }

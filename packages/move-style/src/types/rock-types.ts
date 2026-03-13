@@ -547,7 +547,7 @@ export type RockInstanceContext = {
   /**
    * Host component of the rock instance.
    */
-  component?: RockInstanceProps;
+  component?: RockInstance;
   scope: Scope;
   /**
    * @deprecated should use framework.getRockLogger(rockType: string, rockId: string)
@@ -572,21 +572,15 @@ export type RockInstanceOriginal<TState = any> = {
 };
 export type RockInstanceFields = keyof RockInstanceOriginal;
 
-/**
- * @deprecated use RockInstanceProps
- */
-export type RockInstance<
-  TRockConfig extends RockConfigBase = RockConfigBase,
-  TState = Record<string, any>,
-  TMethods extends Record<string, any> = {},
-> = TRockConfig & RockInstanceOriginal<TState> & TMethods;
+export type RockInstance<TRockRops = Record<string, any>, TState = Record<string, any>, TMethods extends Record<string, any> = {}> = TRockRops &
+  RockConfigBase &
+  RockInstanceOriginal<TState> &
+  TMethods;
 
-export type RockInstanceProps<
-  TRockRops = Record<string, any>,
-  TState = Record<string, any>,
-  TMethods extends Record<string, any> = {},
-  RockType = string,
-> = TRockRops & RockConfigBase<RockType> & RockInstanceOriginal<TState> & TMethods;
+export type RockInstanceProps<TRockRops = Record<string, any>, TState = Record<string, any>, TMethods extends Record<string, any> = {}> = TRockRops &
+  Omit<RockConfigBase, "$type"> &
+  RockInstanceOriginal<TState> &
+  TMethods;
 
 //////////////
 // Page config
