@@ -33,6 +33,21 @@ import React, { useState } from "react";
 import { useRuiPageContext } from "./RuiPageContext";
 import { useRuiScope } from "./RuiScopeContext";
 
+function ensureRockSlotMeta(rockMeta: RockMeta) {
+  if (!rockMeta.slots) {
+    rockMeta.slots = {};
+  }
+
+  const slotsMeta = rockMeta.slots;
+  if (!rockMeta.voidComponent && !slotsMeta.children) {
+    slotsMeta.children = {
+      allowMultiComponents: true,
+    };
+  }
+
+  return rockMeta.slots;
+}
+
 /**
  * convert react component to RockRendererV2
  *
@@ -57,15 +72,11 @@ export function wrapToRockRenderer(
     const context = useRockInstanceContext();
     const rockMeta: RockMeta = isString(rockTypeOrRockMeta) ? context.framework.getComponent(rockTypeOrRockMeta) : rockTypeOrRockMeta;
     const eventHandlers = convertToEventHandlers({ context, rockConfig: props });
-    const slotsMeta = rockMeta.slots || {};
-    if (!rockMeta.voidComponent && !slotsMeta.children) {
-      slotsMeta.children = {
-        allowMultiComponents: true,
-      };
-    }
+
     const fixedProps = {
       $slot: props.$slot,
     };
+    const slotsMeta = ensureRockSlotMeta(rockMeta);
     const slotProps = convertToSlotProps({ context, fixedProps, rockConfig: props, slotsMeta });
 
     return React.createElement(ReactComponent, {
@@ -142,15 +153,10 @@ export function wrapToRockComponent<RockConfig>(
 
     const eventHandlers = convertToEventHandlers({ context, rockConfig: rockInstance });
 
-    const slotsMeta = rockMeta.slots || {};
-    if (!rockMeta.voidComponent && !slotsMeta.children) {
-      slotsMeta.children = {
-        allowMultiComponents: true,
-      };
-    }
     const fixedProps = {
       $slot: rockInstance.$slot,
     };
+    const slotsMeta = ensureRockSlotMeta(rockMeta);
     const slotProps = convertToSlotProps({ context, fixedProps, rockConfig: rockInstance, slotsMeta });
 
     return React.createElement(ReactComponent as any, {
@@ -293,7 +299,8 @@ function preprocessRockConfig(options: PreprocessRockConfigOptions): RockInstanc
 
   let slotProps: any;
   if (!rockInstance._hidden) {
-    slotProps = convertToSlotProps({ context, fixedProps, rockConfig: rockInstance, slotsMeta: rockMeta.slots, isEarly: true });
+    const slotsMeta = ensureRockSlotMeta(rockMeta);
+    slotProps = convertToSlotProps({ context, fixedProps, rockConfig: rockInstance, slotsMeta, isEarly: true });
   }
 
   const eventHandlers = convertToEventHandlers({ context, rockConfig: rockInstance });
@@ -592,7 +599,7 @@ export function convertToSlotProps(options: ConvertRockSlotPropsOptions) {
 
       const slotMeta = slotsMeta[slotPropName];
       if (isEarly) {
-        if (slotMeta.earlyCreate) {
+        if (slotMeta.earlyCreate || (slotPropName === "children" && !slotMeta.lazyCreate)) {
           if (slotMeta.withAdapter) {
             slotProps[slotPropName] = renderSlotWithAdapter({ context, fixedProps, slotMeta, slot });
           } else if (slotMeta.toRenderProp) {
@@ -604,7 +611,7 @@ export function convertToSlotProps(options: ConvertRockSlotPropsOptions) {
           slotProps[slotPropName] = slot;
         }
       } else {
-        if (slotMeta.lazyCreate) {
+        if (slotMeta.lazyCreate || slotPropName === "children") {
           slotProps[slotPropName] = slot;
         } else {
           if (slotMeta.withAdapter) {
