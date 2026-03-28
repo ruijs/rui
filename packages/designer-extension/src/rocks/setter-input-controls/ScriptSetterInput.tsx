@@ -29,9 +29,13 @@ export default {
       await MoveStyleUtils.waitVariable("current", commands);
 
       const store = page.getStore<DesignerStore>("designerStore");
-
-      let scriptHandler = store.page.getComponentProperty(store.selectedComponentId, eventName);
-      commands.current.setConfigs(scriptHandler?.blockly?.configs || "{}");
+      
+      if(store.selectedComponentId) {
+        const scriptHandler = store.page.getComponentProperty(store.selectedComponentId, eventName);
+        commands.current.setConfigs(scriptHandler?.blockly?.configs || "{}");
+      } else {
+        commands.current.setConfigs(store.currentStep[eventName]?.blockly?.configs || "{}");
+      }
     };
 
     const onClose: RockEventHandlerScript["script"] = (event: RockEvent) => {
