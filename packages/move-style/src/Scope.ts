@@ -7,6 +7,7 @@ import { IStore, StoreConfig, StoreConfigBase } from "./types/store-types";
 import { IScope, RockPageEventSubscriptionConfig, RuiEvent, ScopeConfig, ScopeState } from "./types/rock-types";
 import { handleComponentEvent } from "./ComponentEventHandler";
 import { RuiModuleLogger } from "./Logger";
+import { storeEventEmitter } from "./StoreEventEmitter";
 
 export class Scope implements IScope {
   #framework: Framework;
@@ -69,6 +70,7 @@ export class Scope implements IScope {
       this.#stores[storeConfig.name] = store;
 
       store.observe(() => {
+        storeEventEmitter.emit("load", store);
         this.#emitter.emit("change", {
           stores: this.#stores,
           vars: this.#vars,
