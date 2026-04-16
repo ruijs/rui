@@ -22,3 +22,7 @@ export { request } from "./HttpRequest";
 export const execVarText = fulfillVariablesInString;
 
 export * from "./i18n-utility";
+
+export { EVENT_NAMES, apiEventEmitter } from "../ApiEventEmitter";
+
+export { storeEventEmitter } from "../StoreEventEmitter";

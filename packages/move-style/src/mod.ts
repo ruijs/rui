@@ -14,6 +14,7 @@ export * from "./IRenderer";
 export * from "./Page";
 export * from "./Scope";
 export * from "./ConfigProcessor";
+export * from "./ApiEventEmitter";
 export * as CommonProps from "./common-props";
 
 export * as MoveStyleUtils from "./utils";
