@@ -17,7 +17,7 @@ export * from "./url-utility";
 
 export { fulfillVariables, fulfillVariablesInString } from "./variable-fulfiller";
 
-export { request } from "./HttpRequest";
+export { request, baseAxios } from "./HttpRequest";
 
 export const execVarText = fulfillVariablesInString;
 

@@ -4,6 +4,11 @@ import { HttpRequestOptions } from "../types/request-types";
 import { stringifyQuery } from "./url-utility";
 import { EVENT_NAMES, apiEventEmitter } from "../ApiEventEmitter";
 
+// 创建 axios 实例
+const baseAxios = axios.create({
+  timeout: 10000,
+});
+
 export async function request<TRequestData = Record<string, any>, TQuery = Record<string, any>, TResponseData = any>(
   options: HttpRequestOptions<TRequestData, TQuery>,
 ) {
@@ -30,7 +35,8 @@ export async function request<TRequestData = Record<string, any>, TQuery = Recor
   }
 
   try {
-    const response = await axios<TResponseData>(axiosConfig);
+    // const response = await axios<TResponseData>(axiosConfig);
+    const response = await baseAxios(axiosConfig);
 
     // Check for unauthorized status (401)
     if (response.status === 401) {
@@ -49,7 +55,6 @@ export async function request<TRequestData = Record<string, any>, TQuery = Recor
         data: response.data,
       });
     }
-
     return response;
   } catch (error: any) {
     // Emit error event for network errors or other request failures
@@ -85,3 +90,5 @@ export async function request<TRequestData = Record<string, any>, TQuery = Recor
 export function isResponseStatusSuccess(status: number) {
   return status < 400;
 }
+
+export { baseAxios };
